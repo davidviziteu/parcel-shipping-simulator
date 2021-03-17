@@ -1,0 +1,51 @@
+body {
+    background:white;
+    text-align: center;
+    font-family: "Open Sans",Helvetica,Arial,sans-serif;
+}
+.register{
+    text-align: center;
+    color: white;
+    font-size: 20px;
+}
+.date{
+    color:white;
+    font-size: 30px;
+}
+input{
+    width: 60%;
+    padding: 8px;
+    background-color: rgb(78, 119, 156,0);
+    border:solid white;
+    text-align: center;
+    border-radius: 4px;
+    color:white;
+}
+::placeholder{
+    color:white;
+}
+.container{
+    width: 50vw;
+    margin: 30px auto 20px;
+    background-color: rgb(78, 119, 156);
+    border-radius: 10px;
+    box-shadow: 1px 2px 5px #ccc;
+    display: inline-block;
+}
+
+.form-feld{
+    border:none;
+    border-left: 1px solid;
+    border-radius: 0px;
+    padding-left: 5px;
+}
+
+.form-example{
+    margin-right: 5px;
+}
+
+@media only screen and (max-device-width: 768px) {
+    .container{
+        width: 80vw;
+    }
+}
