@@ -142,5 +142,11 @@ body{
 .button4:hover {background-color: #e7e7e76c;}
 
 @media only screen and (max-device-width: 768px) {
-
+    #search-box{
+        font-size: 3vh;
+    }
+    
+    .grid{
+        grid-gap: 1rem;
+    }
 }
