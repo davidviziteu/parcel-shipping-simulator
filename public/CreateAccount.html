@@ -1,0 +1,58 @@
+<html>
+<head>
+    <title>Create Account</title>
+    <style>
+        body {
+            background:white;
+            text-align: center;
+            font-family: "Open Sans",Helvetica,Arial,sans-serif;
+        }
+        .register{
+            text-align: center;
+            color: white;
+            font-size: 20px;
+        }
+        .date{
+            color:white;
+            font-size: 30px;
+        }
+        input{
+            width: 60%;
+            padding: 8px;
+            background-color: rgb(78, 119, 156);
+            border:solid white;
+            text-align: center;
+            border-radius: 4px;
+            color:white;
+        }
+        ::placeholder{
+            color:white;
+        }
+        .container{
+            width: 400px;
+            margin: 30px auto 20px;
+            padding: 0 3%;
+            background-color: rgb(78, 119, 156);
+            border-radius: 10px;
+            box-shadow: 1px 2px 5px #ccc;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+    <h3 class="register">Buna ziua, te rugam sa introduci urmatoarele date:</h3>
+    <label class="date">Numele</label>
+    <p><input type="text" id="fname" name="fname" placeholder="Your name.."></p>
+    <label class="date">Prenumele</label>
+    <p><input type="text" id="fname" name="lname" placeholder="Your last name.."></p>
+    <label class="date">Email</label>
+    <p><input type="email" id="email" name="email"></p>
+    <label class="date">Parola</label>
+    <p><input type="password" id="pwd" name="pwd"></p>
+    <label class="date">Confirma parola</label>
+    <p><input type="password" id="pwd" name="pwd"></p>
+    <button class="submit">Register</button>
+    </div>
+</body>
+</html> 
