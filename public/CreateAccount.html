@@ -4,40 +4,51 @@
     <title>Create Account</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="icon.png">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="register.css">
 </head>
 
 <body>
     <div class="container">
-        <!--<form>
-            <h3 class="register">Buna ziua, te rugam sa introduci urmatoarele date:</h3>
-            <label class="date">Numele</label>
-            <input type="text" id="fname" name="fname" placeholder="Your name..">
-            <label class="date">Prenumele</label>
-            <input type="text" id="fname" name="lname" placeholder="Your last name..">
-            <label class="date">Email</label>
-            <input type="email" id="email" name="email">
-            <label class="date">Parola</label>
-            <input type="password" id="pwd" name="pwd">
-            <label class="date">Confirma parola</label>
-            <input type="password" id="pwd" name="pwd">
-            <button class="submit">Register</button>
-        </form>-->
-        <h3 class="register">Buna ziua, te rugam sa introduci urmatoarele date:</h3>
+        <h3 class="register">Hello, please enter your date!</h3>
         <form action="/submit-form" method="get" class="form-example">
             <div class="form-example">
-                <label for="name">Enter your name: </label>
-                <input class="form-feld" type="text" name="name" id="name" required>
+                <div>
+                    <label class="date" for="name">Your name: </label>
+                    <input class="form-feld" type="text" name="fname" id="fname" required>
+                </div>
             </div>
             <hr>
             <div class="form-example">
-                <label for="email">Enter your email: </label>
-                <input class="form-feld" type="email" name="email" id="email" required>
+                <div>
+                    <label class="date" for="name">Your last name: </label>
+                    <input class="form-feld" type="text" name="fname" id="fname" required>
+                </div>
             </div>
             <hr>
             <div class="form-example">
-                <input type="submit" value="Subscribe!">
+                <div>
+                    <label class="date" for="email">Your email:</label>
+                    <input class="form-feld" type="email" id="email" name="email">
+                </div>
             </div>
+            <hr>
+            <div class="form-example">
+                <div>
+                    <label class="date" for="pwd">Password:</label>
+                    <input class="form-feld" type="password" id="pwd" name="pwd">
+                </div>
+            </div>
+            <hr>
+            <div class="form-example">
+                <div>
+                    <label class="date" for="pwd">Check password:</label>
+                    <input class="form-feld" type="password" id="pwd" name="pwd">
+                </div>
+            </div>
+            <hr>
+            <input class="submit" type="submit" value="Submit">
         </form>
     </div>
 </body>
