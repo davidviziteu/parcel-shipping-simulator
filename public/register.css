@@ -6,7 +6,7 @@ body{
 .container{
     display: grid;
     grid-gap: 2rem;
-    grid-template-rows: repeat(10, 12vh);
+    grid-template-rows: repeat(10, 5vh);
 }
 
 .register{
@@ -21,6 +21,11 @@ body{
     margin-top:20px;
     grid-row:2;
     margin-left: 250px;
+}
+
+.form-feld:focus {
+    /* fa-l transparent /  nu se vada */
+    /* cauta pe google: input focus transparet */
 }
 
 hr{
