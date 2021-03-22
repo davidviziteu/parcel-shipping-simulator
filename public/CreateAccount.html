@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Create Account</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="icon.png">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="register.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <h3 class="register">Hello, please enter your date!</h3>
+        <form action="/submit-form" method="get" class="form-example">
+            <div class="form-example">
+                <label class="date" for="name">Your name</label>
+                <input class="form-feld" type="text" name="fname" id="fname" required>
+            </div>
+            <hr>
+            <div class="form-example">
+                <label class="date" for="name">Your last name</label>
+                <input class="form-feld" type="text" name="lname" id="lname" required>
+            </div>
+            <hr>
+            <div class="form-example">
+                <label class="date" for="email">Your email</label>
+                <input class="form-feld" type="email" id="email" name="email">
+            </div>
+            <hr>
+            <div class="form-example">
+                <label class="date" for="pwd">Password</label>
+                <input class="form-feld" type="password" id="pwd" name="pwd">
+            </div>
+            <hr>
+            <div class="form-example">
+                <label class="date" for="pwd">Check password</label>
+                <input class="form-feld" type="password" id="cpwd" name="cpwd">
+            </div>
+            <hr>
+            <input class="submit" type="submit" value="Submit">
+        </form>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,70 @@
+h2{
+    margin-top: 30px;
+    text-align: center;
+    color:white;
+}
+
+[class^="grid"]{
+  display: grid;
+  grid-template-columns: 40% 20%;
+  padding: 30px;
+  grid-row-gap: 30px;
+}
+
+body{
+    font-family: 'Poppins', sans-serif;
+    background-color: rgb(95, 136, 197);
+}
+
+.date{
+    text-align: right;
+    font-size: 3vh;
+    margin-right: 20px;
+    color: white;
+}
+
+*:focus{
+    outline: none;
+}
+
+.form-feld{
+    text-align: center;
+    font-size: 3vh;
+    padding: 5px 10px;
+    margin-left:10px;
+    background-color: transparent;
+    border: none;
+    border-left: 2px solid white;
+    color:white;
+}
+
+hr{
+    margin-left: 100px;
+    margin-right: 100px;
+    border:2px solid;
+    color:white;
+}
+
+@media only screen and (max-device-width: 768px) {
+    .form-feld{
+        font-size: 2vh;
+    }
+
+    .grid1{
+        grid-template-columns: 30% 70%;
+    }
+
+    .grid2{
+        grid-template-columns: 45% 55%;
+    }
+
+    .date{
+        text-align: left;
+        font-size: 2vh;
+    }
+
+    hr{
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+}
