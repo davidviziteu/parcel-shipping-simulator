@@ -1,6 +1,6 @@
 body{
     font-family: 'Poppins', sans-serif;
-    background-color: rgb(95, 136, 197);
+    background-color:rgb(112, 142, 157);
 }
 
 .container{
@@ -48,7 +48,7 @@ hr{
 .submit{
     background-color:white;
     border: none;
-    color: rgb(95, 136, 197);
+    color: rgb(112, 142, 157);
     font-size: 2.5vh;
     padding: 16px 32px;
     text-decoration: none;
@@ -61,7 +61,7 @@ hr{
     outline: none;
 }
 
-@media only screen and (max-device-width: 768px) {
+@media only screen and (max-width: 768px) {
     .form-example{
         margin-left: 8px;
     }
