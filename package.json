@@ -1,0 +1,19 @@
+{
+  "name": "parcel-shipping-simulator",
+  "version": "1.0.0",
+  "description": "Comp sci project ",
+  "main": "app.js",
+  "scripts": {
+    "test": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davidviziteu/parcel-shipping-simulator.git"
+  },
+  "author": "Andreea Madalina Vina, Bogdan Constantin Bujor, David-Andrei Viziteu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/davidviziteu/parcel-shipping-simulator/issues"
+  },
+  "homepage": "https://github.com/davidviziteu/parcel-shipping-simulator#readme"
+}
