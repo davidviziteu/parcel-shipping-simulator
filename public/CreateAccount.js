@@ -5,4 +5,5 @@ function information() {
     lastName = document.getElementById("lname").value;
     email = document.getElementById("email").value;
     password = document.getElementById("pwd").value;
+    console.log(firstName);
 }

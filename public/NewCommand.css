@@ -1,3 +1,8 @@
+body{
+    font-family: 'Poppins', sans-serif;
+    background-color: rgb(112, 142, 157);
+}
+
 h2{
     text-align: center;
     color:white;
@@ -9,15 +14,17 @@ h2{
   padding: 10px;
 }
 
-body{
-    font-family: 'Poppins', sans-serif;
-    background-color: rgb(112, 142, 157);
+hr{
+    margin-left: 25%;
+    margin-right: 25%;
+    border:2px solid;
+    color:white;
 }
 
 .date{
     text-align: right;
     font-size: 3vh;
-    margin-right: 20px;
+    margin-right: 3%;
     color: white;
 }
 
@@ -36,20 +43,13 @@ body{
     color:white;
 }
 
-hr{
-    margin-left: 25%;
-    margin-right: 25%;
-    border:2px solid;
-    color:white;
-}
-
 select{
     margin-left:10px;
     width: 40%;
 }
 
 .submit{
-background-color:white;
+    background-color:white;
     border: none;
     color: rgb(112, 142, 157);
     font-size: 2.5vh;
@@ -72,7 +72,6 @@ background-color:white;
     }
 
     .date{
-        text-align: left;
         font-size: 2vh;
     }
 

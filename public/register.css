@@ -3,39 +3,37 @@ body{
     background-color:rgb(112, 142, 157);
 }
 
-.container{
-    display: grid;
-    grid-gap: 2rem;
-}
-
-
-.register{
-    font-size: 3vh;
-    display: grid;
-    justify-content: center;
-    align-items: center;
+h2{
+    text-align: center;
     color:white;
 }
 
-.form-example{
-    margin-top:20px;
-    margin-left: 250px;
+.grid{
+  display: grid;
+  grid-template-columns: 40% 35%;
+  padding: 15px;
 }
 
 hr{
-    margin-top: 30px;
-    margin-right: 250px;
+    margin-left: 25%;
+    margin-right: 25%;
     border:2px solid;
     color:white;
 }
 
 .date{
-    color:white;
-    font-size: 2.5vh;
+    text-align: right;
+    font-size: 3vh;
+    margin-right: 3%;
+    color: white;
+}
+
+*:focus{
+    outline: none;
 }
 
 .form-feld{
-    text-align: center;
+    text-align: left;
     font-size: 3vh;
     padding: 5px 10px;
     margin-left:10px;
@@ -50,36 +48,30 @@ hr{
     border: none;
     color: rgb(112, 142, 157);
     font-size: 2.5vh;
-    padding: 16px 32px;
+    padding: 10px 20px;
     text-decoration: none;
-    margin: 4px 2px;
     cursor: pointer;
-    margin-left: 450px;
-}
-
-*:focus{
-    outline: none;
+    display: grid;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 @media only screen and (max-width: 768px) {
-    .form-example{
-        margin-left: 8px;
+    .form-feld{
+        margin-left: 0px;
+        font-size: 2vh;
+    }
+
+    .grid{
+        grid-template-columns: 40% 60%;
+    }
+
+    .date{
+        font-size: 2vh;
     }
 
     hr{
-        margin-left: 10px;
-        margin-right: 20px;
-    }
-    .submit{  
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-    }
-    .form-feld{
-        font-size: 2vh;
-        width: 45%;
-        font-size: 2vh;
-        padding: 1px 5px;
         margin-left: 0px;
+        margin-right: 0px;
     }
 }
