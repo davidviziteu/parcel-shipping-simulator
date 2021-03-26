@@ -1,4 +1,15 @@
+/* COLORS:
+#0f5d82 - ALBASTRU
+#0d445f - ALBASTRU INCHIS
+#b6babf - GRI
+#87a8b7 - ALBASTRU F DESCHIS
+#8e9898 - GRI INCHIS
+*/
+body{
+    background-color: #B6BABF;
+}
 .container{
+    margin-top: 70px;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -56,19 +67,18 @@ body {margin:0;}
   height: 1500px; /* Used in this example to enable scrolling */
 }
 
-
-
-@media screen and (min-width: 800px) {
+@media screen and (max-width: 800px) {
     .container{
         display: flex;
-        justify-content: space-evenly;
-        align-items: center;
+        justify-content: space-between;
+        flex-direction: column;
     }
     
     .box-small{
         border: #333 solid;
         width: 90vw;
         height: 30vh;
+        margin: 10px;
     }
     
     .box-small > *{
