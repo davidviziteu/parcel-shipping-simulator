@@ -89,8 +89,7 @@ body {
     
     .box{
         border: #333 solid;
-        max-width: 90vw;
-        /* min-width: 90vw; */
+        width: auto;
         min-height: 30vh;
         margin: 10px;
     }
