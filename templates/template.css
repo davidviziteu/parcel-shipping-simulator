@@ -30,6 +30,8 @@ body{
     overflow: auto;
     margin: 5px;
     padding: 0px 2px;
+    border-radius: 2%;
+    border-color: #9ab2b2
 /* 
     display: flex;
     flex-direction: column; */
@@ -49,6 +51,7 @@ body {
     left: -105%;
 }
 .input-box{
+    border: none;
     background-color: #fbfef7;
     caret-color: #42adf8;
     max-width: 80%;
@@ -71,10 +74,16 @@ body {
 }
 
 #menu{
+    top: 7.5%;
     position: absolute;
     width: 100%;
     height: 100%;
     background-color: antiquewhite;
+    text-align: center;
+}
+
+#menu > *{
+    margin-top: 6%;
 }
 
 .navbar {
@@ -83,21 +92,32 @@ body {
     position: fixed;
     top: 0;
     width: 100%;
+    padding: 0px ;
 }
 
-.navbar a {
-    float: left;
+.navbar button{
+    font-family: 'Poppins', sans-serif;
+    background-color: #0f5d82;
+    color: #f2f2f2;
+    border: none;
+    font-size: 17px;
+    outline: none;
+}
+
+#hamburger:hover{
+   background-color:#899998;
+}
+
+.navbar > * {
     display: block;
     color: #f2f2f2;
     text-align: center;
-    padding: 14px 16px;
+    padding: 14px 16px; 
     text-decoration: none;
     font-size: 17px;
-}
-
-.navbar a:hover {
-    background: #ddd;
-    color: black;
+    display: flex;
+    flex-direction: row; 
+    justify-content: space-between;
 }
 
 .main {
