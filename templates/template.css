@@ -1,12 +1,14 @@
 /* COLORS:
 #0f5d82 - ALBASTRU
 #0d445f - ALBASTRU INCHIS
-#b6babf - GRI
+#eef5ff - un fel de alb
+#d1d6dd - GRI
 #87a8b7 - ALBASTRU F DESCHIS
 #8e9898 - GRI INCHIS
 */
 body{
-    background-color: #B6BABF;
+    background-color: #eef5ff;
+    font-family: 'Poppins', sans-serif;
 }
 .container{
     margin-top: 70px;
@@ -16,6 +18,8 @@ body{
 }
 
 .box-small{
+    background-color: #1d7ba7;
+    color: white;
     border: #333 solid;
     width: 30vw;
     height: 30vh;
@@ -39,32 +43,32 @@ body {margin:0;}
 }
 
 .navbar {
-  overflow: hidden;
-  background-color: #333;
-  position: fixed;
-  top: 0;
-  width: 100%;
+    background-color: #0f5d82;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    width: 100%;
 }
 
 .navbar a {
-  float: left;
-  display: block;
-  color: #f2f2f2;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 17px;
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
 }
 
 .navbar a:hover {
-  background: #ddd;
-  color: black;
+    background: #ddd;
+    color: black;
 }
 
 .main {
-  padding: 16px;
-  margin-top: 30px;
-  height: 1500px; /* Used in this example to enable scrolling */
+    padding: 16px;
+    margin-top: 30px;
+    height: 1500px; /* Used in this example to enable scrolling */
 }
 
 @media screen and (max-width: 800px) {
