@@ -29,10 +29,15 @@ body{
     width: 30vw;
     overflow: auto;
     margin: 5px;
+    padding: 0px 2px;
+/* 
+    display: flex;
+    flex-direction: column; */
+    
 }
 
 .box > *{
-    font-size: medium;
+    /* font-size: medium; */
 }
 
 body {
@@ -42,6 +47,27 @@ body {
 .hidden{
     position: absolute;
     left: -105%;
+}
+.input-box{
+    background-color: #fbfef7;
+    caret-color: #42adf8;
+    max-width: 80%;
+    height: 1.5em;
+    text-align: left;
+    padding-left: 10px;
+    margin: 10px;
+    font-size: 1em;
+    font-family: 'Poppins', sans-serif;
+}
+
+.input-box::placeholder{
+    color: rgba(59, 55, 55, 0.226);
+}
+
+.input-box:focus::-webkit-input-placeholder {
+    opacity: 0;
+    -webkit-transition: opacity 0.35s ease-in-out;
+    transition: opacity 0.35s ease-in-out;
 }
 
 #menu{
