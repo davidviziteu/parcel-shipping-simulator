@@ -4,11 +4,11 @@ let menu = document.getElementById(`menu`)
 hamburgerMenu.addEventListener(`click`, () => {
     if (menu.className.includes(`hidden`)) {
         menu.className = ``;
-        disableScroll();
+        // disableScroll();
     }
     else {
         menu.className = `hidden`
-        enableScroll();
+        // enableScroll();
     }
 })
 
