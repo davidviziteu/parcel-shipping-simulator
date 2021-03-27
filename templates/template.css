@@ -10,18 +10,20 @@
 #2e6369 turcoaz mai inchis
 #2d4549 turcoaz negru
 */
-body{
+
+body {
     background-color: #fbfef7;
     font-family: 'Poppins', sans-serif;
 }
-.container{
+
+.container {
     margin-top: 70px;
     display: flex;
     justify-content: space-evenly;
     align-items: flex-start;
 }
 
-.box{
+.box {
     background-color: #1d7ba7;
     color: white;
     border: #333 solid;
@@ -31,14 +33,10 @@ body{
     margin: 5px;
     padding: 0px 2px;
     border-radius: 2%;
-    border-color: #9ab2b2
-/* 
-    display: flex;
-    flex-direction: column; */
-    
+    border-color: #9ab2b2;
 }
 
-.box > *{
+.box>* {
     /* font-size: medium; */
 }
 
@@ -46,11 +44,12 @@ body {
     margin: 0;
 }
 
-.hidden{
+.hidden {
     position: absolute;
     left: -105%;
 }
-.input-box{
+
+.input-box {
     border: none;
     background-color: #fbfef7;
     caret-color: #42adf8;
@@ -63,7 +62,7 @@ body {
     font-family: 'Poppins', sans-serif;
 }
 
-.input-box::placeholder{
+.input-box::placeholder {
     color: rgba(59, 55, 55, 0.226);
 }
 
@@ -72,6 +71,7 @@ body {
     -webkit-transition: opacity 0.35s ease-in-out;
     transition: opacity 0.35s ease-in-out;
 }
+
 
 #menu{
     top: 3.5em;
@@ -82,7 +82,7 @@ body {
     text-align: center;
 }
 
-#menu > *{
+#menu>* {
     margin-top: 6%;
 }
 
@@ -96,7 +96,7 @@ body {
     padding: 0px ;
 }
 
-.navbar button{
+.navbar button {
     font-family: 'Poppins', sans-serif;
     background-color: #0f5d82;
     color: #f2f2f2;
@@ -105,44 +105,45 @@ body {
     outline: none;
 }
 
-#hamburger:hover{
-   background-color:#899998;
+#hamburger:hover {
+    background-color: #899998;
 }
 
-.navbar > * {
+.navbar>* {
     display: block;
     color: #f2f2f2;
     text-align: center;
-    padding: 14px 16px; 
+    padding: 14px 16px;
     text-decoration: none;
     font-size: 17px;
     display: flex;
-    flex-direction: row; 
+    flex-direction: row;
     justify-content: space-between;
 }
 
 .main {
     padding: 16px;
     margin-top: 30px;
-    height: 1500px; /* Used in this example to enable scrolling */
+    height: 1500px;
+    /* Used in this example to enable scrolling */
 }
 
 @media screen and (max-width: 800px) {
-    .container{
+    .container {
         display: flex;
         justify-content: space-between;
         flex-direction: column;
+        align-items: center;
     }
-    
-    .box{
+    .box {
         border: #333 solid;
-        width: auto;
+        width: 90vw;
         min-height: 30vh;
         margin: 10px;
+        display: flex;
+        flex-direction: column;
     }
-    
-    .box > *{
+    .box>* {
         font-size: medium;
     }
-
 }
