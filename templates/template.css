@@ -47,6 +47,10 @@ body {
     text-align: left;
 }
 
+.big{
+   
+}
+
 .box>* {
     /* font-size: medium; */
     margin: 5%;
@@ -85,7 +89,7 @@ body {
 }
 
 #menu {
-    top: 3.5em;
+    top: 3em;
     position: fixed;
     width: 100%;
     height: calc(100vh - 3em);

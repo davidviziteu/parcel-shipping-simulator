@@ -39,6 +39,6 @@ function scrollFunction() {
         document.getElementById("here").style.padding = "10px 16px";
     } else {
         document.getElementById("navbar").style.height = "3.5em";
-        var x = document.getElementById("here").style.padding = "14px 16px";
+        document.getElementById("here").style.padding = "14px 16px";
     }
 }
