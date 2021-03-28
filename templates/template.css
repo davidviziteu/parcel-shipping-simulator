@@ -38,6 +38,7 @@ body {
     color: white;
     border: #333 solid;
     min-height: 30vh;
+    min-width: 30vw;
     overflow: auto;
     margin: 5px;
     padding: 0px 2px;
