@@ -4,7 +4,6 @@ let menu = document.getElementById(`menu`)
 hamburgerMenu.addEventListener(`click`, () => {
     if (menu.className.includes(`hidden`)) {
         menu.className = ``;
-        hamburgerMenu.innerText = "X"
         // disableScroll();
         var x = document.getElementsByTagName("BODY")[0];
         x.style.overflow = "hidden";
@@ -12,7 +11,6 @@ hamburgerMenu.addEventListener(`click`, () => {
     else {
         menu.className = `hidden`
         // enableScroll();
-        hamburgerMenu.innerText = "Menu"
         var x = document.getElementsByTagName("BODY")[0];
         x.style.overflowY = "scroll"
     }
