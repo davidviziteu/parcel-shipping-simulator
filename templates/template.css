@@ -29,31 +29,58 @@ body {
 
 .box>h4 {
     color: white;
-    margin-left: 5%;
-    font-size: 4vh;
+    margin: 0.9em 1.5em;
+    font-size: 3vh;
 }
 
 .box {
     background-color: #1d7ba7c4;
     color: white;
     border: #333 solid;
+    border-radius: 1.2em;
+    border-color: #9ab2b2;
     min-height: 30vh;
     min-width: 30vw;
     overflow: auto;
     margin: 5px;
     padding: 0px 2px;
-    border-radius: 2%;
-    border-color: #9ab2b2;
+ 
     text-align: left;
 }
 
 .big{
-   
+    background-color: #1d7ba7c4;
+    margin: 70px 5px 0px 5px;
+    display: flex;
+    flex-flow: row wrap !important;
+    align-items: baseline !important;
+    justify-content: left;
+    padding: none;
+    border: #333 solid;
+    border-radius: 1.2em;
+    border-color: #9ab2b2;
+}
+.big:last-child {
+    justify-content: left;
 }
 
-.box>* {
-    /* font-size: medium; */
-    margin: 5%;
+.big > .box {
+    background-color: transparent !important;
+    border-color: transparent;
+    width: 50%;
+    min-height: unset !important;
+    border: none;
+    margin: 0px;
+    padding-left: 0%;
+    padding-right: 0%;
+}
+
+.big > .wide {
+    width: 100% !important;
+}
+
+.box > * {
+    margin: 1.5em;
 }
 
 body {
@@ -143,8 +170,9 @@ body {
 .main {
     padding: 16px;
     margin-top: 30px;
-    height: 1500px;
-    /* Used in this example to enable scrolling */
+    /* display: flex;
+    align-items: center;
+    flex-direction: column; */
 }
 
 @media screen and (max-width: 800px) {
@@ -166,4 +194,10 @@ body {
     .box>* {
         font-size: medium;
     }
+
+    .big > .box {
+
+    width: 90% !important;
+
+}
 }
