@@ -20,7 +20,7 @@ body {
     background-size: 120% 100%;
 }
 
-.container {
+section {
     margin-top: 70px;
     display: flex;
     justify-content: space-evenly;
@@ -116,7 +116,38 @@ body {
     transition: opacity 0.35s ease-in-out;
 }
 
-#menu {
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-left: 3%;
+    margin-right: 3%;
+}
+
+.button-container > * {
+    background-color: #e5c8c19c;
+    border: none;
+    height: 35px;
+    color: white;
+    text-align: center;
+    align-self: stretch;
+    display: inline-block;
+    font-size: 0.8em;
+    margin: 4px 2px;
+    border-radius: 8px;
+    flex-grow: 4;
+    flex: 1;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+}
+
+.button-container>*:hover {
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}
+
+menu {
     top: 3em;
     position: fixed;
     width: 100%;
@@ -125,11 +156,11 @@ body {
     text-align: center;
 }
 
-#menu>* {
+menu > * {
     margin-top: 6%;
 }
 
-#navbar {
+nav {
     background-color: #0f5d82;
     overflow: hidden;
     position: fixed;
@@ -141,7 +172,7 @@ body {
     z-index: 1;
 }
 
-#navbar button {
+nav button {
     border: none;
     background-color: #0f5d82;;
     background-image: url('hamburger-menu.jpg');
@@ -156,7 +187,7 @@ body {
     background-color: #899998;
 }
 
-#navbar>* {
+nav>* {
     display: block;
     color: #f2f2f2;
     text-align: center;
@@ -177,7 +208,7 @@ body {
 }
 
 @media screen and (max-width: 800px) {
-    .container {
+    section {
         display: flex;
         justify-content: space-between;
         flex-direction: column;
