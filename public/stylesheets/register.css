@@ -1,0 +1,54 @@
+.box {
+    display: none;
+}
+
+body{
+    background-size: 100% 100%;
+}
+
+.inBox{
+   text-align: center;
+   margin-top: 5em;
+   max-width: 800px;
+   min-height: 450px;
+   margin-left: auto;
+   margin-right: auto;
+   display: block;
+}
+
+.input-box{
+    height: 2em;
+}
+
+#nextBtn{
+    background-color: lightgreen;
+}
+
+select{
+    width: 91.6% !important;
+    height: 2.15em !important;
+}
+
+@media screen and (max-width: 800px) {
+    .box {
+        width:auto;
+        display: none;
+        min-height: 25vh ;
+    }
+    .inBox{
+        text-align: center;
+        margin-top: 5em;
+        margin-left: 0;
+        margin-right: 0;
+        display: block ;
+    }
+    .input-box{
+        width: 90%;
+    }
+
+    select{
+        width: 93% !important;
+    }
+
+
+}
