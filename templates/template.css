@@ -20,7 +20,7 @@ body {
     background-size: 120% 100%;
 }
 
-container {
+section {
     margin-top: 70px;
     display: flex;
     justify-content: space-evenly;
@@ -33,7 +33,7 @@ container {
     font-size: 3vh;
 }
 
-.empty-container {
+.empty-section {
     display: flex;
     height: 60%;
 }
@@ -216,7 +216,7 @@ body {
 }
 
 @media screen and (max-width: 800px) {
-    container {
+    section {
         display: flex;
         justify-content: space-between;
         flex-direction: column;
