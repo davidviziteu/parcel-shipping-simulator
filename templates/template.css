@@ -150,10 +150,12 @@ body {
 }
 
 menu {
-    top: 3em;
+    margin: 0px;
+    padding: 0px;
+    top: 3.5em;
     position: fixed;
     width: 100%;
-    height: calc(100vh - 3em);
+    height: calc(100vh - 3.5em);
     background-color: antiquewhite;
     text-align: center;
 }
@@ -177,7 +179,6 @@ nav {
 nav button {
     border: none;
     background-color: #0f5d82;
-    ;
     background-image: url('hamburger-menu.jpg');
     background-position-y: center;
     background-size: cover;
@@ -202,7 +203,7 @@ nav>* {
     justify-content: space-between;
 }
 
-.main {
+main {
     padding: 16px;
     margin-top: 30px;
     /* display: flex;
