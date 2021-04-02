@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ro">
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <title>PSS</title>
+    <link rel='stylesheet' type='text/css' media='screen' href='../templates/template.css'>
+    <!-- <link rel='stylesheet' type='text/css' media='screen' href='./stylesheets/'> -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,300&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div id="navbar">
+        <div id="here">
+            <button id="hamburger">
+            </button>
+            <div>
+                Logo
+            </div>
+            <div id="login-info">
+                Bună!
+            </div>
+        </div>
+    </div>
+    <div id="menu" class="hidden">
+        <div>
+            Locații
+        </div>
+        <div>
+            Despre noi
+        </div>
+        <div>
+            Verificare AWB
+        </div>
+        <div>
+            Estimare cost
+        </div>
+        <div>
+            Contact
+        </div>
+    </div>
+    <div class="main">
+
+        <div class="container">
+            <div class="box">
+                <h2>Plasează comanda prin contul de utilizator</h2>
+                <form id="login-form" action="">
+                    <input class="input-box" type="text" id="username-input" name="fname" placeholder="Email"><br>
+                    <input class="input-box" type="password" id="username-input" name="lname" placeholder="Parolă"><br><br>
+                    <div class="button-container">
+                        <input id="toggle-reset" type="button" value="Am uitat parola">
+                        <input type="submit" value="Continuă comanda">
+
+                    </div>
+                </form>
+
+            </div>
+
+            <div class="box">
+                <h2>Comandă fără cont de utilizator</h2>
+                <div class="empty-container">
+                </div>
+                <div class="button-container">
+                    <input type="submit" value="Continua comanda">
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <script src='../templates/template.js'>
+    </script>
+
+</body>
+
+</html>
