@@ -1,17 +1,17 @@
 let hamburgerMenu = document.getElementById(`hamburger`)
-let menu = document.getElementById(`menu`)
+let menu = document.getElementsByTagName(`menu`)[0]
 
 hamburgerMenu.addEventListener(`click`, () => {
     if (menu.className.includes(`hidden`)) {
         menu.className = ``;
         // disableScroll();
-        var x = document.getElementsByTagName("BODY")[0];
+        var x = document.getElementsByTagName("body")[0];
         x.style.overflow = "hidden";
     }
     else {
         menu.className = `hidden`
         // enableScroll();
-        var x = document.getElementsByTagName("BODY")[0];
+        var x = document.getElementsByTagName("body")[0];
         x.style.overflowY = "scroll"
     }
 })
@@ -32,11 +32,12 @@ function enableScroll() {
 window.onscroll = function () { scrollFunction(); };
 
 function scrollFunction() {
+    var navbar = document.getElementsByTagName("nav")[0]
     if (document.body.scrollTop > 70 || document.documentElement.scrollTop > 70) {
-        document.getElementById("navbar").style.height = "3em";
+        navbar.style.height = "3em";
         document.getElementById("here").style.padding = "10px 16px";
     } else {
-        document.getElementById("navbar").style.height = "3.5em";
+        navbar.style.height = "3.5em";
         document.getElementById("here").style.padding = "14px 16px";
     }
 }

@@ -154,11 +154,13 @@ body {
     box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
 }
 
-#menu {
-    top: 3em;
+menu {
+    margin: 0px;
+    padding: 0px;
+    top: 3.5em;
     position: fixed;
     width: 100%;
-    height: calc(100vh - 3em);
+    height: calc(100vh - 3.5em);
     background-color: antiquewhite;
     text-align: center;
 }
@@ -182,7 +184,6 @@ body {
 #navbar button {
     border: none;
     background-color: #0f5d82;
-    ;
     background-image: url('hamburger-menu.jpg');
     background-position-y: center;
     background-size: cover;
@@ -207,7 +208,7 @@ body {
     justify-content: space-between;
 }
 
-.main {
+main {
     padding: 16px;
     margin-top: 30px;
     /* display: flex;
