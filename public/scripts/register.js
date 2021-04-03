@@ -119,7 +119,7 @@ function call() {
 }
 
 function local(value) {
-    if (value.length == 0) document.getElementById("placeSelect1").innerHTML = "<option></option>";
+    if (value.length == 0) document.getElementById("placeSelect").innerHTML = "<option></option>";
     else {
         var placesOptions = "";
         for (cityId in cities[value]) {
