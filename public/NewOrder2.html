@@ -49,12 +49,17 @@
             </div>
             <div class="box">
                 <h2>Detalii expeditor*</h2>
-                <input class="input-box" type="text" name="nume" placeholder="Nume expeditor"><br>
-                <input class="input-box" type="text" name="persoanaContact" placeholder="Persoană de contact"><br>
-                <input class="input-box" type="text" name="telefon" placeholder="Telefon"><br>
-                <input class="input-box" type="text" name="email" placeholder="Adresă de email"><br>
-                <input class="input-box" type="text" name="judet" placeholder="Județ"><br>
-                <input class="input-box" type="text" name="localitate" placeholder="Localitate"><br>
+                <input class="input-box" placeholder="Nume expeditor"><br>
+                <input class="input-box" placeholder="Persoană de contact"><br>
+                <input class="input-box" placeholder="Telefon"><br>
+                <input class="input-box" placeholder="Adresă de email"><br>
+                <select class="input-box" name="judet" id="judet"><br>
+                    <option value="" selected="selected"></option>
+                    <!-- <option value="" disabled selected hidden id="judetSelected">Alege județul</option> -->
+                </select>
+
+                <select class="input-box" name="localitate" id="localitate"><br>
+                        <option class="color" value="" selected="selected" ></p>Alege județul prima dată</option></select>
 
 
             </div>
@@ -82,8 +87,8 @@
             <div class="box">
                 <h2>Dimensiuni</h2>
 
-                <input class="input-box" type="text" name="lungime" placeholder="Lungime(Cm)"><br>
-                <input class="input-box" type="text" name="latime" placeholder="Lățime(Cm)"><br>
+                <input class="input-box" type="text" name="lungime" placeholder="Lungime(cm)"><br>
+                <input class="input-box" type="text" name="latime" placeholder="Lățime(cm)"><br>
                 <input class="input-box" type="text" name="inaltime" placeholder="Înălțime(cm)"><br>
 
             </div>
@@ -100,12 +105,14 @@
                     Some text some dsa,jdnsabjdnsahdbsb dhsakbdsabdsa bdsabdsbdsab dsbatext some text some text..
                 </p>
 
+                <div class="button-container"><input type="submit" value="Submit"></div>
             </div>
+
         </section>
     </form>
 
     <script src='../templates/template.js'></script>
-
+    <script src='./scripts/NewOrder.js'></script>
 </body>
 
 </html>
