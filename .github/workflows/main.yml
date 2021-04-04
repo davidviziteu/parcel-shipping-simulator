@@ -1,0 +1,18 @@
+name: Sync multiple branches
+on:
+  push:
+    branches:
+      - 'templates'
+jobs:
+  sync-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+
+      - name: Merge templates -> landingpage
+        uses: devmasx/merge-branch@v1.3.1
+        with:
+          type: now
+          from_branch: templates
+          target_branch: landingpage
+          github_token: ${{ github.token }}
