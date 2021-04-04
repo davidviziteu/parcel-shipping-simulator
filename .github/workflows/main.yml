@@ -1,8 +1,7 @@
 name: Sync multiple branches
 on:
   push:
-    branches:
-      - workflow-test
+    branches: [ workflow-test ]
 jobs:
   sync-branch:
     runs-on: ubuntu-latest
