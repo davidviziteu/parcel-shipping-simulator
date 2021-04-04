@@ -2,7 +2,7 @@ name: Sync multiple branches
 on:
   push:
     branches:
-      - 'templates'
+      - templates
 jobs:
   sync-branch:
     runs-on: ubuntu-latest
