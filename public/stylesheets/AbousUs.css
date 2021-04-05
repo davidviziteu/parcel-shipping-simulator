@@ -1,40 +1,41 @@
- section {
-     margin-top: 2% !important;
- }
- 
- img {
-     border-radius: 1.2em;
-     height: inherit;
-     width: inherit;
-     object-fit: cover;
-     overflow: hidden;
- }
- 
- .picture-box {
-     background-color: white;
-     /* background-image: url('../AndreeaPicture.jpg'); */
-     display: flex;
-     flex-direction: row;
-     /* height: min(100vh, 100vw);
-     width: min(100vh, 100vw); */
-     flex-wrap: row wrap;
-     align-items: stretch;
-     margin-top: 5%;
-     height: 29em;
-     width: 20em;
-     overflow: auto;
-     padding: 0px 2px;
-     margin: 5px;
-     border-radius: 1.2em;
-     border: rgba(51, 51, 51, 0.315) solid;
- }
- 
- @media screen and (max-width: 800px) {
-     .picture-box {
-         margin: 5%;
-         display: flex;
-         flex-direction: column;
-         height: 28em;
-         width: 18em;
-     }
- }
+body {
+    background-image: url('../newBackgroung.jpg');
+}
+
+section {
+    margin-top: 2% !important;
+}
+
+img {
+    border-radius: 1.2em;
+    height: inherit;
+    width: inherit;
+    object-fit: cover;
+    overflow: hidden;
+}
+
+.picture-box {
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: row wrap;
+    align-items: stretch;
+    margin-top: 5%;
+    height: 29em;
+    width: 20em;
+    overflow: auto;
+    padding: 0px 2px;
+    margin: 5px;
+    border-radius: 1.2em;
+    border: rgba(51, 51, 51, 0.315) solid;
+}
+
+@media screen and (max-width: 800px) {
+    .picture-box {
+        margin: 5%;
+        display: flex;
+        flex-direction: column;
+        height: 28em;
+        width: 18em;
+    }
+}
