@@ -49,16 +49,16 @@
             </div>
             <div class="box">
                 <h2>Detalii expeditor*</h2>
-                <input class="input-box" placeholder="Nume expeditor"><br>
-                <input class="input-box" placeholder="Persoană de contact"><br>
-                <input class="input-box" placeholder="Telefon"><br>
-                <input class="input-box" placeholder="Adresă de email"><br>
-                <select class="input-box" name="judet" id="judet"><br>
-                    <option value="" selected="selected"></option>
-                    <!-- <option value="" disabled selected hidden id="judetSelected">Alege județul</option> -->
+                <input class="input-box" type="text" placeholder="Nume expeditor" required><br>
+                <input class="input-box" type="text" placeholder="Persoană de contact" required><br>
+                <input class="input-box" type="tel" placeholder="Telefon" required><br>
+                <input class="input-box" placeholder="Adresă de email" required><br>
+                <select class="input-box" name="judet" id="judet" required><br>
+                    <!-- <option value="" selected="selected"></option> -->
+                    <option value="" disabled selected hidden id="judetSelected">Alege județul</option>
                 </select>
 
-                <select class="input-box" name="localitate" id="localitate"><br>
+                <select class="input-box" name="localitate" id="localitate" required><br>
                         <option class="color" value="" selected="selected" ></p>Alege județul prima dată</option></select>
 
 
@@ -67,12 +67,12 @@
             <div class="box">
                 <h2>Ridicare exprediție de la adresa*</h2>
 
-                <input class="input-box" type="text" name="strada" placeholder="Strada"><br>
-                <input class="input-box" type="text" name="numarul" placeholder="Numărul"><br>
-                <input class="input-box" type="text" name="bloc" placeholder="Bloc(Clădire)"><br>
-                <input class="input-box" type="text" name="scara" placeholder="Scara(Intrare)"><br>
-                <input class="input-box" type="text" name="etaj" placeholder="Etaj"><br>
-                <input class="input-box" type="text" name="apartament" placeholder="Apartament"><br>
+                <input class="input-box" type="text" name="strada" placeholder="Strada" required><br>
+                <input class="input-box" type="text" name="numarul" placeholder="Numărul" required><br>
+                <input class="input-box" type="text" name="bloc" placeholder="Bloc(Clădire)" required><br>
+                <input class="input-box" type="text" name="scara" placeholder="Scara(Intrare)" required><br>
+                <input class="input-box" type="text" name="etaj" placeholder="Etaj" required><br>
+                <input class="input-box" type="text" name="apartament" placeholder="Apartament" required><br>
 
 
             </div>
@@ -92,27 +92,33 @@
                 <input class="input-box" type="text" name="inaltime" placeholder="Înălțime(cm)"><br>
 
             </div>
+            <div class="box">
+                <h2>Detalii privind data/ora ridicării*</h2>
+
+                <input class="input-box" type="date" name="data" placeholder="Data" required><br>
+                <input class="input-box" type="time" name="ora" placeholder="Ora"><br>
+
+            </div>
+            <div class="box">
+                <h2>Observații</h2>
+
+                <input class="input-big" type="text" name="mentiuni"><br>
+
+            </div>
             <div class="wide box">
-                <h2>EXEMPLU DE TEXT LUNG IN BOG BOX</h2>
-
-                <p>
-
-                </p>
-                <p>
-                    Some text some text some text some text Some text some text some text some text Some text some text some text some text Some text some text some text some text Some text some text some text some text Some text some text some text some texT
-                </p>
-                <p>
-                    Some text some dsa,jdnsabjdnsahdbsb dhsakbdsabdsa bdsabdsbdsab dsbatext some text some text..
-                </p>
-
-                <div class="button-container"><input type="submit" value="Submit"></div>
+                <div class="button-container">
+                    <button id="comanda">
+                    <a href="OrderSent.html">
+                         Plasează comanda
+                    </a>
+                    </button></div>
             </div>
 
         </section>
     </form>
 
     <script src='../templates/template.js'></script>
-    <script src='./scripts/NewOrder.js'></script>
+    <script src='./scripts/NewOrder2.js'></script>
 </body>
 
 </html>
