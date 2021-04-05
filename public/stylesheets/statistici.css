@@ -14,3 +14,27 @@ body{
 #none{
     display: none;
 }
+
+@media screen and (max-width:800px){
+    .grid{
+        display: unset;
+    }
+    
+    .flex{
+        flex-direction: row;
+    }
+
+    #cityChart {
+        margin-left: -30px;
+        margin-right: unset;
+    }
+
+    #localChart{
+        margin-left: unset;
+        margin-right: unset;
+    }
+
+    .big>.wide{
+        display: unset;
+    }
+}
