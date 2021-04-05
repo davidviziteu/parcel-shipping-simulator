@@ -1,7 +1,5 @@
 var judetSelector = document.getElementById("judet");
 var localitateSelector = document.getElementById("localitate");
-var comanda = document.getElementById("comanda");
-localStorage = comanda;
 
 for (var judet in cities) {
     judetSelector.options[judetSelector.options.length] = new Option(judet, judet);
