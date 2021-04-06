@@ -1,9 +1,15 @@
 let detaliiExpeditor = document.getElementById(`detalii-expeditor`)
 let buttonExp = document.getElementById(`exp-bttn`)
+let awbTitle = document.getElementById(`awb-title`)
 
-buttonExp.addEventListener(`click`, () => {
-    if (detaliiExpeditor.style.display == `none`)
-        detaliiExpeditor.style.display = `block`
-    else
-        detaliiExpeditor.style.display = `none`
+
+awbTitle.addEventListener(`click`, () => {
+    let newAwb = prompt(`Introdu noul AWB`)
+    if (newAwb == null || newAwb.length == 0)
+        return
+    awbTitle.innerHTML = `AWB: ${newAwb}`
 })
+
+function showList(idList) {
+    document.getElementById(idList).toggleAttribute(`hidden`)
+}

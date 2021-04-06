@@ -44,21 +44,28 @@
     </menu>
     <form action="InfoOrder">
         <section class="big">
+
+
             <div class="wide box">
-                <h4>AWB</h4>
+                <h4 id="awb-title">AWB: 123213123</h4>
             </div>
+
+
+
             <div class="box">
                 <h2>Detalii locatie pachet</h2>
+
                 <div class="button-container">
                     <div>Comanda a fost primită</div>
                 </div>
                 <div class="progress-arrow">
                     <img src="./assets/arrow.png">
                 </div>
-                <div class="button-container">
+
+                <div class="button-container" onclick="showList(`detalii-expeditor`)">
                     <div id="exp-bttn">A fost ridicat de la expeditor</div>
                 </div>
-                <ol id="detalii-expeditor" style="display: none;">
+                <ol hidden id="detalii-expeditor">
                     <li> A fost ridicat sambata la ora 10 de catre
                     </li>
                     <li>
@@ -67,16 +74,31 @@
                     <li>
                         Iasi, Horpaz, casa 10
                     </li>
+                    <li>
+                        vinaandreea27@gmail.com
+                    </li>
                 </ol>
                 <div class="progress-arrow">
                     <img src="./assets/arrow.png">
                 </div>
+
                 <div class="button-container">
                     <button class="detalii-tranzit">Tranzit: hub bucuresti</button>
                 </div>
             </div>
-
-
+            <div class="box">
+                <h2>
+                    Alte detalii
+                </h2>
+                <ol>
+                    <li>
+                        Livrare Sambata
+                    </li>
+                    <li>
+                        Fragil
+                    </li>
+                </ol>
+            </div>
         </section>
     </form>
 
