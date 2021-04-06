@@ -31,5 +31,6 @@ estimateCost.addEventListener(`click`, () => {
         totalCost.innerHTML = `Alegeți județul expeditorului`
     else if (to == `default`)
         totalCost.innerHTML = `Alegeți județul destinatarului`
-    else totalCost.innerHTML = `${from} -> ${to}: 35 RON`
+        
+    else totalCost.innerHTML = `${from} -> ${to}: până la 35 RON`
 })
