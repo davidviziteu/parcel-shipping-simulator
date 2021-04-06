@@ -7,6 +7,7 @@
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <title>PSS</title>
     <link rel='stylesheet' type='text/css' media='screen' href='../templates/template.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='./stylesheets/dashboard.css'>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,300&display=swap" rel="stylesheet">
 </head>
@@ -17,7 +18,7 @@
             <button id="hamburger">
             </button>
             <div>
-                Logo
+                Dashboard angajat
             </div>
             <div id="login-info">
                 Bună!
@@ -41,20 +42,46 @@
             Contact
         </div>
     </menu>
-    <main>
+    <form action="InfoOrder">
         <section class="big">
             <div class="wide box">
-                <p>
-                    askjdnsajkdnaskjn
-                </p>
+                <h4>AWB</h4>
             </div>
-        </section>
-    </main>
+            <div class="box">
+                <h2>Detalii locatie pachet</h2>
+                <div class="button-container">
+                    <div>Comanda a fost primită</div>
+                </div>
+                <div class="progress-arrow">
+                    <img src="./assets/arrow.png">
+                </div>
+                <div class="button-container">
+                    <div id="exp-bttn">A fost ridicat de la expeditor</div>
+                </div>
+                <ol id="detalii-expeditor" style="display: none;">
+                    <li> A fost ridicat sambata la ora 10 de catre
+                    </li>
+                    <li>
+                        Vina Andreea Madalina MZ 123456
+                    </li>
+                    <li>
+                        Iasi, Horpaz, casa 10
+                    </li>
+                </ol>
+                <div class="progress-arrow">
+                    <img src="./assets/arrow.png">
+                </div>
+                <div class="button-container">
+                    <button class="detalii-tranzit">Tranzit: hub bucuresti</button>
+                </div>
+            </div>
 
-    </main>
+
+        </section>
+    </form>
+
     <script src='../templates/template.js'></script>
     <script src='./scripts/dashboard.js'></script>
-
 </body>
 
 </html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ro">
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <title>PSS</title>
+    <link rel='stylesheet' type='text/css' media='screen' href='../templates/template.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='./stylesheets/NewOrder.css'>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,300&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <nav>
+        <div id="here">
+            <button id="hamburger">
+            </button>
+            <div>
+                Dashboard angajat
+            </div>
+            <div id="login-info">
+                Bună!
+            </div>
+        </div>
+    </nav>
+    <menu class="hidden">
+        <div>
+            Locații
+        </div>
+        <div>
+            Despre noi
+        </div>
+        <div>
+            Verificare AWB
+        </div>
+        <div>
+            Estimare cost
+        </div>
+        <div>
+            Contact
+        </div>
+    </menu>
+    <form action="InfoOrder">
+        <section class="big">
+            <div class="wide box">
+                <h4>AWB</h4>
+            </div>
+            <div class="box">
+                <h2>Detalii locatie pachet</h2>
+                <p>
+                    Expeditor + adresa, etc
+                </p>
+                <p>
+                    Destinatar + adresa etcs
+                </p>
+                <p>
+                    Locatie curenta: hub timisoara
+                </p>
+                <div class="button-container">
+                    <div>a fost ridicat</div>
+                    <button disabled>A fost ridicat de la expeditor</button>
+                </div>
+                <p id="detalii-expeditor">
+                </p>
+                <div class="button-container">
+                    <button disabled>A plecat</button>
+                </div>
+            </div>
+
+            <div class="box">
+                <h2>Ridicare exprediție de la adresa*</h2>
+
+                <input class="input-box" type="text" name="strada" placeholder="Strada" required><br>
+                <input class="input-box" type="text" name="numarul" placeholder="Numărul" required><br>
+                <input class="input-box" type="text" name="bloc" placeholder="Bloc(Clădire)" required><br>
+                <input class="input-box" type="text" name="scara" placeholder="Scara(Intrare)" required><br>
+                <input class="input-box" type="text" name="etaj" placeholder="Etaj" required><br>
+                <input class="input-box" type="text" name="apartament" placeholder="Apartament" required><br>
+
+
+            </div>
+            <div class="box">
+                <h2>Detalii expediție*</h2>
+
+                <input class="input-box" type="text" name="nrPlicuri" placeholder="Numărul de plicuri"><br>
+                <input class="input-box" type="text" name="nrColete" placeholder="Numărul de colete"><br>
+                <input class="input-box" type="text" name="greutate" placeholder="Greutate totală(Kg)"><br>
+
+            </div>
+            <div class="box">
+                <h2>Dimensiuni</h2>
+
+                <input class="input-box" type="text" name="lungime" placeholder="Lungime(cm)"><br>
+                <input class="input-box" type="text" name="latime" placeholder="Lățime(cm)"><br>
+                <input class="input-box" type="text" name="inaltime" placeholder="Înălțime(cm)"><br>
+
+            </div>
+            <div class="box">
+                <h2>Detalii privind data/ora ridicării*</h2>
+
+                <input class="input-box" type="date" name="data" placeholder="Data" required><br>
+                <input class="input-box" type="time" name="ora" placeholder="Ora"><br>
+
+            </div>
+            <div class="box">
+                <h2>Observații</h2>
+
+                <input class="input-big" type="text" name="mentiuni"><br>
+
+            </div>
+            <div class="wide box">
+                <div class="button-container">
+                    <button id="comanda">
+                    <a href="OrderSent.html">
+                         Plasează comanda
+                    </a>
+                    </button></div>
+            </div>
+
+        </section>
+    </form>
+
+    <script src='../templates/template.js'></script>
+    <script src='./scripts/dashboard.js'></script>
+</body>
+
+</html>
