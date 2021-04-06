@@ -53,31 +53,40 @@
                 <input class="input-box" type="text" placeholder="Persoană de contact" required><br>
                 <input class="input-box" type="tel" placeholder="Telefon" required><br>
                 <input class="input-box" placeholder="Adresă de email" required><br>
-                <select class="input-box" name="judet" id="judet" required><br>
+                <select class="input-box" name="judet" id="judet1" required><br>
                     <!-- <option value="" selected="selected"></option> -->
                     <option value="" disabled selected hidden id="judetSelected">Alege județul</option>
                 </select>
 
-                <select class="input-box" name="localitate" id="localitate" required><br>
-                        <option class="color" value="" selected="selected" >Alege județul prima dată</option></select>
+                <select class="input-box" name="localitate" id="localitate1" required><br>
+                    <option class="color" value="" selected="selected">Alege județul prima dată</option>
+                </select>
+                <input class="input-box" type="text" placeholder="Adresă" required><br>
 
 
             </div>
 
             <div class="box">
-                <h2>Ridicare exprediție de la adresa*</h2>
+                <h2>Detalii destinatar*</h2>
 
-                <input class="input-box" type="text" name="strada" placeholder="Strada" required><br>
-                <input class="input-box" type="text" name="numarul" placeholder="Numărul" required><br>
-                <input class="input-box" type="text" name="bloc" placeholder="Bloc(Clădire)" required><br>
-                <input class="input-box" type="text" name="scara" placeholder="Scara(Intrare)" required><br>
-                <input class="input-box" type="text" name="etaj" placeholder="Etaj" required><br>
-                <input class="input-box" type="text" name="apartament" placeholder="Apartament" required><br>
+                <input class="input-box" type="text" placeholder="Nume destinatar" required><br>
+                <input class="input-box" type="text" placeholder="Persoană de contact" required><br>
+                <input class="input-box" type="tel" placeholder="Telefon" required><br>
+                <select class="input-box" name="judet" id="judet2" required><br>
+                    <!-- <option value="" selected="selected"></option> -->
+                    <option value="" disabled selected hidden id="judetSelected">Alege județul</option>
+                </select>
+
+                <select class="input-box" name="localitate" id="localitate2" required><br>
+                    <option value="" selected="selected">Alege județul prima dată</option>
+                </select>
+                <input class="input-box" type="text" placeholder="Adresă" required><br>
+
 
 
             </div>
             <div class="box">
-                <h2>Detalii expediție*</h2>
+                <h2>Detalii expediție</h2>
 
                 <input class="input-box" type="text" name="nrPlicuri" placeholder="Numărul de plicuri"><br>
                 <input class="input-box" type="text" name="nrColete" placeholder="Numărul de colete"><br>
@@ -105,13 +114,43 @@
                 <input class="input-big" type="text" name="mentiuni"><br>
 
             </div>
+            <div class="box">
+                <h2>Opțiuni </h2>
+                <div class="horizontal-center">
+                    <input class="check-box" type="checkbox" id="optiuni1" name="optiuni1">
+                    <label for="optiuni1" id="DeschidereVerificare"> Deschiderea coletului la livrare </label>
+                </div>
+                <div class="horizontal-center">
+                    <input class="check-box" type="checkbox" id="optiuni2" name="optiuni2">
+                    <label for="optiuni2" id="LivrareSambata"> Livrare sâmbătă </label>
+                </div>
+                <div class="horizontal-center">
+                    <input class="check-box" type="checkbox" id="optiuni3" name="optiuni3">
+                    <label for="optiuni3" id="Fragil"> Colet fragil </label>
+                </div>
+                <select class="input-box" name="plata" id="plata" required>
+                    <option value="" disabled selected hidden>Alege metoda de plată</option>
+                </select>
+            </div>
+            <div class="box">
+                <h2>Estimează </h2>
+                <div class="button-container">
+                    <div id="calculeazaCostBtn">
+                        Calculează cost
+                    </div>
+                </div>
+                <p id="cost-final">
+
+                </p>
+            </div>
             <div class="wide box">
                 <div class="button-container">
                     <button id="comanda">
-                    <a href="OrderSent.html">
-                         Plasează comanda
-                    </a>
-                    </button></div>
+                        <a href="OrderSent.html">
+                            Plasează comanda
+                        </a>
+                    </button>
+                </div>
             </div>
 
         </section>
