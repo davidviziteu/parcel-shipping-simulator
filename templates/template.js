@@ -7,12 +7,16 @@ hamburgerMenu.addEventListener(`click`, () => {
         // disableScroll();
         var x = document.getElementsByTagName("body")[0];
         x.style.overflow = "hidden";
+        document.getElementById("cityChart").style.display = "none";
+        document.getElementById("localChart").style.display = "none";
     }
     else {
         menu.className = `hidden`
         // enableScroll();
         var x = document.getElementsByTagName("body")[0];
         x.style.overflowY = "scroll"
+        document.getElementById("cityChart").style.display = "block";
+        document.getElementById("localChart").style.display = "block";
     }
 })
 
