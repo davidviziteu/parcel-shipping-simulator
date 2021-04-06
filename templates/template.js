@@ -54,4 +54,4 @@ var cities = {
     Timisoara: ["Timișoara", "Buziaș", "Ciacova", "Deta", "Făget", "Gătaia", "Jimbolia", "Lugoj", "Recaș", "Sâncicolau Mare"]
 }
 
-var listCity = ["Ilfov", "Cluj", "Constanta", "Craiova", "Galati", "Iasi", "Oradea", "Sibiu", "Timisoara"];
+var listCity = ["Ilfov", "Cluj", "Constanța", "Dolj", "Galați", "Iași", "Oradea", "Sibiu", "Timișoara"];
