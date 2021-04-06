@@ -1,17 +1,17 @@
 let hamburgerMenu = document.getElementById(`hamburger`)
-let menu = document.getElementById(`menu`)
+let menu = document.getElementsByTagName(`menu`)[0]
 
 hamburgerMenu.addEventListener(`click`, () => {
     if (menu.className.includes(`hidden`)) {
         menu.className = ``;
         // disableScroll();
-        var x = document.getElementsByTagName("BODY")[0];
+        var x = document.getElementsByTagName("body")[0];
         x.style.overflow = "hidden";
     }
     else {
         menu.className = `hidden`
         // enableScroll();
-        var x = document.getElementsByTagName("BODY")[0];
+        var x = document.getElementsByTagName("body")[0];
         x.style.overflowY = "scroll"
     }
 })
@@ -32,26 +32,27 @@ function enableScroll() {
 window.onscroll = function () { scrollFunction(); };
 
 function scrollFunction() {
+    var navbar = document.getElementsByTagName("nav")[0]
     if (document.body.scrollTop > 70 || document.documentElement.scrollTop > 70) {
-        document.getElementById("navbar").style.height = "3em";
+        navbar.style.height = "3em";
         document.getElementById("here").style.padding = "10px 16px";
     } else {
-        document.getElementById("navbar").style.height = "3.5em";
+        navbar.style.height = "3.5em";
         document.getElementById("here").style.padding = "14px 16px";
     }
 }
 
 
 var cities = {
-    Cluj: ["Câmpia Turzii", "Cluj-Napoca", "Dej", "Gherla", "Huedin", "Turda"],
-    Constanta: ["Băneasa", "Cernavodă", "Constanţa", "Eforie", "Hârşova", "Mangalia", "Medgidia", "Murfatlar", "Năvodari", "Negru Vodă", "Ovidiu", "Techirghiol"],
-    Dolj: ["Băileşti", "Bechet", "Calafat", "Craiova", "Dăbuleni", "Filiaşi", "Segarcea"],
-    Galati: ["Beresti", "Galaţi", "Târgu Bujor", "Tecuci"],
-    Iasi: ["Hârlău", "Iaşi", "Paşcani", "Podu Iloaiei", "Târgu Frumos"],
-    Ilfov: ["Bragadiru", "Buftea", "Chitila", "Măgurele", "Otopeni", "Pantelimon", "Popeşti - Leordeni", "Voluntari"],
-    Oradea: ["Aleşd", "Beiuş", "Marghita", "Nucet", "Oradea", "Salonta", "Săcuieni", "Ştei", "Valea lui Mihai", "Vaşcău"],
-    Sibiu: ["Agnita", "Avrig", "Cisnădie", "Copşa Mică", "Dumbrăveni", "Mediaş", "Miercurea Sibiului", "Ocna Sibiului", "Sălişte", "Sibiu", "Tălmaciu"],
-    Timisoara: ["Buziaș", "Ciacova", "Deta", "Făget", "Gătaia", "Jimbolia", "Lugoj", "Recaș", "Sâncicolau Mare", "Timișoara"]
+    Cluj: ["Cluj-Napoca", "Câmpia Turzii", "Dej", "Gherla", "Huedin", "Turda"],
+    Constanta: ["Constanţa", "Băneasa", "Cernavodă", "Eforie", "Hârşova", "Mangalia", "Medgidia", "Murfatlar", "Năvodari", "Negru Vodă", "Ovidiu", "Techirghiol"],
+    Dolj: ["Craiova", "Băileşti", "Bechet", "Calafat", "Dăbuleni", "Filiaşi", "Segarcea"],
+    Galati: ["Galaţi", "Beresti", "Târgu Bujor", "Tecuci"],
+    Iasi: ["Iaşi", "Hârlău", "Paşcani", "Podu Iloaiei", "Târgu Frumos"],
+    Ilfov: ["București", "Bragadiru", "Buftea", "Chitila", "Măgurele", "Otopeni", "Pantelimon", "Popeşti - Leordeni", "Voluntari"],
+    Oradea: ["Oradea", "Aleşd", "Beiuş", "Marghita", "Nucet", "Salonta", "Săcuieni", "Ştei", "Valea lui Mihai", "Vaşcău"],
+    Sibiu: ["Sibiu", "Agnita", "Avrig", "Cisnădie", "Copşa Mică", "Dumbrăveni", "Mediaş", "Miercurea Sibiului", "Ocna Sibiului", "Sălişte", "Tălmaciu"],
+    Timisoara: ["Timișoara", "Buziaș", "Ciacova", "Deta", "Făget", "Gătaia", "Jimbolia", "Lugoj", "Recaș", "Sâncicolau Mare"]
 }
 
-var listCity = ["Ilfov", "Cluj", "Constanta", "Dolj", "Galati", "Iasi", "Oradea", "Sibiu", "Timisoara"];
+var listCity = ["Ilfov", "Cluj", "Constanța", "Dolj", "Galați", "Iași", "Oradea", "Sibiu", "Timișoara"];
