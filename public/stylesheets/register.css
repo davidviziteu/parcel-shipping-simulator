@@ -1,4 +1,5 @@
 .box {
+    min-height: 25vh;
     display: none;
 }
 
@@ -14,6 +15,10 @@ body{
    margin-left: auto;
    margin-right: auto;
    display: block;
+}
+
+.box > *{
+    margin: 1.5em;
 }
 
 .input-box{
