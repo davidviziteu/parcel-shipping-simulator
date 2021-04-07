@@ -1,0 +1,37 @@
+[id]{
+    text-align: center;
+}
+
+#submit{
+    margin-left: 20%;
+    margin-right: 20%;
+    background-color: lightgreen;
+}
+
+.listSofer{
+    width: 95% ;
+    flex: unset;
+}
+
+.check{
+    border-radius: 50%;
+    pointer-events: none;
+    background-color: white;
+}
+
+@media screen and (max-width:800px){
+    .listSofer{
+        width: 90% ;
+        flex: unset;
+    }
+
+    .check{
+        border-radius: 50%;
+        background-color: white;    
+    }
+
+    .big > .box{
+        margin:auto;
+        padding-left: auto ;
+    }
+}

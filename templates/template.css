@@ -94,6 +94,10 @@ body {
     left: -105%;
 }
 
+li{
+    list-style-type: none;
+}
+
 .input-box {
     border: none;
     background-color: #fbfef7;
@@ -162,10 +166,10 @@ body {
 menu {
     margin: 0px;
     padding: 0px;
-    top: 3.5em;
+    top: 3em;
     position: fixed;
     width: 100%;
-    height: calc(100vh - 3.5em);
+    height: calc(100vh - 3em);
     background-color: antiquewhite;
     text-align: center;
 }

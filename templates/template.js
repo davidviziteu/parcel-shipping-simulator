@@ -42,6 +42,7 @@ function scrollFunction() {
     }
 }
 
+
 var cities = {
     Cluj: ["Cluj-Napoca", "Câmpia Turzii", "Dej", "Gherla", "Huedin", "Turda"],
     Constanta: ["Constanţa", "Băneasa", "Cernavodă", "Eforie", "Hârşova", "Mangalia", "Medgidia", "Murfatlar", "Năvodari", "Negru Vodă", "Ovidiu", "Techirghiol"],
@@ -54,4 +55,4 @@ var cities = {
     Timisoara: ["Timișoara", "Buziaș", "Ciacova", "Deta", "Făget", "Gătaia", "Jimbolia", "Lugoj", "Recaș", "Sâncicolau Mare"]
 }
 
-var listCity = ["Ilfov", "Cluj", "Constanta", "Craiova", "Galati", "Iasi", "Oradea", "Sibiu", "Timisoara"];
+var listCity = ["Ilfov", "Cluj", "Constanța", "Dolj", "Galați", "Iași", "Oradea", "Sibiu", "Timișoara"];
