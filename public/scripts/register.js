@@ -1,3 +1,10 @@
+var fname = document.getElementById("fname").value;
+var lname = document.getElementById("lname").value;
+var adress = document.getElementById("adress").value;
+var email = document.getElementById("email").value;
+var pwd = document.getElementById("pwd").value;
+var phone = document.getElementById("phone").value;
+
 currentbox = 1;
 showbox(currentbox);
 
@@ -22,18 +29,17 @@ function showbox(n) {
 }
 
 function nextPrev(n) {
-    console.log(n);
     if (n == -1) showbox(n);
     else {
         if (currentbox == 1) {
-            var x = document.getElementById("fname").value;
-            if (x == "") {
+            fname = document.getElementById("fname").value;
+            if (fname == "") {
                 document.getElementById("fname").style.backgroundColor = "rgb(211, 110, 110)";
                 return false;
             }
             document.getElementById("fname").style.backgroundColor = "#fbfef7";
-            x = document.getElementById("lname").value;
-            if (x == "") {
+            lname = document.getElementById("lname").value;
+            if (lname == "") {
                 document.getElementById("lname").style.backgroundColor = "rgb(211, 110, 110)";
                 return false;
             }
@@ -43,8 +49,8 @@ function nextPrev(n) {
         }
         else if (currentbox == 2) {
             if (document.getElementById("citySelect").value == "") return false;
-            var x = document.getElementById("adress").value;
-            if (x == "") {
+            adress = document.getElementById("adress").value;
+            if (adress == "") {
                 document.getElementById("adress").style.backgroundColor = "rgb(211, 110, 110)";
                 return false;
             }
@@ -53,38 +59,38 @@ function nextPrev(n) {
             showbox(currentbox);
         }
         else if (currentbox == 3) {
-            var x = document.getElementById("email").value;
-            if (x == "" || /\S+@\S+\.com/.test(x) == false) {
+            email = document.getElementById("email").value;
+            if (email == "" || /\S+@\S+\.com/.test(email) == false) {
                 document.getElementById("email").style.backgroundColor = "rgb(211, 110, 110)";
                 return false;
             }
             document.getElementById("email").style.backgroundColor = "#fbfef7";
-            var x = document.getElementById("pwd").value;
-            if (x == "") {
+            pwd = document.getElementById("pwd").value;
+            if (pwd == "") {
                 document.getElementById("pwd").style.backgroundColor = "rgb(211, 110, 110)";
                 return false;
             }
             var valid = false;
-            if (x.toUpperCase() == x || x.toLowerCase() == x) return false;
-            for (var i = 0; i < x.length; i++) {
-                if (x[i] == 0) valid = true;
-                if (x[i] == 1) valid = true;
-                if (x[i] == 2) valid = true;
-                if (x[i] == 3) valid = true;
-                if (x[i] == 4) valid = true;
-                if (x[i] == 5) valid = true;
-                if (x[i] == 6) valid = true;
-                if (x[i] == 7) valid = true;
-                if (x[i] == 8) valid = true;
-                if (x[i] == 9) valid = true;
+            if (pwd.toUpperCase() == pwd || pwd.toLowerCase() == pwd) return false;
+            for (var i = 0; i < pwd.length; i++) {
+                if (pwd[i] == 0) valid = true;
+                if (pwd[i] == 1) valid = true;
+                if (pwd[i] == 2) valid = true;
+                if (pwd[i] == 3) valid = true;
+                if (pwd[i] == 4) valid = true;
+                if (pwd[i] == 5) valid = true;
+                if (pwd[i] == 6) valid = true;
+                if (pwd[i] == 7) valid = true;
+                if (pwd[i] == 8) valid = true;
+                if (pwd[i] == 9) valid = true;
             }
             if (valid == false) {
                 document.getElementById("pwd").style.backgroundColor = "rgb(211, 110, 110)";
                 return false;
             }
             document.getElementById("pwd").style.backgroundColor = "#fbfef7";
-            var x = document.getElementById("phone").value;
-            if (x.length != 10 || isNaN(x) || x[0] != 0 || x[1] != 7) {
+            phone = document.getElementById("phone").value;
+            if (phone.length != 10 || isNaN(phone) || phone[0] != 0 || phone[1] != 7) {
                 document.getElementById("phone").style.backgroundColor = "rgb(211, 110, 110)";
                 return false;
             }
@@ -93,20 +99,6 @@ function nextPrev(n) {
         }
     }
 }
-
-var cities = {
-    Cluj: ["Câmpia Turzii", "Cluj-Napoca", "Dej", "Gherla", "Huedin", "Turda"],
-    Constanta: ["Băneasa", "Cernavodă", "Constanţa", "Eforie", "Hârşova", "Mangalia", "Medgidia", "Murfatlar", "Năvodari", "Negru Vodă", "Ovidiu", "Techirghiol"],
-    Dolj: ["Băileşti", "Bechet", "Calafat", "Craiova", "Dăbuleni", "Filiaşi", "Segarcea"],
-    Galati: ["Beresti", "Galaţi", "Târgu Bujor", "Tecuci"],
-    Iasi: ["Hârlău", "Iaşi", "Paşcani", "Podu Iloaiei", "Târgu Frumos"],
-    Ilfov: ["Bragadiru", "Buftea", "Chitila", "Măgurele", "Otopeni", "Pantelimon", "Popeşti - Leordeni", "Voluntari"],
-    Oradea: ["Aleşd", "Beiuş", "Marghita", "Nucet", "Oradea", "Salonta", "Săcuieni", "Ştei", "Valea lui Mihai", "Vaşcău"],
-    Sibiu: ["Agnita", "Avrig", "Cisnădie", "Copşa Mică", "Dumbrăveni", "Mediaş", "Miercurea Sibiului", "Ocna Sibiului", "Sălişte", "Sibiu", "Tălmaciu"],
-    Timisoara: ["Buziaș", "Ciacova", "Deta", "Făget", "Gătaia", "Jimbolia", "Lugoj", "Recaș", "Sâncicolau Mare", "Timișoara"]
-}
-
-var listCity = ["Ilfov", "Cluj", "Constanta", "Craiova", "Galati", "Iasi", "Oradea", "Sibiu", "Timisoara"];
 
 var clientName, consigneeName, clientAddress, consigneeAddress;
 

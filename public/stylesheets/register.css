@@ -25,6 +25,10 @@ body{
     height: 2em;
 }
 
+.input-box:focus{
+    outline: none;
+}
+
 #nextBtn{
     background-color: lightgreen;
 }

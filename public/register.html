@@ -26,29 +26,27 @@
         </div>
     </nav>
     <menu class="hidden">
-        <div>
+        <li>
             Locații
-        </div>
-        <div>
+        </li>
+        <li>
             Despre noi
-        </div>
-        <div>
+        </li>
+        <li>
             Verificare AWB
-        </div>
-        <div>
-            Estimare cost
-        </div>
-        <div>
+        </li>
+        <li>
             Contact
-        </div>
+        </li>
     </menu>
     <main>
         <div class="box inBox">
             <h4>Register</h4>
             <form id="form">
                 <div class="box">
-                    <input class="input-box" type="text" id="fname" name="fname" placeholder="Nume">
-                    <input class="input-box" type="text" id="lname" name="lname" placeholder="Prenumele">
+                    <input class="input-box" type="text" id="fname" name="fname" placeholder="Nume" autocomplete="off">
+                    <input class="input-box" type="text" id="lname" name="lname" placeholder="Prenumele"
+                        autocomplete="off">
                 </div>
                 <div class="box">
                     <select class="input-box" id="citySelect" onchange="local(this.value)">
@@ -56,13 +54,15 @@
                     <select class="input-box" id="placeSelect">
                         <option value="" disabled selected>Alege orasul</option>
                     </select>
-                    <input class="input-box" id="adress" name="adress" placeholder="Adresa">
+                    <input class="input-box" id="adress" name="adress" placeholder="Adresa" autocomplete="off">
                 </div>
                 <div class="box">
-                    <input class="input-box" type="email" id="email" name="email" placeholder="Email">
+                    <input class="input-box" type="email" id="email" name="email" placeholder="Email"
+                        autocomplete="off">
                     <input class="input-box" type="password" id="pwd" name="pwd"
-                        placeholder="Parola: minim o litera mica,una mare si o cifra">
-                    <input class="input-box" type="tel" id="phone" name="phone" placeholder="Telefon">
+                        placeholder="Parola: minim o litera mica,una mare si o cifra" autocomplete="off">
+                    <input class="input-box" type="tel" id="phone" name="phone" placeholder="Telefon"
+                        autocomplete="off">
                 </div>
                 <div class="button-container">
                     <button class="button-container" type="button" id="prevBtn" onclick="nextPrev(-1)">Anterior</button>
