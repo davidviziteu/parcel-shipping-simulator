@@ -1,12 +1,19 @@
-:root{
+:root {
     --orange-accent: #f08732e7;
     --green-accent: rgb(0, 145, 31);
 }
 
+main {
+    padding: 0px;
+}
 
 .progress-arrow,
 .status {
     text-align: center;
+}
+
+label {
+    font-size: 1.7em;
 }
 
 .progress-arrow img {
@@ -14,6 +21,19 @@
     width: 30px;
 }
 
+img {
+    height: 30px;
+    width: 30px;
+}
+
+.calendar img {
+    margin-right: 3%;
+}
+
+input#dataLivrare {
+    margin: 0px;
+    width: 99%;
+}
 
 .collapsable-list {
     text-align: center;
@@ -21,16 +41,22 @@
     transition: max-height 0.2s ease-out;
 }
 
+.no-space {
+    margin: 0px !important;
+}
+
+
 /* dai uncomment la astea si zici daca ti place; daca da, tre modificata pe templates */
-.button-container button{
+
+.button-container button {
     /* font-size: 1.3em;
     height: 2.5em; */
 }
 
-.progress-done{
+.progress-done {
     background-color: var(--green-accent);
 }
 
-.progress-now{
+.progress-now {
     background-color: var(--orange-accent);
 }

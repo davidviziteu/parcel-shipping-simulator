@@ -9,7 +9,7 @@ let forgot = document.getElementById(`forgot`);
 let submit = document.getElementById(`continue`);
 let expandableItems = document.getElementsByClassName(`expandable`);
 
-window.onload = function () {
+window.onload = function() {
     resetEmail.style.display = "none";
     resetPass.style.display = "none";
     detalii.style.display = "none";
@@ -35,17 +35,18 @@ function hide(idElement) {
     document.getElementById(idElement).style.display = "none";
 }
 
-function hideMore() {
+forgot.addEventListener(`click`, () => {
     email.style.display = "none";
     password.style.display = "none";
     forgot.style.display = "none";
     submit.style.display = "none";
     resetEmail.style.display = "block";
     resetPass.style.display = "block";
-}
+
+})
 for (let i = 0; i < expandableItems.length; ++i) {
     let bttn = expandableItems[i]
-    bttn.addEventListener(`click`, function () {
+    bttn.addEventListener(`click`, function() {
         let associatedList = this.nextElementSibling
         if (associatedList && associatedList.tagName == `UL`) {
             associatedList.toggleAttribute(`hidden`)
