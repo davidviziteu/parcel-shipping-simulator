@@ -33,44 +33,44 @@ buttonStatus.addEventListener('click', () => {
 )
 
 buttonAccident.addEventListener('click', () => {
-    var color = check[0].style.background
-    check[0].style.background = 'lime'
-    if (color == 'lime') check[0].style.background = 'white'
+    var change = check[0].checked
+    check[0].checked = true
+    if (change == true) check[0].checked = false
 }
 )
 
 buttonMeteo.addEventListener('click', () => {
-    var color = check[1].style.background
-    check[1].style.background = 'lime'
-    if (color == 'lime') check[1].style.background = 'white'
+    var change = check[1].checked
+    check[1].checked = true
+    if (change == true) check[1].checked = false
 }
 )
 
 buttonDefectiuni.addEventListener('click', () => {
-    var color = check[2].style.background
-    check[2].style.background = 'lime'
-    if (color == 'lime') check[2].style.background = 'white'
+    var change = check[2].checked
+    check[2].checked = true
+    if (change == true) check[2].checked = false
 }
 )
 
 buttonClient.addEventListener('click', () => {
-    var color = check[3].style.background
-    check[3].style.background = 'lime'
-    if (color == 'lime') check[3].style.background = 'white'
+    var change = check[3].checked
+    check[3].checked = true
+    if (change == true) check[3].checked = false
 }
 )
 
 buttonContinut.addEventListener('click', () => {
-    var color = check[4].style.background
-    check[4].style.background = 'lime'
-    if (color == 'lime') check[4].style.background = 'white'
+    var change = check[4].checked
+    check[4].checked = true
+    if (change == true) check[4].checked = false
 }
 )
 
 buttonLivrat.addEventListener('click', () => {
-    var color = check[5].style.background
-    check[5].style.background = 'lime'
-    if (color == 'lime') check[5].style.background = 'white'
+    var change = check[5].checked
+    check[5].checked = true
+    if (change == true) check[5].checked = false
 }
 )
 

@@ -9,27 +9,18 @@
 }
 
 .listSofer{
-    width: 95% ;
+    width: 90% ;
     flex: unset;
 }
 
 .check{
-    border-radius: 50%;
     pointer-events: none;
-    background-color: white;
 }
-
 @media screen and (max-width:800px){
     .listSofer{
         width: 90% ;
         flex: unset;
     }
-
-    .check{
-        border-radius: 50%;
-        background-color: white;    
-    }
-
     .big > .box{
         margin:auto;
         padding-left: auto ;
