@@ -1,0 +1,10 @@
+.progress-arrow,
+.button-container div,
+.status {
+    text-align: center;
+}
+
+.progress-arrow img {
+    height: 30px;
+    width: 30px;
+}

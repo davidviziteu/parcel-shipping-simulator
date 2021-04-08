@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <title>PSS</title>
+    <link rel='stylesheet' type='text/css' media='screen' href='../templates/template.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='../public/stylesheets/DashboardClient.css'>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,300&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <nav>
+        <div id="here">
+            <button id="hamburger">
+            </button>
+            <div>
+                Dashboard Client
+            </div>
+            <div id="login-info">
+                Bună!
+            </div>
+        </div>
+    </nav>
+    <menu class="hidden">
+        <li>
+            Locații
+        </li>
+        <li>
+            Despre noi
+        </li>
+        <li>
+            Verificare AWB
+        </li>
+        <li>
+            Contact
+        </li>
+    </menu>
+    <main>
+        <section class="big">
+            <div class="wide box" id="awb-title">
+                <h4>AWB:</h4>
+            </div>
+            <div class="box">
+                <h2>Detalii locație pachet</h2>
+
+                <div class="progress-arrow">
+                    <img src="./assets/checkbox.png">
+                </div>
+                <div class="button-container" onclick="showList(`status1`)">
+                    <button>Comanda a fost plasată</button>
+                </div>
+                <ol hidden id="status1" class="status">
+                    <li> Comandă acceptată și în curs de procesare.
+                    </li>
+                    <li>
+                        Data :
+                    </li>
+                    <li>
+                        Ora :
+                    </li>
+                </ol>
+                <div class="progress-arrow">
+                    <img src="./assets/checkbox.png">
+                </div>
+                <div class="button-container" onclick="showList(`status2`)">
+                    <button>În tranzit</button>
+                </div>
+                <ol hidden id="status2" class="status">
+                    <li> Coletul a fost preluat de la expeditor
+                    </li>
+                    <li>
+                        și este în drum spre centrul de expediere.
+                    </li>
+                    <li>
+                        Data :
+                    </li>
+                    <li>
+                        Ora :
+                    </li>
+                </ol>
+                <div class="progress-arrow">
+                    <img src="./assets/checkbox.png">
+                </div>
+                <div class="button-container" onclick="showList(`status3`)">
+                    <button>Centru de expedieri</button>
+                </div>
+                <ol hidden id="status3" class="status">
+                    <li> Coletul a ajuns în centrul de expediere
+                    </li>
+                    <li>
+                        și urmează să fie preluat de către un curier.
+                    </li>
+                    <li>
+                        Data :
+                    </li>
+                    <li>
+                        Ora :
+                    </li>
+                </ol>
+                <div class="progress-arrow">
+                    <img src="./assets/checkbox.png">
+                </div>
+                <div class="button-container" onclick="showList(`status4`)">
+                    <button>În livrare</button>
+                </div>
+                <ol hidden id="status4" class="status">
+                    <li> Coletul a fost preluat de către un curier
+                    </li>
+                    <li>
+                        și este în curs de livrare.
+                    </li>
+                    <li>
+                        Data :
+                    </li>
+                    <li>
+                        Ora :
+                    </li>
+                </ol>
+                <div class="progress-arrow">
+                    <img src="./assets/checkbox.png">
+                </div>
+                <div class="button-container" onclick="showList(`status5`)">
+                    <button>Livrat</button>
+                </div>
+                <ol hidden id="status5" class="status">
+                    <li> Coletul a fost livrat.
+                    </li>
+                    <li>
+                        Data :
+                    </li>
+                    <li>
+                        Ora :
+                    </li>
+                </ol>
+            </div>
+            <div class="box" id="autentificare">
+                <h2>Intră în cont pentru mai multe opțiuni</h2>
+                <form id="login-form" action="">
+                    <input class="input-box" type="email" id="resetEmail" placeholder="Email" required>
+                    <input class="input-box" type="email" id="email" name="fname" placeholder="Email" required>
+                    <input class="input-box" type="password" id="password" name="lname" placeholder="Parolă" required>
+                    <div class="button-container">
+                        <input type="submit" id="continue" value="Intră în cont">
+                        <button id="forgot" onclick="hideMore()">Am uitat parola</button>
+                        <input type="submit" id="resetPass" value="Resetează parola" onclick="showList(`mailSent`)">
+                    </div>
+                    <ol id="mailSent" hidden class="status">
+                        <li>A fost trimis un mail de resetare a parolei.</li>
+                    </ol>
+                </form>
+            </div>
+            <div class="box" id="DetaliiComanda">
+                <h2>Informații expediere</h2>
+                <div class="button-container" onclick="showList(`numarColet`)">
+                    <button>Număr colet</button>
+                </div>
+                <ol hidden id="numarColet" class="status">
+                    <li>73434767</li>
+                </ol>
+                <div class="button-container" onclick="showList(`numeExpeditor`)">
+                    <button>Nume expeditor</button>
+                </div>
+                <ol hidden id="numeExpeditor" class="status">
+                    <li>Vînă Andreea Mădălina</li>
+                </ol>
+                <div class="button-container" onclick="showList(`adresa`)">
+                    <button>Adresă</button>
+                </div>
+                <ol hidden id="adresa" class="status">
+                    <li>Strada Clopotari</li>
+                    <li>Numărul 15</li>
+                    <li>Bloc 634</li>
+                </ol>
+            </div>
+            <div class="box" id="reprogrameazaLivrarea">
+                <h2>Reprogramează livrarea</h2>
+                <h2>Reprogramează livrarea</h2>
+                <h2>Reprogramează livrarea</h2>
+            </div>
+        </section>
+    </main>
+    <script src='../templates/template.js'></script>
+    <script src='../public/scripts/DashboardClient.js'></script>
+</body>
+
+</html>
