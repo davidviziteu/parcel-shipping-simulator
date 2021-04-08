@@ -1,16 +1,3 @@
-// let loginForm = document.getElementById("login-form")
-// let loginBox = document.getElementById(`login-box`)
-// let resetBttn = document.getElementById("reset-password")
-// let resetForm = loginForm.cloneNode()
-
-// resetBttn.addEventListener(`click`, () => {
-//     loginForm.replaceChild(resetForm, loginForm)
-// })
-
-
-// resetForm.action = `reset action`
-// resetForm.appendChild(loginForm.childNodes[0])
-
 let sourceSelector = document.getElementById(`judet-exp`)
 let destinationSelector = document.getElementById(`judet-dest`)
 let estimateCost = document.getElementById(`estimate-cost-button`)
@@ -31,6 +18,7 @@ estimateCost.addEventListener(`click`, () => {
         totalCost.innerHTML = `Alegeți județul expeditorului`
     else if (to == `default`)
         totalCost.innerHTML = `Alegeți județul destinatarului`
-        
-    else totalCost.innerHTML = `${from} -> ${to}: până la 35 RON`
+    else if (to == from)
+        totalCost.innerHTML = `Expediere în același județ (${from}): aproximativ 20 RON`
+    else totalCost.innerHTML = `${from} -> ${to}: aproximativ 35 RON`
 })
