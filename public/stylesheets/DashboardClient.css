@@ -1,5 +1,10 @@
+:root{
+    --orange-accent: #f08732e7;
+    --green-accent: rgb(0, 145, 31);
+}
+
+
 .progress-arrow,
-.button-container div,
 .status {
     text-align: center;
 }
@@ -7,4 +12,25 @@
 .progress-arrow img {
     height: 30px;
     width: 30px;
+}
+
+
+.collapsable-list {
+    text-align: center;
+    list-style-type: none;
+    transition: max-height 0.2s ease-out;
+}
+
+/* dai uncomment la astea si zici daca ti place; daca da, tre modificata pe templates */
+.button-container button{
+    /* font-size: 1.3em;
+    height: 2.5em; */
+}
+
+.progress-done{
+    background-color: var(--green-accent);
+}
+
+.progress-now{
+    background-color: var(--orange-accent);
 }

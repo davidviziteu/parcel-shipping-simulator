@@ -50,10 +50,10 @@
                 <div class="progress-arrow">
                     <img src="./assets/checkbox.png">
                 </div>
-                <div class="button-container" onclick="showList(`status1`)">
-                    <button>Comanda a fost plasată</button>
+                <div class="button-container expandable">
+                    <button type="button" class="progress-done">Comanda a fost plasată</button>
                 </div>
-                <ol hidden id="status1" class="status">
+                <ul hidden id="status1" class="collapsable-list">
                     <li> Comandă acceptată și în curs de procesare.
                     </li>
                     <li>
@@ -62,14 +62,14 @@
                     <li>
                         Ora :
                     </li>
-                </ol>
+                </ul>
                 <div class="progress-arrow">
                     <img src="./assets/checkbox.png">
                 </div>
-                <div class="button-container" onclick="showList(`status2`)">
-                    <button>În tranzit</button>
+                <div class="button-container expandable">
+                    <button type="button" class="progress-done">În tranzit</button>
                 </div>
-                <ol hidden id="status2" class="status">
+                <ul hidden id="status2" class="collapsable-list">
                     <li> Coletul a fost preluat de la expeditor
                     </li>
                     <li>
@@ -81,14 +81,14 @@
                     <li>
                         Ora :
                     </li>
-                </ol>
+                </ul>
                 <div class="progress-arrow">
                     <img src="./assets/checkbox.png">
                 </div>
-                <div class="button-container" onclick="showList(`status3`)">
-                    <button>Centru de expedieri</button>
+                <div class="button-container expandable">
+                    <button type="button" class="progress-now">Centru de expedieri</button>
                 </div>
-                <ol hidden id="status3" class="status">
+                <ul hidden id="status3" class="collapsable-list">
                     <li> Coletul a ajuns în centrul de expediere
                     </li>
                     <li>
@@ -100,14 +100,14 @@
                     <li>
                         Ora :
                     </li>
-                </ol>
+                </ul>
                 <div class="progress-arrow">
                     <img src="./assets/checkbox.png">
                 </div>
-                <div class="button-container" onclick="showList(`status4`)">
-                    <button>În livrare</button>
+                <div class="button-container expandable">
+                    <button type="button">În livrare</button>
                 </div>
-                <ol hidden id="status4" class="status">
+                <ul hidden id="status4" class="collapsable-list">
                     <li> Coletul a fost preluat de către un curier
                     </li>
                     <li>
@@ -119,15 +119,16 @@
                     <li>
                         Ora :
                     </li>
-                </ol>
+                </ul>
                 <div class="progress-arrow">
                     <img src="./assets/checkbox.png">
                 </div>
-                <div class="button-container" onclick="showList(`status5`)">
-                    <button>Livrat</button>
+                <div class="button-container expandable">
+                    <button type="button">Livrat</button>
                 </div>
-                <ol hidden id="status5" class="status">
-                    <li> Coletul a fost livrat.
+                <ul hidden id="status5" class="collapsable-list">
+                    <li>
+                        Coletul a fost livrat.
                     </li>
                     <li>
                         Data :
@@ -135,7 +136,7 @@
                     <li>
                         Ora :
                     </li>
-                </ol>
+                </ul>
             </div>
             <div class="box" id="autentificare">
                 <h2>Intră în cont pentru mai multe opțiuni</h2>
@@ -148,33 +149,33 @@
                         <button id="forgot" onclick="hideMore()">Am uitat parola</button>
                         <input type="submit" id="resetPass" value="Resetează parola" onclick="showList(`mailSent`)">
                     </div>
-                    <ol id="mailSent" hidden class="status">
+                    <ol id="mailSent" hidden class="collapsable-list">
                         <li>A fost trimis un mail de resetare a parolei.</li>
-                    </ol>
+                        </ul>
                 </form>
             </div>
             <div class="box" id="DetaliiComanda">
                 <h2>Informații expediere</h2>
-                <div class="button-container" onclick="showList(`numarColet`)">
-                    <button>Număr colet</button>
+                <div class="button-container expandable">
+                    <button type="button">Număr colet</button>
                 </div>
-                <ol hidden id="numarColet" class="status">
+                <ul hidden id="numarColet" class="collapsable-list">
                     <li>73434767</li>
-                </ol>
-                <div class="button-container" onclick="showList(`numeExpeditor`)">
-                    <button>Nume expeditor</button>
+                </ul>
+                <div class="button-container expandable">
+                    <button type="button">Nume expeditor</button>
                 </div>
-                <ol hidden id="numeExpeditor" class="status">
+                <ul hidden id="numeExpeditor" class="collapsable-list">
                     <li>Vînă Andreea Mădălina</li>
-                </ol>
-                <div class="button-container" onclick="showList(`adresa`)">
-                    <button>Adresă</button>
+                </ul>
+                <div class="button-container expandable">
+                    <button type="button">Adresă</button>
                 </div>
-                <ol hidden id="adresa" class="status">
+                <ul hidden id="adresa" class="collapsable-list">
                     <li>Strada Clopotari</li>
                     <li>Numărul 15</li>
                     <li>Bloc 634</li>
-                </ol>
+                </ul>
             </div>
             <div class="box" id="reprogrameazaLivrarea">
                 <h2>Reprogramează livrarea</h2>
