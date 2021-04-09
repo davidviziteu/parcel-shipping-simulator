@@ -1,6 +1,7 @@
 :root{
     --orange-accent: #f08732e7;
     --green-accent: rgb(0, 145, 31);
+    --red-accent: rgba(255, 70, 70, 0.952);
 }
 
 .progress-arrow,
@@ -41,4 +42,12 @@ ul > li{
 
 .progress-now{
     background-color: var(--orange-accent);
+}
+
+.progress-invalid{
+    background-color: var(--red-accent);
+}
+
+.progress-disabled{
+    background-color: rgb(168, 168, 168);
 }
