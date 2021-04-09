@@ -1,0 +1,54 @@
+:root {
+    --orange-accent: #f08732e7;
+    --green-accent: rgb(0, 145, 31);
+}
+
+main {
+    padding: 0px;
+}
+
+.progress-arrow,
+.status {
+    text-align: center;
+}
+
+label {
+    font-size: 1.7em;
+}
+
+.progress-arrow img {
+    height: 30px;
+    width: 30px;
+}
+
+img {
+    height: 30px;
+    width: 30px;
+    margin-right: 3%;
+}
+
+.title-with-image {
+    margin-right: 3%;
+}
+
+.input-box#adresa {
+    width: 93%;
+}
+
+.collapsable-list {
+    text-align: center;
+    list-style-type: none;
+    transition: max-height 0.2s ease-out;
+}
+
+.no-space {
+    margin: 0px !important;
+}
+
+.progress-done {
+    background-color: var(--green-accent);
+}
+
+.progress-now {
+    background-color: var(--orange-accent);
+}
