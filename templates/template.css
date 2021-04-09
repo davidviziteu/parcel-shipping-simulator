@@ -249,5 +249,7 @@ main {
 
     .big>.box {
         width: 90% !important;
+        margin:auto;
+        padding-left: auto ;
     }
 }
