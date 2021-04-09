@@ -44,20 +44,36 @@
             <div class="box" id="login-box">
                 <h4>Login</h4>
                 <form id="login-form" action="">
-                    <input class="input-box" type="text" id="username-input" name="fname" placeholder="Email"><br>
-                    <input class="input-box" type="password" id="username-input" name="lname"
-                        placeholder="Parolă"><br><br>
+                    <input class="input-box" type="text" id="username-input" name="fname" placeholder="Email" required>
+                    <input class="input-box" type="password" id="username-input" name="lname" placeholder="Parolă"
+                        required>
                     <div class="button-container">
                         <input type="submit" value="Login">
-                        <!-- <input id="toggle-reset" type="button" value="Resetare parolă"> -->
                         <button id="reset-password">
-                            <a href="">
+                            <a href="./ResetPassword.html">
                                 Resetare parolă
                             </a>
                         </button>
                         <button>
-                            <a href="../templates/template.html">
+                            <a href="./register.html">
                                 Cont nou
+                            </a>
+                        </button>
+                    </div>
+                    <div class="button-container">
+                        <button>
+                            <a href="./register.html">
+                                (demo) login client
+                            </a>
+                        </button>
+                        <button>
+                            <a href="./register.html">
+                                (demo) login admin
+                            </a>
+                        </button>
+                        <button>
+                            <a href="./register.html">
+                                (demo) login sofer
                             </a>
                         </button>
                     </div>
@@ -93,7 +109,9 @@
                     <input class="input-box" type="text" id="awb-input" name="awb-input" placeholder="AWB"><br>
                     <div class="button-container">
                         <button type="button" id="estimate-cost-button">
-                            Urmărește
+                            <a href="./.html">
+                                Urmărește
+                            </a>
                         </button>
                     </div>
                 </form>
