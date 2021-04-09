@@ -21,8 +21,4 @@
         width: 85% ;
         flex: unset;
     }
-    .big > .box{
-        margin:auto;
-        padding-left: auto ;
-    }
 }

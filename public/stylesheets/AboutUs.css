@@ -1,11 +1,11 @@
     body {
-        background-image: url('../newBackgroung.jpg');
+        background-image: url('../assets/newBackgroung.jpg');
         overflow-x: hidden;
     }
     
     section {
         margin-top: 2% !important;
-        flex-wrap: row wrap;
+        flex-wrap: wrap;
         align-self: center;
     }
     
