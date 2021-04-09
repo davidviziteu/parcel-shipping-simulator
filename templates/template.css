@@ -1,20 +1,24 @@
-/* COLORS:
-#fbfef7 alb deschis
-#e4e8da alb mai inchis
-#b8cacc albastru extrordinar de deschis
-#9ab2b2 albastru gri
-#899998 albastru mai gri
-#1d7ba7 albastru deschis 
-#6fa6ab turcoaz
-#3d7e80 turcoaz inchis
-#2e6369 turcoaz mai inchis
-#2d4549 turcoaz negru
-*/
+
+:root{
+    --alb-deschis: #fbfef7;
+    --alb-mai-inchis: #e4e8da;
+    --albastru-extrordinar-de-deschis: #b8cacc;
+    --albastru-gri: #9ab2b2;
+    --albastru-mai-gri: #899998;
+    --albastru-deschis : #1d7ba7;
+    --turcoaz: #6fa6ab;
+    --turcoaz-inchis: #3d7e80;
+    --turcoaz-mai-inchis: #2e6369;
+    --turcoaz-negru: #2d4549;
+    
+    --box-background: #1d7ba736;
+}
 
 body {
     background-color: #fbfef7;
     font-family: 'Poppins', sans-serif;
-    background-image: url('https://i.pinimg.com/originals/04/e9/10/04e910cd6c11b1784be7efbd44bcabe9.jpg');
+    /* background-image: url('https://i.pinimg.com/originals/04/e9/10/04e910cd6c11b1784be7efbd44bcabe9.jpg'); */
+    background-image: url('../public/assets/newBackgroung.jpg');
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: 120% 100%;
@@ -34,7 +38,7 @@ section {
 }
 
 .box {
-    background-color: #1d7ba7c4;
+    background-color: var(--box-background);
     color: white;
     border: #333 solid;
     border-radius: 1.2em;
@@ -49,7 +53,7 @@ section {
 }
 
 .big{
-    background-color: #1d7ba7c4;
+    background-color: var(--box-background);
     margin: 70px 5px 0px 5px;
     display: flex;
     flex-flow: row wrap !important;
