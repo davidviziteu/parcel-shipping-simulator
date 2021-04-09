@@ -173,6 +173,7 @@ menu {
     height: calc(100vh - 3em);
     background-color: antiquewhite;
     text-align: center;
+    z-index: 3;
 }
 
 menu > * {
@@ -188,7 +189,7 @@ nav {
     height: 3.5em;
     padding: 0px ;
     transition: 0.4s;
-    z-index: 1;
+    z-index: 4;
 }
 
 nav button {
