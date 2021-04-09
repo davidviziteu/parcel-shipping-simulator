@@ -230,8 +230,8 @@ main {
 @media screen and (max-width: 800px) {
     section {
         display: flex;
-        justify-content: space-between;
         flex-direction: column;
+        justify-content: space-between;
         align-items: center;
     }
     .box {
@@ -241,8 +241,8 @@ main {
         margin: 10px;
         display: flex;
         flex-direction: column;
+        align-self: center;
         border-color: #9ab2b2;
-        /*nu stiu dc nu se pastreaza culoarea si pe mobile si se fac negre*/
     }
     .box>* {
         font-size: medium;

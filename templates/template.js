@@ -11,13 +11,13 @@ hamburgerMenu.addEventListener(`click`, () => {
         // disableScroll();
         var x = document.getElementsByTagName("body")[0];
         x.style.overflow = "hidden";
-    } else {
+    }
+    else {
         var x = document.getElementById("cityChart");
         if (x != null) x.style.display = "block"
         var x = document.getElementById("localChart");
         if (x != null) x.style.display = "block"
         menu.className = `hidden`
-            // enableScroll()
         var x = document.getElementsByTagName("body")[0];
         x.style.overflowY = "scroll"
     }
@@ -28,16 +28,16 @@ function disableScroll() {
     scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
 
-        window.onscroll = function() {
+        window.onscroll = function () {
             window.scrollTo(scrollLeft, scrollTop);
         };
 }
 
 function enableScroll() {
-    window.onscroll = function() {};
+    window.onscroll = function () { };
 }
 
-window.onscroll = function() { scrollFunction(); };
+window.onscroll = function () { scrollFunction(); };
 
 function scrollFunction() {
     var navbar = document.getElementsByTagName("nav")[0]
