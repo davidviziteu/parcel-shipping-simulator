@@ -96,8 +96,14 @@ function nextPrev(n) {
             }
             document.getElementById("phone").style.backgroundColor = "#fbfef7";
             document.getElementById("form").submit();
+            redirect();
         }
     }
+}
+
+function redirect() {
+    window.location.href = "../public/afterRegister.html";
+    return false;
 }
 
 var clientName, consigneeName, clientAddress, consigneeAddress;
