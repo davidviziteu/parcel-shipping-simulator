@@ -7,6 +7,9 @@ function numeButoane() {
     }
 }
 
+
+
+
 window.onload = function () { numeButoane() }
 
 function statisticaNouaJudet(value) {
