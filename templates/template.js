@@ -3,14 +3,22 @@ let menu = document.getElementsByTagName(`menu`)[0]
 
 hamburgerMenu.addEventListener(`click`, () => {
     if (menu.className.includes(`hidden`)) {
+        var x = document.getElementById("cityChart");
+        if (x != null) x.style.display = "none"
+        var x = document.getElementById("localChart");
+        if (x != null) x.style.display = "none"
         menu.className = ``;
         // disableScroll();
         var x = document.getElementsByTagName("body")[0];
         x.style.overflow = "hidden";
     }
     else {
+        var x = document.getElementById("cityChart");
+        if (x != null) x.style.display = "block"
+        var x = document.getElementById("localChart");
+        if (x != null) x.style.display = "block"
         menu.className = `hidden`
-        // enableScroll();
+        // enableScroll()
         var x = document.getElementsByTagName("body")[0];
         x.style.overflowY = "scroll"
     }
@@ -42,6 +50,7 @@ function scrollFunction() {
     }
 }
 
+
 var cities = {
     Cluj: ["Cluj-Napoca", "Câmpia Turzii", "Dej", "Gherla", "Huedin", "Turda"],
     Constanta: ["Constanţa", "Băneasa", "Cernavodă", "Eforie", "Hârşova", "Mangalia", "Medgidia", "Murfatlar", "Năvodari", "Negru Vodă", "Ovidiu", "Techirghiol"],
@@ -54,4 +63,4 @@ var cities = {
     Timisoara: ["Timișoara", "Buziaș", "Ciacova", "Deta", "Făget", "Gătaia", "Jimbolia", "Lugoj", "Recaș", "Sâncicolau Mare"]
 }
 
-var listCity = ["Ilfov", "Cluj", "Constanta", "Craiova", "Galati", "Iasi", "Oradea", "Sibiu", "Timisoara"];
+var listCity = ["Ilfov", "Cluj", "Constanța", "Dolj", "Galați", "Iași", "Oradea", "Sibiu", "Timișoara"];
