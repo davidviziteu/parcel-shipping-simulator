@@ -1,0 +1,74 @@
+    body {
+        background-image: url('../newBackgroung.jpg');
+        overflow-x: hidden;
+    }
+    
+    section {
+        margin-top: 2% !important;
+        flex-wrap: row wrap;
+        align-self: center;
+    }
+    
+    img {
+        border-radius: 1.2em;
+        height: inherit;
+        width: inherit;
+        object-fit: cover;
+        z-index: 2;
+    }
+    
+    .exit {
+        object-position: top !important;
+        height: 40px !important;
+        width: 40px !important;
+    }
+    
+    .picture-box {
+        align-self: center;
+        background-color: white;
+        height: 75vh;
+        width: 25vw;
+        margin: 5px;
+        padding: 1px 1px;
+        border-radius: 1.2em;
+        border: rgba(51, 51, 51, 0.315) solid;
+    }
+    
+    .picture-box * {
+        position: absolute;
+        height: inherit;
+        width: inherit;
+    }
+    
+    .picture-box div {
+        color: orange;
+        text-align: center;
+        align-self: center;
+        font-size: 2.2vw;
+        z-index: 1;
+        overflow: hidden;
+    }
+    
+    .description {
+        color: rosybrown !important;
+    }
+    
+    .disable {
+        opacity: 0.5;
+    }
+    
+    @media screen and (max-width: 900px) {
+        section {
+            display: flex;
+            justify-content: space-between;
+            flex-direction: column;
+            align-items: center;
+        }
+        .picture-box {
+            height: 65vh;
+            width: 75vw;
+        }
+        .picture-box div {
+            font-size: 7.5vw !important;
+        }
+    }
