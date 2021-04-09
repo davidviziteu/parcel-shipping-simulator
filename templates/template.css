@@ -55,7 +55,6 @@ section {
     flex-flow: row wrap !important;
     align-items: baseline !important;
     justify-content: left;
-    padding: none;
     border: #333 solid;
     border-radius: 1.2em;
     border-color: #9ab2b2;
@@ -222,9 +221,6 @@ nav>* {
 main {
     padding: 16px;
     margin-top: 30px;
-    /* display: flex;
-    align-items: center;
-    flex-direction: column; */
 }
 
 @media screen and (max-width: 800px) {
@@ -250,6 +246,5 @@ main {
     .big>.box {
         width: 90% !important;
         margin:auto;
-        padding-left: auto ;
     }
 }
