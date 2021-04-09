@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="ro">
 
 <head>
     <meta charset='utf-8'>
@@ -43,15 +43,18 @@
     <main>
         <section class="big">
             <div class="wide box" id="awb-title">
-                <h4>AWB:</h4>
+                <h2>AWB:</h2>
             </div>
             <div class="box">
                 <div class="title-with-image">
-                    <img src="./assets/parcel.png">
+                    <img src="./assets/parcel.png" alt="">
                     <label>Detalii locație pachet</label>
                 </div>
                 <div class="button-container expandable">
-                    <button type="button" class="progress-done">Comanda a fost plasată</button>
+                    <button type="button" class="progress-done title-with-image">
+                            <img src="./assets/counseling.png" alt="">
+                             Comanda a fost plasată
+                    </button>
                 </div>
                 <ul hidden id="status1" class="collapsable-list">
                     <li> Comandă acceptată și în curs de procesare.
@@ -65,10 +68,12 @@
                 </ul>
                 <div class="progress-arrow">
                     <img src="./assets/arrow.png" alt="down-arrow">
-
                 </div>
                 <div class="button-container expandable">
-                    <button type="button" class="progress-done">În tranzit</button>
+                    <button type="button" class="progress-done title-with-image">
+                            <img src="./assets/box.png" alt="">
+                            În tranzit
+                    </button>
                 </div>
                 <ul hidden id="status2" class="collapsable-list">
                     <li> Coletul a fost preluat de la expeditor
@@ -88,7 +93,10 @@
 
                 </div>
                 <div class="button-container expandable">
-                    <button type="button" class="progress-now">Centru de expedieri</button>
+                    <button type="button" class="progress-now title-with-image">
+                            <img src="./assets/distribution.png" alt="">
+                            Centru de expedieri
+                    </button>
                 </div>
                 <ul hidden id="status3" class="collapsable-list">
                     <li> Coletul a ajuns în centrul de expediere
@@ -108,7 +116,10 @@
 
                 </div>
                 <div class="button-container expandable">
-                    <button type="button">În livrare</button>
+                    <button type="button" class="title-with-text">
+                            <img src="./assets/telephone.png" alt="">
+                            În livrare
+                    </button>
                 </div>
                 <ul hidden id="status4" class="collapsable-list">
                     <li> Coletul a fost preluat de către un curier
@@ -128,7 +139,10 @@
 
                 </div>
                 <div class="button-container expandable">
-                    <button type="button">Livrat</button>
+                    <button type="button" class="title-with-text">
+                            <img src="./assets/review.png" alt="">
+                            Livrat
+                    </button>
                 </div>
                 <ul hidden id="status5" class="collapsable-list">
                     <li>
@@ -144,29 +158,28 @@
             </div>
             <div class="box" id="autentificare">
                 <div class="title-with-image">
-                    <img src="./assets/login.png">
+                    <img src="./assets/login.png" alt="">
                     <label>Intră în cont pentru mai multe opțiuni</label>
                 </div>
-                <form id="login-form" action="">
+                <form id="login-form">
                     <input class="input-box" type="email" id="resetEmail" placeholder="Email" required>
                     <input class="input-box" type="email" id="email" name="fname" placeholder="Email" required>
                     <input class="input-box" type="password" id="password" name="lname" placeholder="Parolă" required>
                     <div class="button-container">
                         <input type="submit" id="continue" value="Intră în cont">
-                        <button id="forgot">Am uitat parola</button>
-                        <input type="submit" id="resetPass" value="Resetează parola" onclick="showList(`mailSent`)">
+                        <input type="button" id="forgot" value="Am uitat parola">
+                        <input type="button" id="resetPass" value="Resetează parola" onclick="showList(`mailSent`)">
                     </div>
                     <ol id="mailSent" hidden class="collapsable-list">
                         <li>A fost trimis un mail de resetare a parolei.</li>
-                        </ul>
+                    </ol>
                 </form>
             </div>
             <div class="box" id="DetaliiComanda">
                 <div class="title-with-image">
-                    <img src="./assets/info.png">
+                    <img src="./assets/info.png" alt="">
                     <label>Informații expediere</label>
                 </div>
-
                 <div class="button-container expandable">
                     <button type="button">Număr colet</button>
                 </div>
@@ -188,25 +201,25 @@
                     <li>Bloc 634</li>
                 </ul>
                 <div class="title-with-image">
-                    <img src="./assets/calendar.png">
+                    <img src="./assets/calendar.png" alt="">
                     <label>Reprogramează livrarea</label>
                 </div>
                 <form>
-                    <input class="input-box" type="date" value="Noua dată de livrare" id="dataLivrare">
+                    <input class="input-box" type="date" id="dataLivrare">
                     <div class="button-container expandable">
-                        <button type="button" id="change">Schimbă data de livrare</button>
+                        <button type="button" id="changeDate">Schimbă data de livrare</button>
                     </div>
                     <ul hidden class="collapsable-list">
                         <li>Data de livrare schimbată</li>
                     </ul>
                 </form>
                 <div class="title-with-image">
-                    <img src="./assets/real-estate.png">
+                    <img src="./assets/real-estate.png" alt="">
                     <label>Schimbă adresa de livrare</label>
                 </div>
                 <form>
-                    <select class="input-box" name="adresa" id="adresa">
-                        <option value="" disabled selected hidden id="judetSelected">Alege una dintre adresele tale
+                    <select class="input-box" name="adresa" id="adresa1">
+                        <option value="">Alege una dintre adresele tale
                         </option>
                     </select>
                     <div class="button-container expandable">

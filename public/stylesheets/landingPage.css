@@ -2,3 +2,12 @@
 
 } */
 
+img {
+    height: 30px;
+    width: 30px;
+    margin-right: 3%;
+}
+
+.title-with-image {
+    margin-right: 3%;
+}

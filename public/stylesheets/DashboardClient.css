@@ -13,7 +13,7 @@ main {
 }
 
 label {
-    font-size: 1.7em;
+    font-size: 1.7em !important;
 }
 
 .progress-arrow img {
@@ -31,8 +31,32 @@ img {
     margin-right: 3%;
 }
 
-.input-box#adresa {
-    width: 93%;
+.input-box {
+    width: 92%;
+}
+
+.input-box {
+    margin-left: 3%;
+}
+
+.button-container button {
+    font-size: 1.3em;
+    height: 2.5em;
+}
+
+input#continue {
+    font-size: 1.3em;
+    height: 2.5em;
+}
+
+input#forgot {
+    font-size: 1.3em;
+    height: 2.5em;
+}
+
+input#resetPass {
+    font-size: 1.3em;
+    height: 2.5em;
 }
 
 .collapsable-list {
@@ -51,4 +75,10 @@ img {
 
 .progress-now {
     background-color: var(--orange-accent);
+}
+
+@media screen and (max-width:800px) {
+    .title-with-image {
+        font-size: 17px;
+    }
 }
