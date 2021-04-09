@@ -11,7 +11,7 @@ body{
     flex-direction: column;
 }
 
-#none{
+#oras , #accident , #intarziere{
     display: none;
 }
 
@@ -23,9 +23,6 @@ body{
     .flex{
         flex-direction: row;
     }
-
-
-    
 
     #cityChart {
         margin-left: -30px;
