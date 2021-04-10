@@ -22,3 +22,16 @@ estimateCost.addEventListener(`click`, () => {
         totalCost.innerHTML = `Expediere în același județ (${from}): aproximativ 20 RON`
     else totalCost.innerHTML = `${from} -> ${to}: aproximativ 35 RON`
 })
+
+
+document.getElementById(`our-team`).onclick = () => location.href = `AboutUs.html`
+document.getElementById(`reset-password`).onclick = () => location.href = `ResetPassword.html`
+document.getElementById(`register`).onclick = () => location.href = `register.html`
+document.getElementById(`demo-client`).onclick = () => location.href = `DashboardClient.html`
+document.getElementById(`demo-admin`).onclick = () => location.href = `dashboard.html`
+document.getElementById(`demo-sofer`).onclick = () => location.href = `DashboardSofer.html`
+
+document.getElementById(`reset-password`).onclick = () => location.href = `ResetPassword.html`
+document.getElementById(`reset-password`).onclick = () => location.href = `ResetPassword.html`
+document.getElementById(`reset-password`).onclick = () => location.href = `ResetPassword.html`
+document.getElementById(`reset-password`).onclick = () => location.href = `ResetPassword.html`

@@ -1,4 +1,4 @@
-:root{
+:root {
     --orange-accent: #f08732e7;
     --green-accent: rgb(0, 145, 31);
     --red-accent: rgba(255, 70, 70, 0.952);
@@ -12,7 +12,7 @@
     margin: 0px;
 }
 
-ol{
+ol {
     transition: 500ms ease-in-out;
 }
 
@@ -21,9 +21,17 @@ ol{
     width: 30px;
 }
 
-ul > li{
-    list-style-type: unset;
+img {
+    height: 30px;
+    width: 30px;
+    margin-right: 3%;
 }
+
+.title-with-image {
+    margin-right: 3%;
+    font-size: 1.7em;
+}
+
 
 .collapsable-list {
     text-align: center;
@@ -31,23 +39,23 @@ ul > li{
     transition: max-height 0.2s ease-out;
 }
 
-.button-container button{
+.button-container button {
     font-size: 1.3em;
     height: 2.5em;
 }
 
-.progress-done{
+.progress-done {
     background-color: var(--green-accent);
 }
 
-.progress-now{
+.progress-now {
     background-color: var(--orange-accent);
 }
 
-.progress-invalid{
+.progress-invalid {
     background-color: var(--red-accent);
 }
 
-.progress-disabled{
+.progress-disabled {
     background-color: rgb(168, 168, 168);
 }
