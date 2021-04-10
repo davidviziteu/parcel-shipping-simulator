@@ -12,7 +12,7 @@
     --box-background: #1d7ba736;
     --default-font: 'Poppins';
     --fallback-font: sans-serif;
-    --footer-background: 'black'
+    --footer-background: black;
 }
 
 body {
@@ -212,6 +212,10 @@ menu a {
     color: black;
 }
 
+menu a:hover{
+    font-size: 3vh;
+}
+
 nav {
     background-color: #0f5d82;
     overflow: hidden;
@@ -299,7 +303,7 @@ main {
 }
 
 footer {
-    background-color: black;
+    background-color: var(--footer-background);
     height: auto;
     color: white;
 }
