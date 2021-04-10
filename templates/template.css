@@ -330,4 +330,9 @@ footer a{
     menu > * {
         margin-top: 20%;
     }
+
+    .margin-footer p{
+        margin-top: 10px !important;
+        margin-bottom: 10px !important;
+    }
 }
