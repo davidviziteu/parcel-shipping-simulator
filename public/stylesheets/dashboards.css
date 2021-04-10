@@ -4,6 +4,10 @@
     --red-accent: rgba(255, 70, 70, 0.952);
 }
 
+main {
+    padding: 0px;
+}
+
 .progress-arrow,
 .detalii-expeditor {
     display: flex;
@@ -12,13 +16,18 @@
     margin: 0px;
 }
 
-ol {
-    transition: 500ms ease-in-out;
+.check{
+    pointer-events: none;
 }
 
 .progress-arrow img {
     height: 30px;
     width: 30px;
+}
+
+ol {
+    transition: 500ms ease-in-out;
+    padding: 0px;
 }
 
 img {
@@ -32,8 +41,17 @@ img {
     font-size: 1.7em;
 }
 
-ul>li {
-    list-style-type: unset;
+.input-box {
+    width: 92%;
+}
+
+.input-box {
+    margin-left: 3%;
+}
+
+.button-container button {
+    font-size: 1.3em;
+    height: 2.5em;
 }
 
 .collapsable-list {
@@ -42,9 +60,8 @@ ul>li {
     transition: max-height 0.2s ease-out;
 }
 
-.button-container button {
-    font-size: 1.3em;
-    height: 2.5em;
+.no-space {
+    margin: 0px !important;
 }
 
 .progress-done {
@@ -55,10 +72,35 @@ ul>li {
     background-color: var(--orange-accent);
 }
 
-.progress-invalid {
-    background-color: var(--red-accent);
-}
-
 .progress-disabled {
     background-color: rgb(168, 168, 168);
+}
+
+[id]{
+    text-align: center;
+}
+
+#submit{
+    margin-left: 20%;
+    margin-right: 20%;
+    background-color: lightgreen;
+}
+
+.listSofer{
+    width: 90% ;
+    flex: unset;
+}
+
+.check{
+    pointer-events: none; 
+}
+
+@media screen and (max-width:800px){
+    .listSofer{
+        width: 85% ;
+        flex: unset;
+    }
+    .title-with-image {
+        font-size: 17px !important;
+    }
 }
