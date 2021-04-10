@@ -239,15 +239,15 @@ main {
 }
 
 .center-horizontal{
-    justify-content: center;
-}
-
-.center-vertical{
     align-items: center;
 }
 
+.center-vertical{
+    justify-content: center;
+}
+
 .align-content-left{
-    align-self: start;
+    align-self: start !important;
 }
 
 .align-content-center{
