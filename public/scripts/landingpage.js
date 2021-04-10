@@ -23,6 +23,7 @@ estimateCost.addEventListener(`click`, () => {
     else totalCost.innerHTML = `${from} -> ${to}: aproximativ 35 RON`
 })
 
+
 document.getElementById(`our-team`).onclick = () => location.href = `AboutUs.html`
 document.getElementById(`reset-password`).onclick = () => location.href = `ResetPassword.html`
 document.getElementById(`register`).onclick = () => location.href = `register.html`
