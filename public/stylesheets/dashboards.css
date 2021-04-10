@@ -18,6 +18,7 @@ main {
 
 .check{
     pointer-events: none;
+    
 }
 
 .progress-arrow img {
@@ -36,7 +37,13 @@ img {
     margin-right: 3%;
 }
 
-
+input[type='checkbox'] {
+    width:30px;
+    height:30px;
+    background:white;
+    border-radius:5px;
+    border:2px solid #555;
+}
 
 /* .input-box {
     width: 92%;
@@ -84,8 +91,6 @@ img {
 .check{
     pointer-events: none; 
 }
-
-
 
 .buttons-with-image button {
     display: flex;
