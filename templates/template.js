@@ -3,20 +3,18 @@ let menu = document.getElementsByTagName(`menu`)[0]
 
 hamburgerMenu.addEventListener(`click`, () => {
     if (menu.className.includes(`hidden`)) {
-        var x = document.getElementById("cityChart");
-        if (x != null) x.style.display = "none"
-        var x = document.getElementById("localChart");
-        if (x != null) x.style.display = "none"
+        document.getElementById("hamburger").style.backgroundImage = "unset"
+        document.getElementById("hamburger").innerHTML = "X"
+        document.getElementById("hamburger").style.fontSize = "1.2em"
+        document.getElementById("hamburger").style.color = "white"
         menu.className = ``;
         // disableScroll();
         var x = document.getElementsByTagName("body")[0];
         x.style.overflow = "hidden";
     }
     else {
-        var x = document.getElementById("cityChart");
-        if (x != null) x.style.display = "block"
-        var x = document.getElementById("localChart");
-        if (x != null) x.style.display = "block"
+        document.getElementById("hamburger").innerHTML = ""
+        document.getElementById("hamburger").style.backgroundImage = "url(hamburger-menu.jpg)"
         menu.className = `hidden`
         var x = document.getElementsByTagName("body")[0];
         x.style.overflowY = "scroll"

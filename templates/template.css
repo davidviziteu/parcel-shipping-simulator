@@ -10,7 +10,6 @@
     --turcoaz-inchis: #3d7e80;
     --turcoaz-mai-inchis: #2e6369;
     --turcoaz-negru: #2d4549;
-    
     --box-background: #1d7ba736;
 }
 
@@ -241,7 +240,7 @@ main {
         margin: 10px;
         display: flex;
         flex-direction: column;
-        border-color: #9ab2b2; /*nu stiu dc nu se pastreaza culoarea si pe mobile si se fac negre*/
+        border-color: #9ab2b2;
     }
     .box>* {
         font-size: medium;
@@ -250,5 +249,9 @@ main {
     .big>.box {
         width: 90% !important;
         margin:auto;
+    }
+
+    menu > * {
+        margin-top: 20%;
     }
 }
