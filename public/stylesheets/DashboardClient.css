@@ -12,10 +12,6 @@ main {
     text-align: center;
 }
 
-label {
-    font-size: 1.7em !important;
-}
-
 .progress-arrow img {
     height: 30px;
     width: 30px;
@@ -29,6 +25,7 @@ img {
 
 .title-with-image {
     margin-right: 3%;
+    font-size: 1.7em;
 }
 
 .input-box {
@@ -79,6 +76,6 @@ input#resetPass {
 
 @media screen and (max-width:800px) {
     .title-with-image {
-        font-size: 17px;
+        font-size: 17px !important;
     }
 }
