@@ -109,16 +109,17 @@ li {
 .center-vertical{
     display: flex;
     align-items: center;
+    margin-top: unset;
+    margin-bottom: -15px;
+}
+
+.center-vertical h4{
+    margin-left: 10px !important;
 }
 
 .stacked-form {
     display: flex;
     flex-direction: column;
-}
-
-.inline-items{
-    display: flex;
-    flex-direction: row;
 }
 
 .input-box {
