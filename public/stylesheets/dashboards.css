@@ -36,23 +36,13 @@ img {
     margin-right: 3%;
 }
 
-.title-with-image {
-    margin-right: 3%;
-    font-size: 1.7em;
-}
 
-.input-box {
+
+/* .input-box {
     width: 92%;
-}
+} */
 
-.input-box {
-    margin-left: 3%;
-}
 
-.button-container button {
-    font-size: 1.3em;
-    height: 2.5em;
-}
 
 .collapsable-list {
     text-align: center;
@@ -75,10 +65,10 @@ img {
 .progress-disabled {
     background-color: rgb(168, 168, 168);
 }
-
+/* 
 [id]{
     text-align: center;
-}
+} */
 
 #submit{
     margin-left: 20%;
@@ -93,6 +83,21 @@ img {
 
 .check{
     pointer-events: none; 
+}
+
+.title-with-image {
+    font-size: 1.7em;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-self: start;
+}
+
+.buttons-with-image button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }
 
 @media screen and (max-width:800px){

@@ -12,6 +12,7 @@
     --box-background: #1d7ba736;
     --default-font: 'Poppins';
     --fallback-font: sans-serif;
+    --footer-background: 'black'
 }
 
 body {
@@ -20,7 +21,7 @@ body {
     background-image: url('../public/assets/newBackgroung.jpg');
     background-repeat: no-repeat;
     background-attachment: fixed;
-    background-size: 120% 100%;
+    background-size: 100% 100%;
 }
 
 section {
@@ -236,15 +237,15 @@ main {
 }
 
 .center-horizontal {
-    justify-content: center;
-}
-
-.center-vertical {
     align-items: center;
 }
 
+.center-vertical {
+    justify-content: center;
+}
+
 .align-content-left {
-    align-self: start;
+    align-self: start !important;
 }
 
 .align-content-center {
@@ -261,6 +262,21 @@ main {
 .inline-items {
     display: flex;
     flex-direction: row;
+}
+
+footer {
+    background-color: black;
+    height: auto;
+    color: white;
+}
+
+footer .box {
+    border: none;
+}
+
+footer a {
+    color: white;
+    text-decoration: none;
 }
 
 @media screen and (max-width: 800px) {
@@ -289,7 +305,8 @@ main {
     menu>* {
         margin-top: 20%;
     }
-    button {
-        font-size: 0.5em;
+    .margin-footer p {
+        margin-top: 10px !important;
+        margin-bottom: 10px !important;
     }
 }
