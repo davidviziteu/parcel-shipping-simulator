@@ -53,6 +53,7 @@ select::placeholder {
     margin-left: 3%;
 }
 input[type='checkbox'] {
+    align-self: center;
     width:30px;
     height:30px;
     background:white;
