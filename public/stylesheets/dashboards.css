@@ -37,13 +37,7 @@ img {
     margin-right: 3%;
 }
 
-input[type='checkbox'] {
-    width:30px;
-    height:30px;
-    background:white;
-    border-radius:5px;
-    border:2px solid #555;
-}
+
 
 /* .input-box {
     width: 92%;
@@ -72,10 +66,10 @@ input[type='checkbox'] {
 .progress-disabled {
     background-color: rgb(168, 168, 168);
 }
-/* 
+
 [id]{
     text-align: center;
-} */
+}
 
 #submit{
     margin-left: 20%;
@@ -89,7 +83,13 @@ input[type='checkbox'] {
 }
 
 .check{
-    pointer-events: none; 
+    pointer-events: none;
+    align-self: center;
+    width:30px;
+    height:30px;
+    background:white;
+    border-radius:5px;
+    border:2px solid #555;
 }
 
 .buttons-with-image button {
