@@ -8,6 +8,7 @@
     <title>PSS</title>
     <link rel='stylesheet' type='text/css' media='screen' href='../templates/template.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='./stylesheets/dashboards.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='../old_stylesheets/dashboardSofer.css'>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,300&display=swap" rel="stylesheet">
 </head>
@@ -46,7 +47,9 @@
             </div>
             <div class="box">
                 <div class="button-container">
-                    <button id="button-expeditor">Detalii expeditor</button>
+                    <button id="button-expeditor">
+                        <img src="./assets/man-user.png" alt="">
+                        Detalii expeditor</button>
                 </div>
                 <ol hidden id="detalii-expeditor">
                     <li>
@@ -59,11 +62,14 @@
                         Oraș: Iasi
                     </li>
                     <li>
-                        Adresa: Strada Castelul Crecilor
+                        Adresa: Strada Castelul Grecilor
                     </li>
                 </ol>
                 <div class=" button-container">
-                    <button id="button-destinatar">Detalii destinatar</button>
+                    <button id="button-destinatar">
+                        <img src="./assets/man-user.png" alt="">
+                        Detalii destinatar
+                    </button>
                 </div>
                 <ol hidden id="detalii-destinatar">
                     <li>
@@ -76,50 +82,68 @@
                         Oraș: Iasi
                     </li>
                     <li>
-                        Adresa: Strada Horpaz
+                        Adresa: Strada Părului
                     </li>
                 </ol>
-                <div class=" button-container">
-                    <button id="button-myawbs">My AWBS</button>
+                <div class="button-container">
+                    <button id="button-myawbs">
+                        <img src="./assets/meat.png" alt="">
+                        My AWBS
+                    </button>
                 </div>
                 <div hidden id="list-awbs">
-                    <div class=" button-container">
+                    <div class="button-container">
                     </div>
                 </div>
-                <div class=" button-container">
-                    <button id="button-status">Statut colet</button>
+                <div class="button-container">
+                    <button id="button-status">
+                        <img src="./assets/parcel.png" alt="">
+                        Statut colet
+                    </button>
                 </div>
                 <div hidden id="status">Livrat</div>
             </div>
             <div class="box ">
-                <div class=" button-container">
-                    <button class="listSofer" id="accident">Am făcut accident</button>
+                <div class="button-container">
+                    <button class="listSofer" id="accident">
+                        <img src="./assets/car-accident.png" alt="">
+                        Am făcut accident</button>
                     <input type="checkbox" class="check">
                 </div>
-                <div class=" button-container">
-                    <button class="listSofer" id="meteo">Condiții meteo nefavorabile</button>
+                <div class="button-container">
+                    <button class="listSofer" id="meteo">
+                        <img src="./assets/storm.png" alt="">
+                        Condiții meteo nefavorabile</button>
                     <input type="checkbox" class="check">
                 </div>
-                <div class=" button-container">
-                    <button class="listSofer" id="defectiuni">Defecțiuni mașină</button>
+                <div class="button-container">
+                    <button class="listSofer" id="defectiuni">
+                        <img src="./assets/car (1).png" alt="">
+                        Defecțiuni mașină</button>
                     <input type="checkbox" class="check">
                 </div>
-                <div class=" button-container">
-                    <button class="listSofer" id="client">Clientul nu este acasă</button>
+                <div class="button-container">
+                    <button class="listSofer" id="client">
+                        <img src="./assets/isolated.png" alt="">
+                        Clientul nu este acasă</button>
                     <input type="checkbox" class="check">
                 </div>
-                <div class=" button-container">
-                    <button class="listSofer" id="continut">Conținut deteriorat</button>
+                <div class="button-container">
+                    <button class="listSofer" id="continut">
+                        <img src="./assets/deteriorat.png" alt="">
+                        Conținut deteriorat</button>
                     <input type="checkbox" class="check">
                 </div>
-                <div class=" button-container">
-                    <button class="listSofer" id="livrat">Am livrat coletul</button>
+                <div class="button-container">
+                    <button class="listSofer" id="livrat">
+                        <img src="./assets/checkbox.png" alt="">
+                        Am livrat coletul</button>
                     <input type="checkbox" class="check">
                 </div>
             </div>
             <div class="wide box">
                 <div class=" button-container">
-                    <button id="submit">Sumbit</button>
+                    <button id="submit">Trimite informații</button>
                 </div>
             </div>
         </section>
