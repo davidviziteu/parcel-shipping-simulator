@@ -13,6 +13,7 @@
     
     --default-font: 'Poppins';
     --fallback-font: sans-serif;
+    --footer-background : 'black'
 }
 
 body {
@@ -21,7 +22,7 @@ body {
     background-image: url('../public/assets/newBackgroung.jpg');
     background-repeat: no-repeat;
     background-attachment: fixed;
-    background-size: 120% 100%;
+    background-size: 100% 100%;
 }
 
 section {
@@ -100,6 +101,26 @@ li {
     list-style-type: none;
 }
 
+.center-horizontal{
+    display: flex;
+    justify-content: center;
+}
+
+.center-vertical{
+    display: flex;
+    align-items: center;
+    margin-top: unset;
+    margin-bottom: -15px;
+}
+
+.center-vertical h4{
+    margin-left: 10px !important;
+}
+
+.stacked-form {
+    display: flex;
+    flex-direction: column;
+}
 
 .input-box {
     border: none;
@@ -266,6 +287,21 @@ main {
     flex-direction: row;
 }
 
+footer{
+    background-color: black;
+    height: auto;
+    color: white;
+}
+
+footer .box{
+    border:none;
+}
+
+footer a{
+    color:white;
+    text-decoration: none;
+}
+
 @media screen and (max-width: 800px) {
     section {
         display: flex;
@@ -293,5 +329,10 @@ main {
 
     menu > * {
         margin-top: 20%;
+    }
+
+    .margin-footer p{
+        margin-top: 10px !important;
+        margin-bottom: 10px !important;
     }
 }
