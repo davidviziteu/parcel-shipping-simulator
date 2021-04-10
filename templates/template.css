@@ -12,7 +12,7 @@
     --box-background: #1d7ba736;
     --default-font: 'Poppins';
     --fallback-font: sans-serif;
-    --footer-background: 'black'
+    --footer-background: black;
 }
 
 body {
@@ -303,7 +303,7 @@ main {
 }
 
 footer {
-    background-color: black;
+    background-color: var(--footer-background);
     height: auto;
     color: white;
 }
