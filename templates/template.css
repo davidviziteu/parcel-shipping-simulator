@@ -233,7 +233,8 @@ main {
 
 .button-container button {
     font-size: 1.3em;
-    height: 2.5em;
+    min-height: 2.5rem;
+    height: max-content;
 }
 
 .center-horizontal {
@@ -270,8 +271,8 @@ footer {
     color: white;
 }
 
-footer .box{
-    border:none;
+footer .box {
+    border: none;
     display: block !important;
 }
 
@@ -280,7 +281,7 @@ footer a {
     text-decoration: none;
 }
 
-img{
+img {
     height: 30px;
     width: 30px;
 }
