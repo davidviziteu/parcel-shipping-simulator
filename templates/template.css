@@ -1,18 +1,19 @@
-:root {
+:root{
     --alb-deschis: #fbfef7;
     --alb-mai-inchis: #e4e8da;
     --albastru-extrordinar-de-deschis: #b8cacc;
     --albastru-gri: #9ab2b2;
     --albastru-mai-gri: #899998;
-    --albastru-deschis: #1d7ba7;
+    --albastru-deschis : #1d7ba7;
     --turcoaz: #6fa6ab;
     --turcoaz-inchis: #3d7e80;
     --turcoaz-mai-inchis: #2e6369;
     --turcoaz-negru: #2d4549;
     --box-background: #1d7ba736;
+    
     --default-font: 'Poppins';
     --fallback-font: sans-serif;
-    --footer-background: 'black'
+    --footer-background : 'black'
 }
 
 body {
@@ -52,7 +53,7 @@ section {
     flex: 1;
 }
 
-.big {
+.big{
     background-color: var(--box-background);
     margin: 70px 5px 0px 5px;
     display: flex;
@@ -63,12 +64,11 @@ section {
     border-radius: 1.2em;
     border-color: #9ab2b2;
 }
-
 .big:last-child {
     justify-content: left;
 }
 
-.big>.box {
+.big > .box {
     flex: unset;
     background-color: transparent !important;
     border-color: transparent;
@@ -80,12 +80,13 @@ section {
     padding-right: 0%;
 }
 
-.big>.wide {
+.big > .wide {
     width: 100% !important;
 }
 
 .box>* {
     margin: 1.5rem;
+
 }
 
 body {
@@ -99,6 +100,27 @@ body {
 
 li {
     list-style-type: none;
+}
+
+.center-horizontal{
+    display: flex;
+    justify-content: center;
+}
+
+.center-vertical{
+    display: flex;
+    align-items: center;
+    margin-top: unset;
+    margin-bottom: -15px;
+}
+
+.center-vertical h4{
+    margin-left: 10px !important;
+}
+
+.stacked-form {
+    display: flex;
+    flex-direction: column;
 }
 
 .input-box {
@@ -127,6 +149,7 @@ li {
     -webkit-transition: opacity 0.35s ease-in-out;
     transition: opacity 0.35s ease-in-out;
 }
+
 
 .button-container {
     display: flex;
@@ -166,7 +189,7 @@ li {
     align-items: center;
     width: 100%;
     height: 100%;
-}
+} 
 
 .button-container>*:hover {
     box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
@@ -184,8 +207,13 @@ menu {
     z-index: 3;
 }
 
-menu>* {
+menu > * {
     margin-top: 6%;
+}
+
+menu a {
+    text-decoration: none;
+    color: black;
 }
 
 nav {
@@ -195,10 +223,11 @@ nav {
     top: 0;
     width: 100%;
     height: 3.5em;
-    padding: 0px;
+    padding: 0px ;
     transition: 0.4s;
     z-index: 4;
 }
+
 
 #hamburger:hover {
     background-color: #899998;
@@ -238,19 +267,19 @@ main {
     height: max(var(--fit-content-height), 2.5rem);
 } */
 
-.center-horizontal {
-    align-items: center;
-}
-
-.center-vertical {
+.center-horizontal{
     justify-content: center;
 }
 
-.align-content-left {
-    align-self: start !important;
+.center-vertical{
+    align-items: center;
 }
 
-.align-content-center {
+.align-content-left{
+    align-self: start;
+}
+
+.align-content-center{
     justify-content: center;
     align-items: center;
     text-align: center;
@@ -261,28 +290,44 @@ main {
     flex-direction: column;
 }
 
-.inline-items {
+.inline-items{
     display: flex;
     flex-direction: row;
 }
 
-footer {
+footer{
     background-color: black;
     height: auto;
     color: white;
 }
 
-footer .box {
-    border: none;
-    display: block !important;
+footer .box{
+    border:none;
+    display: block;
 }
 
-footer a {
-    color: white;
+footer a{
+    color:white;
     text-decoration: none;
 }
 
-img {
+footer .center-horizontal{
+    display: flex;
+    justify-content: center;
+}
+
+footer .center-vertical{
+    display: flex;
+    align-items: center;
+    margin-top: unset;
+    margin-bottom: -15px;
+}
+
+footer .center-vertical h4{
+    margin-left: 10px !important;
+}
+
+img{
     height: 30px;
     width: 30px;
 }
@@ -325,18 +370,20 @@ img {
     .box>* {
         font-size: medium;
     }
+
     .big>.box {
         width: 90% !important;
-        margin: auto;
+        margin:auto;
     }
-    menu>* {
+
+    menu > * {
         margin-top: 20%;
     }
-    .margin-footer p {
+
+    .margin-footer p{
         margin-top: 10px !important;
         margin-bottom: 10px !important;
     }
-
     .title-with-image {
         width: 90%;
     }
@@ -347,3 +394,4 @@ img {
 
 
 }
+
