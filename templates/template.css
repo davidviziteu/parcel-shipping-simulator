@@ -209,6 +209,11 @@ menu > * {
     margin-top: 6%;
 }
 
+menu a {
+    text-decoration: none;
+    color: black;
+}
+
 nav {
     background-color: #0f5d82;
     overflow: hidden;
