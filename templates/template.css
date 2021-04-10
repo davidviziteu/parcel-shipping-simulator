@@ -212,6 +212,10 @@ menu a {
     color: black;
 }
 
+menu a:hover{
+    font-size: 3vh;
+}
+
 nav {
     background-color: #0f5d82;
     overflow: hidden;
