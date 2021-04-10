@@ -13,7 +13,6 @@ window.onload = function() {
     resetEmail.style.display = "none";
     resetPass.style.display = "none";
     detalii.style.display = "none";
-    reprogrameaza.style.display = "none";
 }
 awbTitle.addEventListener(`click`, () => {
     let newAwb = prompt(`Introdu noul AWB`)
