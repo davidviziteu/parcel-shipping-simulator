@@ -12,11 +12,11 @@ estimateCost.addEventListener(`click`, () => {
     let from = sourceSelector.value
     let to = destinationSelector.value
     console.log(`${from} -> ${to}: 35 RON`)
-    if (to == `default` && from == `default`)
+    if (to.startsWith(`Alege`) && from.startsWith(`Alege`))
         totalCost.innerHTML = `Alegeți județul expeditorului și al destinatarului`
-    else if (from == `default`)
+    else if (from.startsWith(`Alege`))
         totalCost.innerHTML = `Alegeți județul expeditorului`
-    else if (to == `default`)
+    else if (to.startsWith(`Alege`))
         totalCost.innerHTML = `Alegeți județul destinatarului`
     else if (to == from)
         totalCost.innerHTML = `Expediere în același județ (${from}): aproximativ 20 RON`
@@ -30,8 +30,4 @@ document.getElementById(`register`).onclick = () => location.href = `register.ht
 document.getElementById(`demo-client`).onclick = () => location.href = `DashboardClient.html`
 document.getElementById(`demo-admin`).onclick = () => location.href = `dashboard.html`
 document.getElementById(`demo-sofer`).onclick = () => location.href = `DashboardSofer.html`
-
-document.getElementById(`reset-password`).onclick = () => location.href = `ResetPassword.html`
-document.getElementById(`reset-password`).onclick = () => location.href = `ResetPassword.html`
-document.getElementById(`reset-password`).onclick = () => location.href = `ResetPassword.html`
-document.getElementById(`reset-password`).onclick = () => location.href = `ResetPassword.html`
+document.getElementById(`track-awb`).onclick = () => location.href = `DashboardClient.html`
