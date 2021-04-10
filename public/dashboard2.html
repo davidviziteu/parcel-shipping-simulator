@@ -7,18 +7,19 @@
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <title>PSS</title>
     <link rel='stylesheet' type='text/css' media='screen' href='../templates/template.css'>
-    <link rel='stylesheet' type='text/css' media='screen' href='./stylesheets/dashboards.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='../public/stylesheets/dashboards.css'>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,300&display=swap" rel="stylesheet">
+    <!-- <div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div> -->
 </head>
 
 <body>
     <nav>
         <div id="here">
-            <button type="button" id="hamburger">
+            <button id="hamburger">
             </button>
             <div>
-                Dashboard angajat
+                Dashboard Client
             </div>
             <div id="login-info">
                 Bună!
@@ -39,218 +40,195 @@
             Contact
         </li>
     </menu>
-    <form action="InfoOrder">
+    <main>
         <section class="big">
-
-
-            <div class="wide box">
-                <h4 id="awb-title">AWB: 123213123</h4>
+            <div class="wide box" id="awb-title">
+                <h2>AWB:</h2>
             </div>
-
-
-
             <div class="box">
-                <h2>Detalii locatie pachet</h2>
-
-                <div class="button-container expandable">
+                <div class="title-with-image inline-items center-horizontal align-content-left">
+                    <img src="./assets/parcel.png" alt=""> Detalii locație pachet
+                </div>
+                <div class="button-container expandable inline-items center-vertical center-horizontal">
                     <button type="button" class="progress-done">
-                        Comanda a fost primită
+                        <img src="./assets/counseling.png" alt="">
+                        Comanda a fost plasată
                     </button>
                 </div>
-                <ul hidden id="status-comanda-primita" class="collapsable-list">
-                    <li>
-                        Comanda a fost primită 1-apr-2021, 9:22:30
-                    </li>
-                </ul>
-
-                <div class="progress-arrow">
-                    <img src="./assets/arrow.png" alt="down-arrow">
-
-                </div>
-
-                <!--  -->
-                <div class="button-container expandable">
-                    <button type="button" class="progress-done">
-                        Ridicat de la expeditor
-                    </button>
-                </div>
-                <ul hidden id="status-ridicare" class="collapsable-list">
-                    <li>
-                        A fost ridicat de la expeditor în data de 1-apr-2021, 12:12:22
+                <ul hidden id="status1" class="collapsable-list">
+                    <li> Comandă acceptată și în curs de procesare.
                     </li>
                     <li>
-                        Șofer - Vasile Alex (ID - 123)
+                        Data :
+                    </li>
+                    <li>
+                        Ora :
                     </li>
                 </ul>
                 <div class="progress-arrow">
                     <img src="./assets/arrow.png" alt="down-arrow">
-
                 </div>
-
-                <!--  -->
-                <div class="button-container expandable">
+                <div class="button-container expandable buttons-with-image">
                     <button type="button" class="progress-done">
-                        A ajuns la hub local
-                    </button>
-                </div>
-                <ul hidden id="status-hub-local" class="collapsable-list">
-                    <li>
-                        A ajuns la hub local Focșani în data de 1-apr-2021, 18:00:00
-                    </li>
-                </ul>
-
-                <div class="progress-arrow">
-                    <img src="./assets/arrow.png" alt="down-arrow">
-                </div>
-
-                <!--  -->
-                <div class="button-container expandable">
-                    <button type="button" class="progress-done">
+                        <img src=" ./assets/box.png" alt="">
                         În tranzit
                     </button>
                 </div>
-                <ul hidden id="status-in-tranzit" class="collapsable-list">
-                    <li>
-                        A părăsit hub-ul Focșani în data de 1-apr-2021, 21:30:22
+                <ul hidden id="status2" class="collapsable-list">
+                    <li> Coletul a fost preluat de la expeditor
                     </li>
                     <li>
-                        Șofer - Vasile Vasilescu (ID - 1256)
+                        și este în drum spre centrul de expediere.
                     </li>
                     <li>
-                        A ajuns în hub-ul Bacău în data de 2-apr-2021, 00:30:21
+                        Data :
                     </li>
                     <li>
-                        A părăsit hub-ul Bacău în data de 3-apr-2021, 21:30:12
-                    </li>
-                    <li>
-                        Șofer - Vasile Alexandrescu (ID - 332)
-                    </li>
-                    <li>
-                        A ajuns în hub-ul Iași în data de 3-apr-2021, 00:10:21
+                        Ora :
                     </li>
                 </ul>
                 <div class="progress-arrow">
                     <img src="./assets/arrow.png" alt="down-arrow">
+
                 </div>
-                <!--  -->
-                <div class="button-container expandable">
-                    <button type="button" class="progress-now">
-                        În curs de livrare
+                <div class="button-container expandable buttons-with-image">
+                    <button type="button" class="progress-now title-with-image">
+                        <img src="./assets/distribution.png" alt="">
+                        Centru de expedieri
                     </button>
                 </div>
-                <ul hidden id="status-livrare" class="collapsable-list">
-                    <li>
-                        Livrare astăzi, 3-apr-2021
+                <ul hidden id="status3" class="collapsable-list">
+                    <li> Coletul a ajuns în centrul de expediere
                     </li>
                     <li>
-                        Șofer - Poescu Andrei (ID - 3323)
+                        și urmează să fie preluat de către un curier.
                     </li>
                     <li>
-                        Curierul a raportat autoturism avariat, livrare amânată
+                        Data :
                     </li>
                     <li>
-                        Livrare astăzi, 5-apr-2021
-                    </li>
-                    <li>
-                        Șofer - Poescu Andrei (ID - 3323)
+                        Ora :
                     </li>
                 </ul>
                 <div class="progress-arrow">
                     <img src="./assets/arrow.png" alt="down-arrow">
-                </div>
 
-                <div class="button-container expandable">
+                </div>
+                <div class="button-container expandable buttons-with-image">
                     <button type="button">
-                        Destinatar
+                        <img src="./assets/telephone.png" alt="">
+                        În livrare
                     </button>
                 </div>
-                <ul hidden id="status-destinatar" class="collapsable-list">
+                <ul hidden id="status4" class="collapsable-list">
+                    <li> Coletul a fost preluat de către un curier
+                    </li>
                     <li>
-                        Estimare data livrare: 5-apr-2021
+                        și este în curs de livrare.
+                    </li>
+                    <li>
+                        Data :
+                    </li>
+                    <li>
+                        Ora :
                     </li>
                 </ul>
-                <!--  -->
+                <div class="progress-arrow">
+                    <img src="./assets/arrow.png" alt="down-arrow">
 
+                </div>
+                <div class="button-container expandable buttons-with-image">
+                    <button type="button" class="title-with-text">
+                        <img src="./assets/review.png" alt="">
+                        Livrat
+                    </button>
+                </div>
+                <ul hidden id="status5" class="collapsable-list">
+                    <li>
+                        Coletul a fost livrat.
+                    </li>
+                    <li>
+                        Data :
+                    </li>
+                    <li>
+                        Ora :
+                    </li>
+                </ul>
             </div>
-            <div class="box">
-                <div class="button-container">
-                    <button id="bttn-comanda-refuzata" type="button">
-                        <a href="./dashboard-refused-delivery.html">
-                            Clientul refuză coletul / retur
-                        </a>
-                    </button>
+            <div class="box" id="autentificare">
+                <div class="title-with-image inline-items center-horizontal align-content-left">
+                    <img src="./assets/login.png" alt=""> Intră în cont pentru mai multe opțiuni
                 </div>
-                <div class="button-container">
-                    <button id="bttn-comanda-ridicata" type="button">
-                        <a href="./dashboard-successful-delivery.html">
-                            Clientul a ridicat coletul
-                        </a>
-                    </button>
+                <form id="login-form" class="stacked-form align-content-center">
+                    <input class="input-box" type="email" id="resetEmail" placeholder="Email" required>
+                    <input class="input-box" type="email" id="email" name="fname" placeholder="Email" required>
+                    <input class="input-box" type="password" id="password" name="lname" placeholder="Parolă" required>
+                    <div class="button-container">
+                        <input type="submit" id="continue" value="Intră în cont">
+                        <input type="button" id="forgot" value="Am uitat parola">
+                        <input type="button" id="resetPass" value="Resetează parola" onclick="showList(`mailSent`)">
+                    </div>
+                    <ol id="mailSent" hidden class="collapsable-list">
+                        <li>A fost trimis un mail de resetare a parolei.</li>
+                    </ol>
+                </form>
+            </div>
+            <div class="box" id="DetaliiComanda">
+                <div class="inline-items align-left">
+                    <img src="./assets/info.png" alt=""> Informații expediere
                 </div>
-                <h2>
-                    Alte detalii
-                </h2>
-                <p>
-                    Cod livrare: 1234
-                </p>
-                <p>
-                    Expeditor:
-                </p>
-                <ul>
-                    <li>
-                        Flanco Romania
-                    </li>
-                    <li>
-                        Focșani, Focșani, str Izvoarelor nr 39
-                    </li>
-                    <li>
-                        Contact1 - Alina 0712345678
-                    </li>
-                    <li>
-                        Contact2 - Alexandra 0712345678
-                    </li>
+                <div class="button-container expandable buttons-with-image">
+                    <button type="button">Număr colet</button>
+                </div>
+                <ul hidden id="numarColet" class="collapsable-list">
+                    <li>73434767</li>
                 </ul>
-                <p>
-                    Destinatar:
-                </p>
-                <ul>
-                    <li>
-                        David Viziteu
-                    </li>
-                    <li>
-                        Iasi, Iași, Str izvor 14 629 / C / 26 et 7
-                    </li>
-                    <li>
-                        0712345678
-                    </li>
-                    <li>
-                        viziteu.david@gmail.com
-                    </li>
+                <div class="button-container expandable buttons-with-image">
+                    <button type="button">Nume expeditor</button>
+                </div>
+                <ul hidden id="numeExpeditor" class="collapsable-list">
+                    <li>Vînă Andreea Mădălina</li>
                 </ul>
-                <p>
-                    Continut: iphone 31 pro plus
-                </p>
-                <p>
-                    Valoare declarata 2000 RON
-                </p>
-                <h2>
-                    Opțiuni selectate
-                </h2>
-                <ul id="details-list">
-                    <li>
-                        Fragil
-                    </li>
-                    <li>
-                        Deschidere la livrare
-                    </li>
+                <div class="button-container expandable buttons-with-image">
+                    <button type="button">Adresă</button>
+                </div>
+                <ul hidden id="adresa" class="collapsable-list">
+                    <li>Strada Clopotari</li>
+                    <li>Numărul 15</li>
+                    <li>Bloc 634</li>
                 </ul>
-
+                <div class="title-with-image">
+                    <img src="./assets/calendar.png" alt=""> Reprogramează livrarea
+                </div>
+                <form>
+                    <input class="input-box" type="date" id="dataLivrare">
+                    <div class="button-container expandable buttons-with-image">
+                        <button type="button" id="changeDate">Schimbă data de livrare</button>
+                    </div>
+                    <ul hidden class="collapsable-list">
+                        <li>Data de livrare schimbată</li>
+                    </ul>
+                </form>
+                <div class="title-with-image">
+                    <img src="./assets/real-estate.png" alt=""> Schimbă adresa de livrare
+                </div>
+                <form>
+                    <select class="input-box" name="adresa" id="adresa1">
+                        <option value="">Alege una dintre adresele tale
+                        </option>
+                    </select>
+                    <div class="button-container expandable buttons-with-image">
+                        <button type="button" id="change">Schimbă adresa de livrare</button>
+                    </div>
+                    <ul hidden class="collapsable-list">
+                        <li>Adresa de livrare schimbată</li>
+                    </ul>
+                </form>
             </div>
         </section>
-    </form>
-
+    </main>
     <script src='../templates/template.js'></script>
-    <script src='./scripts/dashboard.js'></script>
+    <script src='../public/scripts/DashboardClient.js'></script>
 </body>
 
 </html>
