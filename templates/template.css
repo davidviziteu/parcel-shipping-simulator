@@ -11,12 +11,14 @@
     --turcoaz-mai-inchis: #2e6369;
     --turcoaz-negru: #2d4549;
     --box-background: #1d7ba736;
+    
+    --default-font: 'Poppins';
+    --fallback-font: sans-serif;
 }
 
 body {
     background-color: #fbfef7;
-    font-family: 'Poppins', sans-serif;
-    /* background-image: url('https://i.pinimg.com/originals/04/e9/10/04e910cd6c11b1784be7efbd44bcabe9.jpg'); */
+    font-family: var(--default-font), var(--fallback-font);
     background-image: url('../public/assets/newBackgroung.jpg');
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -110,7 +112,7 @@ li {
     border-radius: 8px;
     margin: 10px;
     font-size: 1em;
-    font-family: 'Poppins', sans-serif;
+    font-family: var(--default-font), var(--fallback-font);
 }
 
 .input-box::placeholder {
@@ -145,7 +147,7 @@ li {
     border-radius: 8px;
     flex-grow: 4;
     flex: 1;
-    font-family: 'Poppins', sans-serif;
+    font-family: var(--default-font), var(--fallback-font);
     cursor: pointer;
     -webkit-transition-duration: 0.4s;
     transition-duration: 0.4s;
@@ -224,6 +226,12 @@ nav>* {
 main {
     padding: 16px;
     margin-top: 30px;
+}
+
+.title-with-image{
+    display: flex;
+    justify-content: start;
+    align-items: center;
 }
 
 @media screen and (max-width: 800px) {

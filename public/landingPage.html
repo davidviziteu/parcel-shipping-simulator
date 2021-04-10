@@ -42,15 +42,14 @@
     <main>
         <section>
             <div class="box" id="login-box">
-                <h2>
-                    <div class="title-with-image">
-                        <img src="./assets/login.png">
-                        <label>Intră în cont</label>
-                    </div>
-                </h2>
+                <div class="title-with-image">
+                    <img alt="image" src="./assets/login.png">
+                    <h2>Intră în cont</h2>
+                </div>
                 <form id="login-form" action="">
                     <input class="input-box" type="text" id="user-mail" name="fname" placeholder="Email" required>
-                    <input class="input-box" type="password" id="user-password" name="lname" placeholder="Parolă" required>
+                    <input class="input-box" type="password" id="user-password" name="lname" placeholder="Parolă"
+                        required>
                     <div class="button-container">
                         <input type="submit" value="Login">
                         <button id="reset-password">
@@ -85,12 +84,10 @@
             </div>
 
             <div class="box">
-                <h2>
-                    <div class="title-with-image">
-                        <img src="./assets/money-bag.png">
-                        <label>Estimare cost</label>
-                    </div>
-                </h2>
+                <div class="title-with-image">
+                    <img alt="image" src="./assets/money-bag.png">
+                    <h2>Estimare cost</h2>
+                </div>
                 <form action="backend" name="cost-estimate">
                     <select class="input-box" name="judet-exp" id="judet-exp" required>
                         <option disabled selected hidden id="judet-exp-text" value="default">
@@ -113,16 +110,14 @@
                 </p>
             </div>
             <div class="box">
-                <h2>
-                    <div class="title-with-image">
-                        <img src="./assets/parcel.png">
-                        <label>Urmărește colet</label>
-                    </div>
-                </h2>
+                <div class="title-with-image">
+                    <img alt="image" src="./assets/parcel.png">
+                    <h2>Urmărește colet</h2>
+                </div>
                 <form action="" name="awb-track">
                     <input class="input-box" type="text" id="awb-input" name="awb-input" placeholder="AWB"><br>
                     <div class="button-container">
-                        <button type="button" id="estimate-cost-button">
+                        <button type="button" id="track-awb">
                             <a href="./.html">
                                 Urmărește
                             </a>
@@ -131,14 +126,35 @@
                 </form>
             </div>
         </section>
-        <!-- <template>
-            <button id="reset-password">
-                <a href="../templates/template.html">
-                    Cont nou
-                </a>
-            </button>
-        </template> -->
+        <section class="big">
+            <div class="box wide">
+                <div class="title-with-image">
+                    <img alt="image" src="./assets/parcel.png">
+                    <h2>De ce noi?</h2>
+                </div>
+                <p>
+                    De ce nu?
+                </p>
+                <p>
+                    Gândiți-vă la toate momentele în care ați pierdut o oportunitate de-a lungul anilor.
+                    Nenumăratele autobuze
+                    ratate. Acel RTX 3080 pe care l-ați putut fi cumpărat înainte de a fi vândut. Eșecul de a cumpăra
+                    Bitcoin în 2013... apoi
+                    din nou în 2019. Lăsând deoparte faptul că(,) cripto-ul este încă inutil, ce aveau în comun toate
+                    aceste evenimente? Nu ați colaborat cu noi. Ei bine, nu aveți nicio scuză pentru a rata această
+                    oportunitate. Bineînțeles, veți pierde tot autobuzele... și 3080-ul va fi în continuare indisponibil
+                    până în 3080, dar cel
+                    puțin veți primi fiecare pachet livrat de NOI. Mulțumește-ne mai târziu - ceasul bate.
+                </p>
+                <div class="button-container">
+                    <button type="button">Echipa noastră</button>
+                </div>
+            </div>
+        </section>
     </main>
+    <footer>
+        Resources
+    </footer>
     <script src='../templates/template.js'>
     </script>
     <script src="./scripts/landingpage.js"></script>
