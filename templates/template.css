@@ -280,6 +280,11 @@ footer a {
     text-decoration: none;
 }
 
+img{
+    height: 30px;
+    width: 30px;
+}
+
 @media screen and (max-width: 800px) {
     section {
         display: flex;
