@@ -85,13 +85,7 @@ img {
     pointer-events: none; 
 }
 
-.title-with-image {
-    font-size: 1.7em;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    align-self: start;
-}
+
 
 .buttons-with-image button {
     display: flex;
