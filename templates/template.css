@@ -134,14 +134,14 @@ li {
 }
 
 .button-container > * {
+    display: inline;
+    text-align: center;
+    align-self: stretch;
     background-color: #e5c8c19c;
     border: none;
     height: 35px;
     padding: 0px;
     color: white;
-    text-align: center;
-    align-self: stretch;
-    display: inline-block;
     font-size: 0.8em;
     margin: 4px 2px;
     border-radius: 8px;
