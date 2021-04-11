@@ -304,7 +304,6 @@ main {
 
 footer {
     background-color: var(--footer-background);
-    height: auto;
     color: white;
 }
 
@@ -381,19 +380,23 @@ img {
         width: 90% !important;
         margin: auto;
     }
-    menu>* {
-        margin-top: 20%;
+    menu > * {
+        margin-top: 15%;
     }
+
     .margin-footer p {
         margin-top: 10px !important;
         margin-bottom: 10px !important;
     }
+
     .title-with-image {
         width: 90%;
     }
+
     .title-with-image h2 {
         font-size: x-large;
     }
+    
     .button-container>* {
         font-size: 0.8em;
     }
