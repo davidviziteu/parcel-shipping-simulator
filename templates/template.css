@@ -156,8 +156,6 @@ li {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    margin-left: 3%;
-    margin-right: 3%;
 }
 
 .button-container>* {
@@ -204,12 +202,11 @@ menu {
     width: 100%;
     height: calc(100vh - 3em);
     background-color: antiquewhite;
-    text-align: center;
     z-index: 3;
-}
-
-menu>* {
-    margin-top: 6%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
 }
 
 menu a {
@@ -365,6 +362,7 @@ img {
 @media screen and (max-width: 800px) {
     section {
         display: flex;
+        flex-flow: unset;
         justify-content: space-between;
         flex-direction: column;
         align-items: center;
@@ -401,7 +399,4 @@ img {
         font-size: x-large;
     }
     
-    .button-container>* {
-        font-size: 0.8em;
-    }
 }
