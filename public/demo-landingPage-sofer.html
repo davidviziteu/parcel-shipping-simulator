@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ro">
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <title>PSS</title>
+    <link rel='stylesheet' type='text/css' media='screen' href='../templates/template.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='./stylesheets/landingPage.css'>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,300&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <nav>
+        <div id="here">
+            <button id="hamburger">
+            </button>
+            <div>
+                <img src="../templates/logo.png" alt="">
+            </div>
+            <div id="login-info">
+                Bună!
+            </div>
+        </div>
+    </nav>
+    <menu class="hidden">
+        <li>
+            <a href="../public/landingPage.html">
+                Pagină de start
+            </a>
+        </li>
+        <li>
+            <a href="../public/Locatii.html">
+                Locații
+            </a>
+        </li>
+        <li>
+            <a href="../public/AboutUs.html">
+                Despre noi
+            </a>
+        </li>
+        <li>
+            <a href="../public/landingPage.html">
+                Verificare AWB
+            </a>
+        </li>
+        <li>
+            <a href="../public/Contact.html">
+                Contact
+            </a>
+        </li>
+        <li>
+            <a href="../public/landingPage.html">
+                Ieși din cont
+            </a>
+        </li>
+    </menu>
+    <main>
+        <section>
+            <div class="box" id="login-box">
+                <div class="title-with-image">
+                    <img src="./assets/man-user.png" alt="">
+                    <h1 id="hello-username">Bună, Andreea!</h1>
+                </div>
+                <div class="button-container">
+                    <button id="new-order" onclick="location.href='NewOrder2.html'">
+                        Comandă nouă
+                    </button>
+                </div>
+                <div class="button-container">
+                    <button id="logout" onclick="location.href='landingPage.html'">
+                        Ieși din cont
+                    </button>
+                </div>
+            </div>
+
+            <div class="box">
+                <div class="title-with-image">
+                    <img alt="image" src="./assets/money-bag.png">
+                    <h1>Estimare cost</h1>
+                </div>
+                <form action="backend" name="cost-estimate" class="full-width-form">
+                    <select class="input-box" name="judet-exp" id="judet-exp" required>
+                        <option selected hidden id="judet-exp-text" value="">
+                            Alege județul expeditorului
+                        </option>
+                    </select>
+                    <select class="input-box" name="judet-dest" id="judet-dest" required>
+                        <option selected hidden id="judet-dest-text" value="">
+                            Alege județul destinatarului
+                        </option>
+                    </select>
+                    <div class="button-container">
+                        <button type="button" id="estimate-cost-button">
+                            Calculează
+                        </button>
+                    </div>
+                </form>
+                <p id="total-cost">
+
+                </p>
+            </div>
+            <div class="box">
+                <div class="title-with-image">
+                    <img alt="image" src="./assets/parcel.png">
+                    <h1>Urmărește colet</h1>
+                </div>
+                <form action="backend" name="awb-track" class="full-width-form">
+                    <input class="input-box" type="text" id="awb-input" name="awb-input" placeholder="AWB">
+                    <div class="button-container">
+                        <button type="button" id="track-awb" onclick="location.href='DashboardSofer.html'">
+                            Urmărește
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="box no-min-height half-width">
+                <div class="title-with-image">
+                    <img alt="image" src="./assets/arrow.png">
+                    <h1>De făcut</h1>
+                </div>
+                <ol id="de-facut">
+                    <li>
+                        Livrare colete local (Exemplul 1)
+                    </li>
+                    <li>
+                        Transport colete Iasi -> Cluj (Exemplul 2)
+                    </li>
+                    <li>
+                        Mașină IS-44-ABC
+                    </li>
+                </ol>
+                <div class="button-container buttons-with-image expandable">
+                    <button type="button" id="button-myawbs">
+                        <img src="./assets/meat.png" alt="">
+                        My AWBS
+                    </button>
+                </div>
+
+                <div class="button-container buttons-with-image">
+                    <button>105</button><button>56</button><button>105</button><button>57</button><button>83</button><button>51</button><button>34</button>
+                </div>
+                <div hidden id="list-awbs">
+                    <div class="button-container buttons-with-image">
+                    </div>
+                </div>
+            </div>
+
+            <div class="box no-min-height half-width">
+                <div class="title-with-image">
+                    <img alt="image" src="./assets/arrow.png">
+                    <h1>Notificări</h1>
+                </div>
+                <p>
+                    Butonul login NU merge, deoarece noi ne bazam pe tipul de cont in care se intra. Va rugam sa
+                    folositi butoanele demo pentru login
+                </p>
+                <p>
+                    Website-ul foloseste cookie-uri
+                </p>
+                <p>
+                    Vremea nefavorabilă cauzează întârzieri
+                </p>
+            </div>
+        </section>
+        <section>
+            <div class="box wide">
+                <div class="title-with-image">
+                    <img alt="image" src="./assets/parcel.png">
+                    <h1>De ce noi?</h1>
+                </div>
+                <p>
+                    De ce nu?
+                </p>
+                <p>
+                    Gândiți-vă la toate momentele în care ați pierdut o oportunitate de-a lungul anilor. Nenumăratele
+                    autobuze ratate. Acel RTX 3080 pe care l-ați fi putut cumpăra înainte de a fi vândut. Eșecul de a
+                    cumpăra Bitcoin în 2013... apoi din nou în 2019. Lăsând
+                    deoparte faptul că(,) cripto-ul este încă inutil, ce aveau în comun toate aceste evenimente? Nu ați
+                    colaborat cu noi. Ei bine, nu aveți nicio scuză pentru a rata această oportunitate. Bineînțeles,
+                    veți tot pierde autobuzele... și 3080-ul
+                    va fi în continuare indisponibil până în 3080, dar cel puțin veți primi fiecare pachet livrat de
+                    NOI. Mulțumiți-ne mai târziu - timpul trece.
+                </p>
+                <div class="button-container">
+                    <button type="button" id="our-team">Echipa noastră</button>
+                </div>
+            </div>
+        </section>
+        <section class="big" id="wideBoxImage">
+            <div class="box wide">
+                <div class="button-container">
+                    <button type="button" onclick="location.href='Locatii.html'" id="our-locations">Vezi locațiile
+                        noastre</button>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <section>
+            <div class="box margin-footer">
+                <div class="center-vertical">
+                    <img src="../templates/autori.png" alt="">
+                    <h4>Autori</h4>
+                </div>
+                <p>
+                    Bujor Bogdan-Constantin
+                </p>
+                <p>
+                    Vina Andreea-Madalina
+                </p>
+                <p>
+                    Viziteu David-Andrei
+                </p>
+            </div>
+            <div class="box margin-footer">
+                <div class="center-vertical">
+                    <img src="../templates/referinte.png" alt="">
+                    <h4>Referințe</h4>
+                </div>
+                <p><a href="https://www.flaticon.com/">www.flaticon.com</a></p>
+                <p><a href="https://www.w3schools.com/">www.w3schools.com</a></p>
+                <p><a href="https://developer.mozilla.org/en-US/">www.developer.mozilla.org</a></p>
+            </div>
+
+            <div class="box margin-footer">
+                <div class="center-vertical">
+                    <img src="../templates/instagram.png" alt="">
+                    <h4>Instagram</h4>
+                </div>
+                <p>
+                    <a href="https://www.instagram.com/bujorbogdan99/">bujorbogdan99</a>
+                </p>
+                <p>
+                    <a href="https://www.instagram.com/andreea.vina/">andreea.vina</a>
+                </p>
+                <p>
+                    <a href="https://www.instagram.com/andrei_david7/">andrei_david7</a>
+                </p>
+            </div>
+        </section>
+    </footer>
+    <script src='../templates/template.js'>
+    </script>
+    <script src="./scripts/landingpage.js"></script>
+
+
+</body>
+
+</html>
