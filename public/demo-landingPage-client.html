@@ -42,30 +42,35 @@
             </a>
         </li>
         <li>
-            <a href="../public/Statistici.html">
-                Statistici
+            <a href="../public/Contact.html">
+                Contact
             </a>
         </li>
         <li>
-            <a href="../public/Contact.html"> Contact</a>
+            <a href="../public/landingPage.html">
+                Ieși din cont
+            </a>
         </li>
     </menu>
     <main>
-        <section id="main-tiles">
-            <div class="box">
+        <section>
+            <div class="box" id="login-box">
                 <div class="title-with-image">
-                    <img alt="image" src="./assets/parcel.png">
-                    <h1>Urmărește colet</h1>
+                    <img src="./assets/man-user.png" alt="">
+                    <h1 id="hello-username">Bună, Andreea!</h1>
                 </div>
-                <form action="backend" name="awb-track" class="full-width-form">
-                    <input class="input-box" type="text" id="awb-input" name="awb-input" placeholder="AWB">
-                    <div class="button-container">
-                        <button type="button" id="track-awb">
-                            Urmărește
-                        </button>
-                    </div>
-                </form>
+                <div class="button-container">
+                    <button id="new-order" onclick="location.href='NewOrder2.html'">
+                        Comandă nouă
+                    </button>
+                </div>
+                <div class="button-container">
+                    <button id="logout" onclick="location.href='landingPage.html'">
+                        Ieși din cont
+                    </button>
+                </div>
             </div>
+
             <div class="box">
                 <div class="title-with-image">
                     <img alt="image" src="./assets/money-bag.png">
@@ -92,53 +97,37 @@
 
                 </p>
             </div>
-            <div class="box no-min-height">
+            <div class="box">
                 <div class="title-with-image">
-                    <img alt="image" src="./assets/arrow.png">
-                    <h1>Comandă fără cont</h1>
+                    <img alt="image" src="./assets/parcel.png">
+                    <h1>Urmărește colet</h1>
                 </div>
-                <div class="button-container">
-                    <button onclick="location.href='NewOrder2.html'">
-                        Începe comanda
-                    </button>
-                </div>
-            </div>
-            <div class="box" id="login-box">
-
-                <div class="title-with-image">
-                    <img alt="image" src="./assets/login.png">
-                    <h1>Autentificare</h1>
-                </div>
-                <form id="login-form" action="backend" class="full-width-form">
-                    <input class="input-box" type="text" id="user-mail" name="fname" placeholder="Email" required>
-                    <input class="input-box" type="password" id="user-password" name="lname" placeholder="Parolă"
-                        required>
+                <form action="backend" name="awb-track" class="full-width-form">
+                    <input class="input-box" type="text" id="awb-input" name="awb-input" placeholder="AWB">Autentificare
                     <div class="button-container">
-                        <button type="submit">Login</button>
-                        <button id="reset-password" onclick="location.href = 'ResetPassword.html'">
-                            Resetare parolă
-                        </button>
-                        <button id="register" onclick="location.href = 'register.html'">
-                            Cont nou
-                        </button>
-                    </div>
-                    <div class="button-container">
-                        <button id="demo-client" onclick="location.href = 'DashboardClient.html'">
-                            (demo) login client
-                        </button>
-                        <button id="demo-admin" onclick="location.href = 'dashboard.html'">
-                            (demo) login admin
-                        </button>
-                        <button id="demo-sofer" onclick="location.href = 'DashboardSofer.html'">
-                            (demo) login sofer
-                        </button>
-                        <button id="demo-admin" onclick="location.href = 'demo-landingPage-admin.html'">
-                            (demo) login admin
+                        <button type="button" id="track-awb">
+                            Urmărește
                         </button>
                     </div>
                 </form>
             </div>
+            <div class="box">
+                <div class="title-with-image">
+                    <img alt="image" src="./assets/parcel.png">
+                    <h1>Contul meu</h1>
+                </div>
+                <div class="button-container">
+                    <button type="button" id="change-email-password" onclick="location.href = 'ChangeCredentials.html'">
+                        Schimbă email / parola
+                    </button>
+                </div>
 
+                <div class="button-container">
+                    <button type="button" id="my-adress">
+                        Adresa mea
+                    </button>
+                </div>
+            </div>
             <div class="box no-min-height half-width">
                 <div class="title-with-image">
                     <img alt="image" src="./assets/arrow.png">

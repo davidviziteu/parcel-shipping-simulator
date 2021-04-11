@@ -52,6 +52,7 @@ select::placeholder {
  .check-box{
     margin-left: 3%;
 }
+
 input[type='checkbox'] {
     align-self: center;
     width:30px;
@@ -60,6 +61,7 @@ input[type='checkbox'] {
     border-radius:5px;
     border:2px solid #555;
 }
+
 #DeschidereVerificare{
     text-align: center;
 }

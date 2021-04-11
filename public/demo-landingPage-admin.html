@@ -42,30 +42,35 @@
             </a>
         </li>
         <li>
-            <a href="../public/Statistici.html">
-                Statistici
+            <a href="../public/Contact.html">
+                Contact
             </a>
         </li>
         <li>
-            <a href="../public/Contact.html"> Contact</a>
+            <a href="../public/landingPage.html">
+                Ieși din cont
+            </a>
         </li>
     </menu>
     <main>
-        <section id="main-tiles">
-            <div class="box">
+        <section>
+            <div class="box" id="login-box">
                 <div class="title-with-image">
-                    <img alt="image" src="./assets/parcel.png">
-                    <h1>Urmărește colet</h1>
+                    <img src="./assets/man-user.png" alt="">
+                    <h1 id="hello-username">Admin dashboard</h1>
                 </div>
-                <form action="backend" name="awb-track" class="full-width-form">
-                    <input class="input-box" type="text" id="awb-input" name="awb-input" placeholder="AWB">
-                    <div class="button-container">
-                        <button type="button" id="track-awb">
-                            Urmărește
-                        </button>
-                    </div>
-                </form>
+                <div class="button-container">
+                    <button id="new-order" onclick="location.href='NewOrder2.html'">
+                        Comandă nouă
+                    </button>
+                </div>
+                <div class="button-container">
+                    <button id="logout" onclick="location.href='landingPage.html'">
+                        Ieși din cont
+                    </button>
+                </div>
             </div>
+
             <div class="box">
                 <div class="title-with-image">
                     <img alt="image" src="./assets/money-bag.png">
@@ -92,67 +97,138 @@
 
                 </p>
             </div>
-            <div class="box no-min-height">
+            <div class="box">
                 <div class="title-with-image">
-                    <img alt="image" src="./assets/arrow.png">
-                    <h1>Comandă fără cont</h1>
+                    <img alt="image" src="./assets/parcel.png">
+                    <h1>Urmărește colet</h1>
                 </div>
-                <div class="button-container">
-                    <button onclick="location.href='NewOrder2.html'">
-                        Începe comanda
-                    </button>
-                </div>
-            </div>
-            <div class="box" id="login-box">
-
-                <div class="title-with-image">
-                    <img alt="image" src="./assets/login.png">
-                    <h1>Autentificare</h1>
-                </div>
-                <form id="login-form" action="backend" class="full-width-form">
-                    <input class="input-box" type="text" id="user-mail" name="fname" placeholder="Email" required>
-                    <input class="input-box" type="password" id="user-password" name="lname" placeholder="Parolă"
-                        required>
+                <form action="backend" name="awb-track" class="full-width-form">
+                    <input class="input-box" type="text" id="awb-input" name="awb-input" placeholder="AWB">
                     <div class="button-container">
-                        <button type="submit">Login</button>
-                        <button id="reset-password" onclick="location.href = 'ResetPassword.html'">
-                            Resetare parolă
-                        </button>
-                        <button id="register" onclick="location.href = 'register.html'">
-                            Cont nou
-                        </button>
-                    </div>
-                    <div class="button-container">
-                        <button id="demo-client" onclick="location.href = 'DashboardClient.html'">
-                            (demo) login client
-                        </button>
-                        <button id="demo-admin" onclick="location.href = 'dashboard.html'">
-                            (demo) login admin
-                        </button>
-                        <button id="demo-sofer" onclick="location.href = 'DashboardSofer.html'">
-                            (demo) login sofer
-                        </button>
-                        <button id="demo-admin" onclick="location.href = 'demo-landingPage-admin.html'">
-                            (demo) login admin
+                        <button type="button" id="track-awb" onclick="location.href = 'dashboard.html'">
+                            Urmărește
                         </button>
                     </div>
                 </form>
             </div>
-
+            <div class="box">
+                <div class="title-with-image">
+                    <img alt="image" src="./assets/parcel.png">
+                    <h1>Contul meu</h1>
+                </div>
+                <div class="button-container">
+                    <button type="button" id="change-email-password" onclick="location.href = 'ChangeCredentials.html'">
+                        Schimbă email / parola
+                    </button>
+                </div>
+            </div>
             <div class="box no-min-height half-width">
                 <div class="title-with-image">
                     <img alt="image" src="./assets/arrow.png">
                     <h1>Notificări</h1>
                 </div>
                 <p>
-                    Butonul login NU merge, deoarece noi ne bazam pe tipul de cont in care se intra. Va rugam sa
+                    [1] Butonul login NU merge, deoarece noi ne bazam pe tipul de cont in care se intra. Va rugam sa
                     folositi butoanele demo pentru login
                 </p>
                 <p>
-                    Website-ul foloseste cookie-uri
+                    [2] Website-ul foloseste cookie-uri
                 </p>
                 <p>
-                    Vremea nefavorabilă cauzează întârzieri
+                    [3] Vremea nefavorabilă cauzează întârzieri
+                </p>
+            </div>
+        </section>
+        <section>
+            <div class="box" id="new-emplyee">
+                <div class="title-with-image">
+                    <img alt="image" src="./assets/arrow.png">
+                    <h1>Conturi angajați</h1>
+                </div>
+                <form action="backend" name="add-emplyee-account" class="full-width-form">
+
+                    <ul class="inline-items" id="inline-radio-boxes">
+                        <li class="stacked-items center-vertical">
+                            <input type="radio" id="radio-Admin" name="type" value="admin">
+                            <label for="type1">Admin</label>
+                        </li>
+                        <li class="stacked-items center-vertical">
+                            <input checked type="radio" id="radio-Angajat" name="type" value="employee">
+                            <label for="type2">Angajat</label>
+                        </li>
+                        <li class="stacked-items center-vertical">
+                            <input type="radio" id="radio-Șofer" name="type" value="driver">
+                            <label for="type3">Șofer</label>
+                        </li>
+                    </ul>
+
+
+                    <input class="input-box" type="email" id="add-emplyee-account-email"
+                        name="add-emplyee-account-email" placeholder="Email" required>
+                    <input class="input-box" type="text" id="add-emplyee-account-name" name="add-emplyee-account-name"
+                        placeholder="Nume" required>
+                    <select class="input-box" name="add-emplyee-account-city" required>
+                        <option selected hidden value="">
+                            Alege județul utilizatorului
+                        </option>
+                        <option>Cluj</option>
+                        <option>Constanța</option>
+                        <option>Dolj</option>
+                        <option>Galați</option>
+                        <option>Iași</option>
+                        <option>Ilfov</option>
+                        <option>Oradea</option>
+                        <option>Sibiu</option>
+                        <option>Timișoara</option>
+                    </select>
+                    <div class="button-container">
+                        <button type="submit">
+                            Creează cont nou
+                        </button>
+                    </div>
+                </form>
+
+                <form action="backend" name="remove-emplyee-account" class="full-width-form">
+                    <input class="input-box" type="text" id="remove-emplyee-account-email"
+                        name="remove-emplyee-account-email" placeholder="Id sau mail" required>
+                    <div class="button-container">
+                        <button type="submit">
+                            Șterge cont
+                        </button>
+                    </div>
+                </form>
+                <p id="status-account">
+                    Status: cont creeat/sters cu succes, motivul erorii
+                </p>
+            </div>
+
+            <div class="box" id="new-notification">
+                <div class="title-with-image">
+                    <img alt="image" src="./assets/arrow.png">
+                    <h1>Notificări</h1>
+                </div>
+                <form action="backend" name="add-notification" class="full-width-form">
+                    <input class="input-box" type="text" id="add-notification" name="add-notification"
+                        placeholder="Text" required>
+                    <label for="data">Expiră</label>
+                    <input class="input-box" type="date" name="data">
+                    <input class="input-box" type="time" name="ora">
+                    <div class="button-container">
+                        <button type="button" id="track-awb">
+                            Adaugă notificare
+                        </button>
+                    </div>
+                </form>
+                <form action="backend" name="remove-notification" class="full-width-form">
+                    <input class="input-box" type="text" id="notification-id" name="notification-id" placeholder="Id">
+                    <div class="button-container">
+                        <button type="button" id="track-awb">
+                            Șterge notificare
+                        </button>
+                    </div>
+                </form>
+                <p id="status-notification">
+                    Status: succes sau motivul erorii
                 </p>
             </div>
         </section>
