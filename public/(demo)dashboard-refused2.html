@@ -52,24 +52,22 @@
             </a>
         </li>
         <li>
-            <a href="../public/Contact.html"> Contact</a>
+            <a href="../public/Contact.html">
+                Contact
+            </a>
         </li>
     </menu>
     <form action="InfoOrder">
         <section class="big">
-
-
             <div class="wide box">
                 <h4 id="awb-title">AWB: 123213123</h4>
             </div>
-
-
-
             <div class="box">
                 <h1>Detalii locatie pachet</h1>
 
-                <div class="button-container expandable">
+                <div class="button-container buttons-with-image expandable">
                     <button type="button" class="progress-done">
+                        <img src="./assets/counseling.png" alt="">
                         Comanda a fost primită
                     </button>
                 </div>
@@ -85,8 +83,9 @@
                 </div>
 
                 <!--  -->
-                <div class="button-container expandable">
+                <div class="button-container buttons-with-image expandable">
                     <button type="button" class="progress-now">
+                        <img src="./assets/package.png" alt="">
                         Ridicat de la expeditor
                     </button>
                 </div>
@@ -94,7 +93,15 @@
                     <li>
                         Pachetul urmează a fi ridicat de la expeditor în data de 8-apr-2021
                     </li>
-
+                    <li>
+                        Clientul refuză comanda, 8-apr-2021
+                    </li>
+                    <li>
+                        Angajat ID 123
+                    </li>
+                    <li>
+                        AWB nou: 2134
+                    </li>
                 </ul>
                 <div class="progress-arrow">
                     <img src="./assets/arrow.png" alt="down-arrow">
@@ -102,8 +109,9 @@
                 </div>
 
                 <!--  -->
-                <div class="button-container expandable">
+                <div class="button-container buttons-with-image expandable">
                     <button type="button" class="">
+                        <img src="./assets/distribution.png" alt="">
                         A ajuns la hub local
                     </button>
                 </div>
@@ -116,8 +124,9 @@
                 </div>
 
                 <!--  -->
-                <div class="button-container expandable">
+                <div class="button-container buttons-with-image expandable">
                     <button type="button" class="">
+                        <img src="./assets/box.png" alt="">
                         În tranzit
                     </button>
                 </div>
@@ -125,10 +134,12 @@
                 </ul>
                 <div class="progress-arrow">
                     <img src="./assets/arrow.png" alt="down-arrow">
+
                 </div>
                 <!--  -->
-                <div class="button-container expandable">
+                <div class="button-container buttons-with-image expandable">
                     <button type="button" class="">
+                        <img src="./assets/telephone.png" alt="">
                         În curs de livrare
                     </button>
                 </div>
@@ -139,8 +150,9 @@
 
                 </div>
 
-                <div class="button-container expandable">
+                <div class="button-container buttons-with-image expandable">
                     <button type="button" class="detalii-tranzit">
+                        <img src="./assets/review.png" alt="">
                         Destinatar
                     </button>
                 </div>
@@ -153,19 +165,23 @@
 
             </div>
             <div class="box">
-                <div class="button-container">
-                    <button id="bttn-comanda-refuzata" type="button" class="progress-now">
+                <div class="button-container buttons-with-image">
+                    <button id="bttn-comanda-refuzata" class="progress-now" type="button"
+                        onclick="location.href = '(demo)dashboard-refused2.html'">
                         Clientul refuză coletul / retur
                     </button>
                 </div>
-                <div class="button-container">
-                    <button id="bttn-comanda-ridicata" type="button" class="progress-invalid">
+                <div class="button-container buttons-with-image">
+                    <button id="bttn-comanda-ridicata" type="button" class="disabled">
                         Clientul a ridicat coletul
                     </button>
                 </div>
-                <h1>
-                    Alte detalii
-                </h1>
+                <div class="title-with-image">
+                    <img src="./assets/view-details.png" alt="">
+                    <h1>
+                        Alte detalii
+                    </h1>
+                </div>
                 <p>
                     Expeditor:
                 </p>
@@ -206,9 +222,12 @@
                 <p>
                     Valoare declarata 1000 RON
                 </p>
-                <h1>
-                    Opțiuni selectate
-                </h1>
+                <div class="title-with-image">
+                    <img src="./assets/equalizer.png" alt="">
+                    <h1>
+                        Opțiuni selectate
+                    </h1>
+                </div>
                 <ul id="details-list">
                     <li>
                         Livrare Sambata

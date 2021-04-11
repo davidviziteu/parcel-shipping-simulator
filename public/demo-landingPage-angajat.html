@@ -47,17 +47,34 @@
             </a>
         </li>
         <li>
-            <a href="../public/Statistici.html">
-                Statistici
+            <a href="../public/Contact.html">
+                Contact
             </a>
         </li>
         <li>
-            <a href="../public/Contact.html"> Contact</a>
+            <a href="../public/landingPage.html">
+                Ieși din cont
+            </a>
         </li>
     </menu>
     <main>
         <section>
-
+            <div class="box" id="login-box">
+                <div class="title-with-image">
+                    <img src="./assets/man-user.png" alt="">
+                    <h1 id="hello-username">Bună, Andreea!</h1>
+                </div>
+                <div class="button-container">
+                    <button id="new-order" onclick="location.href='NewOrder2.html'">
+                        Comandă nouă
+                    </button>
+                </div>
+                <div class="button-container">
+                    <button id="logout" onclick="location.href='landingPage.html'">
+                        Ieși din cont
+                    </button>
+                </div>
+            </div>
 
             <div class="box">
                 <div class="title-with-image">
@@ -85,43 +102,6 @@
 
                 </p>
             </div>
-            <div class="box" id="login-box">
-
-                <div class="title-with-image">
-                    <img alt="image" src="./assets/login.png">
-                    <h1>Autentificare</h1>
-                </div>
-                <form id="login-form" action="backend" class="full-width-form">
-                    <input class="input-box" type="text" id="user-mail" name="fname" placeholder="Email" required>
-                    <input class="input-box" type="password" id="user-password" name="lname" placeholder="Parolă"
-                        required>
-                    <div class="button-container">
-                        <button type="submit">Login</button>
-                        <button id="reset-password">
-                            Resetare parolă
-                        </button>
-                        <button id="register">
-                            Cont nou
-                        </button>
-                    </div>
-                    <div class="button-container">
-                        <button type="button" onclick="location.href = 'NewOrder1.html'">
-                            Comandă nouă fără cont
-                        </button>
-                    </div>
-                    <div class="button-container">
-                        <button id="demo-client">
-                            (demo) login client
-                        </button>
-                        <button id="demo-admin">
-                            (demo) login admin
-                        </button>
-                        <button id="demo-sofer">
-                            (demo) login sofer
-                        </button>
-                    </div>
-                </form>
-            </div>
             <div class="box">
                 <div class="title-with-image">
                     <img alt="image" src="./assets/parcel.png">
@@ -131,10 +111,37 @@
                     <input class="input-box" type="text" id="awb-input" name="awb-input" placeholder="AWB">
                     <div class="button-container">
                         <button type="button" id="track-awb">
-                            Urmărește
+                            Urmărește (momentan nu duce nicaieri)
                         </button>
                     </div>
+                    <div class="button-container">
+
+                        <button type="button" id="track-awb" onclick="location.href = 'dashboard.html'">
+                            (demo) urmateste coletul 1
+                        </button>
+                        <button type="button" id="track-awb" onclick="location.href = 'dashboard2.html'">
+                            (demo) urmateste coletul 2
+                        </button>
+
+                    </div>
                 </form>
+            </div>
+
+            <div class="box no-min-height half-width">
+                <div class="title-with-image">
+                    <img alt="image" src="./assets/arrow.png">
+                    <h1>Notificări</h1>
+                </div>
+                <p>
+                    Butonul login NU merge, deoarece noi ne bazam pe tipul de cont in care se intra. Va rugam sa
+                    folositi butoanele demo pentru login
+                </p>
+                <p>
+                    Website-ul foloseste cookie-uri
+                </p>
+                <p>
+                    Vremea nefavorabilă cauzează întârzieri
+                </p>
             </div>
         </section>
         <section>
