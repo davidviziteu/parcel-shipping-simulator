@@ -213,7 +213,7 @@ menu a {
 }
 
 menu a:hover{
-    font-size: 3vh;
+    font-weight: bold;
 }
 
 nav {
