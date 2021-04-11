@@ -60,7 +60,7 @@ function nextPrev(n) {
         }
         else if (currentbox == 3) {
             email = document.getElementById("email").value;
-            if (email == "" || /\S+@\S+\.com/.test(email) == false) {
+            if (email == "" || /\S+@\S+\.\S/.test(email) == false) {
                 document.getElementById("email").style.backgroundColor = "rgb(211, 110, 110)";
                 return false;
             }
