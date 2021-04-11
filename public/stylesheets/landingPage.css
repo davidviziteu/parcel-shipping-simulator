@@ -13,7 +13,7 @@
     min-height: unset;
 }
 
-input[type='radio'] {
+#remember-me {
     width:30px;
     height:30px;
     background:white;
@@ -21,6 +21,12 @@ input[type='radio'] {
     border:2px solid #555;
 }
 
-.inline-radio-boxes{
-    justify-content: space-evenly;
+#remember-me-input{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.center-horizontal{
+    align-items: center;
 }
