@@ -20,7 +20,7 @@ function showbox(n) {
     else {
         if (n != 1) x[n - 1].style.display = "none";
         x[n].style.display = "block";
-        if (n == (x.length) - 1) {
+        if (currentbox == 3) {
             document.getElementById("nextBtn").innerHTML = "Trimite";
         }
         if (currentbox == 1) document.getElementById("prevBtn").style.display = "none";
