@@ -56,21 +56,9 @@
         </li>
     </menu>
     <main>
-        <section id="main-tiles">
-            <div class="box">
-                <div class="title-with-image">
-                    <img alt="image" src="./assets/parcel.png">
-                    <h1>Urmărește colet</h1>
-                </div>
-                <form action="backend" name="awb-track" class="full-width-form">
-                    <input class="input-box" type="text" id="awb-input" name="awb-input" placeholder="AWB">
-                    <div class="button-container">
-                        <button type="button" id="track-awb">
-                            Urmărește
-                        </button>
-                    </div>
-                </form>
-            </div>
+        <section>
+
+
             <div class="box">
                 <div class="title-with-image">
                     <img alt="image" src="./assets/money-bag.png">
@@ -97,17 +85,6 @@
 
                 </p>
             </div>
-            <div class="box no-min-height">
-                <div class="title-with-image">
-                    <img alt="image" src="./assets/arrow.png">
-                    <h1>Comandă fără cont</h1>
-                </div>
-                <div class="button-container">
-                    <button onclick="location.href='NewOrder2.html'">
-                        Începe comanda
-                    </button>
-                </div>
-            </div>
             <div class="box" id="login-box">
 
                 <div class="title-with-image">
@@ -120,45 +97,44 @@
                         required>
                     <div class="button-container">
                         <button type="submit">Login</button>
-                        <button id="reset-password" onclick="location.href = 'ResetPassword.html'">
+                        <button id="reset-password">
                             Resetare parolă
                         </button>
-                        <button id="register" onclick="location.href = 'register.html'">
+                        <button id="register">
                             Cont nou
                         </button>
                     </div>
                     <div class="button-container">
-                        <button id="demo-client" onclick="location.href = 'DashboardClient.html'">
+                        <button type="button" onclick="location.href = 'NewOrder1.html'">
+                            Comandă nouă fără cont
+                        </button>
+                    </div>
+                    <div class="button-container">
+                        <button id="demo-client">
                             (demo) login client
                         </button>
-                        <button id="demo-admin" onclick="location.href = 'dashboard.html'">
+                        <button id="demo-admin">
                             (demo) login admin
                         </button>
-                        <button id="demo-sofer" onclick="location.href = 'DashboardSofer.html'">
+                        <button id="demo-sofer">
                             (demo) login sofer
-                        </button>
-                        <button id="demo-admin" onclick="location.href = 'demo-landingPage-admin.html'">
-                            (demo) login admin
                         </button>
                     </div>
                 </form>
             </div>
-
-            <div class="box no-min-height half-width">
+            <div class="box">
                 <div class="title-with-image">
-                    <img alt="image" src="./assets/arrow.png">
-                    <h1>Notificări</h1>
+                    <img alt="image" src="./assets/parcel.png">
+                    <h1>Urmărește colet</h1>
                 </div>
-                <p>
-                    Butonul login NU merge, deoarece noi ne bazam pe tipul de cont in care se intra. Va rugam sa
-                    folositi butoanele demo pentru login
-                </p>
-                <p>
-                    Website-ul foloseste cookie-uri
-                </p>
-                <p>
-                    Vremea nefavorabilă cauzează întârzieri
-                </p>
+                <form action="backend" name="awb-track" class="full-width-form">
+                    <input class="input-box" type="text" id="awb-input" name="awb-input" placeholder="AWB">Autentificare
+                    <div class="button-container">
+                        <button type="button" id="track-awb">
+                            Urmărește
+                        </button>
+                    </div>
+                </form>
             </div>
         </section>
         <section>

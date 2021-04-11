@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ro">
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <title>PSS</title>
+    <link rel='stylesheet' type='text/css' media='screen' href='../templates/template.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='./stylesheets/NewOrder.css'>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,300&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <nav>
+        <div id="here">
+            <button id="hamburger">
+            </button>
+            <div>
+                <img src="../templates/logo.png" alt="">
+            </div>
+            <div id="login-info">
+                Bună!
+            </div>
+        </div>
+    </nav>
+    <menu class="hidden">
+        <li>
+            <a href="../public/landingPage.html">
+                Pagină de start
+            </a>
+        </li>
+        <li>
+            <a href="../public/Locatii\.html">
+                Locații
+            </a>
+        </li>
+        <li>
+            <a href="../public/AboutUs.html">
+                Despre noi
+            </a>
+        </li>
+        <li>
+            <a href="../public/landingPage.html">
+                Verificare AWB
+            </a>
+        </li>
+        <li>
+            <a href="../public/Statistici.html">
+                Statistici
+            </a>
+        </li>
+        <li>
+            <a href="../public/Contact.html"> Contact</a>
+        </li>
+    </menu>
+    <main>
+        <form action="InfoOrder">
+            <section class="big">
+                <div class="wide box">
+                    <h1>Câmpurile cu * sunt obligatorii.</h1>
+                </div>
+                <div class="box">
+                    <h2>Detalii expeditor*</h2>
+                    <input class="input-box" type="text" placeholder="Nume expeditor" required>
+                    <input class="input-box" type="text" placeholder="Persoană de contact" required>
+                    <input class="input-box" type="tel" placeholder="Telefon" required>
+                    <input class="input-box" placeholder="Adresă de email" required>
+                    <select class="input-box" name="judet" id="judet1" required>
+                        <!-- <option value="" selected="selected"></option> -->
+                        <option value="" disabled selected hidden>Alege județul</option>
+                    </select>
+
+                    <select class="input-box" name="localitate" id="localitate1" required>
+                        <option class="color" value="" selected="selected">Alege județul prima dată</option>
+                    </select>
+                    <input class="input-box" type="text" placeholder="Adresă" required>
+
+
+                </div>
+
+                <div class="box">
+                    <h2>Detalii destinatar*</h2>
+
+                    <input class="input-box" type="text" placeholder="Nume destinatar" required>
+                    <input class="input-box" type="text" placeholder="Persoană de contact" required>
+                    <input class="input-box" type="tel" placeholder="Telefon" required>
+                    <select class="input-box" name="judet" id="judet2" required>
+                        <option value="" disabled selected hidden>Alege județul</option>
+                    </select>
+
+                    <select class="input-box" name="localitate" id="localitate2" required>
+                        <option value="" selected="selected">Alege județul prima dată</option>
+                    </select>
+                    <input class="input-box" type="text" placeholder="Adresă" required>
+
+
+
+                </div>
+                <div class="box">
+                    <h2>Detalii expediție</h2>
+
+                    <input class="input-box" type="text" name="nrPlicuri" placeholder="Numărul de plicuri">
+                    <input class="input-box" type="text" name="nrColete" placeholder="Numărul de colete">
+                    <input class="input-box" type="text" name="greutate" placeholder="Greutate totală(Kg)">
+
+                </div>
+                <div class="box">
+                    <h2>Dimensiuni</h2>
+
+                    <input class="input-box" type="text" name="lungime" placeholder="Lungime(cm)">
+                    <input class="input-box" type="text" name="latime" placeholder="Lățime(cm)">
+                    <input class="input-box" type="text" name="inaltime" placeholder="Înălțime(cm)">
+
+                </div>
+                <div class="box">
+                    <h2>Detalii privind data/ora ridicării*</h2>
+
+                    <input class="input-box" type="date" name="data" required>
+                    <input class="input-box" type="time" name="ora">
+
+                </div>
+                <div class="box">
+                    <h2>Observații</h2>
+
+                    <input class="input-big" type="text" name="mentiuni">
+
+                </div>
+                <div class="box">
+                    <h2>Opțiuni </h2>
+                    <div class="horizontal-center">
+                        <input class="check-box" type="checkbox" id="optiuni1" name="optiuni1">
+                        <label for="optiuni1" id="DeschidereVerificare"> Deschiderea coletului la livrare </label>
+                    </div>
+                    <div class="horizontal-center">
+                        <input class="check-box" type="checkbox" id="optiuni2" name="optiuni2">
+                        <label for="optiuni2" id="LivrareSambata"> Livrare sâmbătă </label>
+                    </div>
+                    <div class="horizontal-center">
+                        <input class="check-box" type="checkbox" id="optiuni3" name="optiuni3">
+                        <label for="optiuni3" id="Fragil"> Colet fragil </label>
+                    </div>
+                    <select class="input-box" name="plata" id="plata" required>
+                        <option value="" disabled selected hidden>Alege metoda de plată</option>
+                    </select>
+                </div>
+                <div class="box">
+                    <h2>Estimează </h2>
+                    <div class="button-container">
+                        <div id="calculeazaCostBtn">
+                            Calculează cost
+                        </div>
+                    </div>
+                    <p id="cost-final">
+
+                    </p>
+                </div>
+                <div class="wide box">
+                    <div class="button-container">
+                        <button id="comanda" onclick="location.href='OrderSent.html'">
+                            Plasează comanda
+                        </button>
+                    </div>
+                </div>
+
+            </section>
+        </form>
+    </main>
+    <footer>
+        <section>
+            <div class="box margin-footer">
+                <div class="center-vertical">
+                    <img src="../templates/autori.png" alt="">
+                    <h4>Autori</h4>
+                </div>
+                <p>
+                    Bujor Bogdan-Constantin
+                </p>
+                <p>
+                    Vina Andreea-Madalina
+                </p>
+                <p>
+                    Viziteu David-Andrei
+                </p>
+            </div>
+            <div class="box margin-footer">
+                <div class="center-vertical">
+                    <img src="../templates/referinte.png" alt="">
+                    <h4>Referințe</h4>
+                </div>
+                <p><a href="https://www.flaticon.com/">www.flaticon.com</a></p>
+                <p><a href="https://www.w3schools.com/">www.w3schools.com</a></p>
+                <p><a href="https://developer.mozilla.org/en-US/">www.developer.mozilla.org</a></p>
+            </div>
+
+            <div class="box margin-footer">
+                <div class="center-vertical">
+                    <img src="../templates/instagram.png" alt="">
+                    <h4>Instagram</h4>
+                </div>
+                <p>
+                    <a href="https://www.instagram.com/bujorbogdan99/">bujorbogdan99</a>
+                </p>
+                <p>
+                    <a href="https://www.instagram.com/andreea.vina/">andreea.vina</a>
+                </p>
+                <p>
+                    <a href="https://www.instagram.com/andrei_david7/">andrei_david7</a>
+                </p>
+            </div>
+        </section>
+    </footer>
+
+    <script src='../templates/template.js'></script>
+    <script src='./scripts/NewOrder2.js'></script>
+</body>
+
+</html>
