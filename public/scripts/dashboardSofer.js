@@ -13,6 +13,7 @@ var buttonDefectiuni = document.getElementById('defectiuni')
 var buttonClient = document.getElementById('client')
 var buttonContinut = document.getElementById('continut')
 var buttonLivrat = document.getElementById('livrat')
+var buutonSubmit = document.getElementById('submit')
 
 
 buttonExpeditor.addEventListener('click', () =>
@@ -73,6 +74,11 @@ buttonLivrat.addEventListener('click', () => {
     if (change == true) check[5].checked = false
 }
 )
+
+buutonSubmit.addEventListener('click', () => {
+    window.location.href = "../public/DashboardSoferAfter.html";
+    return false;
+})
 
 function AWBS() {
     n = Math.floor(Math.random() * 10) + 1;
