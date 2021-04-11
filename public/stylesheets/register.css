@@ -48,12 +48,24 @@ select{
         display: block ;
     }
     .input-box{
-        width: 90%;
+        width: 85%;
+        margin-right: 0px !important;
     }
 
     select{
-        width: 93% !important;
+        width: 90% !important;
     }
 
+    .inBox .box{
+        width: 100%;
+        margin-left: 0;
+    }
 
+    .box > *{
+        margin-left: 0.7em;
+    }
+
+    footer .box{
+        width: 90%;
+    }
 }
