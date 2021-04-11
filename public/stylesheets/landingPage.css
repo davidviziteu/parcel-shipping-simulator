@@ -21,6 +21,6 @@ input[type='radio'] {
     border:2px solid #555;
 }
 
-#inline-radio-boxes{
+.inline-radio-boxes{
     justify-content: space-evenly;
 }
