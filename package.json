@@ -1,0 +1,23 @@
+{
+  "name": "parcel-shipping-simulator",
+  "version": "1.0.0",
+  "description": "computer science project",
+  "main": "index.js",
+  "scripts": {
+    "test": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davidviziteu/parcel-shipping-simulator.git"
+  },
+  "author": "david, andreea, bogdan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/davidviziteu/parcel-shipping-simulator/issues"
+  },
+  "homepage": "https://github.com/davidviziteu/parcel-shipping-simulator#readme",
+  "dependencies": {
+    "nodemon": "^2.0.7",
+    "querystring": "^0.2.1"
+  }
+}
