@@ -7,7 +7,7 @@ class Router {
     #putRoutes
 
     constructor() {
-        this.#postRoutes = {}
+        this.#postRoutes = {} //new Map(string, functie)
         this.#getRoutes = {}
         this.#deleteRoutes = {}
         this.#putRoutes = {}
@@ -35,45 +35,7 @@ class Router {
     }
 
 
-    handleRoute(req, res) {
-        if (req.error) {
-            console.log(error)
-            //trimite si ceva la client...
-            req.end(`data transfer error`)
-        }
-        
-        var reqUrl = req.url.split(`?`)[0]
-        try {
-            switch (req.method) {
-                case "POST":
-                    this.#postRoutes[reqUrl](req, res)
-                    break;
-                case "GET":
-                    this.#getRoutes[reqUrl](req, res)
-                    break;
-                case "DELETE":
-                    this.#deleteRoutes[reqUrl](req, res)
-                    break;
-                case "PUT":
-                    this.#putRoutes[reqUrl](req, res)
-                    break;
-                default:
-                    this.#handleUnkownRoute(req, res, `unknown unknown method`)
-                    break;
-            }
-        } catch (error) {
-            console.log(error)
-            this.#handleUnkownRoute(req, res, `unknown route`)
-        }
-    }
-
-
-    #handleUnkownRoute = function (req, res, message) {
-        res.statusCode = 404
-        res.end(message)
-    }
-
-    handleClient = function (req, res) {
+    handleClient(req, res) {
         let data = '';
         console.log(`req handle data`)
         req.on('data', chunk => {
@@ -93,7 +55,13 @@ class Router {
                     finalData.error = err
                     req.data = finalData
                 }
-            this.handleRoute(req, res)
+
+
+            res = this.handleRoute(req, res)
+            res.end()
+
+
+
         }.bind(this))
         req.on('error', function (err) {
             console.error(err)
@@ -102,6 +70,50 @@ class Router {
         }.bind(this))
     }
 
+
+
+    handleRoute(req, res) {
+        if (req.error) {
+            console.log(error)
+            //trimite si ceva la client...
+            req.end(`data transfer error`)
+        }
+
+        var reqUrl = req.url.split(`?`)[0]
+        try {
+            switch (req.method) {
+                case "POST":
+                    return this.#postRoutes[reqUrl](req, res)
+                    break;
+                case "GET":
+                    let correspodingFcuntion = this.#getRoutes[reqUrl]
+                    return correspodingFcuntion(req, res)
+                    break;
+                case "DELETE":
+                    return this.#deleteRoutes[reqUrl](req, res)
+                    break;
+                case "PUT":
+                    return this.#putRoutes[reqUrl](req, res)
+                    break;
+                default:
+                    this.#handleUnkownRoute(req, res, `unknown unknown method`)
+                    break;
+            }
+        } catch (error) {
+            console.log(error)
+            this.#handleUnkownRoute(req, res, `unknown route`)
+        }
+    }
+
+
+    #handleUnkownRoute(req, res, message) {
+        res.statusCode = 404
+        res.end(message)
+    }
+
+
 }
 
-module.exports = { Router }
+let router = new Router();
+
+module.exports = { router }

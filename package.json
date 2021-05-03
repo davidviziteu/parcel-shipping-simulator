@@ -2,9 +2,9 @@
   "name": "parcel-shipping-simulator",
   "version": "1.0.0",
   "description": "computer science project",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
-    "test": "nodemon index.js"
+    "test": "nodemon main.js"
   },
   "repository": {
     "type": "git",
@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/davidviziteu/parcel-shipping-simulator#readme",
   "dependencies": {
+    "dotenv": "^8.2.0",
+    "mysql": "^2.18.1",
     "nodemon": "^2.0.7",
     "querystring": "^0.2.1"
   }

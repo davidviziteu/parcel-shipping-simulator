@@ -1,0 +1,20 @@
+const http = require(`http`)
+const pool = require("./config/database")
+const { router } = require(`./utils/router.js`)
+const { App } = require(`./utils/app.js`)
+require("dotenv").config();
+
+app = new App(4000, router)
+app.listen()
+
+
+
+
+// router.get(`/`, function (req, res) {
+//     if (req.data) {
+//         responsObj = { "error": req.data.error }
+//         // return res.end(JSON.stringify(responsObj))
+//         return res.status(301).json({ data: req.data })
+//     }
+//     return res.end(`merge`)
+// })
