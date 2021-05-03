@@ -1,17 +1,18 @@
 const http = require(`http`)
 const pool = require("./config/database")
-const { router } = require(`./utils/router.js`)
+const { router } = require(`./routes/common.js`)
 const { App } = require(`./utils/app.js`)
 require("dotenv").config();
 
-router.get(`/api/AWB`, (req, res) => {
-    return res.status(301).json({
-        "merge": "merge"
-    })
-})
+// router.get(`/api/AWB`, (req, res) => {
+//     return res.status(301).json({
+//         "merge": "merge"
+//     })
+// })
 
 
 app = new App(4000, router)
+app.use(router)
 app.listen()
 
 
