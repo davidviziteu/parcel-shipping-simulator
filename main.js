@@ -4,6 +4,13 @@ const { router } = require(`./utils/router.js`)
 const { App } = require(`./utils/app.js`)
 require("dotenv").config();
 
+router.get(`/api/AWB`, (req, res) => {
+    return res.status(301).json({
+        "merge": "merge"
+    })
+})
+
+
 app = new App(4000, router)
 app.listen()
 

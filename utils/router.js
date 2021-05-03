@@ -86,8 +86,7 @@ class Router {
                     return this.#postRoutes[reqUrl](req, res)
                     break;
                 case "GET":
-                    let correspodingFcuntion = this.#getRoutes[reqUrl]
-                    return correspodingFcuntion(req, res)
+                    return this.#getRoutes[reqUrl](req, res)
                     break;
                 case "DELETE":
                     return this.#deleteRoutes[reqUrl](req, res)
