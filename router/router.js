@@ -33,28 +33,44 @@ class Router {
             console.error(`route ${url} was already added as PUT route`)
         this.#putRoutes[url] = controller
     }
+
+
     handleRoute(req, res) {
+        if (req.error) {
+            console.log(error)
+            //trimite si ceva la client...
+            req.end(`data transfer error`)
+        }
+        
         var reqUrl = req.url.split(`?`)[0]
-        // req.data = this.#handleIncomingData(req, res)
         try {
             switch (req.method) {
-                case "POST": break;
+                case "POST":
+                    this.#postRoutes[reqUrl](req, res)
+                    break;
                 case "GET":
                     this.#getRoutes[reqUrl](req, res)
                     break;
-                case "DELETE": break;
-                case "PUT": break;
+                case "DELETE":
+                    this.#deleteRoutes[reqUrl](req, res)
+                    break;
+                case "PUT":
+                    this.#putRoutes[reqUrl](req, res)
+                    break;
                 default:
+                    this.#handleUnkownRoute(req, res, `unknown unknown method`)
                     break;
             }
         } catch (error) {
             console.log(error)
-            this.#handleUnkownRoute(req, res)
+            this.#handleUnkownRoute(req, res, `unknown route`)
         }
     }
-    #handleUnkownRoute = function (req, res) {
+
+
+    #handleUnkownRoute = function (req, res, message) {
         res.statusCode = 404
-        res.end(`Unknown route`)
+        res.end(message)
     }
 
     handleClient = function (req, res) {
@@ -67,20 +83,22 @@ class Router {
         })
         req.on('end', function () {
             let finalData = {}
-            try {
-                finalData = JSON.parse(data)
-                req.data = finalData
+            if (data)
+                try {
+                    finalData = JSON.parse(data)
+                    req.data = finalData
 
-            } catch (err) {
-                console.log(err)
-                finalData.error = err
-                req.data = finalData
-            }
+                } catch (err) {
+                    console.log(err)
+                    finalData.error = err
+                    req.data = finalData
+                }
             this.handleRoute(req, res)
         }.bind(this))
         req.on('error', function (err) {
             console.error(err)
-            // this.#handleUnknownRoute ????????????
+            req.error = err;
+            this.handleRoute(req, res)
         }.bind(this))
     }
 
