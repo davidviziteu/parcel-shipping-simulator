@@ -1,5 +1,7 @@
 const http = require(`http`)
+const pool = require("./config/database")
 let { Router } = require(`./router/router.js`)
+require("dotenv").config();
 
 app = new Router()
 app.get(`/`, function (req, res) {
@@ -17,4 +19,5 @@ const server = http.createServer((req, res) => {
 server.listen(4000, () => {
     console.log("listening")
 })
+
 
