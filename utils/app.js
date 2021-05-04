@@ -40,8 +40,11 @@ class App {
                 }.bind(this))
                 req.on('error', function (err) {
                     console.error(err.message)
-                    req.error = err;
-                    this.router.handleRoute(req, res)
+                    return req.json({
+                        success: false,
+                        message: "Request error"
+                    });
+                    req.end();
                 }.bind(this))
 
         }.bind(this)).listen(this.port)

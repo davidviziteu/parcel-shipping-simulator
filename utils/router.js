@@ -38,7 +38,10 @@ class Router {
         if (req.error) {
             console.log(error)
             //trimite si ceva la client...
-            req.end(`data transfer error`)
+            return res.status(500).json({
+                success: false,
+                message: "Data transfer error!"
+            });
         }
 
         var reqUrl = req.url.split(`?`)[0]
@@ -57,19 +60,22 @@ class Router {
                     return this.putRoutes[reqUrl](req, res)
                     break;
                 default:
-                    this.handleUnkownRoute(req, res, `unknown unknown method`)
+                    return this.handleUnkownRoute(req, res, `unknown method`)
                     break;
             }
         } catch (error) {
-            console.log(error)
-            this.handleUnkownRoute(req, res, `unknown route`)
+            console.log(error.message)
+            return this.handleUnkownRoute(req, res, `unknown route`)
         }
     }
 
 
     handleUnkownRoute(req, res, message) {
-        res.statusCode = 404
-        res.end(message)
+        return res.status(404).json({
+            success: false,
+            message: message
+        });
+
     }
 
     // getGetRoutes(){return this.getRoutes;}
