@@ -34,44 +34,6 @@ class Router {
         this.putRoutes[url] = controller
     }
 
-
-    handleClient(req, res) {
-        let data = '';
-        console.log(`req handle data`)
-        req.on('data', chunk => {
-            data += chunk
-            if (data.length > 1e6)
-                req.connection.destroy()
-        })
-        req.on('end', function () {
-            let finalData = {}
-            if (data)
-                try {
-                    finalData = JSON.parse(data)
-                    req.data = finalData
-
-                } catch (err) {
-                    console.log(err)
-                    finalData.error = err
-                    req.data = finalData
-                }
-
-
-            res = this.handleRoute(req, res)
-            res.end()
-
-
-
-        }.bind(this))
-        req.on('error', function (err) {
-            console.error(err)
-            req.error = err;
-            this.handleRoute(req, res)
-        }.bind(this))
-    }
-
-
-
     handleRoute(req, res) {
         if (req.error) {
             console.log(error)
