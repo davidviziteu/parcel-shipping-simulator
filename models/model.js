@@ -19,40 +19,7 @@ module.exports = {
                 if (error) {
                     callBack(error);
                 }
-                return callBack(null, results[0]);
-            }
-        );
-    },
-    getDriverByEmail: (email, callBack) => {
-        pool.query(
-            `select * from soferi where email = ?`, [email],
-            (error, results, fields) => {
-                if (error) {
-                    callBack(error);
-                }
-                return callBack(null, results[0]);
-            }
-        );
-    },
-    getEmployeeByEmail: (email, callBack) => {
-        pool.query(
-            `select * from angajati where email = ?`, [email],
-            (error, results, fields) => {
-                if (error) {
-                    callBack(error);
-                }
-                return callBack(null, results[0]);
-            }
-        );
-    },
-    getAdminByEmail: (email, callBack) => {
-        pool.query(
-            `select * from admini where email = ?`, [email],
-            (error, results, fields) => {
-                if (error) {
-                    callBack(error);
-                }
-                return callBack(null, results[0]);
+                return callBack(null, results);
             }
         );
     },
