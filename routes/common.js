@@ -1,20 +1,29 @@
 const { Router } = require(`../utils/router.js`)
-console.log("aici")
-let dbAWB = [1,2,3];
+const url = require('url');
+const fs = require('fs');
+const path = require('path');
+
+let dbAWB = [1, 2, 3];
+
+
 let router = new Router();
-router.get(`/api/AWB`, (req, res) => {
+router.get(`/api/getAWB`, (req, res) => {
     console.log(req.data)
     if (req.data.AWB) {
-       if(dbAWB.find(function(arg){
-           return arg == req.data.AWB;
-       }))
+        if (dbAWB.find(function (arg) {
+            return arg == req.data.AWB;
+        }))
             return res.status(200).json({
-                "succes":true
+                "succes": true
             })
         else return res.status(200).json({
-            "succes":false
+            "succes": false
         })
     }
-    return res.status(300)
+    return res.status(400).json({
+        error: `Missing 'AWB' filed from request`
+    })
 });
-module.exports = {router}
+
+
+module.exports = { router }

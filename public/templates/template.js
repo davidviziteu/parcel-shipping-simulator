@@ -14,7 +14,7 @@ hamburgerMenu.addEventListener(`click`, () => {
     }
     else {
         document.getElementById("hamburger").innerHTML = ""
-        document.getElementById("hamburger").style.backgroundImage = "url(../templates/hamburger-menu.jpg)"
+        document.getElementById("hamburger").style.backgroundImage = "url(templates/hamburger-menu.jpg)"
         menu.className = `hidden`
         var x = document.getElementsByTagName("body")[0];
         x.style.overflowY = "scroll"

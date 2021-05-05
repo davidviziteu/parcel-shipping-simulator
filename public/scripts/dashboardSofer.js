@@ -76,7 +76,7 @@ buttonLivrat.addEventListener('click', () => {
 )
 
 buutonSubmit.addEventListener('click', () => {
-    window.location.href = "../public/DashboardSoferAfter.html";
+    window.location.href = "DashboardSoferAfter.html";
     return false;
 })
 

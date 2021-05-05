@@ -102,7 +102,7 @@ function nextPrev(n) {
 }
 
 function redirect() {
-    window.location.href = "../public/afterRegister.html";
+    window.location.href = "afterRegister.html";
     return false;
 }
 

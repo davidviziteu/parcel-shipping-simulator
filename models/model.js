@@ -19,39 +19,14 @@ module.exports = {
                 if (error) {
                     callBack(error);
                 }
-                return callBack(null, results[0]);
-            }
-        );
-    },
-    getSoferByEmail: (email, callBack) => {
-        pool.query(
-            `select * from soferi where email = ?`, [email],
-            (error, results, fields) => {
-                if (error) {
-                    callBack(error);
-                }
-                return callBack(null, results[0]);
-            }
-        );
-    },
-    getAngajatByEmail: (email, callBack) => {
-        pool.query(
-            `select * from angajati where email = ?`, [email],
-            (error, results, fields) => {
-                if (error) {
-                    callBack(error);
-                }
-                return callBack(null, results[0]);
-            }
-        );
-    },
-    getAdminByEmail: (email, callBack) => {
-        pool.query(
-            `select * from admini where email = ?`, [email],
-            (error, results, fields) => {
-                if (error) {
-                    callBack(error);
-                }
+                if (driver)
+                    results[0].type = `driver`
+                if (user)
+                    results[0].type = `user`
+                if (admin)
+                    results[0].type = `admin`
+                if (employee)
+                    results[0].type = `employee`
                 return callBack(null, results[0]);
             }
         );

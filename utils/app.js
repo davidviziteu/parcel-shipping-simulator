@@ -1,7 +1,8 @@
 const http = require('http')
 const { Router } = require('./router')
 const fs = require('fs');
-
+const path = require('path');
+const url = require('url');
 
 class App {
     port
@@ -12,13 +13,18 @@ class App {
         this.router = new Router()
     }
 
-
+    isRestAPI = (url) => String(url).startsWith(`/api`)
 
     listen() {
         http.createServer(function (req, res) {
             res = this.addResponseFunctionalities(res)
 
-            if (handleStatic(req, res)) return
+            if (!this.isRestAPI(req.url)) { //nume prost ales pt functia aia
+                res = this.handleStatic(req, res)
+                if (res.endNow)
+                    res.end()
+                return
+            }
 
             console.log(`handle client on url: ${req.url}`)
             let data = '';
@@ -94,28 +100,86 @@ class App {
             return res
         }
 
-        res.sendFile = function (filePath) {
+        res.sendFile = async function (filePath) {
+
+            const map = {
+                '.ico': 'image/x-icon',
+                '.html': 'text/html',
+                '.js': 'text/javascript',
+                '.json': 'application/json',
+                '.css': 'text/css',
+                '.png': 'image/png',
+                '.jpg': 'image/jpeg',
+                '.wav': 'audio/wav',
+                '.mp3': 'audio/mpeg',
+                '.svg': 'image/svg+xml',
+                '.pdf': 'application/pdf',
+                '.doc': 'application/msword'
+            };
             try {
-                var stat = fs.statSync(filePath);
-                res.setHeader('Content-Type', 'text/html');
-                res.setHeader('Content-Length', stat.size);
-                // fs.createReadStream(filePath).pipe(res);
-                fs.readFile(filePath, (err, data) => {
-                    if (err) {
-                        //idk
-                    }
-                    res.write(data);
+                {
+                    // fs.stat(filePath, (err, stat) => {
+                    //     if (err) {
+                    //         res.status(500).json({
+                    //             error: err.message
+                    //         })
+                    //         return res
+                    //     }
+
+                    //     res.setHeader('Content-type', map[extension] || 'text/plain');
+                    //     res.setHeader('Content-Length', stat.size);
+                    // })
+                    // return res
+                }
+
+                // based on the URL path, extract the file extention. e.g. .js, .doc, ...
+                const extension = path.parse(filePath).ext;
+                var stat = await fs.promises.stat(filePath)
+                if (!stat.isFile) {
+                    return res.status(400).json({
+                        error: `bad request. not a file`
+                    })
+                }
+                else {
+                    var data = await fs.promises.readFile(filePath)
+                    res.setHeader('Content-type', map[extension] || 'text/plain');
+                    res.setHeader('Content-length', stat.size);
+                    res.write(data)
                     res.end()
-                })
-                console.log(filePath)
-                res.endNow = false // nu a dat eroare dar se trimite fisierul
+                }
             } catch (err) {
-                console.log(err)
+                console.error(err)
+                if (err.code == 'ENOENT') //ENOENT = ERROR NO ENTITY
+                    return res.status(404).json({
+                        error: err.message,
+                        path: filePath
+                    })
+
+                //altfel e alta eraore. fie de la stat, fie de la readFile
+                return res.status(500).json({
+                    error: err.message,
+                    path: filePath
+                })
             }
+            res.end = false
             return res
         }
 
+        //end of functionalities
         return res
+    }
+
+    handleStatic(req, res) {
+        // parse URL
+        const parsedUrl = url.parse(req.url)
+        // extract URL path
+        let pathname = `${parsedUrl.pathname}`
+        console.log(`pathname processed = ${pathname}`)
+        if (pathname == `/`)
+            return res.sendFile(`public/landingPage.html`)
+        else
+            return res.sendFile(`public` + pathname)
+
     }
 }
 

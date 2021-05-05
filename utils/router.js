@@ -13,6 +13,8 @@ class Router {
         this.putRoutes = {}
     }
 
+
+    //controller ul este o functie (lambda, cu nume, nu conteaza)
     post(url, controller) {
         if (this.postRoutes[url])
             console.error(`route ${url} was already added as POST route`)
@@ -64,14 +66,14 @@ class Router {
                     break;
             }
         } catch (error) {
-            console.log(error.message)
+            console.error(error.message)
             return this.handleUnkownRoute(req, res, `unknown route`)
         }
     }
 
 
     handleUnkownRoute(req, res, message) {
-        return res.status(404).json({
+        return res.status(400).json({
             success: false,
             message: message
         });

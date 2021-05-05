@@ -17,12 +17,11 @@ app.listen()
 
 
 
-
 // router.get(`/`, function (req, res) {
 //     if (req.data) {
 //         responsObj = { "error": req.data.error }
 //         // return res.end(JSON.stringify(responsObj))
 //         return res.status(301).json({ data: req.data })
 //     }
-//     return res.end(`merge`)
+//     return res.end(`merge`)-
 // })

@@ -4,6 +4,7 @@
   "description": "computer science project",
   "main": "main.js",
   "scripts": {
+    "start": "nodemon main.js",
     "test": "nodemon main.js"
   },
   "repository": {
