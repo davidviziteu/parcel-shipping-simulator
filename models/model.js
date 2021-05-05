@@ -23,7 +23,7 @@ module.exports = {
             }
         );
     },
-    getSoferByEmail: (email, callBack) => {
+    getDriverByEmail: (email, callBack) => {
         pool.query(
             `select * from soferi where email = ?`, [email],
             (error, results, fields) => {
@@ -34,7 +34,7 @@ module.exports = {
             }
         );
     },
-    getAngajatByEmail: (email, callBack) => {
+    getEmployeeByEmail: (email, callBack) => {
         pool.query(
             `select * from angajati where email = ?`, [email],
             (error, results, fields) => {
