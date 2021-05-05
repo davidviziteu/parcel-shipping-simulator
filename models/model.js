@@ -19,15 +19,7 @@ module.exports = {
                 if (error) {
                     callBack(error);
                 }
-                if (driver)
-                    results[0].type = `driver`
-                if (user)
-                    results[0].type = `user`
-                if (admin)
-                    results[0].type = `admin`
-                if (employee)
-                    results[0].type = `employee`
-                return callBack(null, results[0]);
+                return callBack(null, results);
             }
         );
     },
