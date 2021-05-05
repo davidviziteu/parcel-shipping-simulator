@@ -11,7 +11,7 @@ require("dotenv").config();
 // })
 
 
-app = new App(4000, router)
+app = new App((process.env.PORT || 80), router)
 app.use(router)
 app.listen()
 
