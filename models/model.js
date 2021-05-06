@@ -33,5 +33,24 @@ module.exports = {
                 return callBack(null, results);
             }
         );
+    },
+    createAccount: (data, callBack) => {
+        pool.query(
+            `INSERT INTO USERS (name,surname,email,password,phone,type) VALUES (?,?,?,?,?,?)`,
+            [
+                data.name,
+                data.surname,
+                data.email,
+                data.password,
+                data.phone,
+                data.type
+            ],
+            (error, results, fields) => {
+                if (error) {
+                    return callBack(error)
+                }
+                return callBack(null, results)
+            }
+        );
     }
 }

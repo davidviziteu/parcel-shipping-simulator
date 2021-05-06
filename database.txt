@@ -1,0 +1,54 @@
+CREATE TABLE users (
+  id INTEGER UNIQUE NOT NULL AUTO_INCREMENT,
+  name VARCHAR(30) NOT NULL,
+  surname VARCHAR(30) NOT NULL, 
+  email VARCHAR(30) PRIMARY KEY,
+  password VARCHAR(50) NOT NULL,
+  phone INTEGER NOT NULL,
+  type VARCHAR(25) NOT NULL,
+  CHECK (tip = "user" OR tip = "driver" OR tip = "admin" OR tip = "employee")
+);
+
+CREATE TABLE driver_order_details(
+  awb INTEGER AUTO_INCREMENT PRIMARY KEY,
+  id_sofer INTEGER NOT NULL references users(id),
+  surname_sender VARCHAR(25) NOT NULL,
+  name_sender VARCHAR(25) NOT NULL,
+  county_sender VARCHAR(25) NOT NULL,
+  city_sender VARCHAR(25) NOT NULL,
+  address_sender VARCHAR(50) NOT NULL,
+  surname_consignee VARCHAR(25) NOT NULL,
+  name_consignee VARCHAR(25) NOT NULL,
+  county_consignee VARCHAR(25) NOT NULL,
+  city_consignee VARCHAR(25) NOT NULL,
+  address_consignee VARCHAR(50) NOT NULL,
+  status VARCHAR(25) DEFAULT "În curs de livrare",
+  CHECK (status = "Livrat" OR status = "În curs de livrare")
+);
+
+CREATE TABLE awb_events(
+  awb INTEGER references driver_order_details(awb),
+  event_type VARCHAR(25) DEFAULT "Comandă primită",
+  about VARCHAR(25),
+  date_time DATETIME,
+  CHECK( 
+    event_type="Comandă primită" 
+    OR event_type="Ridicat de la expeditor" 
+    OR event_type="A ajuns la hob local" 
+    OR event_type="În tranzit" 
+    OR event_type="În curs de livrare" 
+    OR event_type="Destinatar"
+  )
+);
+
+CREATE TABLE cars (
+  registration_number VARCHAR(25) PRIMARY KEY,
+  id_driver INTEGER NOT NULL references users(id),
+  status VARCHAR(25),
+  CHECK (status = "Bună" OR stare = "Stricată")
+);
+
+CREATE TABLE tokens (
+  id INTEGER NOT NULL,
+  token VARCHAR(100) NOT NULL
+);
