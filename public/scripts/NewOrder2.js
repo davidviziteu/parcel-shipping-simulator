@@ -30,3 +30,48 @@ judetSelector2.onchange = function () {
 for (var mod in metodePlata) {
     plata.options[plata.options.length] = new Option(metodePlata[mod]);
 }
+var values = {
+   fullName_sender : expName,
+   ContactPerson_sender : expContactName,
+   phone_sender : expPhone,
+   email_sender : expEmail,
+   county_sender : judet1,
+   country_sender : localitate1,
+   address_sender : expAddress,
+
+   fullName_receiver : destName,
+   ContactPerson_receiver : destContactName,
+   phone_receiver : destPhone,
+   county_receiver : judet2,
+   country_receiver : localitate2,
+   address_receiver : destAddress,
+
+   nrEnvelope : envelope,
+   nrParcel : parcel,
+   weight : weight,
+
+   length :length,
+   width : width,
+   height :height,
+
+   date : date,
+   hour : hour,
+
+   preference1 : preference1,
+   preference2 : preference2,
+   preference3 : preference3,
+
+   payment : payment,
+
+   mentions : mentions
+}
+
+fetch('localhost:80/api/neworder', {
+    method: "POST",
+    body: JSON.stringify(values),
+    headers: { "Content-type": "application/json; charset=UTF-8" }
+})
+    .then(response => response.json())
+    .then(json => console.log(json))
+    .catch(err => console.log("eroare e de aici"+ err));
+
