@@ -95,6 +95,9 @@ function nextPrev(n) {
                 return false;
             }
             document.getElementById("phone").style.backgroundColor = "#fbfef7";
+            var judet = document.getElementById("citySelect").value;
+            var oras = document.getElementById("placeSelect").value;
+            var values = { fname, lname, judet, oras, adress, email, password, phone }
             document.getElementById("form").submit();
             redirect();
         }
