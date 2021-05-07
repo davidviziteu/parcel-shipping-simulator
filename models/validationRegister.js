@@ -1,15 +1,15 @@
 import Joi from "joi";
 import { JoiPasswordComplexity } from "joi-password";
 
-const schema = Joi.object().keys({
+const newUserSchema = Joi.object().keys({
     fname: Joi.string().required(),
     lname: Joi.string().required(),
-    judet: Joi.string().required(),
-    oras: Joi.string().required(),
+    citySelect: Joi.string().required(),
+    placeSelect: Joi.string().required(),
     adress: Joi.string().required(),
     email: Joi.string().email().required(),
-    parola: JoiPasswordComplexity.string().minOfLowercase(1).minOfUppercase(1).minOfNumeric(1).required(),
-    telefon: Joi.string().length(10).pattern(/^[0-9]+$/).required()
+    pwd: JoiPasswordComplexity.string().minOfLowercase(1).minOfUppercase(1).minOfNumeric(1).required(),
+    phone: Joi.string().length(10).pattern(/^[0-9]+$/).required()
 });
 
 let data = {}
@@ -22,3 +22,5 @@ if (error) {
 else {
     console.log(value)
 }
+
+module.exports = { newUserSchema }
