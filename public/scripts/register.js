@@ -98,12 +98,20 @@ function nextPrev(n) {
             var values = {
                 surname: fname,
                 name: lname,
-                email,
-                password,
-                phone,
+                email: email,
+                password: pwd,
+                phone: phone,
                 type: "user"
             }
-            document.getElementById("form").submit();
+
+            fetch('localhost:80/api/register', {
+                method: "POST",
+                body: JSON.stringify(values),
+                headers: { "Content-type": "application/json; charset=UTF-8" }
+            })
+                .then(response => response.json())
+                .then(json => console.log(json))
+                .catch(err => console.log(err));
             redirect();
         }
     }
