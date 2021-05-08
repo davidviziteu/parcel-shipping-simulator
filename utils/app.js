@@ -9,8 +9,9 @@ class App {
     router
     db
 
-    constructor(port) {
+    constructor(port, db) {
         this.port = port
+        this.db = db
         this.router = new Router()
     }
 
@@ -19,6 +20,9 @@ class App {
     listen() {
         http.createServer(function (req, res) {
 
+            res.setHeader('Access-Control-Allow-Origin', '*');
+            //res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET');
+            res.setHeader('Access-Control-Max-Age', 2592000);
             res = this.addResponseFunctionalities(res)
             req = this.addRequestFunctionalities(req)
 
@@ -120,7 +124,7 @@ class App {
                 '.doc': 'application/msword'
             };
             try {
-              
+
                 // based on the URL path, extract the file extention. e.g. .js, .doc, ...
                 const extension = path.parse(filePath).ext;
                 var stat = await fs.promises.stat(filePath)
@@ -158,13 +162,9 @@ class App {
         return res
     }
 
-    addDb(db) {
-
-    }
-
     addRequestFunctionalities(req) {
-        //if(this.db)
-        //  req.db = db
+        if (this.db)
+            req.db = this.db
         return req
     }
 
