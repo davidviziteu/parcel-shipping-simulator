@@ -11,13 +11,13 @@ module.exports = {
         const body = req.body
         const salt = genSaltSync(10)
         body.password = hashSync(body.password, salt)
-        const { error, value } = Joi.validate(body, newUserSchema);
+        /* const { error, value } = Joi.validate(body, newUserSchema);
         if (error) {
             return res.status(300).json({
                 success: false,
                 error
             })
-        }
+        } */
         createAccount(body, (err, results) => {
             if (err) {
                 console.log(err)
