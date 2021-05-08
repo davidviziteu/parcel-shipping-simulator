@@ -6,7 +6,7 @@ require("dotenv").config();
 
 
 
-app = new App(80)
+app = new App(process.env.PORT || 4000)
 app.use(routers.adminRouter)
 app.use(routers.clientRouter)
 app.use(routers.driverRouter)

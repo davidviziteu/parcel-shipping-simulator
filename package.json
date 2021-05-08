@@ -4,7 +4,7 @@
   "description": "computer science project",
   "main": "main.js",
   "scripts": {
-    "start": "PORT=80 && node main.js",
+    "start": "node main.js",
     "test": "nodemon main.js"
   },
   "repository": {
