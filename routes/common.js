@@ -6,8 +6,8 @@ const path = require('path');
 let dbAWB = [1, 2, 3];
 
 
-let router = new Router();
-router.get(`/api/getAWB`, (req, res) => {
+let commonRouter = new Router();
+commonRouter.get(`/api/getAWB`, (req, res) => {
     console.log(req.data)
     if (req.data.AWB) {
         if (dbAWB.find(function (arg) {
@@ -26,4 +26,4 @@ router.get(`/api/getAWB`, (req, res) => {
 });
 
 
-module.exports = { router }
+module.exports = commonRouter

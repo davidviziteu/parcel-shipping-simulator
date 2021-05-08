@@ -25,4 +25,5 @@ const newOrderSchema = Joi.obiect().keys({
    height :Joi.string().length(5).pattern(/^[0-9]+$/).required(),
 
 });
-module.exports = {newOrderSchema}
+
+module.exports = newOrderSchema

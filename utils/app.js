@@ -7,8 +7,9 @@ const url = require('url');
 class App {
     port
     router
+    dbpool
 
-    constructor(port, router) {
+    constructor(port) {
         this.port = port
         this.router = new Router()
     }
@@ -17,7 +18,9 @@ class App {
 
     listen() {
         http.createServer(function (req, res) {
+
             res = this.addResponseFunctionalities(res)
+            req = this.addRequestFunctionalities(req)
 
             if (!this.isRestAPI(req.url)) { //nume prost ales pt functia aia
                 res = this.handleStatic(req, res)
@@ -167,6 +170,15 @@ class App {
 
         //end of functionalities
         return res
+    }
+
+    addDb(dbpool) {
+
+    }
+
+    addRequestFunctionalities(req) {
+        // req.db = dbpool
+        return req
     }
 
     handleStatic(req, res) {

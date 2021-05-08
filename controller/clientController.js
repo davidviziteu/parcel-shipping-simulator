@@ -1,6 +1,6 @@
 const {
     createAccount
-} = require('../models/model')
+} = require('../models/model.js')
 
 const { hashSync, genSaltSync } = require("bcrypt")
 
@@ -15,7 +15,7 @@ module.exports = {
         if (error) {
             return res.status(300).json({
                 success: false,
-                error
+                error: mesajul 
             })
         } */
         createAccount(body, (err, results) => {

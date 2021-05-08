@@ -1,10 +1,7 @@
-const { createAccountUser } = require("../controller/controller");
+const { createAccountUser } = require(`../controller/clientController.js`);
 const { Router } = require("../utils/router");
 
-const router = new Router();
+const clientRouter = new Router();
+clientRouter.post(`/api/register`, createAccountUser)
 
-router.post(`/api/register`, createAccountUser)
-
-console.log(createAccountUser)
-
-module.exports = { router }
+module.exports = clientRouter 
