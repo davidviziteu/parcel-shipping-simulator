@@ -35,5 +35,9 @@ module.exports = {
     getCost:(req,res)=>{
         console.log(req.body);
         return res.json({message:res.body});
+    },
+    placeOrder:(req,res)=>{
+        console.log(req.body);
+        return res.json({message:res.body});
     }
 }

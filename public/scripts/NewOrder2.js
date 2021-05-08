@@ -2,10 +2,11 @@ var judetSelector1 = document.getElementById("judet1");
 var localitateSelector1 = document.getElementById("localitate1");
 var judetSelector2 = document.getElementById("judet2");
 var localitateSelector2 = document.getElementById("localitate2");
-var plata = document.getElementById("plata");
+var plata = document.getElementById("payment");
 var costCalculat = document.getElementById("cost-final");
 var costBtn = document.getElementById("calculeazaCostBtn");
 var metodePlata = ["card", "cash"];
+var form = document.getElementById("newOrderForm");
 costBtn.addEventListener(`click`, () => {
     costCalculat.innerHTML = "Costul final este de 50 de lei.";
 });
@@ -30,48 +31,63 @@ judetSelector2.onchange = function () {
 for (var mod in metodePlata) {
     plata.options[plata.options.length] = new Option(metodePlata[mod]);
 }
-var values = {
-   fullName_sender : expName,
-   ContactPerson_sender : expContactName,
-   phone_sender : expPhone,
-   email_sender : expEmail,
-   county_sender : judet1,
-   country_sender : localitate1,
-   address_sender : expAddress,
-
-   fullName_receiver : destName,
-   ContactPerson_receiver : destContactName,
-   phone_receiver : destPhone,
-   county_receiver : judet2,
-   country_receiver : localitate2,
-   address_receiver : destAddress,
-
-   nrEnvelope : envelope,
-   nrParcel : parcel,
-   weight : weight,
-
-   length :length,
-   width : width,
-   height :height,
-
-   date : date,
-   hour : hour,
-
-   preference1 : preference1,
-   preference2 : preference2,
-   preference3 : preference3,
-
-   payment : payment,
-
-   mentions : mentions
+form.onsubmit = async(e)=>{
+    e.preventDefault();
+    var form = document.querySelector("#newOrderForm");
+    var values = {
+        fullName_sender : document.getElementById("expName").value,
+        ContactPerson_sender : form.querySelector('input[name="expContactName"]').value,
+        phone_sender : form.querySelector('input[name="expPhone"]').value,
+        email_sender :form.querySelector('input[name="expEmail"]').value,
+        // county_sender : form.querySelector('input[name="judetSelected"]').value,
+        // country_sender : form.querySelector('input[name="localitate1"]').value,
+        address_sender : form.querySelector('input[name="expAddress"]').value,
+     
+        fullName_receiver : form.querySelector('input[name="destName"]').value,
+        ContactPerson_receiver : form.querySelector('input[name="destContactName"]').value,
+        phone_receiver : form.querySelector('input[name="destPhone"]').value,
+        // county_receiver : form.querySelector('input[name="judet2"]').value,
+        // country_receiver : form.querySelector('input[name="localitate2"]').value,
+        address_receiver : form.querySelector('input[name="destAddress"]').value,
+     
+        nrEnvelope : form.querySelector('input[name="envelope"]').value,
+        nrParcel : form.querySelector('input[name="parcel"]').value,
+        weight : form.querySelector('input[name="weight"]').value,
+     
+        length :form.querySelector('input[name="length"]').value,
+        width : form.querySelector('input[name="width"]').value,
+        height :form.querySelector('input[name="height"]').value,
+     
+        date : form.querySelector('input[name="date"]').value,
+        hour : form.querySelector('input[name="hour"]').value,
+     
+        preference1 : document.getElementById("preference1").value,
+        preference2 : form.querySelector('input[name="preference2"]').value,
+        preference3 : form.querySelector('input[name="preference3"]').value,
+     
+        // payment :form.querySelector('input[id="payment"]').value,
+     
+        mentions : form.querySelector('input[name="mentions"]').value
+     }
+     let response = await fetch('http://localhost:4000/api/neworder', {
+                method: 'POST', // or 'PUT'
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(values),
+        })
+        // console.log(req.body);
+        // let text = await response.text(); // read response body as text
+        // document.querySelector("#decoded").innerHTML = text;
 }
 
-fetch('localhost:4000/api/neworder', {
-    method: "GET",
-    body: JSON.stringify(values),
-    headers: { "Content-type": "application/json; charset=UTF-8" }
-})
-    .then(response => response.json())
-    .then(json => console.log(json))
-    .catch(err => console.log("eroare e de aici"+ err));
+
+// fetch('localhost:4000/api/neworder', {
+//     method: "GET",
+//     body: JSON.stringify(values),
+//     headers: { "Content-type": "application/json; charset=UTF-8" }
+// })
+//     .then(response => response.json())
+//     .then(json => console.log(json))
+//     .catch(err => console.log("eroare e de aici"+ err));
 
