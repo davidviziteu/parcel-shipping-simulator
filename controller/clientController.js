@@ -20,7 +20,8 @@ module.exports = {
             if (err) {
                 console.log(err)
                 res.status(500).json({
-                    success: false
+                    success: false,
+                    error: err.message
                 })
             }
             else res.status(200).json({
