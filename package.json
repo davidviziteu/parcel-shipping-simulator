@@ -21,6 +21,7 @@
     "bcrypt": "^5.0.1",
     "dotenv": "^8.2.0",
     "joi": "^17.4.0",
+<<<<<<< HEAD
     "joi-password": "^1.4.4",
     "joi-password-complexity": "^5.1.0",
     "mysql": "^2.18.1",
@@ -28,4 +29,10 @@
     "querystring": "^0.2.1"
   },
   "keywords": []
+=======
+    "mysql": "^2.18.1",
+    "nodemon": "^2.0.7",
+    "querystring": "^0.2.1"
+  }
+>>>>>>> 5720f61a30e38fb5e72121baf75b5c464166c5e9
 }
