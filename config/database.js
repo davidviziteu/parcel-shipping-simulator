@@ -6,4 +6,7 @@ const pool = createPool({
     database: process.env.MYSQL_DB
 });
 
+
+
+
 module.exports = pool;

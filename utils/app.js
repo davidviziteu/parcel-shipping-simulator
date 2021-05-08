@@ -7,7 +7,7 @@ const url = require('url');
 class App {
     port
     router
-    dbpool
+    db
 
     constructor(port) {
         this.port = port
@@ -172,12 +172,13 @@ class App {
         return res
     }
 
-    addDb(dbpool) {
+    addDb(db) {
 
     }
 
     addRequestFunctionalities(req) {
-        // req.db = dbpool
+        //if(this.db)
+        //  req.db = db
         return req
     }
 
