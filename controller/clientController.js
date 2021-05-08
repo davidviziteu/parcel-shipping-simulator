@@ -5,6 +5,7 @@ const {
 const { hashSync, genSaltSync } = require("bcrypt")
 
 const { newUserSchema } = require("../models/validationRegister")
+const { required } = require('joi')
 
 module.exports = {
     createAccountUser: (req, res) => {
@@ -29,5 +30,10 @@ module.exports = {
                 success: true
             })
         })
+        
+    },
+    getCost:(req,res)=>{
+        console.log(req.body);
+        return res.json({message:res.body});
     }
 }

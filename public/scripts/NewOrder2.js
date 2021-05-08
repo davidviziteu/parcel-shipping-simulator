@@ -66,8 +66,8 @@ var values = {
    mentions : mentions
 }
 
-fetch('localhost:80/api/neworder', {
-    method: "POST",
+fetch('localhost:4000/api/neworder', {
+    method: "GET",
     body: JSON.stringify(values),
     headers: { "Content-type": "application/json; charset=UTF-8" }
 })

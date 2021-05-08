@@ -47,7 +47,7 @@ class App {
                 if (data)
                     try {
                         finalData = JSON.parse(data)
-                        req.data = finalData
+                        req.body = finalData
                     } catch (err) {
                         //daca nu reusim sa parsam body ul de la client, ii spunem eroarea si inchidem conexiunea
                         console.error(`error parsing json from client: `)
@@ -120,21 +120,7 @@ class App {
                 '.doc': 'application/msword'
             };
             try {
-                {
-                    // fs.stat(filePath, (err, stat) => {
-                    //     if (err) {
-                    //         res.status(500).json({
-                    //             error: err.message
-                    //         })
-                    //         return res
-                    //     }
-
-                    //     res.setHeader('Content-type', map[extension] || 'text/plain');
-                    //     res.setHeader('Content-Length', stat.size);
-                    // })
-                    // return res
-                }
-
+              
                 // based on the URL path, extract the file extention. e.g. .js, .doc, ...
                 const extension = path.parse(filePath).ext;
                 var stat = await fs.promises.stat(filePath)
