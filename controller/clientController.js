@@ -1,6 +1,6 @@
 const { hashSync, genSaltSync } = require("bcrypt")
 
-const { newUserSchema } = require("../models/validationRegister")
+const newUserSchema = require("../models/validationRegister")
 const Joi = require('joi')
 
 module.exports = {
@@ -8,7 +8,7 @@ module.exports = {
         const body = req.body
         const salt = genSaltSync(10)
         body.password = hashSync(body.password, salt)
-        const { error, value } = Joi.validate(body, newUserSchema);
+        const { error, value } = newUserSchema.validate(body);
         if (error) {
             console.log(error.message)
             return res.status(300).json({
