@@ -103,24 +103,26 @@ function nextPrev(n) {
                 phone: phone,
                 type: "user"
             }
-
-            fetch('localhost:80/api/register', {
+            console.log(values)
+            fetch('http://localhost:4000/api/register', {
                 method: "POST",
                 body: JSON.stringify(values),
                 headers: { "Content-type": "application/json; charset=UTF-8" }
             })
                 .then(response => response.json())
-                .then(json => console.log(json))
+                .then(json => {
+                    console.log(json)
+                })
                 .catch(err => console.log(err));
-            redirect();
+            //redirect();
         }
     }
 }
 
-function redirect() {
-    window.location.href = "afterRegister.html";
+/* function redirect() {
+    //window.location.href = "afterRegister.html";
     return false;
-}
+} */
 
 var clientName, consigneeName, clientAddress, consigneeAddress;
 
