@@ -31,63 +31,54 @@ judetSelector2.onchange = function () {
 for (var mod in metodePlata) {
     plata.options[plata.options.length] = new Option(metodePlata[mod]);
 }
+window.onload= function() {
+    document.getElementById("preference1").checked = false;
+    document.getElementById("preference2").checked = false;
+    document.getElementById("preference3").checked = false;
+}
 form.onsubmit = async(e)=>{
     e.preventDefault();
-    var form = document.querySelector("#newOrderForm");
     var values = {
         fullName_sender : document.getElementById("expName").value,
-        ContactPerson_sender : form.querySelector('input[name="expContactName"]').value,
-        phone_sender : form.querySelector('input[name="expPhone"]').value,
-        email_sender :form.querySelector('input[name="expEmail"]').value,
-        // county_sender : form.querySelector('input[name="judetSelected"]').value,
-        // country_sender : form.querySelector('input[name="localitate1"]').value,
-        address_sender : form.querySelector('input[name="expAddress"]').value,
+        contactPerson_sender : document.getElementById("expContactName").value,
+        phone_sender :document.getElementById("expPhone").value,
+        email_sender :document.getElementById("expEmail").value,
+        county_sender : document.getElementById("judet1").value,
+        country_sender : document.getElementById("localitate1").value,
+        address_sender : document.getElementById("expAddress").value,
      
-        fullName_receiver : form.querySelector('input[name="destName"]').value,
-        ContactPerson_receiver : form.querySelector('input[name="destContactName"]').value,
-        phone_receiver : form.querySelector('input[name="destPhone"]').value,
-        // county_receiver : form.querySelector('input[name="judet2"]').value,
-        // country_receiver : form.querySelector('input[name="localitate2"]').value,
-        address_receiver : form.querySelector('input[name="destAddress"]').value,
+        fullName_receiver : document.getElementById("destName").value,
+        contactPerson_receiver : document.getElementById("destContactName").value,
+        phone_receiver : document.getElementById("destPhone").value,
+        county_receiver : document.getElementById("judet2").value,
+        country_receiver : document.getElementById("localitate2").value,
+        address_receiver : document.getElementById("destAddress").value,
      
-        nrEnvelope : form.querySelector('input[name="envelope"]').value,
-        nrParcel : form.querySelector('input[name="parcel"]').value,
-        weight : form.querySelector('input[name="weight"]').value,
+        nrEnvelope : document.getElementById("envelope").value,
+        nrParcel : document.getElementById("parcel").value,
+        weight : document.getElementById("weight").value,
      
-        length :form.querySelector('input[name="length"]').value,
-        width : form.querySelector('input[name="width"]').value,
-        height :form.querySelector('input[name="height"]').value,
+        length :document.getElementById("length").value,
+        width : document.getElementById("width").value,
+        height :document.getElementById("height").value,
      
-        date : form.querySelector('input[name="date"]').value,
-        hour : form.querySelector('input[name="hour"]').value,
+        date : document.getElementById("date").value,
+        hour : document.getElementById("hour").value,
      
-        preference1 : document.getElementById("preference1").value,
-        preference2 : form.querySelector('input[name="preference2"]').value,
-        preference3 : form.querySelector('input[name="preference3"]').value,
+        preference1 : document.getElementById("preference1").checked,
+        preference2 :document.getElementById("preference2").checked,
+        preference3 : document.getElementById("preference3").checked,
      
-        // payment :form.querySelector('input[id="payment"]').value,
+        payment :document.getElementById("payment").value,
      
-        mentions : form.querySelector('input[name="mentions"]').value
+        mentions : document.getElementById("mentions").value
      }
      let response = await fetch('http://localhost:4000/api/neworder', {
-                method: 'POST', // or 'PUT'
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(values),
         })
-        // console.log(req.body);
-        // let text = await response.text(); // read response body as text
-        // document.querySelector("#decoded").innerHTML = text;
+       
 }
-
-
-// fetch('localhost:4000/api/neworder', {
-//     method: "GET",
-//     body: JSON.stringify(values),
-//     headers: { "Content-type": "application/json; charset=UTF-8" }
-// })
-//     .then(response => response.json())
-//     .then(json => console.log(json))
-//     .catch(err => console.log("eroare e de aici"+ err));
-
