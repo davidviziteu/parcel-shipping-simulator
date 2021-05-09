@@ -62,21 +62,16 @@ class Router {
                     return this.putRoutes[reqUrl](req, res)
                     break;
                 default:
-                    return this.handleUnkownRoute(req, res, `unknown method`)
+                    throw new Error(`no route with such http verb`)
                     break;
             }
         } catch (error) {
-            console.error(error.message)
-            return this.handleUnkownRoute(req, res, `unknown route`)
+            console.error(error)
+            return res.status(400).json({
+                success: false,
+                error: error.message,
+            });
         }
-    }
-
-
-    handleUnkownRoute(req, res, message) {
-        return res.status(400).json({
-            success: false,
-            message: message
-        });
 
     }
 

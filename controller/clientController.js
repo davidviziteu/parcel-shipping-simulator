@@ -28,18 +28,16 @@ module.exports = {
             else res.status(200).json({
                 success: true
             })
-            res.end()
         })
-        res.endNow = false
         return res
     },
     getCost: (req, res) => {
         console.log(req.body);
-        return res.json({message:res.body});
+        return res.json({ message: res.body });
     },
-    placeOrder:(req,res)=>{
+    placeOrder: (req, res) => {
         const { error, value } = newOrderSchema.validate(req.body);
-          if (error) {
+        if (error) {
             console.log(error.message)
             return res.status(300).json({
                 success: false,
@@ -47,6 +45,6 @@ module.exports = {
             })
         }
         console.log(req.body);
-        return res.json({message:res.body});
+        return res.json({ message: res.body });
     }
 }
