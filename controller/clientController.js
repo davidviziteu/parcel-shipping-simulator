@@ -12,19 +12,17 @@ module.exports = {
         const salt = genSaltSync(10)
         body.password = hashSync(body.password, salt)
         const { error, value } = newUserSchema.validate(body);
-        // if (error) {
-        //     console.log(error.message)
-        //     return res.status(300).json({
-        //         success: false,
-        //         error: error.message
-        //     })
-        // }
-        req.db.createAccount(body, (err, results) => {
-            if (err) {
-                console.log(err)
+        if (error) {
+            return res.status(300).json({
+                success: false,
+                error: error.message
+            })
+        }
+        req.db.createAccount(body, (error, results) => {
+            if (error) {
                 res.status(500).json({
                     success: false,
-                    error: err.message
+                    error: error.message
                 })
             }
             else res.status(200).json({
