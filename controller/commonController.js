@@ -20,11 +20,13 @@ module.exports = {
     },
 
     handleLogin: (req, res) => {
+        console.log(req.body);
         if (!req.body)
             return res.status(StatusCodes.BAD_REQUEST).json({
                 success: false,
                 error: `no body provided for login`
             })
+        console.log(req.body)
         const { error, value } = models.userModel.loginUserSchema.validate(req.body)
         if (error)
             return res.status(StatusCodes.BAD_REQUEST).json({

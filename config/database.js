@@ -68,20 +68,16 @@ module.exports = {
                 data.contactPerson_sender,
                 data.phone_sender,
                 data.email_sender,
-                data. county_sender,
+                data.county_sender,
                 data.country_sender,
                 data.address_sender,
 
                 data.fullName_receiver,
                 data.contactPerson_receiver,
                 data.phone_receiver,
-                data. county_receiver,
+                data.county_receiver,
                 data.country_receiver,
                 data.address_receiver,
-
-                data.nrEnvelope,
-                data.nrParcel,
-                data.weight,
 
                 data.nrEnvelope,
                 data.nrParcel,

@@ -37,6 +37,11 @@ module.exports = {
     },
     placeOrder: (req, res) => {
         const body = req.body
+        if (!body)
+        return res.status(StatusCodes.BAD_REQUEST).json({
+            success: false,
+            error: `no body provided for neworder`
+        })
         const { error, value } = newOrderSchema.validate(body);
         if (error) {
             console.log(error.message)
