@@ -62,7 +62,7 @@ class Router {
                     return this.putRoutes[reqUrl](req, res)
                     break;
                 default:
-                    throw new Error(`no route with such http verb`)
+                    throw new Error(`no route with such http verb: ${req.method}`)
                     break;
             }
         } catch (error) {
