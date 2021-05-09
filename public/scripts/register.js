@@ -20,7 +20,7 @@ function showbox(n) {
     else {
         if (n != 1) x[n - 1].style.display = "none";
         x[n].style.display = "block";
-        if (n == (x.length) - 1) {
+        if (n == 3) {
             document.getElementById("nextBtn").innerHTML = "Trimite";
         }
         if (currentbox == 1) document.getElementById("prevBtn").style.display = "none";
@@ -94,29 +94,33 @@ function nextPrev(n) {
                 document.getElementById("phone").style.backgroundColor = "rgb(211, 110, 110)";
                 return false;
             }
-            document.getElementById("phone").style.backgroundColor = "#fbfef7";
-            var values = {
-                surname: fname,
-                name: lname,
-                email: email,
-                password: pwd,
-                phone: phone,
-                type: "user"
-            }
-            fetch('http://localhost:4000/api/register', {
-                method: "POST",
-                body: JSON.stringify(values),
-                headers: { "Content-type": "application/json; charset=UTF-8" }
-            })
-                .then(response => response.json())
-                .then(json => {
-                    if (json.error.includes("Duplicate")) {
-
-                    }
-                })
-                .catch(err => { console.log(err) });
-            //redirect();
+            var x = document.getElementsByClassName("button-container")
+            var node = document.createElement("img");
+            node.setAttribute("src", "./assets/loading.gif")
+            node.style.width = "40px"
+            x[2].innerHTML = ""
+            x[2].appendChild(node)
         }
+        var values = {
+            surname: fname,
+            name: lname,
+            email: email,
+            password: pwd,
+            phone: phone,
+            type: "user"
+        }
+        fetch('http://localhost:4000/api/register', {
+            method: "POST",
+            body: JSON.stringify(values),
+            headers: { "Content-type": "application/json; charset=UTF-8" }
+        })
+            .then(response => response.json())
+            .then(json => {
+                if (json.error.includes("Duplicate")) {
+                    console.log(true)
+                }
+            })
+            .catch(err => { console.log(err) });
     }
 }
 
