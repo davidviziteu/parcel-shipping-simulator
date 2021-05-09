@@ -62,7 +62,7 @@ module.exports = {
     },
     placeNewOrder: (data, callBack) => {
         pool.query(
-            `INSERT INTO orders (fullName_sender,contactPerson_sender,phone_sender,email_sender,county_sender,country_sender,address_sender,fullName_receiver,contactPerson_receiver,phone_receiver,county_receiver,country_receiver,address_receiver,nrEnvelope,nrParcel, weight,length,width,height,date, hour, preference1, preference2, preference3, payment, mentions) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
+            `INSERT INTO orders (fullName_sender,contactPerson_sender,phone_sender,email_sender,county_sender,country_sender,address_sender,fullName_receiver,contactPerson_receiver,phone_receiver,county_receiver,country_receiver,address_receiver,nrEnvelope,nrParcel, weight,length,width,height,date, hour, preference1, preference2, preference3, payment, mentions) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
             [
                 data.fullName_sender,
                 data.contactPerson_sender,

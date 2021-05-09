@@ -36,7 +36,8 @@ module.exports = {
         return res.json({ message: res.body });
     },
     placeOrder: (req, res) => {
-        const { error, value } = newOrderSchema.validate(req.body);
+        const body = req.body
+        const { error, value } = newOrderSchema.validate(body);
         if (error) {
             console.log(error.message)
             return res.status(300).json({
@@ -44,7 +45,7 @@ module.exports = {
                 error: error.message
             })
         }
-        console.log(req.body);
+        console.log(body);
         req.db.placeNewOrder(body, (error, results) => {
             if (error) {
                 res.status(500).json({
