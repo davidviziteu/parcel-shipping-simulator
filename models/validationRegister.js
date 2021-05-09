@@ -11,4 +11,4 @@ const newUserSchema = Joi.object().keys({
     phone: Joi.string().length(10).pattern(/^[0-9]+$/).required()
 });
 
-module.exports =  newUserSchema 
+module.exports = newUserSchema
