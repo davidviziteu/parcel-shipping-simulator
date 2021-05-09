@@ -42,7 +42,7 @@ class App {
                     res.status(413).json({
                         error: `Payload too large`
                     })
-                    res.end()
+                    // res.end()
                 }
 
             })
@@ -60,7 +60,7 @@ class App {
                             success: false,
                             error: err.message
                         })
-                        res.end()
+                        // res.end()
                         return
                     }
                 res = this.router.handleRoute(req, res)
@@ -73,7 +73,7 @@ class App {
                     success: false,
                     error: err.message
                 });
-                req.end();
+                // req.end();
             }.bind(this))
 
         }.bind(this)).listen(this.port)
@@ -93,7 +93,7 @@ class App {
 
     addResponseFunctionalities(res) {
 
-        res.endNow = true; //flag pt cand folosim callbacks
+        // res.endNow = true; //useless now
 
         res.status = function (newStatusCode) {
             res.statusCode = newStatusCode
@@ -104,6 +104,7 @@ class App {
         res.json = function (newJson) {
             res.setHeader('Content-Type', 'application/json');
             res.write(JSON.stringify(newJson))
+            res.end()
             return res
         }
 
@@ -154,7 +155,7 @@ class App {
                     path: filePath
                 })
             }
-            res.end = false
+            // res.endNow = false
             return res
         }
 

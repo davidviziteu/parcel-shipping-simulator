@@ -26,9 +26,7 @@ module.exports = {
             else res.status(200).json({
                 success: true
             })
-            res.end()
         })
-        res.endNow = false
         return res
     },
     getCost: (req, res) => {
