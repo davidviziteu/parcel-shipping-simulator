@@ -45,6 +45,17 @@ module.exports = {
             })
         }
         console.log(req.body);
-        return res.json({ message: res.body });
+        req.db.placeNewOrder(body, (error, results) => {
+            if (error) {
+                res.status(500).json({
+                    success: false,
+                    error: error.message
+                })
+            }
+            else res.status(200).json({
+                success: true
+            })
+        })
+        return res
     }
 }
