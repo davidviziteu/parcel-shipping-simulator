@@ -100,34 +100,36 @@ function nextPrev(n) {
             node.style.width = "40px"
             x[2].innerHTML = ""
             x[2].appendChild(node)
-        }
-        var values = {
-            surname: fname,
-            name: lname,
-            email: email,
-            password: pwd,
-            phone: phone,
-            type: "user"
-        }
-        fetch('http://localhost:4000/api/register', {
-            method: "POST",
-            body: JSON.stringify(values),
-            headers: { "Content-type": "application/json; charset=UTF-8" }
-        })
-            .then(response => response.json())
-            .then(json => {
-                if (json.error.includes("Duplicate")) {
-                    console.log(true)
-                }
+            document.getElementById("email-nevalid").style.display = "none";
+            var values = {
+                surname: fname,
+                name: lname,
+                email: email,
+                password: pwd,
+                phone: phone,
+                type: "user"
+            }
+            fetch('http://localhost:4000/api/register', {
+                method: "POST",
+                body: JSON.stringify(values),
+                headers: { "Content-type": "application/json; charset=UTF-8" }
             })
-            .catch(err => { console.log(err) });
+                .then(response => response.json())
+                .then(json => {
+                    console.log(json)
+                    if (json.error.includes("Duplicate")) {
+                        var children = document.getElementsByClassName("button-container")[2].children
+                        children[0].remove()
+                        var x = document.getElementsByClassName("button-container")
+                        x[2].innerHTML = "Trimite"
+                        document.getElementById("email-nevalid").style.display = "block";
+                        document.getElementById("email").style.backgroundColor = "rgb(211, 110, 110)";
+                    }
+                })
+                .catch(err => { console.log(err) });
+        }
     }
 }
-
-/* function redirect() {
-    //window.location.href = "afterRegister.html";
-    return false;
-} */
 
 var clientName, consigneeName, clientAddress, consigneeAddress;
 
