@@ -103,7 +103,6 @@ function nextPrev(n) {
                 phone: phone,
                 type: "user"
             }
-            console.log(values)
             fetch('http://localhost:4000/api/register', {
                 method: "POST",
                 body: JSON.stringify(values),
@@ -111,9 +110,11 @@ function nextPrev(n) {
             })
                 .then(response => response.json())
                 .then(json => {
-                    console.log(json)
+                    if (json.error.includes("Duplicate")) {
+
+                    }
                 })
-                .catch(err => console.log(err));
+                .catch(err => { console.log(err) });
             //redirect();
         }
     }
