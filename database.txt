@@ -9,25 +9,44 @@ CREATE TABLE users (
   CHECK (tip = "user" OR tip = "driver" OR tip = "admin" OR tip = "employee")
 );
 
-CREATE TABLE driver_order_details(
+CREATE TABLE orders(
   awb INTEGER AUTO_INCREMENT PRIMARY KEY,
-  id_sofer INTEGER NOT NULL references users(id),
-  surname_sender VARCHAR(25) NOT NULL,
-  name_sender VARCHAR(25) NOT NULL,
-  county_sender VARCHAR(25) NOT NULL,
-  city_sender VARCHAR(25) NOT NULL,
-  address_sender VARCHAR(50) NOT NULL,
-  surname_consignee VARCHAR(25) NOT NULL,
-  name_consignee VARCHAR(25) NOT NULL,
-  county_consignee VARCHAR(25) NOT NULL,
-  city_consignee VARCHAR(25) NOT NULL,
-  address_consignee VARCHAR(50) NOT NULL,
-  status VARCHAR(25) DEFAULT "În curs de livrare",
-  CHECK (status = "Livrat" OR status = "În curs de livrare")
+  fullName_sender VARCHAR(25) NOT NULL,
+  contactPerson_sender VARCHAR(25) NOT NULL,
+  phone_sender VARCHAR(25) NOT NULL,
+  email_sender VARCHAR(25) NOT NULL,
+  county_sende VARCHAR(25) NOT NULL,
+  country_sender VARCHAR(25) NOT NULL,
+  address_sender VARCHAR(25) NOT NULL,
+  fullName_receiver VARCHAR(25) NOT NULL,
+  contactPerson_receiver VARCHAR(25) NOT NULL,
+  phone_receiver VARCHAR(25) NOT NULL,
+  county_receiver VARCHAR(25) NOT NULL,
+  country_receiver VARCHAR(25) NOT NULL,
+  address_receiver VARCHAR(25) NOT NULL,
+  nrEnvelope VARCHAR(25),
+  nrParcel VARCHAR(25),
+  weight VARCHAR(25),
+  length VARCHAR(25),
+  width VARCHAR(25),
+  height VARCHAR(25),
+  date DATE NOT NULL,
+  hour TIME NOT NULL,
+  preference1 VARCHAR(10) DEFAULT "OFF" CHECK(preference1="OFF" OR preference1="ON"),
+  preference2 VARCHAR(10) DEFAULT "OFF" CHECK(preference2="OFF" OR preference2="ON"),
+  preference3 VARCHAR(10) DEFAULT "OFF" CHECK(preference3="OFF" OR preference3="ON"),
+  payment VARCHAR(10) CHECK(payment="card" OR payment="cash"),
+  mentions VARCHAR(100),
+  status VARCHAR(25) DEFAULT "În curs de livrare" CHECK (status = "Livrat" OR status = "În curs de livrare")
+);
+
+CREATE TABLE driver_order_details(
+  awb INTEGER references orders(awb),
+  id_sofer INTEGER NOT NULL references users(id)
 );
 
 CREATE TABLE awb_events(
-  awb INTEGER references driver_order_details(awb),
+  awb INTEGER references orders(awb),
   event_type VARCHAR(25) DEFAULT "Comandă primită",
   about VARCHAR(25),
   date_time DATETIME,
