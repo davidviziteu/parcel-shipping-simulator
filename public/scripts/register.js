@@ -20,7 +20,7 @@ function showbox(n) {
     else {
         if (n != 1) x[n - 1].style.display = "none";
         x[n].style.display = "block";
-        if (n == (x.length) - 1) {
+        if (n == 3) {
             document.getElementById("nextBtn").innerHTML = "Trimite";
         }
         if (currentbox == 1) document.getElementById("prevBtn").style.display = "none";
@@ -94,7 +94,13 @@ function nextPrev(n) {
                 document.getElementById("phone").style.backgroundColor = "rgb(211, 110, 110)";
                 return false;
             }
-            document.getElementById("phone").style.backgroundColor = "#fbfef7";
+            var x = document.getElementsByClassName("button-container")
+            var node = document.createElement("img");
+            node.setAttribute("src", "./assets/loading.gif")
+            node.style.width = "40px"
+            x[2].innerHTML = ""
+            x[2].appendChild(node)
+            document.getElementById("email-nevalid").style.display = "none";
             var values = {
                 surname: fname,
                 name: lname,
@@ -110,20 +116,20 @@ function nextPrev(n) {
             })
                 .then(response => response.json())
                 .then(json => {
+                    console.log(json)
                     if (json.error.includes("Duplicate")) {
-
+                        var children = document.getElementsByClassName("button-container")[2].children
+                        children[0].remove()
+                        var x = document.getElementsByClassName("button-container")
+                        x[2].innerHTML = "Trimite"
+                        document.getElementById("email-nevalid").style.display = "block";
+                        document.getElementById("email").style.backgroundColor = "rgb(211, 110, 110)";
                     }
                 })
                 .catch(err => { console.log(err) });
-            //redirect();
         }
     }
 }
-
-/* function redirect() {
-    //window.location.href = "afterRegister.html";
-    return false;
-} */
 
 var clientName, consigneeName, clientAddress, consigneeAddress;
 

@@ -16,7 +16,6 @@ class App {
     }
 
     isRestAPI = (url) => String(url).startsWith(`/api`)
-
     listen() {
         http.createServer(function (req, res) {
 
@@ -25,14 +24,14 @@ class App {
             res.setHeader('Access-Control-Max-Age', 2592000);
             res = this.addResponseFunctionalities(res)
             req = this.addRequestFunctionalities(req)
-
-            if (!this.isRestAPI(req.url)) { //nume prost ales pt functia aia
+            if (!this.isRestAPI(req.url) && !req.url.startsWith(`/backend`)) { //nume prost ales pt functia aia
                 res = this.handleStatic(req, res)
                 // if (res.endNow)
                 //     res.end()
                 return
             }
-
+            if(req.url.startsWith(`/backend`))
+               req.url = `/api/login`;
             console.log(`${req.method} ${req.url}`)
 
             let data = '';
