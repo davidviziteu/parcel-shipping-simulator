@@ -20,6 +20,12 @@ module.exports = {
     },
 
     handleLogin: (req, res) => {
+        // console.log(`redirect`)
+        // res.writeHead(302, {
+        //     'Location': 'https://google.com'
+        // });
+        // res.end()
+        // return
         if (!req.body)
             return res.status(StatusCodes.BAD_REQUEST).json({
                 success: false,
@@ -39,6 +45,10 @@ module.exports = {
                     error: error.message
                 })
             }
+            console.log(`redirect`)
+            res.writeHead(302, {
+                'Location': 'https://google.com'
+            });
             return res.status(StatusCodes.ACCEPTED).json({
                 success: true,
                 message: value,

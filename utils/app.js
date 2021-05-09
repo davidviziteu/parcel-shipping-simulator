@@ -175,7 +175,6 @@ class App {
         const parsedUrl = url.parse(req.url)
         // extract URL path
         let pathname = `${parsedUrl.pathname}`
-        console.log(`pathname processed = ${pathname}`)
         if (pathname == `/`)
             return res.sendFile(`public/landingPage.html`)
         else
