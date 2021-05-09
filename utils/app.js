@@ -28,12 +28,13 @@ class App {
 
             if (!this.isRestAPI(req.url)) { //nume prost ales pt functia aia
                 res = this.handleStatic(req, res)
-                if (res.endNow)
-                    res.end()
+                // if (res.endNow)
+                //     res.end()
                 return
             }
 
-            console.log(`handle client on url: ${req.url}`)
+            console.log(`${req.method} ${req.url}`)
+
             let data = '';
             req.on('data', chunk => {
                 data += chunk
@@ -64,8 +65,8 @@ class App {
                         return
                     }
                 res = this.router.handleRoute(req, res)
-                if (res.endNow)
-                    res.end()
+                // if (res.endNow)
+                //     res.end()
             }.bind(this))
             req.on('error', function (err) {
                 console.error(err.message)

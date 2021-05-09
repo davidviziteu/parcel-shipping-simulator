@@ -1,8 +1,10 @@
 const { hashSync, genSaltSync } = require("bcrypt")
-
-const newUserSchema = require("../models/validationRegister")
-const newOrderSchema = require("../models/validationNewOrder")
+const { StatusCodes } = require(`http-status-codes`)
+const models = require("../models")
 const Joi = require('joi')
+
+const newUserSchema = models.userModel.newUserSchema
+const newOrderSchema = models.newOrderModel
 
 module.exports = {
     createAccountUser: (req, res) => {
