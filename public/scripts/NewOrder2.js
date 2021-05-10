@@ -21,6 +21,7 @@ judetSelector1.onchange = function () {
 }
 for (var judet in cities) {
     judetSelector2.options[judetSelector2.options.length] = new Option(judet, judet);
+    
 }
 judetSelector2.onchange = function () {
     localitateSelector2.length = 1;
@@ -30,6 +31,7 @@ judetSelector2.onchange = function () {
 }
 for (var mod in metodePlata) {
     plata.options[plata.options.length] = new Option(metodePlata[mod]);
+
 }
 window.onload= function() {
     document.getElementById("preference1").checked = false;
@@ -73,12 +75,18 @@ form.onsubmit = async(e)=>{
      
         mentions : document.getElementById("mentions").value
      }
-     let response = await fetch('http://localhost:4000/api/neworder', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(values),
+     fetch('http://localhost:4000/api/neworder', {
+        method: "POST",
+        body: JSON.stringify(values),
+        headers: { "Content-type": "application/json; charset=UTF-8" }
+    })
+        .then(response => response.json())
+        .then(json => {
+            console.log(json.error);
+            if (json.error.includes('phone_receiver')) {
+                console.log("yes");
+                document.getElementById("destEmail").style.backgroundColor="red";
+            }
         })
-       
+        .catch(err => { console.log(err) });
 }
