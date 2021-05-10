@@ -85,7 +85,7 @@ form.onsubmit = async (e) => {
             console.log(json.error);
             if (json.error.includes('phone_receiver')) {
                 console.log("yes");
-                document.getElementById("destPhone").style.backgroundColor = "red";
+                document.getElementById("destPhone").style.backgroundColor = "rgb(211, 110, 110)";";
             }
         })
         .catch(err => { console.log(err) });
