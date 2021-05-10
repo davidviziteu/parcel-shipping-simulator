@@ -56,6 +56,22 @@ module.exports = {
                 data: data,
             })
         })
-    }
+    },
 
+    getNotifications: (req, res) => {
+        return res.status(StatusCodes.OK).json({
+            notifications: [
+                {
+                    id: 1,
+                    exp: "11:22 ceva data",
+                    text: "notificare random",
+                },
+                {
+                    id: 2,
+                    exp: "11:23 ceva data",
+                    text: "notificare random2",
+                }
+            ]
+        })
+    },
 }
