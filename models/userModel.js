@@ -13,3 +13,12 @@ exports.loginUserSchema = Joi.object().keys({
     email: Joi.string().email().required(),
     password: Joi.string().required(),
 })
+
+exports.driverEventsSchema = Joi.object().keys({
+    accident: Joi.boolean(),
+    meteo: Joi.boolean(),
+    defectiune: Joi.boolean(),
+    client: Joi.boolean(),
+    deteriorat: Joi.boolean(),
+    livrat: Joi.boolean()
+})

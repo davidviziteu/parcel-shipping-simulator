@@ -90,14 +90,14 @@ module.exports = {
                 data.date,
                 data.hour,
 
-                data.preference1, 
-                data.preference2, 
-                data.preference3, 
-             
+                data.preference1,
+                data.preference2,
+                data.preference3,
+
                 data.payment,
-             
+
                 data.mentions
-                
+
             ],
             (error, results, fields) => {
                 if (error) {
@@ -106,5 +106,24 @@ module.exports = {
                 return callBack(null, results)
             }
         );
+    },
+    addEventesDriver: (data, callBack) => {
+        pool.query(
+            `INSERT INTO driver_events values (?,?,?,?,?,?)`,
+            [
+                data.id,
+                data.meteo,
+                data.defectiune,
+                data.client,
+                data.deteriorat,
+                data.livrat
+            ],
+            (error, results, fields) => {
+                if (error) {
+                    return callBack(error)
+                }
+                return callBack(null, results)
+            }
+        )
     }
 }

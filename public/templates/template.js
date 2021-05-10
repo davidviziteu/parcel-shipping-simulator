@@ -1,5 +1,7 @@
 let hamburgerMenu = document.getElementById(`hamburger`)
 let menu = document.getElementsByTagName(`menu`)[0]
+let hostName = "http://localhost:4000"
+console.log("loaded tamplets.js")
 
 hamburgerMenu.addEventListener(`click`, () => {
     if (menu.className.includes(`hidden`)) {

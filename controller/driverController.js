@@ -1,5 +1,10 @@
 const { StatusCodes } = require(`http-status-codes`)
+const models = require("../models")
 
-
-exports.numeFunctie1 = () => { }
-exports.numeFunctie2 = () => { }
+module.exports = {
+    addEvents: (req, res) => {
+        const body = req.body
+        console.log(body)
+        //body.id = req.userId
+    }
+}
