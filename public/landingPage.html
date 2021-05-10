@@ -6,7 +6,7 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <title>PSS</title>
-    <link rel='stylesheet' type='text/css' media='screen' href='../templates/template.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='templates/template.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='./stylesheets/landingPage.css'>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,300&display=swap" rel="stylesheet">
@@ -18,7 +18,7 @@
             <button id="hamburger">
             </button>
             <div>
-                <img src="../templates/logo.png" alt="">
+                <img src="templates/logo.png" alt="">
             </div>
             <div id="login-info">
                 Bună!
@@ -27,32 +27,32 @@
     </nav>
     <menu class="hidden">
         <li>
-            <a href="../public/landingPage.html">
+            <a href="landingPage.html">
                 Pagină de start
             </a>
         </li>
         <li>
-            <a href="../public/Locatii.html">
+            <a href="Locatii.html">
                 Locații
             </a>
         </li>
         <li>
-            <a href="../public/AboutUs.html">
+            <a href="AboutUs.html">
                 Despre noi
             </a>
         </li>
         <li>
-            <a href="../public/landingPage.html">
+            <a href="landingPage.html">
                 Verificare AWB
             </a>
         </li>
         <li>
-            <a href="../public/Statistici.html">
+            <a href="Statistici.html">
                 Statistici
             </a>
         </li>
         <li>
-            <a href="../public/Contact.html">Contact</a>
+            <a href="Contact.html">Contact</a>
         </li>
     </menu>
     <main>
@@ -114,19 +114,21 @@
                     <img alt="image" src="./assets/login.png">
                     <h1>Autentificare</h1>
                 </div>
-                <form id="login-form" action="backend" class="full-width-form">
+                <form id="login-form" action="http://localhost:4000/api/login" method="GET" class="full-width-form">
                     <input class="input-box" type="text" id="user-mail" name="fname" placeholder="Email" required>
                     <input class="input-box" type="password" id="user-password" name="lname" placeholder="Parolă"
                         required>
                     <div class="button-container">
-
-                        <button type="submit">Login</button>
-                        <button id="reset-password" onclick="location.href = 'ResetPassword.html'">
-                            Resetare parolă
-                        </button>
-                        <button id="register" onclick="location.href = 'register.html'">
-                            Cont nou
-                        </button>
+                        <<<<<<< HEAD <button type="submit">Login</button>
+                            =======
+                            <input type="submit" value="Intră în cont">
+                            >>>>>>> develop
+                            <button id="reset-password" onclick="location.href = 'ResetPassword.html'">
+                                Resetare parolă
+                            </button>
+                            <button id="register" onclick="location.href = 'register.html'">
+                                Cont nou
+                            </button>
                     </div>
                     <div id="remember-me-input">
                         <input type="checkbox" id="remember-me" name="remember-me">
@@ -206,7 +208,7 @@
         <section>
             <div class="box margin-footer">
                 <div class="center-vertical">
-                    <img src="../templates/autori.png" alt="">
+                    <img src="templates/autori.png" alt="">
                     <h4>Autori</h4>
                 </div>
                 <p>
@@ -221,7 +223,7 @@
             </div>
             <div class="box margin-footer">
                 <div class="center-vertical">
-                    <img src="../templates/referinte.png" alt="">
+                    <img src="templates/referinte.png" alt="">
                     <h4>Referințe</h4>
                 </div>
                 <p><a href="https://www.flaticon.com/">www.flaticon.com</a></p>
@@ -231,7 +233,7 @@
 
             <div class="box margin-footer">
                 <div class="center-vertical">
-                    <img src="../templates/instagram.png" alt="">
+                    <img src="templates/instagram.png" alt="">
                     <h4>Instagram</h4>
                 </div>
                 <p>
@@ -246,7 +248,7 @@
             </div>
         </section>
     </footer>
-    <script src='../templates/template.js'>
+    <script src='templates/template.js'>
     </script>
     <script src="./scripts/landingpage.js"></script>
 

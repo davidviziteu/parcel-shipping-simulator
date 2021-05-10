@@ -6,7 +6,7 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <title>PSS</title>
-    <link rel='stylesheet' type='text/css' media='screen' href='../templates/template.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='templates/template.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='stylesheets/register.css'>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,300&display=swap" rel="stylesheet">
@@ -18,7 +18,7 @@
             <button id="hamburger">
             </button>
             <div>
-                <img src="../templates/logo.png" alt="">
+                <img src="templates/logo.png" alt="">
             </div>
             <div id="login-info">
                 Bună!
@@ -27,32 +27,32 @@
     </nav>
     <menu class="hidden">
         <li>
-            <a href="../public/landingPage.html">
+            <a href="landingPage.html">
                 Pagină de start
             </a>
         </li>
         <li>
-            <a href="../public/Locatii.html">
+            <a href="Locatii.html">
                 Locații
             </a>
         </li>
         <li>
-            <a href="../public/AboutUs.html">
+            <a href="AboutUs.html">
                 Despre noi
             </a>
         </li>
         <li>
-            <a href="../public/landingPage.html">
+            <a href="landingPage.html">
                 Verificare AWB
             </a>
         </li>
         <li>
-            <a href="../public/Statistici.html">
+            <a href="Statistici.html">
                 Statistici
             </a>
         </li>
         <li>
-            <a href="../public/Contact.html"> Contact</a>
+            <a href="Contact.html"> Contact</a>
         </li>
     </menu>
     <main>
@@ -61,7 +61,8 @@
             <form id="form">
                 <div class="box">
                     <input class="input-box" type="text" id="fname" name="fname" placeholder="Nume" autocomplete="off">
-                    <input class="input-box" type="text" id="lname" name="lname" placeholder="Prenumele" autocomplete="off">
+                    <input class="input-box" type="text" id="lname" name="lname" placeholder="Prenumele"
+                        autocomplete="off">
                 </div>
                 <div class="box">
                     <select class="input-box" id="citySelect" onchange="local(this.value)">
@@ -72,13 +73,27 @@
                     <input class="input-box" id="adress" name="adress" placeholder="Adresa" autocomplete="off">
                 </div>
                 <div class="box">
-                    <input class="input-box" type="email" id="email" name="email" placeholder="Email" autocomplete="off">
-                    <input class="input-box" type="password" id="pwd" name="pwd" placeholder="Parola: minim o litera mica,una mare si o cifra" autocomplete="off">
-                    <input class="input-box" type="tel" id="phone" name="phone" placeholder="Telefon" autocomplete="off">
+                    <<<<<<< HEAD <input class="input-box" type="email" id="email" name="email" placeholder="Email"
+                        autocomplete="off">
+                        <input class="input-box" type="password" id="pwd" name="pwd"
+                            placeholder="Parola: minim o litera mica,una mare si o cifra" autocomplete="off">
+                        <input class="input-box" type="tel" id="phone" name="phone" placeholder="Telefon"
+                            autocomplete="off">
+                        =======
+                        <input class="input-box" type="email" id="email" name="email" placeholder="Email"
+                            autocomplete="off">
+                        <div id="email-nevalid" style="display: none;">Există un cont cu acest email</div>
+                        <input class="input-box" type="password" id="pwd" name="pwd"
+                            placeholder="Parola: minim o litera mica,una mare si o cifra" autocomplete="off">
+                        <input class="input-box" type="tel" id="phone" name="phone" placeholder="Telefon"
+                            autocomplete="off">
+                        >>>>>>> develop
                 </div>
                 <div class="button-container">
                     <button class="button-container" type="button" id="prevBtn" onclick="nextPrev(-1)">Anterior</button>
-                    <button class="button-container" type="button" id="nextBtn" onclick="nextPrev(1)">Urmatorul</button>
+                    <button class="button-container" type="button" id="nextBtn" onclick="nextPrev(1)">
+                        Urmatorul
+                    </button>
                 </div>
             </form>
         </div>
@@ -87,7 +102,7 @@
         <section>
             <div class="box margin-footer">
                 <div class="center-vertical">
-                    <img src="../templates/autori.png" alt="">
+                    <img src="templates/autori.png" alt="">
                     <h4>Autori</h4>
                 </div>
                 <p>
@@ -102,7 +117,7 @@
             </div>
             <div class="box margin-footer">
                 <div class="center-vertical">
-                    <img src="../templates/referinte.png" alt="">
+                    <img src="templates/referinte.png" alt="">
                     <h4>Referințe</h4>
                 </div>
                 <p><a href="https://www.flaticon.com/">www.flaticon.com</a></p>
@@ -112,7 +127,7 @@
 
             <div class="box margin-footer">
                 <div class="center-vertical">
-                    <img src="../templates/instagram.png" alt="">
+                    <img src="templates/instagram.png" alt="">
                     <h4>Instagram</h4>
                 </div>
                 <p>
@@ -127,8 +142,8 @@
             </div>
         </section>
     </footer>
-    <script src='../templates/template.js'></script>
-    <script src='../public/scripts/register.js'></script>
+    <script src='templates/template.js'></script>
+    <script src='scripts/register.js'></script>
 </body>
 
 </html>
