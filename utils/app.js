@@ -30,8 +30,8 @@ class App {
                 //     res.end()
                 return
             }
-            if(req.url.startsWith(`/backend`))
-               req.url = `/api/login`;
+            if (req.url.startsWith(`/backend`))
+                req.url = `/api/login`;
             console.log(`${req.method} ${req.url}`)
 
             let data = '';

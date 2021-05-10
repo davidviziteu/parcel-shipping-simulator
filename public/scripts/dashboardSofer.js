@@ -76,8 +76,30 @@ buttonLivrat.addEventListener('click', () => {
 )
 
 buutonSubmit.addEventListener('click', () => {
-    window.location.href = "DashboardSoferAfter.html";
-    return false;
+    const values = {
+        accident: check[0].checked,
+        meteo: check[1].checked,
+        defectiune: check[2].checked,
+        client: check[3].checked,
+        deteriorat: check[4].checked,
+        livrat: check[5].checked
+    }
+    var ok = false;
+    for (var i in values) {
+        if (i == true) ok = true
+    }
+    if (ok)
+        console.log(ok)
+    fetch(`${hostName}/api/driver`, {
+        method: "POST",
+        body: JSON.stringify(values),
+        headers: { "Content-type": "application/json; charset=UTF-8" }
+    })
+        .then(response => response.json())
+        .then(json => {
+            console.log(json)
+        })
+        .catch(err => { console.log(err) });
 })
 
 function AWBS() {
