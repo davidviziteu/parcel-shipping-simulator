@@ -6,7 +6,7 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <title>PSS</title>
-    <link rel='stylesheet' type='text/css' media='screen' href='templates/template.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='../templates/template.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='./stylesheets/landingPage.css'>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,300&display=swap" rel="stylesheet">
@@ -18,7 +18,7 @@
             <button id="hamburger">
             </button>
             <div>
-                <img src="templates/logo.png" alt="">
+                <img src="../templates/logo.png" alt="">
             </div>
             <div id="login-info">
                 Bună!
@@ -27,37 +27,54 @@
     </nav>
     <menu class="hidden">
         <li>
-            <a href="landingPage.html">
+            <a href="../public/landingPage.html">
                 Pagină de start
             </a>
         </li>
         <li>
-            <a href="Locatii.html">
+            <a href="../public/Locatii.html">
                 Locații
             </a>
         </li>
         <li>
-            <a href="AboutUs.html">
+            <a href="../public/AboutUs.html">
                 Despre noi
             </a>
         </li>
         <li>
-            <a href="landingPage.html">
+            <a href="../public/landingPage.html">
                 Verificare AWB
             </a>
         </li>
         <li>
-            <a href="Statistici.html">
-                Statistici
+            <a href="../public/Contact.html">
+                Contact
             </a>
         </li>
         <li>
-            <a href="Contact.html"> Contact</a>
+            <a href="../public/landingPage.html">
+                Ieși din cont
+            </a>
         </li>
     </menu>
     <main>
         <section>
-
+            <div class="box" id="login-box">
+                <div class="title-with-image">
+                    <img src="./assets/man-user.png" alt="">
+                    <h1 id="hello-username">Bună, Angajat!</h1>
+                </div>
+                <div class="button-container">
+                    <button id="new-order" onclick="location.href='NewOrder2.html'">
+                        Comandă nouă
+                    </button>
+                </div>
+                <div class="button-container">
+                    <button id="logout" onclick="location.href='landingPage.html'">
+                        Ieși din cont
+                    </button>
+                </div>
+            </div>
 
             <div class="box">
                 <div class="title-with-image">
@@ -85,43 +102,6 @@
 
                 </p>
             </div>
-            <div class="box" id="login-box">
-
-                <div class="title-with-image">
-                    <img alt="image" src="./assets/login.png">
-                    <h1>Autentificare</h1>
-                </div>
-                <form id="login-form" action="backend" class="full-width-form">
-                    <input class="input-box" type="text" id="user-mail" name="fname" placeholder="Email" required>
-                    <input class="input-box" type="password" id="user-password" name="lname" placeholder="Parolă"
-                        required>
-                    <div class="button-container">
-                        <button type="submit">Login</button>
-                        <button id="reset-password">
-                            Resetare parolă
-                        </button>
-                        <button id="register">
-                            Cont nou
-                        </button>
-                    </div>
-                    <div class="button-container">
-                        <button type="button" onclick="location.href = 'NewOrder1.html'">
-                            Comandă nouă fără cont
-                        </button>
-                    </div>
-                    <div class="button-container">
-                        <button id="demo-client">
-                            (demo) login client
-                        </button>
-                        <button id="demo-admin">
-                            (demo) login admin
-                        </button>
-                        <button id="demo-sofer">
-                            (demo) login sofer
-                        </button>
-                    </div>
-                </form>
-            </div>
             <div class="box">
                 <div class="title-with-image">
                     <img alt="image" src="./assets/parcel.png">
@@ -131,10 +111,37 @@
                     <input class="input-box" type="text" id="awb-input" name="awb-input" placeholder="AWB">
                     <div class="button-container">
                         <button type="button" id="track-awb">
-                            Urmărește
+                            Urmărește (momentan nu duce nicaieri)
                         </button>
                     </div>
+                    <div class="button-container">
+
+                        <button type="button" onclick="location.href = 'dashboard.html'">
+                            (demo) urmateste coletul 1
+                        </button>
+                        <button type="button" onclick="location.href = 'dashboard2.html'">
+                            (demo) urmateste coletul 2
+                        </button>
+
+                    </div>
                 </form>
+            </div>
+
+            <div class="box no-min-height half-width">
+                <div class="title-with-image">
+                    <img alt="image" src="./assets/arrow.png">
+                    <h1>Notificări</h1>
+                </div>
+                <p>
+                    Butonul login NU merge, deoarece noi ne bazam pe tipul de cont in care se intra. Va rugam sa
+                    folositi butoanele demo pentru login
+                </p>
+                <p>
+                    Website-ul foloseste cookie-uri
+                </p>
+                <p>
+                    Vremea nefavorabilă cauzează întârzieri
+                </p>
             </div>
         </section>
         <section>
@@ -163,9 +170,11 @@
         </section>
         <section class="big" id="wideBoxImage">
             <div class="box wide">
+                <h1 hidden>Vezi locațiile noastre</h1>
                 <div class="button-container">
-                    <button type="button" onclick="location.href='Locatii.html'" id="our-locations">Vezi locațiile
-                        noastre</button>
+                    <button type="button" onclick="location.href='Locatii.html'" id="our-locations">
+                        Vezi locațiile noastre
+                    </button>
                 </div>
             </div>
         </section>
@@ -174,7 +183,7 @@
         <section>
             <div class="box margin-footer">
                 <div class="center-vertical">
-                    <img src="templates/autori.png" alt="">
+                    <img src="../templates/autori.png" alt="">
                     <h4>Autori</h4>
                 </div>
                 <p>
@@ -189,7 +198,7 @@
             </div>
             <div class="box margin-footer">
                 <div class="center-vertical">
-                    <img src="templates/referinte.png" alt="">
+                    <img src="../templates/referinte.png" alt="">
                     <h4>Referințe</h4>
                 </div>
                 <p><a href="https://www.flaticon.com/">www.flaticon.com</a></p>
@@ -199,7 +208,7 @@
 
             <div class="box margin-footer">
                 <div class="center-vertical">
-                    <img src="templates/instagram.png" alt="">
+                    <img src="../templates/instagram.png" alt="">
                     <h4>Instagram</h4>
                 </div>
                 <p>
@@ -214,7 +223,7 @@
             </div>
         </section>
     </footer>
-    <script src='templates/template.js'>
+    <script src='../templates/template.js'>
     </script>
     <script src="./scripts/landingpage.js"></script>
 

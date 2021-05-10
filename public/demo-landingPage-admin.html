@@ -33,7 +33,8 @@
             </a>
         </li>
         <li>
-            <a href="Locatii\.html">
+            <a href="Locatii.html">
+
                 Locații
             </a>
         </li>
@@ -152,26 +153,17 @@
                     <h1>Conturi angajați</h1>
                 </div>
                 <form action="backend" name="add-emplyee-account" class="full-width-form">
-
-                    <ul class="inline-items inline-radio-boxes">
-                        <li class="stacked-items center-vertical">
-                            <input type="radio" id="radio-admin" name="type-admin" value="admin">
-                            <label for="radio-admin">Admin</label>
-                        </li>
-                        <li class="stacked-items center-vertical">
-                            <input checked type="radio" id="radio-employee" name="type-employee" value="employee">
-                            <label for="radio-employee">Angajat</label>
-                        </li>
-                        <li class="stacked-items center-vertical">
-                            <input type="radio" id="radio-driver" name="type-driver" value="driver">
-                            <label for="radio-driver">Șofer</label>
-                        </li>
-                    </ul>
-
-
                     <input class="input-box" type="email" id="add-emplyee-account-email" placeholder="Email" required>
                     <input class="input-box" type="text" id="add-emplyee-account-name" placeholder="Nume" required>
                     <input class="input-box" type="tel" id="add-emplyee-account-phone" placeholder="Telefon" required>
+                    <select class="input-box" name="add-emplyee-account-type" required>
+                        <option selected hidden value="">
+                            Alege tipul contului
+                        </option>
+                        <option value="employee">Angajat</option>
+                        <option value="admin">Admin</option>
+                        <option value="driver">Șofer</option>
+                    </select>
                     <select class="input-box" name="add-emplyee-account-city" required>
                         <option selected hidden value="">
                             Alege județul utilizatorului
@@ -194,6 +186,7 @@
                 </form>
 
                 <form action="backend" name="remove-emplyee-account" class="full-width-form">
+
                     <input required class="input-box" type="text" id="remove-emplyee-account-email"
                         name="remove-emplyee-account-email" placeholder="Id sau mail">
                     <div class="button-container">
@@ -213,6 +206,7 @@
                     <h1>Notificări</h1>
                 </div>
                 <form action="backend" name="add-notification" class="full-width-form">
+
                     <input required class="input-box" type="text" id="add-notification" placeholder="Text">
                     <label>Expiră</label>
                     <input class="input-box" type="date" name="data">
@@ -256,30 +250,16 @@
                     <h1>Mașini</h1>
                 </div>
                 <form action="backend" name="add-car" class="full-width-form">
-
-                    <ul class="inline-items inline-radio-boxes">
-                        <li class="stacked-items center-vertical">
-                            <input checked type="radio" id="car-status" value="get-status">
-                            <label for="car-status">Vezi status</label>
-                        </li>
-                        <li class="stacked-items center-vertical">
-                            <input type="radio" id="car-repaired" value="car-repaired">
-                            <label for="car-repaired">Reparată</label>
-                        </li>
-                        <li class="stacked-items center-vertical">
-                            <input type="radio" id="car-damaged" value="car-damaged">
-                            <label for="car-damaged">Avariată</label>
-                        </li>
-                        <li class="stacked-items center-vertical">
-                            <input type="radio" id="car-add" value="car-added">
-                            <label for="car-add">Adaugă</label>
-                        </li>
-                        <li class="stacked-items center-vertical">
-                            <input type="radio" id="car-remove" value="car-removed">
-                            <label for="car-add">Șterge</label>
-                        </li>
-                    </ul>
                     <input required class="input-box" type="text" placeholder="nr-înmatriculare">
+                    <select class="input-box" name="add-emplyee-account-city">
+                        <option selected value="car-status">
+                            Vezi status
+                        </option>
+                        <option value="car-repaired">Reparată</option>
+                        <option value="car-damaged">Avariată</option>
+                        <option value="car-added">Adaugă</option>
+                        <option value="car-deleted">Șterge</option>
+                    </select>
                     <div class="button-container">
                         <button type="submit">
                             Trimite
@@ -336,6 +316,7 @@
         </section>
         <section class="big" id="wideBoxImage">
             <div class="box wide">
+                <h1 hidden>Vezi locațiile noastre</h1>
                 <div class="button-container">
                     <button type="button" onclick="location.href='Locatii.html'" id="our-locations">Vezi locațiile
                         noastre</button>

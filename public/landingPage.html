@@ -32,7 +32,7 @@
             </a>
         </li>
         <li>
-            <a href="Locatii\.html">
+            <a href="Locatii.html">
                 Locații
             </a>
         </li>
@@ -65,7 +65,7 @@
                 <form action="backend" name="awb-track" class="full-width-form">
                     <input class="input-box" type="text" id="awb-input" name="awb-input" placeholder="AWB">
                     <div class="button-container">
-                        <button type="button" id="track-awb">
+                        <button type="button" id="track-awb" onclick="location.href = 'DashboardClient.html'">
                             Urmărește
                         </button>
                     </div>
@@ -119,7 +119,7 @@
                     <input class="input-box" type="password" id="user-password" name="lname" placeholder="Parolă"
                         required>
                     <div class="button-container">
-                        <input type="submit" value="Intră în cont" >
+                        <button type="submit">Login</button>
                         <button id="reset-password" onclick="location.href = 'ResetPassword.html'">
                             Resetare parolă
                         </button>
@@ -127,14 +127,19 @@
                             Cont nou
                         </button>
                     </div>
+                    <div id="remember-me-input">
+                        <input type="checkbox" id="remember-me" name="remember-me">
+                        <label for="remember-me">Ține-mă minte</label>
+                    </div>
+
                     <div class="button-container">
-                        <button onclick="location.href = 'DashboardClient.html'">
+                        <button onclick="location.href = 'demo-landingPage-client.html'">
                             (demo) login client
                         </button>
-                        <button onclick="location.href = 'dashboard.html'">
+                        <button onclick="location.href = 'demo-landingPage-angajat.html'">
                             (demo) login employee
                         </button>
-                        <button onclick="location.href = 'DashboardSofer.html'">
+                        <button onclick="location.href = 'demo-landingPage-sofer.html'">
                             (demo) login sofer
                         </button>
                         <button onclick="location.href = 'demo-landingPage-admin.html'">
@@ -187,9 +192,11 @@
         </section>
         <section class="big" id="wideBoxImage">
             <div class="box wide">
+                <h1 hidden>Vezi locațiile noastre</h1>
                 <div class="button-container">
-                    <button type="button" onclick="location.href='Locatii.html'" id="our-locations">Vezi locațiile
-                        noastre</button>
+                    <button type="button" onclick="location.href='Locatii.html'" id="our-locations">
+                        Vezi locațiile noastre
+                    </button>
                 </div>
             </div>
         </section>

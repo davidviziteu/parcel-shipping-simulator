@@ -4,7 +4,7 @@ let expandableItems = document.getElementsByClassName(`expandable`)
 
 for (let i = 0; i < expandableItems.length; ++i) {
     let bttn = expandableItems[i]
-    bttn.addEventListener(`click`, function() {
+    bttn.addEventListener(`click`, function () {
         let associatedList = this.nextElementSibling
         if (associatedList && associatedList.tagName == `UL`) {
             associatedList.toggleAttribute(`hidden`)
