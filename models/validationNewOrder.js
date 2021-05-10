@@ -1,7 +1,7 @@
 const Joi = require('joi');
 
 
-const newOrderSchema = Joi.object().keys({
+const newOrderSchema = Joi.object().options({abortEarly:false}).keys({
     fullName_sender: Joi.string().required(),
     contactPerson_sender: Joi.string().regex(/^([a-zA-Z]+\s)*[a-zA-Z]+$/).required(),
     phone_sender: Joi.string().length(10).pattern(/^[0-9]+$/).required(),
