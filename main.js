@@ -5,7 +5,6 @@ const { App } = require(`./utils/app.js`)
 require("dotenv").config();
 
 
-
 app = new App(process.env.PORT || 4000, db)
 app.use(routers.adminRouter)
 app.use(routers.clientRouter)
