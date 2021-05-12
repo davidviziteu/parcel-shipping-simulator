@@ -24,15 +24,13 @@ class App {
             res.setHeader('Access-Control-Max-Age', 2592000);
             res = this.addResponseFunctionalities(res)
             req = this.addRequestFunctionalities(req)
-            if (!this.isRestAPI(req.url) && !req.url.startsWith(`/backend`)) { //nume prost ales pt functia aia
+            if (!this.isRestAPI(req.url)) { //nume prost ales pt functia aia
                 res = this.handleStatic(req, res)
                 // if (res.endNow)
                 //     res.end()
                 return
             }
-            if (req.url.startsWith(`/backend`))
-                req.url = `/api/login`;
-            console.log(`${req.method} ${req.url}`)
+            console.log(`${req.method} on ${req.url}`)
 
             let data = '';
             req.on('data', chunk => {
@@ -174,7 +172,6 @@ class App {
         const parsedUrl = url.parse(req.url)
         // extract URL path
         let pathname = `${parsedUrl.pathname}`
-        console.log(`pathname processed = ${pathname}`)
         if (pathname == `/`)
             return res.sendFile(`public/landingPage.html`)
         else

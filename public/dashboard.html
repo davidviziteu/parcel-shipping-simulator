@@ -15,10 +15,10 @@
 <body>
     <nav>
         <div id="here">
-            <button type="button" id="hamburger">
+            <button id="hamburger">
             </button>
             <div>
-                Dashboard angajat
+                <img src="../templates/logo.png" alt="">
             </div>
             <div id="login-info">
                 Bună!
@@ -32,7 +32,8 @@
             </a>
         </li>
         <li>
-            <a href="Locatii\.html">
+            <a href="Locatii.html">
+
                 Locații
             </a>
         </li>
@@ -57,15 +58,18 @@
     </menu>
     <form action="InfoOrder">
         <section class="big">
-
-
             <div class="wide box">
                 <h4 id="awb-title">AWB: 123213123</h4>
             </div>
             <div class="box">
-                <h1>Detalii locatie pachet</h1>
+                <div class="title-with-image">
+                    <img src="./assets/parcel.png" alt="">
+                    <h1>
+                        Detalii locație pachet
+                    </h1>
+                </div>
 
-                <div class="button-container expandable buttons-with-image">
+                <div class="button-container buttons-with-image expandable">
                     <button type="button" class="progress-done">
                         <img src="./assets/counseling.png" alt="">
                         Comanda a fost primită
@@ -82,8 +86,8 @@
 
                 </div>
 
-                <!--  -->
-                <div class="button-container expandable buttons-with-image">
+
+                <div class="button-container buttons-with-image expandable">
                     <button type="button" class="progress-now">
                         <img src="./assets/package.png" alt="">
                         Ridicat de la expeditor
@@ -100,8 +104,8 @@
 
                 </div>
 
-                <!--  -->
-                <div class="button-container expandable buttons-with-image">
+
+                <div class="button-container buttons-with-image expandable">
                     <button type="button" class="">
                         <img src="./assets/distribution.png" alt="">
                         A ajuns la hub local
@@ -115,8 +119,8 @@
 
                 </div>
 
-                <!--  -->
-                <div class="button-container expandable buttons-with-image">
+
+                <div class="button-container buttons-with-image expandable">
                     <button type="button" class="">
                         <img src="./assets/box.png" alt="">
                         În tranzit
@@ -128,8 +132,8 @@
                     <img src="./assets/arrow.png" alt="down-arrow">
 
                 </div>
-                <!--  -->
-                <div class="button-container expandable buttons-with-image">
+
+                <div class="button-container buttons-with-image expandable">
                     <button type="button" class="">
                         <img src="./assets/telephone.png" alt="">
                         În curs de livrare
@@ -142,7 +146,7 @@
 
                 </div>
 
-                <div class="button-container expandable buttons-with-image">
+                <div class="button-container buttons-with-image expandable">
                     <button type="button" class="detalii-tranzit">
                         <img src="./assets/review.png" alt="">
                         Destinatar
@@ -153,25 +157,27 @@
                         Estimare data livrare: 10-apr-2021
                     </li>
                 </ul>
-                <!--  -->
+
 
             </div>
             <div class="box">
-                <div class="button-container">
-                    <button id="bttn-comanda-refuzata" type="button" class="">
-                        <a href="dashboard-refused2.html">
-                            Clientul refuză coletul / retur
-                        </a>
+                <div class="button-container buttons-with-image">
+                    <button id="bttn-comanda-refuzata" type="button"
+                        onclick="location.href = '(demo)dashboard-refused2.html' ">
+                        Clientul refuză coletul / retur
                     </button>
                 </div>
-                <div class="button-container">
+                <div class="button-container buttons-with-image">
                     <button id="bttn-comanda-ridicata" type="button" class="disabled">
                         Clientul a ridicat coletul
                     </button>
                 </div>
-                <h1>
-                    <img src="./assets/view-details.png" alt=""> Alte detalii
-                </h1>
+                <div class="title-with-image">
+                    <img src="./assets/view-details.png" alt="">
+                    <h1>
+                        Alte detalii
+                    </h1>
+                </div>
                 <p>
                     Expeditor:
                 </p>
@@ -212,9 +218,12 @@
                 <p>
                     Valoare declarata 1000 RON
                 </p>
-                <h1>
-                    <img src="./assets/equalizer.png" alt=""> Opțiuni selectate
-                </h1>
+                <div class="title-with-image">
+                    <img src="./assets/equalizer.png" alt="">
+                    <h1>
+                        Opțiuni selectate
+                    </h1>
+                </div>
                 <ul id="details-list">
                     <li>
                         Livrare Sambata

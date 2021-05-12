@@ -20,7 +20,16 @@ module.exports = {
     },
 
     handleLogin: (req, res) => {
-        console.log(req.body);
+        console.log(`redirect`)
+        // res.writeHead(302, {
+        //     'Location': 'https://google.com'
+        // });
+        // return res.json({
+        //     test: "test",
+        //     redirect: "link",
+        // })
+        // res.end()
+        // return
         if (!req.body)
             return res.status(StatusCodes.BAD_REQUEST).json({
                 success: false,
@@ -47,6 +56,22 @@ module.exports = {
                 data: data,
             })
         })
-    }
+    },
 
+    getNotifications: (req, res) => {
+        return res.status(StatusCodes.OK).json({
+            notifications: [
+                {
+                    id: 1,
+                    exp: "11:22 ceva data",
+                    text: "notificare random",
+                },
+                {
+                    id: 2,
+                    exp: "11:23 ceva data",
+                    text: "notificare random2",
+                }
+            ]
+        })
+    },
 }
