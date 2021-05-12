@@ -107,7 +107,7 @@ module.exports = {
             }
         );
     },
-    addEventesDriver: (data, callBack) => {
+    addEventsDriver: (data, callBack) => {
         pool.query(
             `INSERT INTO driver_events values (?,?,?,?,?,?)`,
             [

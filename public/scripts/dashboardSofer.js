@@ -84,12 +84,6 @@ buutonSubmit.addEventListener('click', () => {
         deteriorat: check[4].checked,
         livrat: check[5].checked
     }
-    var ok = false;
-    for (var i in values) {
-        if (i == true) ok = true
-    }
-    if (ok)
-        console.log(ok)
     fetch(`${hostName}/api/driver`, {
         method: "POST",
         body: JSON.stringify(values),
@@ -97,7 +91,9 @@ buutonSubmit.addEventListener('click', () => {
     })
         .then(response => response.json())
         .then(json => {
-            console.log(json)
+            if (json.error === "unselected") {
+                document.getElementById("unselected").style.display = "block"
+            }
         })
         .catch(err => { console.log(err) });
 })
