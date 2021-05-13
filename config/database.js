@@ -125,5 +125,31 @@ module.exports = {
                 return callBack(null, results)
             }
         )
-    }
+    },
+    addNotification: (data, callBack) => {
+        pool.query(
+            `INSERT INTO notifications values (?,?)`,
+            [
+                data.expiry_date,
+                data.text,
+            ],
+            (error, results, fields) => {
+                if (error)
+                    return callBack(error)
+            }
+        )
+    },
+    getNotifications: (callback) => {
+        pool.query(
+            `INSERT INTO notifications values (?,?)`,
+            [
+                data.expiry_date,
+                data.text,
+            ],
+            (error, results, fields) => {
+                if (error)
+                    return callBack(error)
+            }
+        )
+    },
 }
