@@ -1,4 +1,4 @@
-const { hashSync, genSaltSync } = require("bcrypt")
+const { hashSync, genSaltSync, compareSync } = require("bcrypt")
 const { StatusCodes } = require(`http-status-codes`)
 const models = require("../models")
 const Joi = require('joi')
@@ -40,13 +40,12 @@ module.exports = {
                     success: false,
                     error: error.message
                 })
-            }
-            else {
+            } else {
                 res.status(200).json({
                     success: true
                 })
                 mailOptions.to = body.email
-                transporter.sendMail(mailOptions, function (error, info) {
+                transporter.sendMail(mailOptions, function(error, info) {
                     if (error) {
                         console.log(error.message);
                     } else {
@@ -83,8 +82,7 @@ module.exports = {
                     success: false,
                     error: error.message
                 })
-            }
-            else res.status(200).json({
+            } else res.status(200).json({
                 success: true
             })
         })
