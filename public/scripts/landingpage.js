@@ -45,5 +45,11 @@ window.addEventListener(`api-fetched`, (ev) => {
             withCredentials: true,
             body: JSON.stringify(values),
         })
+            .then(response => response.json())
+            .then(json => {
+                if (!json.error)
+                    window.location.href = json.redirect;
+            })
+            .catch(err => { console.log(err) });
     }
 }, false)
