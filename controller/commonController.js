@@ -6,9 +6,9 @@ module.exports = {
     getAWB: (req, res) => {
         console.log(req.body)
         if (req.body.AWB) {
-            if (dbAWB.find(function(arg) {
-                    return arg == req.body.AWB;
-                }))
+            if (dbAWB.find(function (arg) {
+                return arg == req.body.AWB;
+            }))
                 return res.status(200).json({
                     "succes": true
                 })
@@ -23,11 +23,11 @@ module.exports = {
     handleLogin: (req, res) => {
         if (!req.body)
             return res.status(StatusCodes.BAD_REQUEST).json({
-                    success: false,
-                    error: `no body provided for login`
-                })
-                // const salt = genSaltSync(10);
-                // req.body.password = hashSync(req.body.password, salt);
+                success: false,
+                error: `no body provided for login`
+            })
+        // const salt = genSaltSync(10);
+        // req.body.password = hashSync(req.body.password, salt);
         console.log(req.body)
         const { error, value } = models.userModel.loginUserSchema.validate(req.body)
         if (error)
@@ -43,32 +43,32 @@ module.exports = {
                     error: error.message
                 })
             } else
-            if (!results) {
-                return res.json({
-                    success: 0,
-                    data: "No user with that email!"
-                });
-            } else {
-                const result = compare(req.body.password, results.password);
-                if (result) {
-                    results.password = undefined;
-                    const jsontoken = sign({ results }, process.env.secretKey, {
-                        expiresIn: "1h"
-                    });
-                    res.setHeader('Set-Cookie', 'token=' + jsontoken + '; HttpOnly;Secure;expires=Wed, 21 Oct 2030 07:28:00 GMT;Max-Age=9000000;Domain=localhost;Path=/');
-                    console.log(`cookie set`)
-                    return res.json({
-                        success: true,
-                        redirect: `/dashboard-${results.type}.html`
-                    });
-
-                } else {
+                if (!results) {
                     return res.json({
                         success: 0,
-                        data: "Invalid password!"
+                        data: "No user with that email!"
                     });
+                } else {
+                    const result = compare(req.body.password, results.password);
+                    if (result) {
+                        results.password = undefined;
+                        const jsontoken = sign({ results }, process.env.secretKey, {
+                            expiresIn: "1h"
+                        });
+                        res.setHeader('Set-Cookie', 'token=' + jsontoken + `; HttpOnly;Secure;expires=Wed, 21 Oct 2030 07:28:00 GMT;Max-Age=9000000;Domain=${models.apiModel.domain};Path=/`);
+                        console.log(`cookie set`)
+                        return res.json({
+                            success: true,
+                            redirect: `/dashboard-${results.type}.html`
+                        });
+
+                    } else {
+                        return res.json({
+                            success: 0,
+                            data: "Invalid password!"
+                        });
+                    }
                 }
-            }
             // return res.status(StatusCodes.ACCEPTED).json({
             //     success: true,
             //     message: value,
@@ -80,15 +80,15 @@ module.exports = {
     getNotifications: (req, res) => {
         return res.status(StatusCodes.OK).json({
             notifications: [{
-                    id: 1,
-                    exp: "11:22 ceva data",
-                    text: "notificare random",
-                },
-                {
-                    id: 2,
-                    exp: "11:23 ceva data",
-                    text: "notificare random2",
-                }
+                id: 1,
+                exp: "11:22 ceva data",
+                text: "notificare random",
+            },
+            {
+                id: 2,
+                exp: "11:23 ceva data",
+                text: "notificare random2",
+            }
             ]
         })
     },
