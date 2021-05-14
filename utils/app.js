@@ -19,6 +19,7 @@ class App {
     isRestAPI = (url) => String(url).startsWith(`/api`)
     listen() {
         http.createServer(function(req, res) {
+            req = this.authFunction(req);
             res.setHeader('Access-Control-Allow-Origin', '*');
             res.setHeader('Access-Control-Allow-Credentials', true);
             //res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET');
@@ -62,7 +63,6 @@ class App {
                             // res.end()
                         return
                     }
-                req = this.authFunction(req)
                 res = this.router.handleRoute(req, res)
                     // if (res.endNow)
                     //     res.end()
@@ -175,9 +175,11 @@ class App {
         const parsedUrl = url.parse(req.url)
             // extract URL path
         let pathname = `${parsedUrl.pathname}`
-        if (pathname == `/`)
-            return res.sendFile(`public/landingPage.html`)
-        else
+        if (pathname == `/`) {
+            if (!req.accountType)
+                return res.sendFile(`public/landingPage.html`)
+            return res.sendFile(`public/dashboard-${req.accountType}.html`)
+        } else
             return res.sendFile(`public` + pathname)
 
     }
