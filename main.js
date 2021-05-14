@@ -13,11 +13,6 @@ app.use(routers.driverRouter)
 app.use(routers.employeeRouter)
 app.use(routers.commonRouter)
 app.useAuth((req) => {
-
-    //faci tu logica aici
-    //daca userul e autentificart, o sa faci req.userType = token.type //il decriptezi tu cumva. 
-    //                              si req.userId = token.id
-    // daca ai erori la decodare, nu faci nimic, doar dai return
     if (!req.headers.cookie)
         return req;
     const token = req.headers.cookie.split('=')[1];
