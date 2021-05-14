@@ -17,8 +17,8 @@ exports.loginUserSchema = Joi.object().options({ abortEarly: false }).keys({
 exports.driverEventsSchema = Joi.object().options({ abortEarly: false }).keys({
     accident: Joi.boolean(),
     meteo: Joi.boolean(),
-    defectiune: Joi.boolean(),
+    failure: Joi.boolean(),
     client: Joi.boolean(),
-    deteriorat: Joi.boolean(),
-    livrat: Joi.boolean()
+    content: Joi.boolean(),
+    delivered: Joi.boolean(),
 })

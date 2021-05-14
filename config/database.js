@@ -109,20 +109,35 @@ module.exports = {
     },
     addEventsDriver: (data, callBack) => {
         pool.query(
-            `INSERT INTO driver_events values (?,?,?,?,?,?)`,
+            `INSERT INTO driver_events values (?,?,?,?,?,?,?)`,
             [
                 data.id,
+                data.accident,
                 data.meteo,
-                data.defectiune,
+                data.failure,
                 data.client,
-                data.deteriorat,
-                data.livrat
+                data.content,
+                data.delivered
             ],
             (error, results, fields) => {
                 if (error) {
                     return callBack(error)
                 }
                 return callBack(null, results)
+            }
+        )
+    },
+    getDetailsSender: (awb, callBack) => {
+        pool.query(
+            `SELECT * FROM orders where awb = ?`,
+            [
+                awb
+            ],
+            (error, results, fields) => {
+                if (error) {
+                    callBack(error);
+                }
+                return callBack(null, results);
             }
         )
     }
