@@ -10,7 +10,6 @@ fetch(`${hostName}/api`, {
     .then(response => response.json())
     .then(json => {
         api = json
-        hostName = api.hostName
     })
     .catch(err => {
         console.log(err)
