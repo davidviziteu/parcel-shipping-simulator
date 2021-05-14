@@ -1,6 +1,6 @@
 const host = process.env.PORT ? `https://parcel-shipping-simulator.herokuapp.com` : `http://localhost:4000`
 
-exports.domain = process.env.PORT ? `herokuapp` : `localhost`
+exports.domain = process.env.PORT ? `parcel-shipping-simulator.herokuapp.com` : `localhost`
 exports.baseApi = {
     hostName: host,
     estimateCost: {
