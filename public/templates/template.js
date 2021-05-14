@@ -1,7 +1,23 @@
 let hamburgerMenu = document.getElementById(`hamburger`)
 let menu = document.getElementsByTagName(`menu`)[0]
-let hostName = "http://localhost:4000"
 console.log("loaded tamplets.js")
+let api, hostName;
+let hostName = location.hostname == `localhost` ? `http://localhost:4000` : `https://parcel-shipping-simulator.herokuapp.com`
+fetch(`${hostName}/api`, {
+    method: "GET",
+    headers: { "Content-type": "application/json" }
+})
+    .then(response => response.json())
+    .then(json => {
+        api = json
+        hostName = api.hostName
+    })
+    .catch(err => {
+        console.log(err)
+        console.log(`cannot fetch apis neither from localhost nor from heroku`)
+    })
+
+
 
 hamburgerMenu.addEventListener(`click`, () => {
     if (menu.className.includes(`hidden`)) {
