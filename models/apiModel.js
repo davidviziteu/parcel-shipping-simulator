@@ -3,7 +3,7 @@ const host = process.env.PORT ? `https://parcel-shipping-simulator.herokuapp.com
 exports.baseApi = {
     hostName: host,
     estimateCost: {
-        route: `/api/cost`,
+        route: `/api/new-order`,
         method: `GET`,
     },
     login: {
@@ -21,6 +21,10 @@ exports.baseApi = {
     },
     getCode: {
         route: `/api/reset`,
+        method: `POST`,
+    },
+    newOrder: {
+        route: `/api/new-order`,
         method: `POST`,
     },
 }

@@ -50,8 +50,8 @@ loginForm.onsubmit = async (e) => {
         email: document.getElementById("user-mail").value,
         password: document.getElementById("user-password").value
     }
-    let response = await fetch('http://localhost:4000/api/login', {
-        method: 'POST',
+    let response = await fetch(`${hostName}${api.login.route}`, {
+        method: api.login.method,
         headers: {
             'Content-Type': 'application/json',
         },
