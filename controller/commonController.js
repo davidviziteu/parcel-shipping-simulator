@@ -20,7 +20,6 @@ module.exports = {
             error: `Missing 'AWB' filed from request`
         })
     },
-
     handleLogin: (req, res) => {
         // console.log(`redirect`)
         // res.writeHead(302, {

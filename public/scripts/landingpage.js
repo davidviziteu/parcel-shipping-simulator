@@ -24,38 +24,26 @@ estimateCost.addEventListener(`click`, () => {
     else totalCost.innerHTML = `${from} -> ${to}: aproximativ 35 RON`
 })
 
-// loginForm.onsubmit = async(e) => {
-//     e.preventDefault();
-//     var values = {
-//             email: document.getElementById("user-email").value,
-//             password: document.getElementById("user-password").value,
-//         }
-//         // let response = await fetch('https://parcel-shipping-simulator.herokuapp.com/api/login', {
-//     let response = await fetch('http://localhost:4000/api/login', {
-//         method: 'POST',
-//         headers: {
-//             'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify(values),
-//     })
-
-// }
 
 
 document.getElementById(`our-team`).onclick = () => location.href = `AboutUs.html`
-console.log(api)
-loginForm.onsubmit = async (e) => {
-    e.preventDefault();
-    var values = {
-        email: document.getElementById("user-mail").value,
-        password: document.getElementById("user-password").value
+
+window.addEventListener(`api-fetched`, (ev) => {
+    console.log(`api-fetched event:`)
+    console.log(api)
+    loginForm.onsubmit = async (e) => {
+        e.preventDefault();
+        var values = {
+            email: document.getElementById("user-mail").value,
+            password: document.getElementById("user-password").value
+        }
+        let response = await fetch(`${hostName}/api/login`, {
+            method: `POST`,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            withCredentials: true,
+            body: JSON.stringify(values),
+        })
     }
-    let response = await fetch(`${hostName}/api/login`, {
-        method: `POST`,
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        withCredentials: true,
-        body: JSON.stringify(values),
-    })
-}
+}, false)
