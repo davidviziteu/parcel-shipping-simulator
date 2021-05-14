@@ -3,18 +3,23 @@ let menu = document.getElementsByTagName(`menu`)[0]
 console.log("loaded tamplets.js")
 let api, hostName;
 hostName = location.hostname == `localhost` ? `http://localhost:4000` : `https://parcel-shipping-simulator.herokuapp.com`
-fetch(`${hostName}/api`, {
-    method: "GET",
-    headers: { "Content-type": "application/json" }
-})
-    .then(response => response.json())
-    .then(json => {
-        api = json
-    })
-    .catch(err => {
+
+async function fetchServerApi(params) {
+    try {
+        let rawResponse = await fetch(`${hostName}/api`, {
+            method: "GET",
+            headers: { "Content-type": "application/json" }
+        })
+        api = rawResponse.json();
+        if (api.success == `false`)
+            throw new Error(api.error)
+        console.log(`api: `)
+        console.log(api)
+    } catch (error) {
         console.log(err)
-        console.log(`cannot fetch apis neither from localhost nor from heroku`)
-    })
+        console.log(`^ cannot fetch GET ${hostName}/api`)
+    }
+}
 
 
 
