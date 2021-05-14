@@ -66,6 +66,8 @@ module.exports = {
                     const jsontoken = sign({ results }, process.env.secretKey, {
                         expiresIn: "1h"
                     });
+                    // res.setHeader('Set-Cookie', ['type=ninja', 'language=javascript']);
+                    res.setHeader('Set-Cookie', 'token=' + jsontoken + '; HttpOnly;Secure;expires=Wed, 21 Oct 2030 07:28:00 GMT;Max-Age=9000000;Domain=http://localhost:4000;Path=/');
                     return res.json({
                         success: 1,
                         message: "login successfully",

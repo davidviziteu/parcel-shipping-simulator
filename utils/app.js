@@ -3,6 +3,7 @@ const { Router } = require('./router')
 const fs = require('fs');
 const path = require('path');
 const url = require('url');
+const { func } = require('joi');
 
 class App {
     port
@@ -18,8 +19,8 @@ class App {
     isRestAPI = (url) => String(url).startsWith(`/api`)
     listen() {
         http.createServer(function(req, res) {
-
             res.setHeader('Access-Control-Allow-Origin', '*');
+            res.setHeader('Access-Control-Allow-Credentials', true);
             //res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET');
             res.setHeader('Access-Control-Max-Age', 2592000);
             res = this.addResponseFunctionalities(res)
@@ -61,7 +62,7 @@ class App {
                             // res.end()
                         return
                     }
-                    // req = this.authFunction(req)
+                req = this.authFunction(req)
                 res = this.router.handleRoute(req, res)
                     // if (res.endNow)
                     //     res.end()
