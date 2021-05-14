@@ -2,8 +2,8 @@ var detaliiExpeditor = document.getElementById('detalii-expeditor')
 var buttonExpeditor = document.getElementById('button-expeditor')
 var detaliiDestinatar = document.getElementById('detalii-destinatar')
 var buttonDestinatar = document.getElementById('button-destinatar')
-var buttonAWBS = document.getElementById('button-myawbs')
-var listAwbs = document.getElementById('list-awbs')
+var buttonDetalii = document.getElementById('button-detalii')
+var listDetails = document.getElementById('detalii-colet')
 var buttonStatus = document.getElementById('button-status')
 var statut = document.getElementById('status')
 var check = document.getElementsByClassName('check')
@@ -15,18 +15,66 @@ var buttonContinut = document.getElementById('continut')
 var buttonLivrat = document.getElementById('livrat')
 var buutonSubmit = document.getElementById('submit')
 
+window.onload = detailsFromDB()
 
-buttonExpeditor.addEventListener('click', () =>
+function detailsFromDB() {
+    fetch(`${hostName}/api/driver`, {
+        method: "GET",
+        headers: { "Content-type": "application/json; charset=UTF-8" }
+    })
+        .then(response => response.json())
+        .then(json => {
+            document.getElementById("name_sender").innerHTML = "Nume: " + json["fullName_sender"]
+            document.getElementById("county_sender").innerHTML = "Județul: " + json["county_sender"]
+            document.getElementById("city_sender").innerHTML = "Orașul: " + json["city_sender"]
+            document.getElementById("address_sender").innerHTML = "Adresa: " + json["address_sender"]
+            document.getElementById("phone_sender").innerHTML = "Telefon: " + json["phone_sender"]
+            document.getElementById("name_receiver").innerHTML = "Nume: " + json["fullName_receiver"]
+            document.getElementById("county_receiver").innerHTML = "Județul: " + json["county_receiver"]
+            document.getElementById("city_receiver").innerHTML = "Orașul: " + json["city_receiver"]
+            document.getElementById("address_receiver").innerHTML = "Adresa: " + json["address_receiver"]
+            document.getElementById("phone_receiver").innerHTML = "Telefon: " + json["phone_receiver"]
+            if (json["nrEnvelope"] != "")
+                document.getElementById("nrEnvelope").innerHTML = "Număr de plicuri : " + json["nrEnvelope"]
+            if (json["nrParcel"] != "")
+                document.getElementById("nrParcel").innerHTML = "Număr de colete : " + json["nrParcel"]
+            if (json["weight"] != "")
+                document.getElementById("weight").innerHTML = "Greutate : " + json["weight"]
+            if (json["length"] != "")
+                document.getElementById("length").innerHTML = "Lungime : " + json["length"]
+            if (json["width"] != "")
+                document.getElementById("width").innerHTML = "Lățime : " + json["width"]
+            if (json["height"] != "")
+                document.getElementById("height").innerHTML = "Înălțime : " + json["height"]
+            document.getElementById("date").innerHTML = "Data de livrare : " + new Date(json["date"]).toLocaleDateString("sq-AL", { year: 'numeric', month: '2-digit', day: '2-digit' })
+            document.getElementById("hour").innerHTML = "Ora : " + json["hour"]
+            if (json[preference1] == true)
+                document.getElementById("preferance1").innerHTML = "Deschiderea coletului la livrare"
+            if (json[preference2] == true)
+                document.getElementById("preferance2").innerHTML = "Livrare sâmbătă"
+            if (json[preference2] == true)
+                document.getElementById("preferance3").innerHTML = "Colet fragil"
+            document.getElementById("payment").innerHTML = "Plata : " + json["payment"]
+            if (json["mentions"] != "")
+                document.getElementById("mentions").innerHTML = "Observații : " + json["mentions"]
+            document.getElementById("status").innerHTML = json["status"]
+        })
+        .catch(err => { console.log(err) });
+}
+
+
+buttonExpeditor.addEventListener('click', () => {
     detaliiExpeditor.toggleAttribute('hidden')
-)
+})
 
 buttonDestinatar.addEventListener('click', () =>
     detaliiDestinatar.toggleAttribute('hidden')
 )
 
-buttonAWBS.addEventListener('click', () =>
-    listAwbs.toggleAttribute('hidden')
-)
+buttonDetalii.addEventListener('click', () => {
+    console.log("aici")
+    listDetails.toggleAttribute('hidden')
+})
 
 buttonStatus.addEventListener('click', () => {
     statut.toggleAttribute('hidden')
@@ -79,10 +127,10 @@ buutonSubmit.addEventListener('click', () => {
     const values = {
         accident: check[0].checked,
         meteo: check[1].checked,
-        defectiune: check[2].checked,
+        failure: check[2].checked,
         client: check[3].checked,
-        deteriorat: check[4].checked,
-        livrat: check[5].checked
+        content: check[4].checked,
+        delivered: check[5].checked
     }
     fetch(`${hostName}/api/driver`, {
         method: "POST",
@@ -97,16 +145,3 @@ buutonSubmit.addEventListener('click', () => {
         })
         .catch(err => { console.log(err) });
 })
-
-function AWBS() {
-    n = Math.floor(Math.random() * 10) + 1;
-    for (var i = 0; i < n; i++) {
-        var btn = document.createElement("BUTTON");
-        var newAWB = document.getElementsByClassName("button-container")[3].appendChild(btn);
-        newAWB.innerHTML = Math.floor(Math.random() * 100) + 10;
-        awb = newAWB.innerHTML;
-    }
-    document.getElementsByTagName("h4")[0].innerHTML += awb;
-}
-
-window.onload = AWBS()

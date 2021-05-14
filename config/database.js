@@ -79,13 +79,13 @@ module.exports = {
     createAccount: (data, callBack) => {
         pool.query(
             `INSERT INTO USERS (name,surname,email,password,phone,type) VALUES (?,?,?,?,?,?)`, [
-                data.name,
-                data.surname,
-                data.email,
-                data.password,
-                data.phone,
-                data.type
-            ],
+            data.name,
+            data.surname,
+            data.email,
+            data.password,
+            data.phone,
+            data.type
+        ],
             (error, results, fields) => {
                 if (error) {
                     return callBack(error)
@@ -97,41 +97,41 @@ module.exports = {
     placeNewOrder: (data, callBack) => {
         pool.query(
             `INSERT INTO orders (fullName_sender,contactPerson_sender,phone_sender,email_sender,county_sender,country_sender,address_sender,fullName_receiver,contactPerson_receiver,phone_receiver,county_receiver,country_receiver,address_receiver,nrEnvelope,nrParcel, weight,length,width,height,date, hour, preference1, preference2, preference3, payment, mentions) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`, [
-                data.fullName_sender,
-                data.contactPerson_sender,
-                data.phone_sender,
-                data.email_sender,
-                data.county_sender,
-                data.country_sender,
-                data.address_sender,
+            data.fullName_sender,
+            data.contactPerson_sender,
+            data.phone_sender,
+            data.email_sender,
+            data.county_sender,
+            data.country_sender,
+            data.address_sender,
 
-                data.fullName_receiver,
-                data.contactPerson_receiver,
-                data.phone_receiver,
-                data.county_receiver,
-                data.country_receiver,
-                data.address_receiver,
+            data.fullName_receiver,
+            data.contactPerson_receiver,
+            data.phone_receiver,
+            data.county_receiver,
+            data.country_receiver,
+            data.address_receiver,
 
-                data.nrEnvelope,
-                data.nrParcel,
-                data.weight,
+            data.nrEnvelope,
+            data.nrParcel,
+            data.weight,
 
-                data.length,
-                data.width,
-                data.height,
+            data.length,
+            data.width,
+            data.height,
 
-                data.date,
-                data.hour,
+            data.date,
+            data.hour,
 
-                data.preference1,
-                data.preference2,
-                data.preference3,
+            data.preference1,
+            data.preference2,
+            data.preference3,
 
-                data.payment,
+            data.payment,
 
-                data.mentions
+            data.mentions
 
-            ],
+        ],
             (error, results, fields) => {
                 if (error) {
                     return callBack(error)
@@ -142,13 +142,15 @@ module.exports = {
     },
     addEventsDriver: (data, callBack) => {
         pool.query(
-            `INSERT INTO driver_events values (?,?,?,?,?,?)`, [
+            `INSERT INTO driver_events values (?,?,?,?,?,?,?)`,
+            [
                 data.id,
+                data.accident,
                 data.meteo,
-                data.defectiune,
+                data.failure,
                 data.client,
-                data.deteriorat,
-                data.livrat
+                data.content,
+                data.delivered
             ],
             (error, results, fields) => {
                 if (error) {
@@ -184,4 +186,18 @@ module.exports = {
             }
         )
     },
+    getDetailsSender: (awb, callBack) => {
+        pool.query(
+            `SELECT * FROM orders where awb = ?`,
+            [
+                awb
+            ],
+            (error, results, fields) => {
+                if (error) {
+                    callBack(error);
+                }
+                return callBack(null, results);
+            }
+        )
+    }
 }
