@@ -94,6 +94,6 @@ module.exports = {
     },
 
     getApi: (req, res) => {
-        return res.status(StatusCodes.OK).json(models.apiModel)
+        return res.status(StatusCodes.OK).json(models.apiModel.baseApi)
     }
 }

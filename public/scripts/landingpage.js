@@ -24,7 +24,7 @@ estimateCost.addEventListener(`click`, () => {
     else totalCost.innerHTML = `${from} -> ${to}: aproximativ 35 RON`
 })
 
-
+console.log(`lndingpage.js`)
 
 document.getElementById(`our-team`).onclick = () => location.href = `AboutUs.html`
 
@@ -37,8 +37,8 @@ window.addEventListener(`api-fetched`, (ev) => {
             email: document.getElementById("user-mail").value,
             password: document.getElementById("user-password").value
         }
-        let response = await fetch(`${hostName}/api/login`, {
-            method: `POST`,
+        fetch(`${hostName}${api.login.route}`, {
+            method: api.login.method,
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -53,3 +53,4 @@ window.addEventListener(`api-fetched`, (ev) => {
             .catch(err => { console.log(err) });
     }
 }, false)
+
