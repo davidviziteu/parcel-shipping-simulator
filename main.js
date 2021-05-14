@@ -16,11 +16,10 @@ app.useAuth((req) => {
     if (!req.headers.cookie)
         return req;
     const token = req.headers.cookie.split('=')[1];
-    console.log(token);
     var decoded = jwt_decode(token);
-    console.log(decoded);
+    req.accountId = decoded.results.id;
+    req.accountType = decoded.results.type;
     return req;
 
 })
-console.log(app)
 app.listen()
