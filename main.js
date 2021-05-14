@@ -12,20 +12,20 @@ app.use(routers.clientRouter)
 app.use(routers.driverRouter)
 app.use(routers.employeeRouter)
 app.use(routers.commonRouter)
-    // app.useAuth((req) => {
-    //     const body = req.body;
-    //     const token = body.token;
-    //     const decodedToken = jwt_decode(token);
-    //     req.db.checkToken(decodedToken.id, (err, data) => {
-    //         if (err) {
-    //             return res.status(StatusCodes.BAD_REQUEST).json({
-    //                 success: false,
-    //                 error: error.message
-    //             })
-    //         } else {
+app.useAuth((req) => {
 
-//         }
-//     })
-// })
+    //faci tu logica aici
+    //daca userul e autentificart, o sa faci req.userType = token.type //il decriptezi tu cumva. 
+    //                              si req.userId = token.id
+    // daca ai erori la decodare, nu faci nimic, doar dai return
+    if (!req.headers.cookie)
+        return req;
+    const token = req.headers.cookie.split('=')[1];
+    console.log(token);
+    var decoded = jwt_decode(token);
+    console.log(decoded);
+    return req;
+
+})
 console.log(app)
 app.listen()
