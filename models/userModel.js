@@ -1,6 +1,6 @@
 const Joi = require('joi');
 
-exports.newUserSchema = Joi.object().keys({
+exports.newUserSchema = Joi.object().options({ abortEarly: false }).keys({
     surname: Joi.string().required(),
     name: Joi.string().required(),
     email: Joi.string().email().required(),
@@ -9,16 +9,16 @@ exports.newUserSchema = Joi.object().keys({
     type: Joi.string().required()
 });
 
-exports.loginUserSchema = Joi.object().keys({
+exports.loginUserSchema = Joi.object().options({ abortEarly: false }).keys({
     email: Joi.string().email().required(),
     password: Joi.string().required(),
 })
 
-exports.driverEventsSchema = Joi.object().keys({
+exports.driverEventsSchema = Joi.object().options({ abortEarly: false }).keys({
     accident: Joi.boolean(),
     meteo: Joi.boolean(),
-    defectiune: Joi.boolean(),
+    failure: Joi.boolean(),
     client: Joi.boolean(),
-    deteriorat: Joi.boolean(),
-    livrat: Joi.boolean()
+    content: Joi.boolean(),
+    delivered: Joi.boolean(),
 })
