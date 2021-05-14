@@ -21,7 +21,7 @@ fetch(`${hostName}/api`, {
         console.log(api)
     })
     .catch(error => {
-        console.log(err)
+        console.log(error)
         console.log(`^ cannot fetch GET ${hostName}/api`)
     })
 // (async () => {
