@@ -173,6 +173,7 @@ module.exports = {
             }
         )
     },
+    
     getNotifications: (callback) => {
         pool.query(
             `INSERT INTO notifications values (?,?)`,
@@ -186,6 +187,7 @@ module.exports = {
             }
         )
     },
+
     getDetailsSender: (awb, callBack) => {
         pool.query(
             `SELECT * FROM orders where awb = ?`,

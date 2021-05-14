@@ -103,4 +103,8 @@ module.exports = {
             ]
         })
     },
+
+    getRoutes: (req, res) => {
+
+    }   
 }
