@@ -8,4 +8,5 @@ commonRouter.get(`/api/notifications`, controllers.commonController.getNotificat
 commonRouter.get(`/api`, controllers.commonController.getApi);
 commonRouter.get(`/api/new-order`, controllers.clientController.getCost);
 commonRouter.post(`/api/new-order`, controllers.clientController.placeOrder);
+commonRouter.post(`/api/logout`, controllers.commonController.handleLogout);
 module.exports = commonRouter

@@ -3,10 +3,12 @@ let destinationSelector = document.getElementById(`judet-dest`)
 let estimateCost = document.getElementById(`estimate-cost-button`)
 let totalCost = document.getElementById(`total-cost`)
 var loginForm = document.getElementById("login-form");
-window.onload = function() {
-    document.getElementById("remember-me").checked = false;
+var logout = document.getElementById(`logout`);
+
+window.onunload = function() {
+    document.cookie = "cookiename=token ; expires = Thu, 01 Jan 1970 00:00:00 GMT"
+    console.log("cookie" + document.cookie)
 }
-window.onunload = function() {}
 for (let element in cities) {
     sourceSelector.appendChild(new Option(element))
     destinationSelector.appendChild(new Option(element))
@@ -50,9 +52,28 @@ window.addEventListener(`api-fetched`, (ev) => {
             })
             .then(response => response.json())
             .then(json => {
-                if (!json.error)
+                if (!json.error) {
                     window.location.href = json.redirect;
+
+                }
             })
             .catch(err => { console.log(err) });
     }
+
 }, false)
+logout.addEventListener(`click`, () => {
+    fetch(`${hostName}${api.logout.route}`, {
+            method: api.logout.method,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            credentials: 'same-origin',
+        })
+        .then(response => response.json())
+        .then(json => {
+            if (!json.error) {
+                window.location.href = json.redirect;
+            }
+        })
+        .catch(err => { console.log(err) });
+})

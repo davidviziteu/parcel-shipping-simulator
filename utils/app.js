@@ -172,7 +172,6 @@ class App {
 
     handleStatic(req, res) {
         // parse URL
-        console.log(req.accountType + " aici")
         const parsedUrl = url.parse(req.url)
             // extract URL path
         let pathname = `${parsedUrl.pathname}`
@@ -182,7 +181,6 @@ class App {
             return res.sendFile(`public/dashboard-${req.accountType}.html`)
         } else
         if (pathname == `/landingPage.html`) {
-            console.log(req.accountType)
             if (!req.accountType)
                 return res.sendFile(`public/landingPage.html`)
             return res.sendFile(`public/dashboard-${req.accountType}.html`)

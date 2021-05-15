@@ -55,10 +55,9 @@ module.exports = {
                         expiresIn: "1h"
                     });
                     if (value.rememberMe == true)
-                        res.setHeader('Set-Cookie', 'token=' + jsontoken + `; HttpOnly;Secure;expires=Wed, 21 Oct 2030 07:28:00 GMT;Max-Age=9000000;Domain=${models.apiModel.domain};Path=/`);
+                        res.setHeader('Set-Cookie', 'token=' + jsontoken + `; HttpOnly;Secure;expires=Wed, 21 Oct 2030 07:28:00 GMT;Max-Age=9000000;Domain=${models.apiModel.domain};Path=/;overwrite=true`);
                     else
                         res.setHeader('Set-Cookie', 'token=' + jsontoken + `; HttpOnly;Domain=${models.apiModel.domain};Path=/`);
-                    console.log(`cookie set`)
                     return res.json({
                         success: true,
                         redirect: `/dashboard-${results.type}.html`
@@ -77,6 +76,16 @@ module.exports = {
             //     data: data,
             // })
         })
+    },
+    handleLogout: (req, res) => {
+        console.log("cookie " + req.headers.cookie);
+        const token = req.headers.cookie.split('=')[1];
+        res.setHeader(`Set-Cookie`, `token=deleted;HttpOnly;Secure;expires= Thu, 01 Jan 1970 00:00:00 GMT;Domain=${models.apiModel.domain};Path=/;overwrite=true`);
+
+        return res.json({
+            success: true,
+            redirect: `/`
+        });
     },
 
     getNotifications: (req, res) => {
