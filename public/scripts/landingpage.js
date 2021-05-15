@@ -3,8 +3,10 @@ let destinationSelector = document.getElementById(`judet-dest`)
 let estimateCost = document.getElementById(`estimate-cost-button`)
 let totalCost = document.getElementById(`total-cost`)
 var loginForm = document.getElementById("login-form");
-
-
+window.onload = function() {
+    document.getElementById("remember-me").checked = false;
+}
+window.onunload = function() {}
 for (let element in cities) {
     sourceSelector.appendChild(new Option(element))
     destinationSelector.appendChild(new Option(element))
@@ -31,20 +33,21 @@ document.getElementById(`our-team`).onclick = () => location.href = `AboutUs.htm
 window.addEventListener(`api-fetched`, (ev) => {
     console.log(`api-fetched event:`)
     console.log(api)
-    loginForm.onsubmit = async (e) => {
+    loginForm.onsubmit = async(e) => {
         e.preventDefault();
         var values = {
             email: document.getElementById("user-mail").value,
-            password: document.getElementById("user-password").value
+            password: document.getElementById("user-password").value,
+            rememberMe: document.getElementById("remember-me").checked
         }
         fetch(`${hostName}${api.login.route}`, {
-            method: api.login.method,
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            withCredentials: true,
-            body: JSON.stringify(values),
-        })
+                method: api.login.method,
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                withCredentials: true,
+                body: JSON.stringify(values),
+            })
             .then(response => response.json())
             .then(json => {
                 if (!json.error)
@@ -53,4 +56,3 @@ window.addEventListener(`api-fetched`, (ev) => {
             .catch(err => { console.log(err) });
     }
 }, false)
-

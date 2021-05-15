@@ -12,6 +12,7 @@ exports.newUserSchema = Joi.object().options({ abortEarly: false }).keys({
 exports.loginUserSchema = Joi.object().options({ abortEarly: false }).keys({
     email: Joi.string().email().required(),
     password: Joi.string().required(),
+    rememberMe: Joi.boolean()
 })
 
 exports.driverEventsSchema = Joi.object().options({ abortEarly: false }).keys({
