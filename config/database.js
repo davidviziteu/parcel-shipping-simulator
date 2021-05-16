@@ -214,5 +214,97 @@ module.exports = {
                 return callBack(null, results);
             }
         )
+    },
+    newCode: (data, callBack) => {
+        console.log(data)
+        pool.query(
+            `INSERT INTO codes (id , expiry_date , type) values(?,LOCALTIME() + INTERVAL 15 MINUTE,?)`,
+            [
+                data.id,
+                data.type
+            ],
+            (error, results, fields) => {
+                if (error) {
+                    callBack(error);
+                }
+                return callBack(null, results);
+            }
+        )
+    },
+    existCode: (id, callBack) => {
+        pool.query(
+            `SELECT * from codes where id=?`,
+            [
+                id
+            ],
+            (error, results, fields) => {
+                if (error) {
+                    callBack(error);
+                }
+                return callBack(null, results[0]);
+            }
+        )
+    },
+    selectIdChange: (body, callBack) => {
+        pool.query(
+            `SELECT * from (select id from codes where code = ? and expiry_date > localtime() and type = ? order by expiry_date desc) AS T LIMIT 1`,
+            [
+                body.code,
+                body.type
+            ],
+            (error, results, fields) => {
+                if (error) {
+                    callBack(error);
+                }
+                return callBack(null, results[0]);
+            }
+        )
+    },
+    changePassword: (data, callBack) => {
+        pool.query(
+            `UPDATE users SET password = ? where id = ?`,
+            [
+                data.password,
+                data.id
+            ],
+            (error, results, fields) => {
+                if (error) {
+                    callBack(error);
+                }
+                return callBack(null, results[0]);
+            }
+        )
+    },
+    changeEmail: (data, callBack) => {
+        pool.query(
+            `UPDATE USERS SET email = ? where id = ?`,
+            [
+                data.email,
+                data.id
+            ],
+            (error, results, fields) => {
+                if (error) {
+                    callBack(error);
+                }
+                return callBack(null, results);
+            }
+        )
+    },
+    deleteCode: (data, callBack) => {
+        console.log(data)
+        pool.query(
+            `DELETE from codes where id = ? and code != ? and type =?`,
+            [
+                data.id,
+                data.code,
+                data.type
+            ],
+            (error, results, fields) => {
+                if (error) {
+                    callBack(error);
+                }
+                return callBack(null, results[0]);
+            }
+        )
     }
 }

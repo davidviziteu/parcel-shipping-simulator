@@ -23,3 +23,8 @@ exports.driverEventsSchema = Joi.object().options({ abortEarly: false }).keys({
     content: Joi.boolean(),
     delivered: Joi.boolean(),
 })
+
+exports.validationEmailChangeCredentials = Joi.object().options({ abortEarly: false }).keys({
+    email: Joi.string().email().required(),
+    type: Joi.string().required()
+})

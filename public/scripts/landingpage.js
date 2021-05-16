@@ -50,7 +50,6 @@ window.addEventListener(`api-fetched`, (ev) => {
         e.preventDefault();
         document.getElementById("user-email").style.backgroundColor = "#fbfef7";
         document.getElementById("user-password").style.backgroundColor = "#fbfef7";
-
         var values = {
             email: document.getElementById("user-email").value,
             password: document.getElementById("user-password").value,

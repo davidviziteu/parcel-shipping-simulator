@@ -3,9 +3,12 @@ const { StatusCodes } = require(`http-status-codes`)
 const models = require("../models")
 const Joi = require('joi')
 const nodemailer = require('nodemailer');
+const { isRef } = require("joi");
+const { id } = require("../models/validationNewOrder");
 
 const newUserSchema = models.userModel.newUserSchema
 const newOrderSchema = models.newOrderModel
+const validationEmailChangeCredentials = models.userModel.validationEmailChangeCredentials
 
 var transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -18,8 +21,8 @@ var transporter = nodemailer.createTransport({
 var mailOptions = {
     from: 'proiecttwpss@gmail.com',
     to: '',
-    subject: 'Sending Email using Node.js',
-    text: 'Ți-ai creat cont cu succes!'
+    subject: '',
+    text: ''
 };
 
 module.exports = {
@@ -45,7 +48,9 @@ module.exports = {
                     success: true
                 })
                 mailOptions.to = body.email
-                transporter.sendMail(mailOptions, function(error, info) {
+                mailOptions.subject = 'Confirmare creare cont'
+                mailOptions.text = 'Ți-ai creat cont cu succes!'
+                transporter.sendMail(mailOptions, function (error, info) {
                     if (error) {
                         console.log(error.message);
                     } else {
@@ -85,6 +90,154 @@ module.exports = {
             } else res.status(200).json({
                 success: true
             })
+        })
+        return res
+    },
+    codeChange: (req, res) => {
+        const body = req.body
+        const { error, value } = validationEmailChangeCredentials.validate(body)
+        if (error) {
+            console.log(error.message)
+            return res.status(500).json({
+                success: false,
+                error: error.message
+            })
+        }
+        req.db.getUserByEmail(body.email, (error, results) => {
+            if (error) {
+                res.status(500).json({
+                    success: false,
+                    error: error.message
+                })
+            }
+            else if (results == undefined) {
+                res.status(500).json({
+                    success: false,
+                    error: "not exist"
+                })
+            }
+            else {
+                var id = results.id
+                data = {
+                    id: id,
+                    type: body.type
+                }
+                req.db.newCode(data, (error, results) => {
+                    if (error) {
+                        res.status(500).json({
+                            success: false,
+                            error: error.message
+                        })
+                    }
+                    else {
+                        console.log(results)
+                        console.log(id)
+                        mailOptions.to = body.email
+                        mailOptions.subject = 'Schimbarea datelor'
+                        mailOptions.text = 'Codul pentru resetare este:\n' + results.insertId
+                        transporter.sendMail(mailOptions, function (error, info) {
+                            if (error) {
+                                console.log(error.message);
+                            } else {
+                                console.log('Email sent: ' + info.response);
+                            }
+                        });
+                        const data = {
+                            id: id,
+                            code: results.insertId,
+                            type: body.type
+                        }
+                        req.db.deleteCode(data, (error, results) => {
+                            if (error) {
+                                res.status(500).json({
+                                    success: false,
+                                    error: error.message
+                                })
+                            }
+                        })
+                        res.status(200).json({
+                            success: true
+                        })
+                    }
+                })
+            }
+        })
+        return res;
+    },
+    change: (req, res) => {
+        const body = req.body
+        console.log(body)
+        req.db.selectIdChange(body, (error, results) => {
+            if (error) {
+                res.status(500).json({
+                    success: false,
+                    error: error.message
+                })
+            }
+            else if (results == undefined) {
+                console.log("aici")
+                res.status(500).json({
+                    success: false,
+                    error: "not exist"
+                })
+            }
+            else {
+                body.id = results.id
+                var id = results.id
+                if (body.type == "password") {
+                    const salt = genSaltSync(10)
+                    body.password = hashSync(body.password, salt)
+                    req.db.changePassword(body, (error, results) => {
+                        if (error) {
+                            res.status(500).json({
+                                success: false,
+                                error: error.message
+                            })
+                        }
+                        else {
+                            const data = {
+                                id: id,
+                                code: 0,
+                                type: body.type
+                            }
+                            req.db.deleteCode(data, (error, results) => {
+                                if (error) {
+                                    res.status(500).json({
+                                        success: false,
+                                        error: error.message
+                                    })
+                                }
+                            })
+                        }
+                    })
+                }
+                else if (body.type == "email") {
+                    req.db.changeEmail(body, (error, results) => {
+                        if (error) {
+                            console.log(error.message)
+                            res.status(500).json({
+                                success: false,
+                                error: error.message
+                            })
+                        }
+                        else {
+                            const data = {
+                                id: id,
+                                code: 0,
+                                type: body.type
+                            }
+                            req.db.deleteCode(data, (error, results) => {
+                                if (error) {
+                                    res.status(500).json({
+                                        success: false,
+                                        error: error.message
+                                    })
+                                }
+                            })
+                        }
+                    })
+                }
+            }
         })
         return res
     }
