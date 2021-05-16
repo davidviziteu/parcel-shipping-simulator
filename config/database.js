@@ -230,7 +230,7 @@ module.exports = {
             }
         )
     },
-    selectIdChangePassword: (body, callBack) => {
+    selectIdChange: (body, callBack) => {
         pool.query(
             `SELECT * from (select id from codes where code = ? and expiry_date > localtime() and type = ? order by expiry_date desc) AS T LIMIT 1`,
             [
@@ -257,6 +257,21 @@ module.exports = {
                     callBack(error);
                 }
                 return callBack(null, results[0]);
+            }
+        )
+    },
+    changeEmail: (data, callBack) => {
+        pool.query(
+            `UPDATE USERS SET email = ? where id = ?`,
+            [
+                data.email,
+                data.id
+            ],
+            (error, results, fields) => {
+                if (error) {
+                    callBack(error);
+                }
+                return callBack(null, results);
             }
         )
     },

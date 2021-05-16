@@ -93,7 +93,7 @@ module.exports = {
         })
         return res
     },
-    codeChangePassword: (req, res) => {
+    codeChange: (req, res) => {
         const body = req.body
         const { error, value } = validationEmailChangeCredentials.validate(body)
         if (error) {
@@ -133,8 +133,8 @@ module.exports = {
                         console.log(results)
                         console.log(id)
                         mailOptions.to = body.email
-                        mailOptions.subject = 'Cod pentru schimbarea parolei'
-                        mailOptions.text = 'Codul pentru resetarea parolei este:\n' + results.insertId
+                        mailOptions.subject = 'Schimbarea datelor'
+                        mailOptions.text = 'Codul pentru resetare este:\n' + results.insertId
                         transporter.sendMail(mailOptions, function (error, info) {
                             if (error) {
                                 console.log(error.message);
@@ -164,9 +164,10 @@ module.exports = {
         })
         return res;
     },
-    changePassword: (req, res) => {
+    change: (req, res) => {
         const body = req.body
-        req.db.selectIdChangePassword(body, (error, results) => {
+        console.log(body)
+        req.db.selectIdChange(body, (error, results) => {
             if (error) {
                 res.status(500).json({
                     success: false,
@@ -174,42 +175,68 @@ module.exports = {
                 })
             }
             else if (results == undefined) {
+                console.log("aici")
                 res.status(500).json({
                     success: false,
                     error: "not exist"
                 })
             }
             else {
-                const salt = genSaltSync(10)
-                body.password = hashSync(body.password, salt)
                 body.id = results.id
                 var id = results.id
-                req.db.changePassword(body, (error, results) => {
-                    if (error) {
-                        res.status(500).json({
-                            success: false,
-                            error: error.message
-                        })
-                    }
-                    else {
-                        const data = {
-                            id: id,
-                            code: 0,
-                            type: body.type
+                if (body.type == "password") {
+                    const salt = genSaltSync(10)
+                    body.password = hashSync(body.password, salt)
+                    req.db.changePassword(body, (error, results) => {
+                        if (error) {
+                            res.status(500).json({
+                                success: false,
+                                error: error.message
+                            })
                         }
-                        req.db.deleteCode(data, (error, results) => {
-                            if (error) {
-                                res.status(500).json({
-                                    success: false,
-                                    error: error.message
-                                })
+                        else {
+                            const data = {
+                                id: id,
+                                code: 0,
+                                type: body.type
                             }
-                        })
-                        res.status(200).json({
-                            success: true
-                        })
-                    }
-                })
+                            req.db.deleteCode(data, (error, results) => {
+                                if (error) {
+                                    res.status(500).json({
+                                        success: false,
+                                        error: error.message
+                                    })
+                                }
+                            })
+                        }
+                    })
+                }
+                else if (body.type == "email") {
+                    req.db.changeEmail(body, (error, results) => {
+                        if (error) {
+                            console.log(error.message)
+                            res.status(500).json({
+                                success: false,
+                                error: error.message
+                            })
+                        }
+                        else {
+                            const data = {
+                                id: id,
+                                code: 0,
+                                type: body.type
+                            }
+                            req.db.deleteCode(data, (error, results) => {
+                                if (error) {
+                                    res.status(500).json({
+                                        success: false,
+                                        error: error.message
+                                    })
+                                }
+                            })
+                        }
+                    })
+                }
             }
         })
         return res
