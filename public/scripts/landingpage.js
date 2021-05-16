@@ -44,11 +44,11 @@ estimateCost.addEventListener(`click`, () => {
 
 document.getElementById(`our-team`).onclick = () => location.href = `AboutUs.html`
 
-loginForm.onsubmit = async(e)=>{
+loginForm.onsubmit = async (e) => {
     e.preventDefault();
     var values = {
-        email : document.getElementById("user-mail").value,
-        password : document.getElementById("user-password").value
+        email: document.getElementById("user-mail").value,
+        password: document.getElementById("user-password").value
     }
     let response = await fetch('http://localhost:4000/api/login', {
         method: 'POST',
@@ -56,5 +56,5 @@ loginForm.onsubmit = async(e)=>{
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(values),
-})
+    })
 }

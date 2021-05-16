@@ -199,5 +199,78 @@ module.exports = {
                 return callBack(null, results);
             }
         )
+    },
+    newCode: (id, callBack) => {
+        pool.query(
+            `INSERT INTO codes (id,expiry_date) values(?,LOCALTIME() + INTERVAL 15 MINUTE)`,
+            [
+                id
+            ],
+            (error, results, fields) => {
+                if (error) {
+                    callBack(error);
+                }
+                return callBack(null, results);
+            }
+        )
+    },
+    existCode: (id, callBack) => {
+        pool.query(
+            `SELECT * from codes where id=?`,
+            [
+                id
+            ],
+            (error, results, fields) => {
+                if (error) {
+                    callBack(error);
+                }
+                return callBack(null, results[0]);
+            }
+        )
+    },
+    selectIdChangePassword: (code, callBack) => {
+        pool.query(
+            `SELECT * from (select id from codes where code = ? and expiry_date > localtime() order by expiry_date desc) AS T LIMIT 1`,
+            [
+                code
+            ],
+            (error, results, fields) => {
+                if (error) {
+                    callBack(error);
+                }
+                return callBack(null, results[0]);
+            }
+        )
+    },
+    changePassword: (data, callBack) => {
+        pool.query(
+            `UPDATE users SET password = ? where id = ?`,
+            [
+                data.password,
+                data.id
+            ],
+            (error, results, fields) => {
+                if (error) {
+                    callBack(error);
+                }
+                return callBack(null, results[0]);
+            }
+        )
+    },
+    deleteCode: (data, callBack) => {
+        console.log(data)
+        pool.query(
+            `DELETE from codes where id = ? and code != ?`,
+            [
+                data.id,
+                data.code
+            ],
+            (error, results, fields) => {
+                if (error) {
+                    callBack(error);
+                }
+                return callBack(null, results[0]);
+            }
+        )
     }
 }

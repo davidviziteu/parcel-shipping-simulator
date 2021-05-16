@@ -90,7 +90,7 @@ CREATE TABLE notifications (
 
 CREATE TABLE codes (
   id INTEGER references user(id),
-  code INTEGER NOT NULL,
+  code INTEGER NOT NULL AUTO_INCREMENT,
   expiry_date DATE NOT NULL
 );
 
