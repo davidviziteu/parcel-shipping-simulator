@@ -200,11 +200,13 @@ module.exports = {
             }
         )
     },
-    newCode: (id, callBack) => {
+    newCode: (data, callBack) => {
+        console.log(data)
         pool.query(
-            `INSERT INTO codes (id,expiry_date) values(?,LOCALTIME() + INTERVAL 15 MINUTE)`,
+            `INSERT INTO codes (id , expiry_date , type) values(?,LOCALTIME() + INTERVAL 15 MINUTE,?)`,
             [
-                id
+                data.id,
+                data.type
             ],
             (error, results, fields) => {
                 if (error) {
@@ -228,11 +230,12 @@ module.exports = {
             }
         )
     },
-    selectIdChangePassword: (code, callBack) => {
+    selectIdChangePassword: (body, callBack) => {
         pool.query(
-            `SELECT * from (select id from codes where code = ? and expiry_date > localtime() order by expiry_date desc) AS T LIMIT 1`,
+            `SELECT * from (select id from codes where code = ? and expiry_date > localtime() and type = ? order by expiry_date desc) AS T LIMIT 1`,
             [
-                code
+                body.code,
+                body.type
             ],
             (error, results, fields) => {
                 if (error) {
@@ -260,10 +263,11 @@ module.exports = {
     deleteCode: (data, callBack) => {
         console.log(data)
         pool.query(
-            `DELETE from codes where id = ? and code != ?`,
+            `DELETE from codes where id = ? and code != ? and type =?`,
             [
                 data.id,
-                data.code
+                data.code,
+                data.type
             ],
             (error, results, fields) => {
                 if (error) {

@@ -3,7 +3,8 @@ var newPassword = document.getElementById("newPassword")
 
 codePassword.addEventListener('click', () => {
     var value = {
-        email: document.getElementById("emailPassword").value
+        email: document.getElementById("emailPassword").value,
+        type: "password"
     }
     fetch(`http://localhost:4000/api/accounts`, {
         method: "PUT",
@@ -27,7 +28,8 @@ codePassword.addEventListener('click', () => {
 newPassword.addEventListener('click', () => {
     var value = {
         code: document.getElementById("code").value,
-        password: document.getElementById("password").value
+        password: document.getElementById("password").value,
+        type: "password"
     }
     fetch(`http://localhost:4000/api/accounts`, {
         method: "POST",

@@ -104,7 +104,6 @@ module.exports = {
             })
         }
         req.db.getUserByEmail(body.email, (error, results) => {
-            console.log(body.email)
             if (error) {
                 res.status(500).json({
                     success: false,
@@ -119,7 +118,11 @@ module.exports = {
             }
             else {
                 var id = results.id
-                req.db.newCode(results.id, (error, results) => {
+                data = {
+                    id: id,
+                    type: body.type
+                }
+                req.db.newCode(data, (error, results) => {
                     if (error) {
                         res.status(500).json({
                             success: false,
@@ -141,7 +144,8 @@ module.exports = {
                         });
                         const data = {
                             id: id,
-                            code: results.insertId
+                            code: results.insertId,
+                            type: body.type
                         }
                         req.db.deleteCode(data, (error, results) => {
                             if (error) {
@@ -162,7 +166,7 @@ module.exports = {
     },
     changePassword: (req, res) => {
         const body = req.body
-        req.db.selectIdChangePassword(body.code, (error, results) => {
+        req.db.selectIdChangePassword(body, (error, results) => {
             if (error) {
                 res.status(500).json({
                     success: false,
@@ -190,7 +194,8 @@ module.exports = {
                     else {
                         const data = {
                             id: id,
-                            code: 0
+                            code: 0,
+                            type: body.type
                         }
                         req.db.deleteCode(data, (error, results) => {
                             if (error) {
