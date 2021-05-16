@@ -3,8 +3,7 @@ const destinationSelector = document.getElementById(`judet-dest`)
 const estimateCost = document.getElementById(`estimate-cost-button`)
 const totalCost = document.getElementById(`total-cost`)
 const loginForm = document.getElementById("login-form");
-const logout = document.getElementById(`logout`);
-const trackAwbButton = document.getElementById(`track-awb`)
+const trackAwbButton = document.getElementById(`track-awb-button`)
 const estimateCostButton = document.getElementById(`estimate-cost-button`)
 const startOrderButton = document.getElementById(`start-order-button`)
 const resetPasswordButton = document.getElementById(`reset-password-button`)
@@ -43,9 +42,10 @@ window.addEventListener(`api-fetched`, (ev) => {
     console.log(`api-fetched event:`)
     console.log(api)
     console.log(`------------------`)
-    resetPasswordButton.addEventListener(`click`, () => location.href = api.resetAccount.location)
+    resetPasswordButton.addEventListener(`click`, () => location.href = api.changeCredentials.location)
     registerButton.addEventListener(`click`, () => location.href = api.newAccout.location)
     startOrderButton.addEventListener(`click`, () => location.href = api.newOrder.location)
+    logoutButton.addEventListener(`click`, () => location.href = api.logout.location)
     loginForm.onsubmit = async (e) => {
         e.preventDefault();
         document.getElementById("user-email").style.backgroundColor = "#fbfef7";
@@ -65,7 +65,7 @@ window.addEventListener(`api-fetched`, (ev) => {
         })
             .then(response => response.json())
             .then(json => handleLoginResponse(json))
-            .catch(err => { alert(err) });
+            .catch(err => console.log(err));
     }
 
 }, false)

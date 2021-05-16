@@ -18,7 +18,7 @@ class App {
 
     isRestAPI = (url) => String(url).startsWith(`/api`)
     listen() {
-        http.createServer(function(req, res) {
+        http.createServer(function (req, res) {
             req = this.authFunction(req);
             res.setHeader('Access-Control-Allow-Origin', '*');
             res.setHeader('Access-Control-Allow-Credentials', true);
@@ -28,8 +28,8 @@ class App {
             req = this.addRequestFunctionalities(req)
             if (!this.isRestAPI(req.url)) { //nume prost ales pt functia aia
                 res = this.handleStatic(req, res)
-                    // if (res.endNow)
-                    //     res.end()
+                // if (res.endNow)
+                //     res.end()
                 return
             }
             console.log(`${req.method} on ${req.url}`)
@@ -40,13 +40,13 @@ class App {
                 if (data.length > 1e6) {
                     req.connection.destroy()
                     res.status(413).json({
-                            error: `Payload too large`
-                        })
-                        // res.end()
+                        error: `Payload too large`
+                    })
+                    // res.end()
                 }
 
             })
-            req.on('end', function() {
+            req.on('end', function () {
                 let finalData = {}
                 if (data)
                     try {
@@ -57,17 +57,17 @@ class App {
                         console.error(`error parsing json from client: `)
                         console.error(err)
                         res.status(400).json({
-                                success: false,
-                                error: err.message
-                            })
-                            // res.end()
+                            success: false,
+                            error: err.message
+                        })
+                        // res.end()
                         return
                     }
                 res = this.router.handleRoute(req, res)
-                    // if (res.endNow)
-                    //     res.end()
+                // if (res.endNow)
+                //     res.end()
             }.bind(this))
-            req.on('error', function(err) {
+            req.on('error', function (err) {
                 console.error(err.message)
                 req.json({
                     success: false,
@@ -84,10 +84,10 @@ class App {
 
     }
     use(router) {
-        this.router.getRoutes = {...this.router.getRoutes, ...router.getRoutes }
-        this.router.postRoutes = {...this.router.postRoutes, ...router.postRoutes }
-        this.router.deleteRoutes = {...this.router.deleteRoutes, ...router.deleteRoutes }
-        this.router.putRoutes = {...this.router.putRoutes, ...router.putRoutes }
+        this.router.getRoutes = { ...this.router.getRoutes, ...router.getRoutes }
+        this.router.postRoutes = { ...this.router.postRoutes, ...router.postRoutes }
+        this.router.deleteRoutes = { ...this.router.deleteRoutes, ...router.deleteRoutes }
+        this.router.putRoutes = { ...this.router.putRoutes, ...router.putRoutes }
     }
     useAuth(authentication) {
         this.authFunction = authentication;
@@ -97,20 +97,20 @@ class App {
 
         // res.endNow = true; //useless now
 
-        res.status = function(newStatusCode) {
+        res.status = function (newStatusCode) {
             res.statusCode = newStatusCode
             return res
         }
 
 
-        res.json = function(newJson) {
+        res.json = function (newJson) {
             res.setHeader('Content-Type', 'application/json');
             res.write(JSON.stringify(newJson))
             res.end()
             return res
         }
 
-        res.sendFile = async function(filePath) {
+        res.sendFile = async function (filePath) {
 
             const map = {
                 '.ico': 'image/x-icon',
@@ -146,9 +146,9 @@ class App {
                 console.error(err)
                 if (err.code == 'ENOENT') //ENOENT = ERROR NO ENTITY
                     return res.status(404).json({
-                    error: err.message,
-                    path: filePath
-                })
+                        error: err.message,
+                        path: filePath
+                    })
 
                 //altfel e alta eraore. fie de la stat, fie de la readFile
                 return res.status(500).json({
@@ -173,19 +173,19 @@ class App {
     handleStatic(req, res) {
         // parse URL
         const parsedUrl = url.parse(req.url)
-            // extract URL path
+        // extract URL path
         let pathname = `${parsedUrl.pathname}`
         if (pathname == `/`) {
             if (!req.accountType)
                 return res.sendFile(`public/landingPage.html`)
             return res.sendFile(`public/dashboard-${req.accountType}.html`)
         } else
-        if (pathname == `/landingPage.html`) {
-            if (!req.accountType)
-                return res.sendFile(`public/landingPage.html`)
-            return res.sendFile(`public/dashboard-${req.accountType}.html`)
-        } else
-            return res.sendFile(`public` + pathname)
+            if (pathname == `/landingPage.html`) {
+                if (!req.accountType)
+                    return res.sendFile(`public/landingPage.html`)
+                return res.sendFile(`public/dashboard-${req.accountType}.html`)
+            } else
+                return res.sendFile(`public` + pathname)
 
     }
 }

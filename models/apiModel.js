@@ -3,7 +3,6 @@ const host = process.env.PORT ? `https://parcel-shipping-simulator.herokuapp.com
 exports.domain = process.env.PORT ? `parcel-shipping-simulator.herokuapp.com` : `localhost`
 
 //obiectele astea se combina prin spread syntax si se trimit la front in functie de tipul de login
-
 exports.baseApi = {
     hostName: host,
     estimateCost: {
@@ -28,9 +27,13 @@ exports.baseApi = {
         route: `/api/awb`,
         method: `GET`,
     },
-    resetAccount: {
+    changeCredentials: {
         location: `/ChangeCredentials.html`,
-        route: `/api/reset`,
+        route: `/api/accounts`,
+        method: `PATCH`,
+    },
+    getCode: {
+        route: `/api/accounts/get-code`,
         method: `POST`,
     },
     newOrder: {
@@ -69,7 +72,7 @@ exports.employeeApi = {
 }
 
 exports.adminApi = {
-    //va include tot de mai sus
+    //va include tot de mai sus. 
     addCar: {
         route: `/api/cars`,
         method: `POST`,
