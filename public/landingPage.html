@@ -103,7 +103,7 @@
                     <h1>Comandă fără cont</h1>
                 </div>
                 <div class="button-container">
-                    <button onclick="location.href='NewOrder2.html'">
+                    <button id="start-order-button">
                         Începe comanda
                     </button>
                 </div>
@@ -115,15 +115,15 @@
                     <h1>Autentificare</h1>
                 </div>
                 <form id="login-form" class="full-width-form">
-                    <input class="input-box" type="text" id="user-mail" name="fname" placeholder="Email" required>
+                    <input class="input-box" type="text" id="user-email" name="fname" placeholder="Email" required>
                     <input class="input-box" type="password" id="user-password" name="lname" placeholder="Parolă"
                         required>
                     <div class="button-container">
                         <button type="submit">Login</button>
-                        <button id="reset-password" onclick="location.href = 'ResetPassword.html'">
+                        <button type="button" id="reset-password-button">
                             Resetare parolă
                         </button>
-                        <button id="register" onclick="location.href = 'register.html'">
+                        <button id="register-button">
                             Cont nou
                         </button>
                     </div>
@@ -171,7 +171,7 @@
                     NOI. Mulțumiți-ne mai târziu - timpul trece.
                 </p>
                 <div class="button-container">
-                    <button type="button" id="our-team">Echipa noastră</button>
+                    <button type="button" id="our-team-button">Echipa noastră</button>
                 </div>
             </div>
         </section>

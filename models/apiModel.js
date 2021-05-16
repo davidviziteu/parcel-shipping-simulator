@@ -1,6 +1,9 @@
 const host = process.env.PORT ? `https://parcel-shipping-simulator.herokuapp.com` : `http://localhost:4000`
 
 exports.domain = process.env.PORT ? `parcel-shipping-simulator.herokuapp.com` : `localhost`
+
+//obiectele astea se combina prin spread syntax si se trimit la front in functie de tipul de login
+
 exports.baseApi = {
     hostName: host,
     estimateCost: {
@@ -12,24 +15,84 @@ exports.baseApi = {
         method: `POST`,
     },
     logout: {
+        location: `/`,
         route: `/api/logout`,
         method: `POST`,
     },
     newAccout: {
         location: `/register.html`,
-        route: `/api/register`,
+        route: `/api/accounts`,
         method: `POST`,
     },
     trackAwb: {
         route: `/api/awb`,
         method: `GET`,
     },
-    getCode: {
+    resetAccount: {
+        location: `/ChangeCredentials.html`,
         route: `/api/reset`,
         method: `POST`,
     },
     newOrder: {
+        location: `/NewOrder2.html`,
         route: `/api/new-order`,
         method: `POST`,
     },
+    getNotifications: {
+        route: `/api/notifications`,
+        method: `GET`,
+    },
+    aboutUs: {
+        location: `/AboutUs.html`
+    },
 }
+
+exports.userApi = {
+    //va include tot ce are baseApi
+    deleteAccount: {
+        route: `/api/accounts`,
+        method: `DELETE`,
+    },
+}
+
+exports.driverApi = {
+    //va include tot ce are baseApi si userApi
+    modifyCar: {
+        route: `/api/cars`,
+        method: `PATCH`,
+    },
+}
+
+exports.employeeApi = {
+    //va include tot ce are baseApi si userApi
+
+}
+
+exports.adminApi = {
+    //va include tot de mai sus
+    addCar: {
+        route: `/api/cars`,
+        method: `POST`,
+    },
+    removeCar: {
+        route: `/api/cars`,
+        method: `DELETE`,
+    },
+    modifyCar: {
+        route: `/api/cars`,
+        method: `PATCH`,
+    },
+    addNotification: {
+        route: `/api/notifications`,
+        method: `POST`,
+    },
+    deleteNotification: {
+        route: `/api/notifications`,
+        method: `DELETE`,
+    },
+    deleteNotification: {
+        route: `/api/notifications`,
+        method: `DELETE`,
+    },
+}
+

@@ -12,6 +12,7 @@ app.use(routers.clientRouter)
 app.use(routers.driverRouter)
 app.use(routers.employeeRouter)
 app.use(routers.commonRouter)
+
 app.useAuth((req) => {
     if (!req.headers.cookie)
         return req;

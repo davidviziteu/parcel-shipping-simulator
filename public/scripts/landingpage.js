@@ -1,14 +1,22 @@
-let sourceSelector = document.getElementById(`judet-exp`)
-let destinationSelector = document.getElementById(`judet-dest`)
-let estimateCost = document.getElementById(`estimate-cost-button`)
-let totalCost = document.getElementById(`total-cost`)
-var loginForm = document.getElementById("login-form");
-var logout = document.getElementById(`logout`);
+const sourceSelector = document.getElementById(`judet-exp`)
+const destinationSelector = document.getElementById(`judet-dest`)
+const estimateCost = document.getElementById(`estimate-cost-button`)
+const totalCost = document.getElementById(`total-cost`)
+const loginForm = document.getElementById("login-form");
+const logout = document.getElementById(`logout`);
+const trackAwbButton = document.getElementById(`track-awb`)
+const estimateCostButton = document.getElementById(`estimate-cost-button`)
+const startOrderButton = document.getElementById(`start-order-button`)
+const resetPasswordButton = document.getElementById(`reset-password-button`)
+const registerButton = document.getElementById(`register-button`)
+// const aboutUsButton = document.getElementById(`register-button`) // ASTA TRE FACUT IN TEMPLATES CRED
+document.getElementById(`our-team-button`).onclick = () => location.href = `AboutUs.html`
 
-window.onunload = function() {
-    document.cookie = "cookiename=token ; expires = Thu, 01 Jan 1970 00:00:00 GMT"
-    console.log("cookie" + document.cookie)
-}
+// window.onunload = function () {
+//     document.cookie = "cookiename=token ; expires = Thu, 01 Jan 1970 00:00:00 GMT"
+//     console.log("cookie" + document.cookie)
+// }
+
 for (let element in cities) {
     sourceSelector.appendChild(new Option(element))
     destinationSelector.appendChild(new Option(element))
@@ -30,50 +38,66 @@ estimateCost.addEventListener(`click`, () => {
 
 console.log(`lndingpage.js`)
 
-document.getElementById(`our-team`).onclick = () => location.href = `AboutUs.html`
 
 window.addEventListener(`api-fetched`, (ev) => {
     console.log(`api-fetched event:`)
     console.log(api)
-    loginForm.onsubmit = async(e) => {
+    console.log(`------------------`)
+    resetPasswordButton.addEventListener(`click`, () => location.href = api.resetAccount.location)
+    registerButton.addEventListener(`click`, () => location.href = api.newAccout.location)
+    startOrderButton.addEventListener(`click`, () => location.href = api.newOrder.location)
+    loginForm.onsubmit = async (e) => {
         e.preventDefault();
+        document.getElementById("user-email").style.backgroundColor = "#fbfef7";
+        document.getElementById("user-password").style.backgroundColor = "#fbfef7";
+
         var values = {
-            email: document.getElementById("user-mail").value,
+            email: document.getElementById("user-email").value,
             password: document.getElementById("user-password").value,
             rememberMe: document.getElementById("remember-me").checked
         }
         fetch(`${hostName}${api.login.route}`, {
-                method: api.login.method,
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                withCredentials: true,
-                body: JSON.stringify(values),
-            })
-            .then(response => response.json())
-            .then(json => {
-                if (!json.error) {
-                    window.location.href = json.redirect;
-
-                }
-            })
-            .catch(err => { console.log(err) });
-    }
-
-}, false)
-logout.addEventListener(`click`, () => {
-    fetch(`${hostName}${api.logout.route}`, {
-            method: api.logout.method,
+            method: api.login.method,
             headers: {
                 'Content-Type': 'application/json',
             },
-            credentials: 'same-origin',
+            withCredentials: true,
+            body: JSON.stringify(values),
         })
-        .then(response => response.json())
-        .then(json => {
-            if (!json.error) {
-                window.location.href = json.redirect;
-            }
-        })
-        .catch(err => { console.log(err) });
-})
+            .then(response => response.json())
+            .then(json => handleLoginResponse(json))
+            .catch(err => { alert(err) });
+    }
+
+}, false)
+
+
+
+function handleLoginResponse(resp) {
+    console.log(`handling response from front ${JSON.stringify(resp)}`)
+    if (!resp.error)
+        window.location.href = resp.redirect;
+    if (resp.error.toLowerCase().includes(`email`))
+        document.getElementById("user-email").style.backgroundColor = "rgb(211, 110, 110)";
+
+    if (resp.error.toLowerCase().includes(`password`))
+        document.getElementById("user-password").style.backgroundColor = "rgb(211, 110, 110)";
+}
+
+
+// logout.addEventListener(`click`, () => {
+//     fetch(`${hostName}${api.logout.route}`, {
+//         method: api.logout.method,
+//         headers: {
+//             'Content-Type': 'application/json',
+//         },
+//         credentials: 'same-origin',
+//     })
+//         .then(response => response.json())
+//         .then(json => {
+//             if (!json.error) {
+//                 window.location.href = json.redirect;
+//             }
+//         })
+//         .catch(err => { console.log(err) });
+// })

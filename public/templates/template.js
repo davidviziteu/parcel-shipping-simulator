@@ -1,8 +1,8 @@
 let hamburgerMenu = document.getElementById(`hamburger`)
 let menu = document.getElementsByTagName(`menu`)[0]
 console.log("loaded tamplets.js")
-let api, hostName;
-hostName = location.hostname == `localhost` ? `http://localhost:4000` : `https://parcel-shipping-simulator.herokuapp.com`
+let api
+const hostName = location.hostname == `localhost` ? `http://localhost:4000` : `https://parcel-shipping-simulator.herokuapp.com`
 
 const fetchDone = new Event(`api-fetched`);
 

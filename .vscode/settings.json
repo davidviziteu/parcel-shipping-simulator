@@ -1,3 +1,18 @@
 {
-    "liveServer.settings.port": 5501
+    "liveServer.settings.port": 5501,
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "default"
+            },
+            "previewLimit": 50,
+            "server": "eu-cdbr-west-01.cleardb.com",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "bd tw",
+            "database": "heroku_8d3aa76b4fe063d",
+            "username": "b376e1b1de47f5",
+            "password": "6cf54c58"
+        }
+    ]
 }

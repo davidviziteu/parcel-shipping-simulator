@@ -8,6 +8,11 @@ const pool = createPool({
     database: process.env.MYSQL_DB
 });
 
+// pool.query(`select * from users`, [], (error, results, fields) => {
+//     console.log(results)
+// })
+
+
 module.exports = {
     getAwbEvents: (awb, callBack) => {
         pool.query(
@@ -167,13 +172,20 @@ module.exports = {
                 data.expiry_date,
                 data.text,
             ],
-            (error, results, fields) => {
-                if (error)
-                    return callBack(error)
-            }
+            (error, results, fields) => callBack(error)
         )
     },
-    
+
+    deleteNofication: (id, callback) => {
+        pool.query(
+            `DELETE FROM notifications WHERE id=(?)`,
+            [
+                id
+            ],
+            (error) => callBack(error)
+        )
+    },
+
     getNotifications: (callback) => {
         pool.query(
             `INSERT INTO notifications values (?,?)`,
@@ -184,6 +196,7 @@ module.exports = {
             (error, results, fields) => {
                 if (error)
                     return callBack(error)
+                return callBack(null, results)
             }
         )
     },
