@@ -8,7 +8,7 @@ const estimateCostButton = document.getElementById(`estimate-cost-button`)
 const startOrderButton = document.getElementById(`start-order-button`)
 const resetPasswordButton = document.getElementById(`reset-password-button`)
 const registerButton = document.getElementById(`register-button`)
-// const aboutUsButton = document.getElementById(`register-button`) // ASTA TRE FACUT IN TEMPLATES CRED
+    // const aboutUsButton = document.getElementById(`register-button`) // ASTA TRE FACUT IN TEMPLATES CRED
 document.getElementById(`our-team-button`).onclick = () => location.href = `AboutUs.html`
 
 // window.onunload = function () {
@@ -45,7 +45,7 @@ window.addEventListener(`api-fetched`, (ev) => {
     resetPasswordButton.addEventListener(`click`, () => location.href = api.changeCredentials.location)
     registerButton.addEventListener(`click`, () => location.href = api.newAccout.location)
     startOrderButton.addEventListener(`click`, () => location.href = api.newOrder.location)
-    loginForm.onsubmit = async (e) => {
+    loginForm.onsubmit = async(e) => {
         e.preventDefault();
         document.getElementById("user-email").style.backgroundColor = "#fbfef7";
         document.getElementById("user-password").style.backgroundColor = "#fbfef7";
@@ -55,13 +55,13 @@ window.addEventListener(`api-fetched`, (ev) => {
             rememberMe: document.getElementById("remember-me").checked
         }
         fetch(`${hostName}${api.login.route}`, {
-            method: api.login.method,
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            withCredentials: true,
-            body: JSON.stringify(values),
-        })
+                method: api.login.method,
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                withCredentials: true,
+                body: JSON.stringify(values),
+            })
             .then(response => response.json())
             .then(json => handleLoginResponse(json))
             .catch(err => console.log(err));
@@ -81,21 +81,3 @@ function handleLoginResponse(resp) {
     if (resp.error.toLowerCase().includes(`password`))
         document.getElementById("user-password").style.backgroundColor = "rgb(211, 110, 110)";
 }
-
-
-// logout.addEventListener(`click`, () => {
-//     fetch(`${hostName}${api.logout.route}`, {
-//         method: api.logout.method,
-//         headers: {
-//             'Content-Type': 'application/json',
-//         },
-//         credentials: 'same-origin',
-//     })
-//         .then(response => response.json())
-//         .then(json => {
-//             if (!json.error) {
-//                 window.location.href = json.redirect;
-//             }
-//         })
-//         .catch(err => { console.log(err) });
-// })
