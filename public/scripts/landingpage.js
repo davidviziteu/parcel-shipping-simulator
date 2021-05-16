@@ -45,7 +45,6 @@ window.addEventListener(`api-fetched`, (ev) => {
     resetPasswordButton.addEventListener(`click`, () => location.href = api.changeCredentials.location)
     registerButton.addEventListener(`click`, () => location.href = api.newAccout.location)
     startOrderButton.addEventListener(`click`, () => location.href = api.newOrder.location)
-    logoutButton.addEventListener(`click`, () => location.href = api.logout.location)
     loginForm.onsubmit = async (e) => {
         e.preventDefault();
         document.getElementById("user-email").style.backgroundColor = "#fbfef7";
