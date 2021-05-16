@@ -7,5 +7,4 @@ clientRouter.get(`/api/neworder`, controllers.clientController.getCost);
 clientRouter.post(`/api/neworder`, controllers.clientController.placeOrder);
 clientRouter.put(`/api/accounts`, controllers.clientController.codeChange);
 clientRouter.post(`/api/accounts`, controllers.clientController.change)
-
 module.exports = clientRouter

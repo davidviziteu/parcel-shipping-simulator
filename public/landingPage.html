@@ -103,7 +103,7 @@
                     <h1>Comandă fără cont</h1>
                 </div>
                 <div class="button-container">
-                    <button onclick="location.href='NewOrder2.html'">
+                    <button id="start-order-button">
                         Începe comanda
                     </button>
                 </div>
@@ -114,37 +114,22 @@
                     <img alt="image" src="./assets/login.png">
                     <h1>Autentificare</h1>
                 </div>
-                <form id="login-form" action="http://localhost:4000/api/login" method="GET" class="full-width-form">
-                    <input class="input-box" type="text" id="user-mail" name="fname" placeholder="Email" required>
+                <form id="login-form" class="full-width-form">
+                    <input class="input-box" type="text" id="user-email" name="fname" placeholder="Email" required>
                     <input class="input-box" type="password" id="user-password" name="lname" placeholder="Parolă"
                         required>
                     <div class="button-container">
                         <button type="submit">Login</button>
-                        <button id="reset-password" onclick="location.href = 'ResetPassword.html'">
+                        <button type="button" id="reset-password-button">
                             Resetare parolă
                         </button>
-                        <button id="register" onclick="location.href = 'register.html'">
+                        <button id="register-button">
                             Cont nou
                         </button>
                     </div>
                     <div id="remember-me-input">
                         <input type="checkbox" id="remember-me" name="remember-me">
                         <label for="remember-me">Ține-mă minte</label>
-                    </div>
-
-                    <div class="button-container">
-                        <button onclick="location.href = 'demo-landingPage-client.html'">
-                            (demo) login client
-                        </button>
-                        <button onclick="location.href = 'demo-landingPage-angajat.html'">
-                            (demo) login employee
-                        </button>
-                        <button onclick="location.href = 'demo-landingPage-sofer.html'">
-                            (demo) login sofer
-                        </button>
-                        <button onclick="location.href = 'demo-landingPage-admin.html'">
-                            (demo) login admin
-                        </button>
                     </div>
                 </form>
             </div>
@@ -186,7 +171,7 @@
                     NOI. Mulțumiți-ne mai târziu - timpul trece.
                 </p>
                 <div class="button-container">
-                    <button type="button" id="our-team">Echipa noastră</button>
+                    <button type="button" id="our-team-button">Echipa noastră</button>
                 </div>
             </div>
         </section>
