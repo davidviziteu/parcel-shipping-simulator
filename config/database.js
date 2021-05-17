@@ -83,16 +83,16 @@ module.exports = {
     createAccount: (data, callBack) => {
         pool.query(
             `INSERT INTO USERS (name,surname,email,password,phone,type,county,city,address) VALUES (?,?,?,?,?,?,?,?,?)`, [
-            data.name,
-            data.surname,
-            data.email,
-            data.password,
-            data.phone,
-            data.type,
-            data.county,
-            data.city,
-            data.address
-        ],
+                data.name,
+                data.surname,
+                data.email,
+                data.password,
+                data.phone,
+                data.type,
+                data.county,
+                data.city,
+                data.address
+            ],
             (error, results, fields) => {
                 if (error) {
                     return callBack(error)
@@ -104,41 +104,41 @@ module.exports = {
     placeNewOrder: (data, callBack) => {
         pool.query(
             `INSERT INTO orders (fullName_sender,contactPerson_sender,phone_sender,email_sender,county_sender,country_sender,address_sender,fullName_receiver,contactPerson_receiver,phone_receiver,county_receiver,country_receiver,address_receiver,nrEnvelope,nrParcel, weight,length,width,height,date, hour, preference1, preference2, preference3, payment, mentions) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`, [
-            data.fullName_sender,
-            data.contactPerson_sender,
-            data.phone_sender,
-            data.email_sender,
-            data.county_sender,
-            data.country_sender,
-            data.address_sender,
+                data.fullName_sender,
+                data.contactPerson_sender,
+                data.phone_sender,
+                data.email_sender,
+                data.county_sender,
+                data.country_sender,
+                data.address_sender,
 
-            data.fullName_receiver,
-            data.contactPerson_receiver,
-            data.phone_receiver,
-            data.county_receiver,
-            data.country_receiver,
-            data.address_receiver,
+                data.fullName_receiver,
+                data.contactPerson_receiver,
+                data.phone_receiver,
+                data.county_receiver,
+                data.country_receiver,
+                data.address_receiver,
 
-            data.nrEnvelope,
-            data.nrParcel,
-            data.weight,
+                data.nrEnvelope,
+                data.nrParcel,
+                data.weight,
 
-            data.length,
-            data.width,
-            data.height,
+                data.length,
+                data.width,
+                data.height,
 
-            data.date,
-            data.hour,
+                data.date,
+                data.hour,
 
-            data.preference1,
-            data.preference2,
-            data.preference3,
+                data.preference1,
+                data.preference2,
+                data.preference3,
 
-            data.payment,
+                data.payment,
 
-            data.mentions
+                data.mentions
 
-        ],
+            ],
             (error, results, fields) => {
                 if (error) {
                     return callBack(error)
@@ -149,8 +149,7 @@ module.exports = {
     },
     addEventsDriver: (data, callBack) => {
         pool.query(
-            `INSERT INTO driver_events values (?,?,?,?,?,?,?)`,
-            [
+            `INSERT INTO driver_events values (?,?,?,?,?,?,?)`, [
                 data.id,
                 data.accident,
                 data.meteo,
@@ -169,8 +168,7 @@ module.exports = {
     },
     addNotification: (data, callBack) => {
         pool.query(
-            `INSERT INTO notifications values (?,?)`,
-            [
+            `INSERT INTO notifications(expiry_date,text) values (?,?)`, [
                 data.expiry_date,
                 data.text,
             ],
@@ -180,32 +178,27 @@ module.exports = {
 
     deleteNofication: (id, callback) => {
         pool.query(
-            `DELETE FROM notifications WHERE id=(?)`,
-            [
+            `DELETE FROM notifications WHERE id=(?)`, [
                 id
             ],
             (error) => callBack(error)
         )
     },
 
-    getNotifications: (callback) => {
+    getNotifications: (callBack) => {
         pool.query(
-            `INSERT INTO notifications values (?,?)`,
-            [
-                data.expiry_date,
-                data.text,
-            ],
+            `SELECT *FROM notifications`,
             (error, results, fields) => {
-                if (error)
-                    return callBack(error)
-                return callBack(null, results)
+                if (error) {
+                    callBack(error);
+                }
+                return callBack(null, results);
             }
         )
     },
     getDetail: (awb, callBack) => {
         pool.query(
-            `SELECT * FROM orders where awb = ?`,
-            [
+            `SELECT * FROM orders where awb = ?`, [
                 awb
             ],
             (error, results, fields) => {
@@ -219,8 +212,7 @@ module.exports = {
     newCode: (data, callBack) => {
         console.log(data)
         pool.query(
-            `INSERT INTO codes (id , expiry_date , type) values(?,LOCALTIME() + INTERVAL 15 MINUTE,?)`,
-            [
+            `INSERT INTO codes (id , expiry_date , type) values(?,LOCALTIME() + INTERVAL 15 MINUTE,?)`, [
                 data.id,
                 data.type
             ],
@@ -234,8 +226,7 @@ module.exports = {
     },
     existCode: (id, callBack) => {
         pool.query(
-            `SELECT * from codes where id=?`,
-            [
+            `SELECT * from codes where id=?`, [
                 id
             ],
             (error, results, fields) => {
@@ -248,8 +239,7 @@ module.exports = {
     },
     selectIdChange: (body, callBack) => {
         pool.query(
-            `SELECT * from (select id from codes where code = ? and expiry_date > localtime() and type = ? order by expiry_date desc) AS T LIMIT 1`,
-            [
+            `SELECT * from (select id from codes where code = ? and expiry_date > localtime() and type = ? order by expiry_date desc) AS T LIMIT 1`, [
                 body.code,
                 body.type
             ],
@@ -263,8 +253,7 @@ module.exports = {
     },
     changePassword: (data, callBack) => {
         pool.query(
-            `UPDATE users SET password = ? where id = ?`,
-            [
+            `UPDATE users SET password = ? where id = ?`, [
                 data.password,
                 data.id
             ],
@@ -278,8 +267,7 @@ module.exports = {
     },
     changeEmail: (data, callBack) => {
         pool.query(
-            `UPDATE USERS SET email = ? where id = ?`,
-            [
+            `UPDATE USERS SET email = ? where id = ?`, [
                 data.email,
                 data.id
             ],
@@ -294,8 +282,7 @@ module.exports = {
     deleteCode: (data, callBack) => {
         console.log(data)
         pool.query(
-            `DELETE from codes where id = ? and code != ? and type =?`,
-            [
+            `DELETE from codes where id = ? and code != ? and type =?`, [
                 data.id,
                 data.code,
                 data.type
