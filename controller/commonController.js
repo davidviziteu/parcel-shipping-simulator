@@ -91,10 +91,11 @@ module.exports = {
 
     getNotifications: (req, res) => {
 
+        console.log(req.body);
         return res.status(StatusCodes.OK).json({
             notifications: [{
                 id: 1,
-                exp: "11:22 ceva data",
+                expiry_date: "11:22 ceva data",
                 text: "notificare random",
             },
             {
