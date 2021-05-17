@@ -166,6 +166,8 @@ class App {
     }
 
     addRequestFunctionalities(req) {
+        req.parameters = url.parse(req.url, true).query
+        // console.log(`request params: ${JSON.stringify(req.parameters)}`)
         if (this.db)
             req.db = this.db
         return req

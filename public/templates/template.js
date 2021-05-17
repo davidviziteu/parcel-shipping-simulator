@@ -115,7 +115,6 @@ var listCity = ["Ilfov", "Cluj", "Constanța", "Dolj", "Galați", "Iași", "Orad
 
 
 const updateNotificationsBox = async () => {
-    setInterval(async () => { alert("Hello"); }, 3000);
     try {
         let notificationBox = document.getElementById(`notifications-box`)
         notificationBox.appendChild()
@@ -139,3 +138,49 @@ const updateNotificationsBox = async () => {
         console.error(error)
     }
 }
+
+const fetchEstimatedCost = async (from, to) => {
+    try {
+        let resp = await fetch(`${hostName}${api.estimateCost.route}?from=${from}&to=${to}`, {
+            method: api.estimateCost.method,
+            // body: JSON.stringify({ from: from, to: to }),
+            headers: { "Content-type": "application/json; charset=UTF-8" }
+        }).then(data => data.json())
+        return resp;
+    } catch (error) {
+        return error.message
+    }
+}
+
+(async function loadEstimateCostBox() {
+    const sourceSelector = document.getElementById(`judet-exp`)
+    const destinationSelector = document.getElementById(`judet-dest`)
+    const estimateCostButton = document.getElementById(`estimate-cost-button`)
+    const totalCostText = document.getElementById(`total-cost`)
+
+    for (let element in cities) {
+        sourceSelector.appendChild(new Option(element))
+        destinationSelector.appendChild(new Option(element))
+    }
+
+    estimateCostButton.addEventListener(`click`, async () => {
+        let from = sourceSelector.value
+        let to = destinationSelector.value
+        if (!to && !from)
+            totalCostText.innerHTML = `Alegeți județul expeditorului și al destinatarului`
+        else if (!from)
+            totalCostText.innerHTML = `Alegeți județul expeditorului`
+        else if (!to)
+            totalCostText.innerHTML = `Alegeți județul destinatarului`
+        else {
+            let response = await fetchEstimatedCost(from, to)
+            if (response)
+                totalCostText.innerHTML = `raw response: ${JSON.stringify(response)}. add functionalities. templates.js function loadEstimateCostBox()`
+            return
+            if (to == from)
+                totalCostText.innerHTML = `Expediere în același județ (${from}): aproximativ ${response} RON`
+            else totalCostText.innerHTML = `${from} -> ${to}: aproximativ ${response} RON`
+        }
+    })
+})()
+

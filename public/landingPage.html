@@ -3,6 +3,9 @@
 
 <head>
     <meta charset='utf-8'>
+    <meta name="description" content="Mary's simple recipe for maple bacon donuts
+           makes a sticky, sweet treat with just a hint
+           of salt that you'll keep coming back for.">
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <title>PSS</title>
@@ -65,7 +68,7 @@
                 <form action="backend" name="awb-track" class="full-width-form">
                     <input class="input-box" type="text" id="awb-input" name="awb-input" placeholder="AWB">
                     <div class="button-container">
-                        <button type="button" id="track-awb-button" onclick="location.href = 'DashboardClient.html'">
+                        <button type="button" id="track-awb-button">
                             Urmărește
                         </button>
                     </div>
@@ -134,7 +137,7 @@
                 </form>
             </div>
 
-            <div class="box no-min-height half-width"  id="notifications-box">
+            <div class="box no-min-height half-width" id="notifications-box">
                 <div class="title-with-image">
                     <img alt="image" src="./assets/arrow.png">
                     <h1>Notificări</h1>
@@ -179,8 +182,7 @@
             <div class="box wide">
                 <h1 hidden>Vezi locațiile noastre</h1>
                 <div class="button-container">
-                    <button type="button" onclick="location.href='Locatii.html'" id="our-locations">
-                        Vezi locațiile noastre
+                    <button type="button" id="our-locations" aria-label="Vezi locatiile noastre"> Vezi locațiile noastre
                     </button>
                 </div>
             </div>
