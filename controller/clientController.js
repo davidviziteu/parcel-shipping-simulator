@@ -32,7 +32,7 @@ module.exports = {
         body.password = hashSync(body.password, salt)
         const { error, value } = newUserSchema.validate(body);
         if (error) {
-            return res.status(300).json({
+            return res.status(500).json({
                 success: false,
                 error: error.message
             })
