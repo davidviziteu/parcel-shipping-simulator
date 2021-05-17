@@ -9,7 +9,7 @@ let forgot = document.getElementById(`forgot`);
 let submit = document.getElementById(`continue`);
 let expandableItems = document.getElementsByClassName(`expandable`);
 
-window.onload = function() {
+window.onload = function () {
     resetEmail.style.display = "none";
     resetPass.style.display = "none";
     detalii.style.display = "none";
@@ -45,7 +45,7 @@ forgot.addEventListener(`click`, () => {
 })
 for (let i = 0; i < expandableItems.length; ++i) {
     let bttn = expandableItems[i]
-    bttn.addEventListener(`click`, function() {
+    bttn.addEventListener(`click`, function () {
         let associatedList = this.nextElementSibling
         if (associatedList && associatedList.tagName == `UL`) {
             associatedList.toggleAttribute(`hidden`)

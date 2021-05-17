@@ -1,9 +1,20 @@
-let sourceSelector = document.getElementById(`judet-exp`)
-let destinationSelector = document.getElementById(`judet-dest`)
-let estimateCost = document.getElementById(`estimate-cost-button`)
-let totalCost = document.getElementById(`total-cost`)
-var loginForm = document.getElementById("login-form");
+const sourceSelector = document.getElementById(`judet-exp`)
+const destinationSelector = document.getElementById(`judet-dest`)
+const estimateCost = document.getElementById(`estimate-cost-button`)
+const totalCost = document.getElementById(`total-cost`)
+const loginForm = document.getElementById("login-form");
+const trackAwbButton = document.getElementById(`track-awb-button`)
+const estimateCostButton = document.getElementById(`estimate-cost-button`)
+const startOrderButton = document.getElementById(`start-order-button`)
+const resetPasswordButton = document.getElementById(`reset-password-button`)
+const registerButton = document.getElementById(`register-button`)
+    // const aboutUsButton = document.getElementById(`register-button`) // ASTA TRE FACUT IN TEMPLATES CRED
+document.getElementById(`our-team-button`).onclick = () => location.href = `AboutUs.html`
 
+// window.onunload = function () {
+//     document.cookie = "cookiename=token ; expires = Thu, 01 Jan 1970 00:00:00 GMT"
+//     console.log("cookie" + document.cookie)
+// }
 
 for (let element in cities) {
     sourceSelector.appendChild(new Option(element))
@@ -24,37 +35,49 @@ estimateCost.addEventListener(`click`, () => {
     else totalCost.innerHTML = `${from} -> ${to}: aproximativ 35 RON`
 })
 
-// loginForm.onsubmit = async (e) => {
-//     e.preventDefault();
-//     var values = {
-//         email: document.getElementById("user-email").value,
-//         password: document.getElementById("user-password").value,
-//     }
-//     // let response = await fetch('https://parcel-shipping-simulator.herokuapp.com/api/login', {
-//     let response = await fetch('http://localhost:4000/api/login', {
-//         method: 'GET',
-//         headers: {
-//             'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify(values),
-//     })
-
-// }
+console.log(`lndingpage.js`)
 
 
-document.getElementById(`our-team`).onclick = () => location.href = `AboutUs.html`
-
-loginForm.onsubmit = async (e) => {
-    e.preventDefault();
-    var values = {
-        email: document.getElementById("user-mail").value,
-        password: document.getElementById("user-password").value
+window.addEventListener(`api-fetched`, (ev) => {
+    console.log(`api-fetched event:`)
+    console.log(api)
+    console.log(`------------------`)
+    resetPasswordButton.addEventListener(`click`, () => location.href = api.changeCredentials.location)
+    registerButton.addEventListener(`click`, () => location.href = api.newAccout.location)
+    startOrderButton.addEventListener(`click`, () => location.href = api.newOrder.location)
+    loginForm.onsubmit = async(e) => {
+        e.preventDefault();
+        document.getElementById("user-email").style.backgroundColor = "#fbfef7";
+        document.getElementById("user-password").style.backgroundColor = "#fbfef7";
+        var values = {
+            email: document.getElementById("user-email").value,
+            password: document.getElementById("user-password").value,
+            rememberMe: document.getElementById("remember-me").checked
+        }
+        fetch(`${hostName}${api.login.route}`, {
+                method: api.login.method,
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                withCredentials: true,
+                body: JSON.stringify(values),
+            })
+            .then(response => response.json())
+            .then(json => handleLoginResponse(json))
+            .catch(err => console.log(err));
     }
-    let response = await fetch('http://localhost:4000/api/login', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(values),
-    })
+
+}, false)
+
+
+
+function handleLoginResponse(resp) {
+    console.log(`handling response from front ${JSON.stringify(resp)}`)
+    if (!resp.error)
+        window.location.href = resp.redirect;
+    if (resp.error.toLowerCase().includes(`email`))
+        document.getElementById("user-email").style.backgroundColor = "rgb(211, 110, 110)";
+
+    if (resp.error.toLowerCase().includes(`password`))
+        document.getElementById("user-password").style.backgroundColor = "rgb(211, 110, 110)";
 }

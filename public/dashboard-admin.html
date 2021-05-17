@@ -1,5 +1,7 @@
 <!DOCTYPE html>
+<!-- dashboard admin -->
 <html lang="ro">
+
 
 <head>
     <meta charset='utf-8'>
@@ -72,7 +74,7 @@
                     </button>
                 </div>
                 <div class="button-container">
-                    <button id="logout" onclick="location.href='landingPage.html'">
+                    <button id="logout-button" onclick="location.href='landingPage.html'">
                         Ieși din cont
                     </button>
                 </div>
@@ -112,7 +114,7 @@
                 <form action="backend" name="awb-track" class="full-width-form">
                     <input required class="input-box" type="text" id="awb-input" name="awb-input" placeholder="AWB">
                     <div class="button-container">
-                        <button type="button" id="track-awb" onclick="location.href = 'dashboard.html'">
+                        <button type="button" id="track-awb-button" onclick="location.href = 'dashboard.html'">
                             Urmărește
                         </button>
                     </div>
@@ -135,8 +137,7 @@
                     <h1>Notificări</h1>
                 </div>
                 <p>
-                    [1] Butonul login NU merge, deoarece noi ne bazam pe tipul de cont in care se intra. Va rugam sa
-                    folositi butoanele demo pentru login
+                    [1] Butonul login NU merge, deoarece noi ne bazam pe tipul de cont in care se intra. Va rugam sa folositi butoanele demo pentru login
                 </p>
                 <p>
                     [2] Website-ul foloseste cookie-uri
@@ -179,7 +180,7 @@
                         <option>Timișoara</option>
                     </select>
                     <div class="button-container">
-                        <button type="submit">
+                        <button type="submit" id="new-account-button">
                             Creează cont nou
                         </button>
                     </div>
@@ -187,8 +188,7 @@
 
                 <form action="backend" name="remove-emplyee-account" class="full-width-form">
 
-                    <input required class="input-box" type="text" id="remove-emplyee-account-email"
-                        name="remove-emplyee-account-email" placeholder="Id sau mail">
+                    <input required class="input-box" type="text" id="remove-emplyee-account-email" name="remove-emplyee-account-email" placeholder="Id sau mail">
                     <div class="button-container">
                         <button type="submit">
                             Șterge cont
@@ -207,12 +207,12 @@
                 </div>
                 <form action="backend" name="add-notification" class="full-width-form">
 
-                    <input required class="input-box" type="text" id="add-notification" placeholder="Text">
+                    <input required class="input-box" type="text" id="new-notification-text" placeholder="Text">
                     <label>Expiră</label>
-                    <input class="input-box" type="date" name="data">
-                    <input class="input-box" type="time" name="ora">
+                    <input class="input-box" type="date" name="data" id="new-notification-date">
+                    <input class="input-box" type="time" name="ora" id="new-notification-time">
                     <div class="button-container">
-                        <button type="submit">
+                        <button type="submit" id="add-notification-button"> 
                             Adaugă notificare
                         </button>
                     </div>
@@ -300,17 +300,12 @@
                     De ce nu?
                 </p>
                 <p>
-                    Gândiți-vă la toate momentele în care ați pierdut o oportunitate de-a lungul anilor. Nenumăratele
-                    autobuze ratate. Acel RTX 3080 pe care l-ați fi putut cumpăra înainte de a fi vândut. Eșecul de a
-                    cumpăra Bitcoin în 2013... apoi din nou în 2019. Lăsând
-                    deoparte faptul că(,) cripto-ul este încă inutil, ce aveau în comun toate aceste evenimente? Nu ați
-                    colaborat cu noi. Ei bine, nu aveți nicio scuză pentru a rata această oportunitate. Bineînțeles,
-                    veți tot pierde autobuzele... și 3080-ul
-                    va fi în continuare indisponibil până în 3080, dar cel puțin veți primi fiecare pachet livrat de
-                    NOI. Mulțumiți-ne mai târziu - timpul trece.
+                    Gândiți-vă la toate momentele în care ați pierdut o oportunitate de-a lungul anilor. Nenumăratele autobuze ratate. Acel RTX 3080 pe care l-ați fi putut cumpăra înainte de a fi vândut. Eșecul de a cumpăra Bitcoin în 2013... apoi din nou în 2019. Lăsând
+                    deoparte faptul că(,) cripto-ul este încă inutil, ce aveau în comun toate aceste evenimente? Nu ați colaborat cu noi. Ei bine, nu aveți nicio scuză pentru a rata această oportunitate. Bineînțeles, veți tot pierde autobuzele... și 3080-ul
+                    va fi în continuare indisponibil până în 3080, dar cel puțin veți primi fiecare pachet livrat de NOI. Mulțumiți-ne mai târziu - timpul trece.
                 </p>
                 <div class="button-container">
-                    <button type="button" id="our-team">Echipa noastră</button>
+                    <button type="button" id="our-team-button">Echipa noastră</button>
                 </div>
             </div>
         </section>
@@ -370,7 +365,8 @@
     </footer>
     <script src='templates/template.js'>
     </script>
-    <script src="./scripts/landingpage.js"></script>
+    <script src="scripts/landingpage.js"></script>
+    <script src="scripts/commonDashboards.js"></script>
 
 </body>
 

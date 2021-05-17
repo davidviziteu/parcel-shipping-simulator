@@ -12,20 +12,15 @@ app.use(routers.clientRouter)
 app.use(routers.driverRouter)
 app.use(routers.employeeRouter)
 app.use(routers.commonRouter)
-    // app.useAuth((req) => {
-    //     const body = req.body;
-    //     const token = body.token;
-    //     const decodedToken = jwt_decode(token);
-    //     req.db.checkToken(decodedToken.id, (err, data) => {
-    //         if (err) {
-    //             return res.status(StatusCodes.BAD_REQUEST).json({
-    //                 success: false,
-    //                 error: error.message
-    //             })
-    //         } else {
 
-//         }
-//     })
-// })
-console.log(app)
+app.useAuth((req) => {
+    if (!req.headers.cookie)
+        return req;
+    const token = req.headers.cookie.split('=')[1];
+    var decoded = jwt_decode(token);
+    req.accountId = decoded.results.id;
+    req.accountType = decoded.results.type;
+    return req;
+
+})
 app.listen()
