@@ -9,6 +9,8 @@ window.addEventListener(`api-fetched`, (ev) => {
     //pui tot codul aici
     getCodeChangePasswordForm.onsubmit = async (e) => {
         e.preventDefault();
+        let formdata = new FormData(getCodeChangePasswordForm)
+        console.log(formdata)
         var value = {
             email: document.getElementById("email-field-change-password-form").value,
             type: "password"

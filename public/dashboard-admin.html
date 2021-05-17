@@ -69,11 +69,6 @@
                     <h1 id="hello-username">Admin dashboard</h1>
                 </div>
                 <div class="button-container">
-                    <button id="new-order" onclick="location.href='NewOrder2.html'">
-                        Comandă nouă
-                    </button>
-                </div>
-                <div class="button-container">
                     <button id="logout-button" onclick="location.href='landingPage.html'">
                         Ieși din cont
                     </button>
@@ -85,7 +80,7 @@
                     <img alt="image" src="./assets/money-bag.png">
                     <h1>Estimare cost</h1>
                 </div>
-                <form action="backend" name="cost-estimate" class="full-width-form">
+                <form id="cost-estimate-form" class="full-width-form">
                     <select class="input-box" name="judet-exp" id="judet-exp" required>
                         <option selected hidden id="judet-exp-text" value="">
                             Alege județul expeditorului
@@ -126,18 +121,20 @@
                     <h1>Contul meu</h1>
                 </div>
                 <div class="button-container">
-                    <button type="button" id="change-email-password" onclick="location.href = 'ChangeCredentials.html'">
+                    <button type="button" id="change-credentials-button"
+                        onclick="location.href = 'ChangeCredentials.html'">
                         Schimbă email / parola
                     </button>
                 </div>
             </div>
-            <div class="box no-min-height half-width">
+            <div class="box no-min-height half-width" id="notifications-box">
                 <div class="title-with-image">
                     <img alt="image" src="./assets/arrow.png">
                     <h1>Notificări</h1>
                 </div>
                 <p>
-                    [1] Butonul login NU merge, deoarece noi ne bazam pe tipul de cont in care se intra. Va rugam sa folositi butoanele demo pentru login
+                    [1] Butonul login NU merge, deoarece noi ne bazam pe tipul de cont in care se intra. Va rugam sa
+                    folositi butoanele demo pentru login
                 </p>
                 <p>
                     [2] Website-ul foloseste cookie-uri
@@ -188,7 +185,8 @@
 
                 <form action="backend" name="remove-emplyee-account" class="full-width-form">
 
-                    <input required class="input-box" type="text" id="remove-emplyee-account-email" name="remove-emplyee-account-email" placeholder="Id sau mail">
+                    <input required class="input-box" type="text" id="remove-emplyee-account-email"
+                        name="remove-emplyee-account-email" placeholder="Id sau mail">
                     <div class="button-container">
                         <button type="submit">
                             Șterge cont
@@ -200,19 +198,19 @@
                 </p>
             </div>
 
-            <div class="box" id="new-notification">
+            <div class="box" id="new-notification-box">
                 <div class="title-with-image">
                     <img alt="image" src="./assets/arrow.png">
                     <h1>Notificări</h1>
                 </div>
-                <form action="backend" name="add-notification" class="full-width-form">
+                <form id="add-notification-form" name="add-notification" class="full-width-form">
 
                     <input required class="input-box" type="text" id="new-notification-text" placeholder="Text">
                     <label>Expiră</label>
                     <input class="input-box" type="date" name="data" id="new-notification-date">
                     <input class="input-box" type="time" name="ora" id="new-notification-time">
                     <div class="button-container">
-                        <button type="submit" id="add-notification-button"> 
+                        <button type="submit" id="add-notification-button">
                             Adaugă notificare
                         </button>
                     </div>
@@ -300,9 +298,14 @@
                     De ce nu?
                 </p>
                 <p>
-                    Gândiți-vă la toate momentele în care ați pierdut o oportunitate de-a lungul anilor. Nenumăratele autobuze ratate. Acel RTX 3080 pe care l-ați fi putut cumpăra înainte de a fi vândut. Eșecul de a cumpăra Bitcoin în 2013... apoi din nou în 2019. Lăsând
-                    deoparte faptul că(,) cripto-ul este încă inutil, ce aveau în comun toate aceste evenimente? Nu ați colaborat cu noi. Ei bine, nu aveți nicio scuză pentru a rata această oportunitate. Bineînțeles, veți tot pierde autobuzele... și 3080-ul
-                    va fi în continuare indisponibil până în 3080, dar cel puțin veți primi fiecare pachet livrat de NOI. Mulțumiți-ne mai târziu - timpul trece.
+                    Gândiți-vă la toate momentele în care ați pierdut o oportunitate de-a lungul anilor. Nenumăratele
+                    autobuze ratate. Acel RTX 3080 pe care l-ați fi putut cumpăra înainte de a fi vândut. Eșecul de a
+                    cumpăra Bitcoin în 2013... apoi din nou în 2019. Lăsând
+                    deoparte faptul că(,) cripto-ul este încă inutil, ce aveau în comun toate aceste evenimente? Nu ați
+                    colaborat cu noi. Ei bine, nu aveți nicio scuză pentru a rata această oportunitate. Bineînțeles,
+                    veți tot pierde autobuzele... și 3080-ul
+                    va fi în continuare indisponibil până în 3080, dar cel puțin veți primi fiecare pachet livrat de
+                    NOI. Mulțumiți-ne mai târziu - timpul trece.
                 </p>
                 <div class="button-container">
                     <button type="button" id="our-team-button">Echipa noastră</button>

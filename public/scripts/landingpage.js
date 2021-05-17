@@ -6,7 +6,7 @@ const loginForm = document.getElementById("login-form");
 const trackAwbButton = document.getElementById(`track-awb-button`)
 const estimateCostButton = document.getElementById(`estimate-cost-button`)
 const startOrderButton = document.getElementById(`start-order-button`)
-const resetPasswordButton = document.getElementById(`reset-password-button`)
+const changeCredentialsButton = document.getElementById(`change-credentials-button`)
 const registerButton = document.getElementById(`register-button`)
     // const aboutUsButton = document.getElementById(`register-button`) // ASTA TRE FACUT IN TEMPLATES CRED
 document.getElementById(`our-team-button`).onclick = () => location.href = `AboutUs.html`
@@ -42,7 +42,7 @@ window.addEventListener(`api-fetched`, (ev) => {
     console.log(`api-fetched event:`)
     console.log(api)
     console.log(`------------------`)
-    resetPasswordButton.addEventListener(`click`, () => location.href = api.changeCredentials.location)
+    changeCredentialsButton.addEventListener(`click`, () => location.href = api.changeCredentials.location)
     registerButton.addEventListener(`click`, () => location.href = api.newAccout.location)
     startOrderButton.addEventListener(`click`, () => location.href = api.newOrder.location)
     loginForm.onsubmit = async(e) => {

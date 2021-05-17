@@ -21,7 +21,6 @@ window.addEventListener(`api-fetched`, (ev) => {
     //             .catch(err => { alert(err) });
     //     })
     addNotificationtButton.addEventListener(`click`, async () => {
-
         fetch(`${hostName}${api.addNotification.route}`, {
             method: api.addNotification.method,
             headers: {

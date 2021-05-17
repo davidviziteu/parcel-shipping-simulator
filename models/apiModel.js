@@ -24,6 +24,7 @@ exports.baseApi = {
         method: `POST`,
     },
     trackAwb: {
+        location: `/demo-dashboard.html`,
         route: `/api/awb`,
         method: `GET`,
     },
@@ -68,7 +69,6 @@ exports.driverApi = {
 
 exports.employeeApi = {
     //va include tot ce are baseApi si userApi
-
 }
 
 exports.adminApi = {

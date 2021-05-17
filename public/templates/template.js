@@ -104,3 +104,30 @@ var cities = {
 
 
 var listCity = ["Ilfov", "Cluj", "Constanța", "Dolj", "Galați", "Iași", "Oradea", "Sibiu", "Timișoara"];
+
+
+const updateNotificationsBox = async () => {
+    setInterval(async () => { alert("Hello"); }, 3000);
+    try {
+        let notificationBox = document.getElementById(`notifications-box`)
+        notificationBox.appendChild()
+        let notificatinos = await fetch(`${hostName}${api.getNotifications.route}`).then(resp => resp.json())
+        //cam asa ar trebui facut
+        if (api.loginType == `admin`) {
+            for (item in notificatinos) {
+                let p = document.createElement(`p`)
+                p.innerHTML = item.text
+                notificationBox.appendChild(p)
+            }
+        }
+        else {
+            for (item in notificatinos) {
+                let p = document.createElement(`p`)
+                p.innerHTML = `[${item.id}] ${item.text} ${item.exp_date}`
+                notificationBox.appendChild(p) // tre sa fie doar textul de la notificare nu si restu
+            }
+        }
+    } catch (error) {
+        console.error(error)
+    }
+}

@@ -108,24 +108,24 @@ module.exports = {
     },
 
     getApi: (req, res) => {
-        let isLoggedIn = req.accountType ? true : false
+        let loginType = req.accountType ? req.accountType : false
         switch (req.accountType) {
             case `user`:
                 return res
                     .status(StatusCodes.OK)
-                    .json({ ...apiModel.baseApi, ...apiModel.userApi, isLoggedIn, })
+                    .json({ ...apiModel.baseApi, ...apiModel.userApi, loginType, })
             case `driver`:
                 return res
                     .status(StatusCodes.OK)
-                    .json({ ...apiModel.baseApi, ...apiModel.userApi, ...apiModel.driverApi, isLoggedIn, })
+                    .json({ ...apiModel.baseApi, ...apiModel.userApi, ...apiModel.driverApi, loginType, })
             case `employee`:
                 return res
                     .status(StatusCodes.OK)
-                    .json({ ...apiModel.baseApi, ...apiModel.userApi, ...apiModel.employeeApi, isLoggedIn, })
+                    .json({ ...apiModel.baseApi, ...apiModel.userApi, ...apiModel.employeeApi, loginType, })
             case `admin`:
                 return res
                     .status(StatusCodes.OK)
-                    .json({ ...apiModel.baseApi, ...apiModel.userApi, ...apiModel.driverApi, ...apiModel.employeeApi, ...apiModel.adminApi, isLoggedIn, })
+                    .json({ ...apiModel.baseApi, ...apiModel.userApi, ...apiModel.driverApi, ...apiModel.employeeApi, ...apiModel.adminApi, loginType, })
             default:
                 return res
                     .status(StatusCodes.OK)
