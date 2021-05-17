@@ -1,24 +1,26 @@
-var getCodePasswordButton = document.getElementById("codePassword") //get-code-button poate
-var newPassword = document.getElementById("newPassword")
-var codeEmail = document.getElementById("codeEmail")
-var newEmail = document.getElementById("newEmail")
-
+const getCodePasswordButton = document.getElementById("codePassword") //get-code-button poate
+const newPassword = document.getElementById("newPassword")
+const codeEmail = document.getElementById("codeEmail")
+const newEmail = document.getElementById("newEmail")
+const getCodeChangePasswordForm = document.getElementById(`get-code-form1`)
 
 
 window.addEventListener(`api-fetched`, (ev) => {
-    getCodePasswordButton.addEventListener('click', () => {
+    //pui tot codul aici
+    getCodeChangePasswordForm.onsubmit = async (e) => {
+        e.preventDefault();
         var value = {
-            email: document.getElementById("emailPassword").value,
+            email: document.getElementById("email-field-change-password-form").value,
             type: "password"
         }
-        fetch(`${hostName}api/accounts`, { //------------------------faci asa la toate
+        fetch(`${hostName}/api/accounts`, { //------------------------faci asa la toate
             method: `PUT`,
             body: JSON.stringify(value),
             headers: { "Content-type": "application/json; charset=UTF-8" }
         })
             .then(response => response.json())
             .then(json => {
-                if (json.error == 'not exist') {
+                if (json.error == 'not exist') { //si daca error == '"email" must be a valid email' ?   
                     document.getElementById("errorEmailChangePassword").innerHTML = "Nu există un cont cu acest email!"
                     document.getElementById("errorEmailChangePassword").style.display = "block"
                 }
@@ -28,7 +30,7 @@ window.addEventListener(`api-fetched`, (ev) => {
                 }
             })
             .catch(err => { console.log(err) });
-    })
+    }
 
     newPassword.addEventListener('click', () => {
         var value = {
@@ -54,7 +56,6 @@ window.addEventListener(`api-fetched`, (ev) => {
             })
             .catch(err => { console.log(err) });
     })
-
     codeEmail.addEventListener('click', () => {
         var value = {
             email: document.getElementById("oldEmail").value,
