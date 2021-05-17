@@ -1,6 +1,6 @@
 const newAccount = document.getElementById(`form-create-account`)
 const addNotificationtButton = document.getElementById(`add-notification-button`)
-
+const addNotificationForm = document.getElementById(`add-notification-form`);
 window.addEventListener(`api-fetched`, (ev) => {
 
     newAccount.onsubmit = async (e) => {
@@ -45,15 +45,15 @@ window.addEventListener(`api-fetched`, (ev) => {
         }
         fetch(`${hostName}${api.addNotification.route}`, {
             method: api.addNotification.method,
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            withCredentials: true,
             body: JSON.stringify(values),
+            headers: { "Content-type": "application/json; charset=UTF-8" }
         })
             .then(response => response.json())
-            // .then(json => handleLoginResponse(json))
-            .catch(err => { alert(err) });
+            .then(json => {
+
+            })
+            .catch(err => { console.log(err) });
     })
 
-}, false)
+
+})
