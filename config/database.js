@@ -186,7 +186,7 @@ module.exports = {
             }
         )
     },
-    getDetailsSender: (awb, callBack) => {
+    getDetail: (awb, callBack) => {
         pool.query(
             `SELECT * FROM orders where awb = ?`,
             [
