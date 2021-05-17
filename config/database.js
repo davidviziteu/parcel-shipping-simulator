@@ -36,7 +36,7 @@ module.exports = {
             }
         );
     },
-    checkToken: (id, callback) => {
+    checkToken: (id, callBack) => {
         pool.query(
             `SELECT *FROM tokens where id = ?`, [id],
             (error, results, fields) => {
@@ -47,7 +47,7 @@ module.exports = {
             }
         );
     },
-    getUserType: (id, callback) => {
+    getUserType: (id, callBack) => {
         pool.query(
             `SELECT type FROM users where id = ?`, [id],
             (error, results, fields) => {
@@ -59,7 +59,6 @@ module.exports = {
         );
     },
     getUserByEmail: (email, callBack) => {
-        // console.log("aici+ " + email);
         pool.query(
             `select * from users where email = ?`, [email],
             (error, results, fields) => {
@@ -285,7 +284,7 @@ module.exports = {
                 if (error) {
                     callBack(error);
                 }
-                return callBack(null, results);
+                return callBack(null, results[0]);
             }
         )
     },

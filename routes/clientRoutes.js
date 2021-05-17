@@ -1,10 +1,11 @@
 const controllers = require("../controller");
 const { Router } = require("../utils/router");
+const api = require("../models/apiModel")
 
 const clientRouter = new Router();
 clientRouter.post(`/api/register`, controllers.clientController.createAccountUser);
 clientRouter.get(`/api/neworder`, controllers.clientController.getCost);
 clientRouter.post(`/api/neworder`, controllers.clientController.placeOrder);
-clientRouter.put(`/api/accounts`, controllers.clientController.codeChange);
-clientRouter.post(`/api/accounts`, controllers.clientController.change)
+clientRouter.post(api.baseApi.getCode.route, controllers.clientController.codeChange);
+clientRouter.patch(api.baseApi.changeCredentials.route, controllers.clientController.change)
 module.exports = clientRouter

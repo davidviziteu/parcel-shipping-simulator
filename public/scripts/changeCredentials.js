@@ -1,26 +1,24 @@
-const getCodePasswordButton = document.getElementById("codePassword") //get-code-button poate
-const newPassword = document.getElementById("newPassword")
-const codeEmail = document.getElementById("codeEmail")
-const newEmail = document.getElementById("newEmail")
-const getCodeChangePasswordForm = document.getElementById(`get-code-form1`)
+const getCodeChangePasswordForm = document.getElementById(`get-code-form-password`)
+const changePassword = document.getElementById(`patch-form-password`)
+const getCodeChangeEmailForm = document.getElementById(`get-code-form-email`)
+const changeEmail = document.getElementById(`patch-form-email`)
 
 
 window.addEventListener(`api-fetched`, (ev) => {
-    //pui tot codul aici
     getCodeChangePasswordForm.onsubmit = async (e) => {
         e.preventDefault();
         var value = {
             email: document.getElementById("email-field-change-password-form").value,
             type: "password"
         }
-        fetch(`${hostName}/api/accounts`, { //------------------------faci asa la toate
-            method: `PUT`,
+        fetch(`${hostName}${api.getCode.route}`, {
+            method: api.getCode.method,
             body: JSON.stringify(value),
             headers: { "Content-type": "application/json; charset=UTF-8" }
         })
             .then(response => response.json())
             .then(json => {
-                if (json.error == 'not exist') { //si daca error == '"email" must be a valid email' ?   
+                if (json.error == 'not exist') {
                     document.getElementById("errorEmailChangePassword").innerHTML = "Nu există un cont cu acest email!"
                     document.getElementById("errorEmailChangePassword").style.display = "block"
                 }
@@ -32,14 +30,15 @@ window.addEventListener(`api-fetched`, (ev) => {
             .catch(err => { console.log(err) });
     }
 
-    newPassword.addEventListener('click', () => {
+    changePassword.onsubmit = async (e) => {
+        e.preventDefault();
         var value = {
-            code: document.getElementById("code").value,
+            code: document.getElementById("code-for-change-password").value,
             password: document.getElementById("password").value,
             type: "password"
         }
-        fetch(`${hostName}/api/accounts`, {
-            method: "POST",
+        fetch(`${hostName}${api.changeCredentials.route}`, {
+            method: api.changeCredentials.method,
             body: JSON.stringify(value),
             headers: { "Content-type": "application/json; charset=UTF-8" }
         })
@@ -55,14 +54,17 @@ window.addEventListener(`api-fetched`, (ev) => {
                 }
             })
             .catch(err => { console.log(err) });
-    })
-    codeEmail.addEventListener('click', () => {
+    }
+
+    getCodeChangeEmailForm.onsubmit = async (e) => {
+        e.preventDefault();
         var value = {
-            email: document.getElementById("oldEmail").value,
+            email: document.getElementById("email-field-change-email-form").value,
             type: "email"
         }
-        fetch(`${hostName}/api/accounts`, {
-            method: "PUT",
+        console.log(value)
+        fetch(`${hostName}${api.getCode.route}`, {
+            method: api.getCode.method,
             body: JSON.stringify(value),
             headers: { "Content-type": "application/json; charset=UTF-8" }
         })
@@ -78,16 +80,17 @@ window.addEventListener(`api-fetched`, (ev) => {
                 }
             })
             .catch(err => { console.log(err) });
-    })
+    }
 
-    newEmail.addEventListener('click', () => {
+    changeEmail.onsubmit = async (e) => {
+        e.preventDefault();
         var value = {
-            code: document.getElementById("code1").value,
+            code: document.getElementById("code-for-change-email").value,
             email: document.getElementById("email").value,
             type: "email"
         }
-        fetch(`${hostName}/api/accounts`, {
-            method: "POST",
+        fetch(`${hostName}${api.changeCredentials.route}`, {
+            method: api.changeCredentials.method,
             body: JSON.stringify(value),
             headers: { "Content-type": "application/json; charset=UTF-8" }
         })
@@ -107,5 +110,5 @@ window.addEventListener(`api-fetched`, (ev) => {
                 }
             })
             .catch(err => { console.log(err) });
-    })
-}, false)
+    }
+})

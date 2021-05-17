@@ -14,13 +14,12 @@ app.use(routers.employeeRouter)
 app.use(routers.commonRouter)
 
 app.useAuth((req) => {
+    return req;
     if (!req.headers.cookie)
         return req;
     const token = req.headers.cookie.split('=')[1];
     var decoded = jwt_decode(token);
     req.accountId = decoded.results.id;
     req.accountType = decoded.results.type;
-    return req;
-
 })
 app.listen()
