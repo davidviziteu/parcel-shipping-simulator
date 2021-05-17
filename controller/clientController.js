@@ -32,7 +32,7 @@ module.exports = {
         body.password = hashSync(body.password, salt)
         const { error, value } = newUserSchema.validate(body);
         if (error) {
-            return res.status(300).json({
+            return res.status(500).json({
                 success: false,
                 error: error.message
             })
@@ -47,7 +47,7 @@ module.exports = {
                 res.status(200).json({
                     success: true
                 })
-                mailOptions.to = body.email
+                /* mailOptions.to = body.email
                 mailOptions.subject = 'Confirmare creare cont'
                 mailOptions.text = 'Ți-ai creat cont cu succes!'
                 transporter.sendMail(mailOptions, function (error, info) {
@@ -56,7 +56,7 @@ module.exports = {
                     } else {
                         console.log('Email sent: ' + info.response);
                     }
-                });
+                }); */
             }
         })
         return res
@@ -97,7 +97,6 @@ module.exports = {
         const body = req.body
         const { error, value } = validationEmailChangeCredentials.validate(body)
         if (error) {
-            console.log(error.message)
             return res.status(500).json({
                 success: false,
                 error: error.message
@@ -110,13 +109,7 @@ module.exports = {
                     error: error.message
                 })
             }
-            else if (results == undefined) {
-                res.status(500).json({
-                    success: false,
-                    error: "not exist"
-                })
-            }
-            else {
+            else if (results != undefined) {
                 var id = results.id
                 data = {
                     id: id,
@@ -135,13 +128,13 @@ module.exports = {
                         mailOptions.to = body.email
                         mailOptions.subject = 'Schimbarea datelor'
                         mailOptions.text = 'Codul pentru resetare este:\n' + results.insertId
-                        transporter.sendMail(mailOptions, function (error, info) {
+                        /* transporter.sendMail(mailOptions, function (error, info) {
                             if (error) {
                                 console.log(error.message);
                             } else {
                                 console.log('Email sent: ' + info.response);
                             }
-                        });
+                        }); */
                         const data = {
                             id: id,
                             code: results.insertId,
@@ -154,11 +147,19 @@ module.exports = {
                                     error: error.message
                                 })
                             }
-                        })
-                        res.status(200).json({
-                            success: true
+                            else {
+                                res.status(200).json({
+                                    success: true
+                                })
+                            }
                         })
                     }
+                })
+            }
+            else {
+                res.status(200).json({
+                    success: false,
+                    error: "not exist"
                 })
             }
         })
@@ -174,14 +175,7 @@ module.exports = {
                     error: error.message
                 })
             }
-            else if (results == undefined) {
-                console.log("aici")
-                res.status(500).json({
-                    success: false,
-                    error: "not exist"
-                })
-            }
-            else {
+            else if (results != undefined) {
                 body.id = results.id
                 var id = results.id
                 if (body.type == "password") {
@@ -205,6 +199,11 @@ module.exports = {
                                     res.status(500).json({
                                         success: false,
                                         error: error.message
+                                    })
+                                }
+                                else {
+                                    res.status(200).json({
+                                        success: true
                                     })
                                 }
                             })
@@ -233,10 +232,21 @@ module.exports = {
                                         error: error.message
                                     })
                                 }
+                                else {
+                                    res.status(200).json({
+                                        success: true
+                                    })
+                                }
                             })
                         }
                     })
                 }
+            }
+            else {
+                res.status(200).json({
+                    success: false,
+                    error: "not exist"
+                })
             }
         })
         return res

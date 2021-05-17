@@ -6,12 +6,14 @@ class Router {
     getRoutes
     deleteRoutes
     putRoutes
+    patchRoutes
 
     constructor() {
         this.postRoutes = {} //new Map(string, functie)
         this.getRoutes = {}
         this.deleteRoutes = {}
         this.putRoutes = {}
+        this.patchRoutes = {}
     }
 
 
@@ -35,6 +37,12 @@ class Router {
         if (this.putRoutes[url])
             console.error(`route ${url} was already added as PUT route`)
         this.putRoutes[url] = controller
+    }
+
+    patch(url, controller) {
+        if (this.patchRoutes[url])
+            console.error(`route ${url} was already added as PUT route`)
+        this.patchRoutes[url] = controller
     }
 
     handleRoute(req, res) {
@@ -61,6 +69,9 @@ class Router {
                     break;
                 case "PUT":
                     return this.putRoutes[reqUrl](req, res)
+                    break;
+                case "PATCH":
+                    return this.patchRoutes[reqUrl](req, res)
                     break;
                 default:
                     throw new Error(`no route with such http verb: ${req.method}`)

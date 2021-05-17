@@ -121,8 +121,7 @@
                     <h1>Contul meu</h1>
                 </div>
                 <div class="button-container">
-                    <button type="button" id="change-credentials-button"
-                        onclick="location.href = 'ChangeCredentials.html'">
+                    <button type="button" id="change-credentials-button" onclick="location.href = 'ChangeCredentials.html'">
                         Schimbă email / parola
                     </button>
                 </div>
@@ -133,8 +132,7 @@
                     <h1>Notificări</h1>
                 </div>
                 <p>
-                    [1] Butonul login NU merge, deoarece noi ne bazam pe tipul de cont in care se intra. Va rugam sa
-                    folositi butoanele demo pentru login
+                    [1] Butonul login NU merge, deoarece noi ne bazam pe tipul de cont in care se intra. Va rugam sa folositi butoanele demo pentru login
                 </p>
                 <p>
                     [2] Website-ul foloseste cookie-uri
@@ -150,11 +148,15 @@
                     <img alt="image" src="./assets/arrow.png">
                     <h1>Conturi angajați</h1>
                 </div>
-                <form action="backend" name="add-emplyee-account" class="full-width-form">
-                    <input class="input-box" type="email" id="add-emplyee-account-email" placeholder="Email" required>
-                    <input class="input-box" type="text" id="add-emplyee-account-name" placeholder="Nume" required>
-                    <input class="input-box" type="tel" id="add-emplyee-account-phone" placeholder="Telefon" required>
-                    <select class="input-box" name="add-emplyee-account-type" required>
+                <form action="backend" name="add-emplyee-account" class="full-width-form" id="form-create-account">
+                    <input class="input-box" type="email" placeholder="Email" required id="email-form-create-account">
+                    <input class="input-box" type="text" placeholder="Nume" required id="surname-form-create-account">
+                    <input class="input-box" type="text" placeholder="Prenume" required id="name-form-create-account">
+                    <input class="input-box" type="tel" placeholder="Telefon" required id="phone-form-create-account">
+                    <input class="input-box" type="password" placeholder="Parola" required
+                        id="password-form-create-account">
+                    <select class="input-box" name="add-emplyee-account-type" required
+                        id="typeAccount-form-create-account">
                         <option selected hidden value="">
                             Alege tipul contului
                         </option>
@@ -162,7 +164,7 @@
                         <option value="admin">Admin</option>
                         <option value="driver">Șofer</option>
                     </select>
-                    <select class="input-box" name="add-emplyee-account-city" required>
+                    <select class="input-box" name="add-emplyee-account-city" required id="county-form-create-account">
                         <option selected hidden value="">
                             Alege județul utilizatorului
                         </option>
@@ -177,7 +179,7 @@
                         <option>Timișoara</option>
                     </select>
                     <div class="button-container">
-                        <button type="submit" id="new-account-button">
+                        <button>
                             Creează cont nou
                         </button>
                     </div>
@@ -185,8 +187,7 @@
 
                 <form action="backend" name="remove-emplyee-account" class="full-width-form">
 
-                    <input required class="input-box" type="text" id="remove-emplyee-account-email"
-                        name="remove-emplyee-account-email" placeholder="Id sau mail">
+                    <input required class="input-box" type="text" id="remove-emplyee-account-email" name="remove-emplyee-account-email" placeholder="Id sau mail">
                     <div class="button-container">
                         <button type="submit">
                             Șterge cont
@@ -194,7 +195,6 @@
                     </div>
                 </form>
                 <p id="status-account">
-                    Status: cont creeat/sters cu succes, motivul erorii
                 </p>
             </div>
 
@@ -230,16 +230,15 @@
         </section>
         <section>
             <div class="box">
-                <form action="backend" name="search-employee" class="full-width-form">
-                    <input required class="input-box" type="text" placeholder="Nume, ID" id="employee-search">
+                <form action="backend" name="search-employee" class="full-width-form" id="get-employee">
+                    <input required class="input-box" type="text" placeholder="Nume, email" id="employee-search">
                     <div class="button-container">
-                        <button type="submit">
+                        <button>
                             Caută angajat
                         </button>
                     </div>
                 </form>
                 <p id="status-employee-search">
-                    Status: succes, nume, id, nr tel sau motivul erorii
                 </p>
             </div>
             <div class="box">
@@ -298,14 +297,9 @@
                     De ce nu?
                 </p>
                 <p>
-                    Gândiți-vă la toate momentele în care ați pierdut o oportunitate de-a lungul anilor. Nenumăratele
-                    autobuze ratate. Acel RTX 3080 pe care l-ați fi putut cumpăra înainte de a fi vândut. Eșecul de a
-                    cumpăra Bitcoin în 2013... apoi din nou în 2019. Lăsând
-                    deoparte faptul că(,) cripto-ul este încă inutil, ce aveau în comun toate aceste evenimente? Nu ați
-                    colaborat cu noi. Ei bine, nu aveți nicio scuză pentru a rata această oportunitate. Bineînțeles,
-                    veți tot pierde autobuzele... și 3080-ul
-                    va fi în continuare indisponibil până în 3080, dar cel puțin veți primi fiecare pachet livrat de
-                    NOI. Mulțumiți-ne mai târziu - timpul trece.
+                    Gândiți-vă la toate momentele în care ați pierdut o oportunitate de-a lungul anilor. Nenumăratele autobuze ratate. Acel RTX 3080 pe care l-ați fi putut cumpăra înainte de a fi vândut. Eșecul de a cumpăra Bitcoin în 2013... apoi din nou în 2019. Lăsând
+                    deoparte faptul că(,) cripto-ul este încă inutil, ce aveau în comun toate aceste evenimente? Nu ați colaborat cu noi. Ei bine, nu aveți nicio scuză pentru a rata această oportunitate. Bineînțeles, veți tot pierde autobuzele... și 3080-ul
+                    va fi în continuare indisponibil până în 3080, dar cel puțin veți primi fiecare pachet livrat de NOI. Mulțumiți-ne mai târziu - timpul trece.
                 </p>
                 <div class="button-container">
                     <button type="button" id="our-team-button">Echipa noastră</button>
@@ -369,6 +363,7 @@
     <script src='templates/template.js'>
     </script>
     <script src="scripts/landingpage.js"></script>
+    <script src="scripts/dashboardAdmin.js"></script>
     <script src="scripts/commonDashboards.js"></script>
 
 </body>

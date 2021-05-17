@@ -88,6 +88,7 @@ class App {
         this.router.postRoutes = { ...this.router.postRoutes, ...router.postRoutes }
         this.router.deleteRoutes = { ...this.router.deleteRoutes, ...router.deleteRoutes }
         this.router.putRoutes = { ...this.router.putRoutes, ...router.putRoutes }
+        this.router.patchRoutes = { ...this.router.patchRoutes, ...router.patchRoutes }
     }
     useAuth(authentication) {
         this.authFunction = authentication;

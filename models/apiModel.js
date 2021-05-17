@@ -18,7 +18,7 @@ exports.baseApi = {
         route: `/api/logout`,
         method: `POST`,
     },
-    newAccout: {
+    newAccount: {
         location: `/register.html`,
         route: `/api/accounts`,
         method: `POST`,

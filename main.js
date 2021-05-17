@@ -21,6 +21,5 @@ app.useAuth((req) => {
     req.accountId = decoded.results.id;
     req.accountType = decoded.results.type;
     return req;
-
 })
 app.listen()

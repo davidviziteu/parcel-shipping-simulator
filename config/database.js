@@ -36,7 +36,7 @@ module.exports = {
             }
         );
     },
-    checkToken: (id, callback) => {
+    checkToken: (id, callBack) => {
         pool.query(
             `SELECT *FROM tokens where id = ?`, [id],
             (error, results, fields) => {
@@ -47,7 +47,7 @@ module.exports = {
             }
         );
     },
-    getUserType: (id, callback) => {
+    getUserType: (id, callBack) => {
         pool.query(
             `SELECT type FROM users where id = ?`, [id],
             (error, results, fields) => {
@@ -59,7 +59,6 @@ module.exports = {
         );
     },
     getUserByEmail: (email, callBack) => {
-        // console.log("aici+ " + email);
         pool.query(
             `select * from users where email = ?`, [email],
             (error, results, fields) => {
@@ -83,13 +82,16 @@ module.exports = {
     },
     createAccount: (data, callBack) => {
         pool.query(
-            `INSERT INTO USERS (name,surname,email,password,phone,type) VALUES (?,?,?,?,?,?)`, [
+            `INSERT INTO USERS (name,surname,email,password,phone,type,county,city,address) VALUES (?,?,?,?,?,?,?,?,?)`, [
             data.name,
             data.surname,
             data.email,
             data.password,
             data.phone,
-            data.type
+            data.type,
+            data.county,
+            data.city,
+            data.address
         ],
             (error, results, fields) => {
                 if (error) {
@@ -200,8 +202,7 @@ module.exports = {
             }
         )
     },
-
-    getDetailsSender: (awb, callBack) => {
+    getDetail: (awb, callBack) => {
         pool.query(
             `SELECT * FROM orders where awb = ?`,
             [
@@ -286,7 +287,7 @@ module.exports = {
                 if (error) {
                     callBack(error);
                 }
-                return callBack(null, results);
+                return callBack(null, results[0]);
             }
         )
     },
