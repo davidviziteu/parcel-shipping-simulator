@@ -1,5 +1,6 @@
 const qs = require(`querystring`)
 
+
 class Router {
     postRoutes
     getRoutes
