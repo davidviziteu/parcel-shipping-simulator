@@ -38,9 +38,9 @@ module.exports = {
         })
         return res;
     },
-    detailsSender: (req, res) => {
+    detailsOrder: (req, res) => {
         req.awb = 5;
-        req.db.getDetailsSender(req.awb, (error, results) => {
+        req.db.getDetailsOrder(req.awb, (error, results) => {
             if (error) {
                 console.log(error)
                 res.status(500).json({

@@ -62,6 +62,14 @@ hamburgerMenu.addEventListener(`click`, () => {
     }
 })
 
+function toggleStatus(status) {
+    if (status == 'loading')
+        document.getElementById("login-info").innerHTML = "Așteaptă!"
+    else if (status == 'ok')
+        document.getElementById("login-info").innerHTML = "Bună!"
+    else if (status == 'network error')
+        document.getElementById("login-info").innerHTML = "Eroare de conexiune!"
+}
 
 function disableScroll() {
     scrollTop = window.pageYOffset || document.documentElement.scrollTop;
