@@ -141,9 +141,9 @@ const updateNotificationsBox = async () => {
 
 const fetchEstimatedCost = async (from, to) => {
     try {
-        let resp = await fetch(`${hostName}${api.estimateCost.route}`, {
+        let resp = await fetch(`${hostName}${api.estimateCost.route}?from=${from}&to=${to}`, {
             method: api.estimateCost.method,
-            body: JSON.stringify({ from: from, to: to }),
+            // body: JSON.stringify({ from: from, to: to }),
             headers: { "Content-type": "application/json; charset=UTF-8" }
         }).then(data => data.json())
         return resp;
@@ -175,7 +175,7 @@ const fetchEstimatedCost = async (from, to) => {
         else {
             let response = await fetchEstimatedCost(from, to)
             if (response)
-                totalCostText.innerHTML = `raw response: ${response}. add functionalities. templates.js function loadEstimateCostBox()`
+                totalCostText.innerHTML = `raw response: ${JSON.stringify(response)}. add functionalities. templates.js function loadEstimateCostBox()`
             return
             if (to == from)
                 totalCostText.innerHTML = `Expediere în același județ (${from}): aproximativ ${response} RON`
