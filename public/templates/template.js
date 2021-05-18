@@ -5,6 +5,16 @@ let api
 const hostName = location.hostname == `localhost` ? `http://localhost:4000` : `https://parcel-shipping-simulator.herokuapp.com`
 const fetchDone = new Event(`api-fetched`);
 
+function toggleStatus(status) {
+    if (status == 'loading')
+        document.getElementById("login-info").innerHTML = "⌛"
+    else if (status == 'ok')
+        document.getElementById("login-info").innerHTML = "✅"
+    else if (status == 'network error')
+        document.getElementById("login-info").innerHTML = "📶❌"
+}
+
+toggleStatus(`loading`)
 
 fetch(`${hostName}/api`, {
     method: "GET",
@@ -16,10 +26,12 @@ fetch(`${hostName}/api`, {
         if (api.success == `false`)
             throw new Error(api.error)
         window.dispatchEvent(fetchDone)
+        toggleStatus(`ok`)
         console.log(`api: `)
         console.log(api)
     })
     .catch(error => {
+        toggleStatus(`error`)
         console.log(error)
         console.log(`^ cannot fetch GET ${hostName}/api`)
     })
@@ -61,15 +73,6 @@ hamburgerMenu.addEventListener(`click`, () => {
         x.style.overflowY = "scroll"
     }
 })
-
-function toggleStatus(status) {
-    if (status == 'loading')
-        document.getElementById("login-info").innerHTML = "Așteaptă!"
-    else if (status == 'ok')
-        document.getElementById("login-info").innerHTML = "Bună!"
-    else if (status == 'network error')
-        document.getElementById("login-info").innerHTML = "Eroare de conexiune!"
-}
 
 function disableScroll() {
     scrollTop = window.pageYOffset || document.documentElement.scrollTop;
@@ -204,4 +207,25 @@ async function trackAwb(awb) {
 function loadTrackAwbButton() {
     let awb = document.getElementById(`awb-input`).value
     document.getElementById(`track-awb-button`).addEventListener(`click`, trackAwb(awb))
+}
+
+(function addOrderDashboardFunctionalities() {
+    let expandableItems = document.getElementsByClassName(`expandable`)
+    for (let i = 0; i < expandableItems.length; ++i) {
+        let bttn = expandableItems[i]
+        bttn.addEventListener(`click`, function () {
+            let associatedList = this.nextElementSibling
+            if (associatedList && associatedList.tagName == `UL`) {
+                associatedList.toggleAttribute(`hidden`)
+                associatedList.scrollIntoView({ behavior: "smooth", block: "nearest" });
+                if (i + 1 == expandableItems.length)
+                    associatedList.scrollIntoView({ behavior: "smooth" });
+            }
+        })
+    }
+})()
+
+
+function addDeleteAccountButtonFunctionalities() {
+
 }

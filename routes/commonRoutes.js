@@ -1,7 +1,9 @@
 const { Router } = require(`../utils/router.js`)
 const controllers = require("../controller");
+const { apiModel } = require(`../models`)
 
 let commonRouter = new Router();
+commonRouter.get(apiModel.baseApi.checkIfAwbExists, controllers.commonController.checkIfAwbExists)
 commonRouter.get(`/api/get-awb`, controllers.commonController.getAWB);
 commonRouter.post(`/api/login`, controllers.commonController.handleLogin);
 commonRouter.get(`/api/notifications`, controllers.commonController.getNotifications);
