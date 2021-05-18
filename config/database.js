@@ -348,4 +348,17 @@ module.exports = {
             }
         );
     },
+    updateBestPrice: (price, callBack) => {
+        pool.query(
+            `UPDATE price SET price = ?`, [
+                price
+            ],
+            (error, results, fields) => {
+                if (error) {
+                    callBack(error);
+                }
+                return callBack(null, results);
+            }
+        );
+    }
 }

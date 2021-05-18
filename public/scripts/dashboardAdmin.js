@@ -5,6 +5,7 @@ const removeNotificationForm = document.getElementById(`remove-notification`);
 const addCarForm = document.getElementById(`add-car-form`)
 const getEmployee = document.getElementById(`get-employee`)
 const deleteAccount = document.getElementById(`delete-account-form`)
+const changePriceForm = document.getElementById(`change-price-form`)
 
 window.addEventListener(`api-fetched`, (ev) => {
 
@@ -119,36 +120,69 @@ window.addEventListener(`api-fetched`, (ev) => {
             .catch(err => { console.log(err) });
     }
     addCarForm.onsubmit = async(e) => {
-        e.preventDefault();
-        document.getElementById(`nr-inmatriculare`).style.backgroundColor = "white";
-        document.getElementById(`car-search-status`).innerHTML = "";
+            e.preventDefault();
+            document.getElementById(`nr-inmatriculare`).style.backgroundColor = "white";
+            document.getElementById(`car-search-status`).innerHTML = "";
 
-        var values = {
-            registration_number: document.getElementById(`nr-inmatriculare`).value,
-            status: document.getElementById("car-status").value
+            var values = {
+                registration_number: document.getElementById(`nr-inmatriculare`).value,
+                status: document.getElementById("car-status").value
 
+            }
+            fetch(`${hostName}${api.modifyCar.route}`, {
+                    method: api.modifyCar.method,
+                    body: JSON.stringify(values),
+                    headers: { "Content-type": "application/json; charset=UTF-8" }
+                })
+                .then(response => response.json())
+                .then(json => {
+                    if (json.error) {
+                        if (json.error.includes(`fails to match the required pattern`)) {
+                            document.getElementById(`car-search-status`).innerHTML = "Numărul de înmatriculare nu respectă formatul";
+                            document.getElementById(`nr-inmatriculare`).style.backgroundColor = "rgb(211, 110, 110)";
+                        }
+                    } else
+                        document.getElementById(`car-search-status`).innerHTML = json.data;
+
+
+                })
+                .catch(err => {
+                    console.log(err)
+                });
+        },
+
+        changePriceForm.onsubmit = async(e) => {
+            e.preventDefault();
+            document.getElementById(`price-update-status`).innerHTML = "";
+            document.getElementById(`price-update-field`).style.backgroundColor = "white";
+
+            var values = {
+                price: document.getElementById(`price-update-field`).value,
+            }
+            fetch(`${hostName}${api.changePrice.route}`, {
+                    method: api.changePrice.method,
+                    body: JSON.stringify(values),
+                    headers: { "Content-type": "application/json; charset=UTF-8" }
+                })
+                .then(response => response.json())
+                .then(json => {
+                    if (json.error) {
+                        console.log(json.error)
+                        if (json.error.includes(`price`)) {
+                            document.getElementById(`price-update-status`).innerHTML = "Noul preț trebuie să fie un număr valid.";
+                            document.getElementById(`price-update-field`).style.backgroundColor = "rgb(211, 110, 110)";
+
+                        } else
+                            document.getElementById(`price-update-status`).innerHTML = "Nu am putut actualiza noul preț.";
+
+                    } else
+                        document.getElementById(`price-update-status`).innerHTML = json.data;
+
+
+                })
+                .catch(err => {
+                    console.log(err)
+                });
         }
-        fetch(`${hostName}${api.modifyCar.route}`, {
-                method: api.modifyCar.method,
-                body: JSON.stringify(values),
-                headers: { "Content-type": "application/json; charset=UTF-8" }
-            })
-            .then(response => response.json())
-            .then(json => {
-                if (json.error) {
-                    if (json.error.includes(`fails to match the required pattern`)) {
-                        document.getElementById(`car-search-status`).innerHTML = "Numărul de înmatriculare nu respectă formatul";
-                        document.getElementById(`nr-inmatriculare`).style.backgroundColor = "rgb(211, 110, 110)";
-                    }
-                } else
-                    document.getElementById(`car-search-status`).innerHTML = json.data;
-
-
-            })
-            .catch(err => {
-                console.log(err)
-            });
-    }
-
 
 })

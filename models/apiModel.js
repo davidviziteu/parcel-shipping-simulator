@@ -98,10 +98,6 @@ exports.adminApi = {
         route: `/api/notifications`,
         method: `DELETE`,
     },
-    deleteNotification: {
-        route: `/api/notifications`,
-        method: `DELETE`,
-    },
     getInfoUser: {
         route: `/api/accounts`,
         method: `GET`,
@@ -109,6 +105,9 @@ exports.adminApi = {
     deleteAccount: {
         route: `/api/accounts`,
         method: `DELETE`
+    },
+    changePrice: {
+        route: `/api/price`,
+        method: `POST`
     }
 }
-

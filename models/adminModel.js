@@ -13,3 +13,6 @@ exports.newEmployeeSchema = Joi.object().options({ abortEarly: false }).keys({
 exports.validationEmail = Joi.object().options({ abortEarly: false }).keys({
     email: Joi.string().email().required()
 });
+exports.bestPrice = Joi.object().options({ abortEarly: false }).keys({
+    price: Joi.number().required()
+});
