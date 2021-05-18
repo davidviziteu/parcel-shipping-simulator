@@ -1,6 +1,9 @@
 const newAccount = document.getElementById(`form-create-account`)
 const addNotificationtButton = document.getElementById(`add-notification-button`)
 const addNotificationForm = document.getElementById(`add-notification-form`);
+const getEmployee = document.getElementById(`get-employee`)
+const deleteAccount = document.getElementById(`delete-account-form`)
+
 window.addEventListener(`api-fetched`, (ev) => {
 
     newAccount.onsubmit = async (e) => {
@@ -55,5 +58,50 @@ window.addEventListener(`api-fetched`, (ev) => {
             .catch(err => { console.log(err) });
     })
 
+    getEmployee.onsubmit = async (e) => {
+        e.preventDefault()
+        values = {
+            email: document.getElementById("employee-search").value
+        }
+        fetch(`${hostName}${api.getInfoUser.route}?email=${values.email}`, {
+            method: api.getInfoUser.method,
+            headers: { "Content-type": "application/json; charset=UTF-8" }
+        })
+            .then(response => response.json())
+            .then(json => {
+                console.log(json)
+                if (json.success == false)
+                    document.getElementById("status-employee-search").innerHTML = "Nu există niciun cont cu acest email!"
+                else {
+                    document.getElementById("status-employee-search").innerHTML = "Nume: " + json.surname + " Prenume: " + json.name + " Telefon: " + json.phone
+                }
+            })
+            .catch(err => { console.log(err) });
+    }
+
+    deleteAccount.onsubmit = async (e) => {
+        e.preventDefault()
+        values = {
+            email: document.getElementById("remove-employee-account-email").value
+        }
+        fetch(`${hostName}${api.deleteAccount.route}`, {
+            method: api.deleteAccount.method,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            withCredentials: true,
+            body: JSON.stringify(values),
+        })
+            .then(response => response.json())
+            .then(json => {
+                if (json.error == "not exist") {
+                    document.getElementById("status-account").innerHTML = "Nu există un cont cu acest email!"
+                }
+                else {
+                    document.getElementById("status-account").innerHTML = "Contul a fost șters!"
+                }
+            })
+            .catch(err => { console.log(err) });
+    }
 
 })

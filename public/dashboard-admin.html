@@ -189,12 +189,12 @@
                     </div>
                 </form>
 
-                <form action="backend" name="remove-emplyee-account" class="full-width-form">
+                <form name="remove-emplyee-account" class="full-width-form" id="delete-account-form">
 
-                    <input required class="input-box" type="text" id="remove-emplyee-account-email"
-                        name="remove-emplyee-account-email" placeholder="Id sau mail">
+                    <input required class="input-box" type="text" id="remove-employee-account-email"
+                        name="remove-emplyee-account-email" placeholder="Email">
                     <div class="button-container">
-                        <button type="submit">
+                        <button>
                             Șterge cont
                         </button>
                     </div>
@@ -235,8 +235,8 @@
         </section>
         <section>
             <div class="box">
-                <form action="backend" name="search-employee" class="full-width-form" id="get-employee">
-                    <input required class="input-box" type="text" placeholder="Nume, email" id="employee-search">
+                <form name="search-employee" class="full-width-form" id="get-employee">
+                    <input required class="input-box" type="email" placeholder="Email" id="employee-search">
                     <div class="button-container">
                         <button>
                             Caută angajat
@@ -279,7 +279,7 @@
                     <img alt="image" src="./assets/arrow.png">
                     <h1 id="base-price">Preț de bază - 20 RON</h1>
                 </div>
-                <form action="backend" name="change-price" class="full-width-form">
+                <form name="change-price" class="full-width-form">
                     <input required class="input-box" type="text" placeholder="Preț nou">
                     <div class="button-container">
                         <button type="submit">
