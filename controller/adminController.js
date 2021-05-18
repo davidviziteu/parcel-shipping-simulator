@@ -8,6 +8,12 @@ const newAccountSchema = models.newEmployeeSchema
 module.exports = {
 
     addNotification: (req, res) => {
+        if (req.accountType != `admin`)
+            return res.status(StatusCodes.UNAUTHORIZED).json({
+                success: false,
+                error: "doar adminul poate executa aceasta comanda!"
+
+            })
         if (!req.body)
             return res.status(StatusCodes.BAD_REQUEST).json({
                 success: false,
@@ -34,13 +40,13 @@ module.exports = {
 
     },
     deleteNotification: (req, res) => {
-        if (!req.body)
-            return res.status(StatusCodes.BAD_REQUEST).json({
-                success: false,
-                error: `missing body`
-            })
-        console.log(req.accountType)
+
         if (req.accountType == `admin`) {
+            if (!req.body)
+                return res.status(StatusCodes.BAD_REQUEST).json({
+                    success: false,
+                    error: `missing body`
+                })
             console.log(req.body)
             const { error, value } = models.notifcationModel.deleteNotificationSchema.validate(req.body)
             if (error)
@@ -60,7 +66,7 @@ module.exports = {
                 })
             })
         } else {
-            res.status(StatusCodes.BAD_REQUEST).json({
+            res.status(StatusCodes.UNAUTHORIZED).json({
                 success: 0,
                 error: "doar adminul poate executa aceasta comanda!"
             })
