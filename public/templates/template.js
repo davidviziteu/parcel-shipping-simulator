@@ -192,7 +192,10 @@ function loadRegisterButton() {
     document.getElementById(`register-button`).addEventListener(`click`, () => location.href = api.newAccount.location)
 }
 
+
 async function trackAwb(awb) {
+
+
     try {
         let response = await fetch(`${hostName}${api.trackAwb.route}?awb=${awb}`,
             {
@@ -226,6 +229,4 @@ function loadTrackAwbButton() {
 })()
 
 
-function addDeleteAccountButtonFunctionalities() {
 
-}
