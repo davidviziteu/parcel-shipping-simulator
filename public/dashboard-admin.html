@@ -250,10 +250,10 @@
                     <img alt="image" src="./assets/arrow.png">
                     <h1>Mașini</h1>
                 </div>
-                <form action="backend" name="add-car" class="full-width-form">
-                    <input required class="input-box" type="text" placeholder="nr-înmatriculare">
-                    <select class="input-box" name="add-emplyee-account-city">
-                        <option selected value="car-status">
+                <form id="add-car-form" name="add-car" class="full-width-form">
+                    <input required class="input-box" type="text" placeholder="nr-înmatriculare" id="nr-inmatriculare">
+                    <select class="input-box" name="add-emplyee-account-city" id="car-status">
+                        <option selected >
                             Vezi status
                         </option>
                         <option value="car-repaired">Reparată</option>
@@ -262,9 +262,7 @@
                         <option value="car-deleted">Șterge</option>
                     </select>
                     <div class="button-container">
-                        <button type="submit">
-                            Trimite
-                        </button>
+                        <input type="submit" value="Trimite">
                     </div>
                 </form>
                 <p id="car-search">

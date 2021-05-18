@@ -5,7 +5,51 @@ const { hashSync, genSaltSync, compareSync } = require("bcrypt")
 
 
 module.exports = {
+    modifyCar: (req, res) => {
+        if (req.accountType != `admin`)
+            return res.status(StatusCodes.UNAUTHORIZED).json({
+                success: false,
+                error: "doar adminul poate executa aceasta comanda!"
 
+            })
+        if (!req.body)
+            return res.status(StatusCodes.BAD_REQUEST).json({
+                success: false,
+                error: `missing body`
+            })
+        const { error, value } = models.carModel.modifyCarSchema.validate(req.body)
+        if (error)
+            return res.status(StatusCodes.BAD_REQUEST).json({
+                success: false,
+                error: error.message
+            })
+        if (req.body.status == `Adaugă`) {
+            req.db.addCar(req.body, (err, results) => {
+                if (err) {
+                    res.status(StatusCodes.BAD_REQUEST).json({
+                        success: false,
+                        err: err.message
+                    })
+                } else res.status(StatusCodes.OK).json({
+                    success: true,
+                    data: "masina a fost adaugata cu succes!"
+                })
+            })
+        } else {
+            req.db.modifyCar(req.body, (err, results) => {
+                if (err) {
+                    res.status(StatusCodes.BAD_REQUEST).json({
+                        success: false,
+                        err: err.message
+                    })
+                } else res.status(StatusCodes.OK).json({
+                    success: true,
+                    data: "masina a fost modificata cu succes!"
+                })
+            })
+        }
+        return res
+    },
     addNotification: (req, res) => {
         if (req.accountType != `admin`)
             return res.status(StatusCodes.UNAUTHORIZED).json({
@@ -19,7 +63,7 @@ module.exports = {
                 error: `missing body`
             })
 
-        const { error, value } = models.notifcationModel.newNotificationSchema.validate(req.body)
+        const { error, value } = models.notificationModel.newNotificationSchema.validate(req.body)
         if (error)
             return res.status(StatusCodes.BAD_REQUEST).json({
                 success: false,
@@ -47,7 +91,7 @@ module.exports = {
                     error: `missing body`
                 })
             console.log(req.body)
-            const { error, value } = models.notifcationModel.deleteNotificationSchema.validate(req.body)
+            const { error, value } = models.notificationModel.deleteNotificationSchema.validate(req.body)
             if (error)
                 return res.status(StatusCodes.BAD_REQUEST).json({
                     success: false,

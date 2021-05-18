@@ -3,8 +3,6 @@ const { StatusCodes } = require(`http-status-codes`)
 const models = require("../models")
 const Joi = require('joi')
 const nodemailer = require('nodemailer');
-const { isRef } = require("joi");
-const { id } = require("../models/validationNewOrder");
 
 const newUserSchema = models.userModel.newUserSchema
 const newOrderSchema = models.newOrderModel
@@ -45,18 +43,18 @@ module.exports = {
                 })
             } else {
                 res.status(200).json({
-                    success: true
-                })
-                /* mailOptions.to = body.email
-                mailOptions.subject = 'Confirmare creare cont'
-                mailOptions.text = 'Ți-ai creat cont cu succes!'
-                transporter.sendMail(mailOptions, function (error, info) {
-                    if (error) {
-                        console.log(error.message);
-                    } else {
-                        console.log('Email sent: ' + info.response);
-                    }
-                }); */
+                        success: true
+                    })
+                    /* mailOptions.to = body.email
+                    mailOptions.subject = 'Confirmare creare cont'
+                    mailOptions.text = 'Ți-ai creat cont cu succes!'
+                    transporter.sendMail(mailOptions, function (error, info) {
+                        if (error) {
+                            console.log(error.message);
+                        } else {
+                            console.log('Email sent: ' + info.response);
+                        }
+                    }); */
             }
         })
         return res
@@ -108,8 +106,7 @@ module.exports = {
                     success: false,
                     error: error.message
                 })
-            }
-            else if (results != undefined) {
+            } else if (results != undefined) {
                 var id = results.id
                 data = {
                     id: id,
@@ -121,20 +118,19 @@ module.exports = {
                             success: false,
                             error: error.message
                         })
-                    }
-                    else {
+                    } else {
                         console.log(results)
                         console.log(id)
                         mailOptions.to = body.email
                         mailOptions.subject = 'Schimbarea datelor'
                         mailOptions.text = 'Codul pentru resetare este:\n' + results.insertId
-                        /* transporter.sendMail(mailOptions, function (error, info) {
-                            if (error) {
-                                console.log(error.message);
-                            } else {
-                                console.log('Email sent: ' + info.response);
-                            }
-                        }); */
+                            /* transporter.sendMail(mailOptions, function (error, info) {
+                                if (error) {
+                                    console.log(error.message);
+                                } else {
+                                    console.log('Email sent: ' + info.response);
+                                }
+                            }); */
                         const data = {
                             id: id,
                             code: results.insertId,
@@ -146,8 +142,7 @@ module.exports = {
                                     success: false,
                                     error: error.message
                                 })
-                            }
-                            else {
+                            } else {
                                 res.status(200).json({
                                     success: true
                                 })
@@ -155,8 +150,7 @@ module.exports = {
                         })
                     }
                 })
-            }
-            else {
+            } else {
                 res.status(200).json({
                     success: false,
                     error: "not exist"
@@ -174,8 +168,7 @@ module.exports = {
                     success: false,
                     error: error.message
                 })
-            }
-            else if (results != undefined) {
+            } else if (results != undefined) {
                 body.id = results.id
                 var id = results.id
                 if (body.type == "password") {
@@ -187,8 +180,7 @@ module.exports = {
                                 success: false,
                                 error: error.message
                             })
-                        }
-                        else {
+                        } else {
                             const data = {
                                 id: id,
                                 code: 0,
@@ -200,8 +192,7 @@ module.exports = {
                                         success: false,
                                         error: error.message
                                     })
-                                }
-                                else {
+                                } else {
                                     res.status(200).json({
                                         success: true
                                     })
@@ -209,8 +200,7 @@ module.exports = {
                             })
                         }
                     })
-                }
-                else if (body.type == "email") {
+                } else if (body.type == "email") {
                     req.db.changeEmail(body, (error, results) => {
                         if (error) {
                             console.log(error.message)
@@ -218,8 +208,7 @@ module.exports = {
                                 success: false,
                                 error: error.message
                             })
-                        }
-                        else {
+                        } else {
                             const data = {
                                 id: id,
                                 code: 0,
@@ -231,8 +220,7 @@ module.exports = {
                                         success: false,
                                         error: error.message
                                     })
-                                }
-                                else {
+                                } else {
                                     res.status(200).json({
                                         success: true
                                     })
@@ -241,8 +229,7 @@ module.exports = {
                         }
                     })
                 }
-            }
-            else {
+            } else {
                 res.status(200).json({
                     success: false,
                     error: "not exist"
