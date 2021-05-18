@@ -194,14 +194,13 @@ function loadRegisterButton() {
 
 
 async function trackAwb(awb) {
-
-
+    document.getElementById("email").style.backgroundColor = "#fbfef7"
     try {
-        let response = await fetch(`${hostName}${api.trackAwb.route}?awb=${awb}`,
-            {
-                method: api.trackAwb.method
-            }
-        )
+        let response = await fetch(`${hostName}${api.trackAwb.route}?awb=${awb}`, { method: api.trackAwb.method })
+        if (!response.ok)
+            return document.getElementById("awb-input").style.backgroundColor = "rgb(211, 110, 110)"
+        localStorage.setItem(`awb-to-fetch`, awb)
+        
     } catch (error) {
 
     }

@@ -10,7 +10,6 @@ module.exports = {
             return res.status(StatusCodes.UNAUTHORIZED).json({
                 success: false,
                 error: "doar adminul poate executa aceasta comanda!"
-
             })
         if (!req.body)
             return res.status(StatusCodes.BAD_REQUEST).json({
