@@ -120,6 +120,9 @@ window.addEventListener(`api-fetched`, (ev) => {
     }
     addCarForm.onsubmit = async(e) => {
         e.preventDefault();
+        document.getElementById(`nr-inmatriculare`).style.backgroundColor = "white";
+        document.getElementById(`car-search-status`).innerHTML = "";
+
         var values = {
             registration_number: document.getElementById(`nr-inmatriculare`).value,
             status: document.getElementById("car-status").value
@@ -132,7 +135,14 @@ window.addEventListener(`api-fetched`, (ev) => {
             })
             .then(response => response.json())
             .then(json => {
-                console.log(json)
+                if (json.error) {
+                    if (json.error.includes(`fails to match the required pattern`)) {
+                        document.getElementById(`car-search-status`).innerHTML = "Numărul de înmatriculare nu respectă formatul";
+                        document.getElementById(`nr-inmatriculare`).style.backgroundColor = "rgb(211, 110, 110)";
+                    }
+                } else
+                    document.getElementById(`car-search-status`).innerHTML = json.data;
+
 
             })
             .catch(err => {
