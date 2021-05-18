@@ -8,7 +8,7 @@ const deleteAccount = document.getElementById(`delete-account-form`)
 
 window.addEventListener(`api-fetched`, (ev) => {
 
-    newAccount.onsubmit = async (e) => {
+    newAccount.onsubmit = async(e) => {
         e.preventDefault();
         var values = {
             surname: document.getElementById("surname-form-create-account").value,
@@ -20,13 +20,13 @@ window.addEventListener(`api-fetched`, (ev) => {
             type: document.getElementById("typeAccount-form-create-account").value
         }
         fetch(`${hostName}${api.newAccount.route}`, {
-            method: api.newAccount.method,
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            withCredentials: true,
-            body: JSON.stringify(values),
-        })
+                method: api.newAccount.method,
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                withCredentials: true,
+                body: JSON.stringify(values),
+            })
             .then(response => response.json())
             .then(json => {
                 if (json.error != undefined) {
@@ -41,16 +41,16 @@ window.addEventListener(`api-fetched`, (ev) => {
             .catch(err => { console.log(err) });
     }
 
-    addNotificationtButton.addEventListener(`click`, async () => {
+    addNotificationtButton.addEventListener(`click`, async() => {
         var values = {
             text: document.getElementById(`new-notification-text`).value,
             expiry_date: getElementById(`new-notification-date`).value
         }
         fetch(`${hostName}${api.addNotification.route}`, {
-            method: api.addNotification.method,
-            body: JSON.stringify(values),
-            headers: { "Content-type": "application/json; charset=UTF-8" }
-        })
+                method: api.addNotification.method,
+                body: JSON.stringify(values),
+                headers: { "Content-type": "application/json; charset=UTF-8" }
+            })
             .then(response => response.json())
             .then(json => {
 
@@ -58,23 +58,23 @@ window.addEventListener(`api-fetched`, (ev) => {
             .catch(err => { console.log(err) });
     })
 
-    removeNotificationForm.onsubmit = async (e) => {
+    removeNotificationForm.onsubmit = async(e) => {
         e.preventDefault();
         var values = {
             id: document.getElementById(`delete-notification-id`).value
         }
         fetch(`${hostName}${api.deleteNotification.route}`, {
-            method: api.deleteNotification.method,
-            body: JSON.stringify(values),
-            headers: { "Content-type": "application/json; charset=UTF-8" }
-        })
+                method: api.deleteNotification.method,
+                body: JSON.stringify(values),
+                headers: { "Content-type": "application/json; charset=UTF-8" }
+            })
             .then(response => { response.json() })
             .then(json => {
                 console.log(json)
             })
     }
 
-    getEmployee.onsubmit = async (e) => {
+    getEmployee.onsubmit = async(e) => {
         e.preventDefault()
         values = {
             email: document.getElementById("employee-search").value
@@ -84,7 +84,7 @@ window.addEventListener(`api-fetched`, (ev) => {
             headers: { "Content-type": "application/json; charset=UTF-8" }
         })
 
-            .then(response => response.json())
+        .then(response => response.json())
             .then(json => {
                 console.log(json)
                 if (json.success == false)
@@ -95,19 +95,19 @@ window.addEventListener(`api-fetched`, (ev) => {
             })
             .catch(err => { console.log(err) });
     }
-    deleteAccount.onsubmit = async (e) => {
+    deleteAccount.onsubmit = async(e) => {
         e.preventDefault()
         values = {
             email: document.getElementById("remove-employee-account-email").value
         }
         fetch(`${hostName}${api.deleteAccount.route}`, {
-            method: api.deleteAccount.method,
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            withCredentials: true,
-            body: JSON.stringify(values),
-        })
+                method: api.deleteAccount.method,
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                withCredentials: true,
+                body: JSON.stringify(values),
+            })
             .then(response => response.json())
             .then(json => {
                 if (json.error == "not exist") {
@@ -118,21 +118,31 @@ window.addEventListener(`api-fetched`, (ev) => {
             })
             .catch(err => { console.log(err) });
     }
-    addCarForm.onsubmit = async (e) => {
+    addCarForm.onsubmit = async(e) => {
         e.preventDefault();
+        document.getElementById(`nr-inmatriculare`).style.backgroundColor = "white";
+        document.getElementById(`car-search-status`).innerHTML = "";
+
         var values = {
             registration_number: document.getElementById(`nr-inmatriculare`).value,
             status: document.getElementById("car-status").value
 
         }
         fetch(`${hostName}${api.modifyCar.route}`, {
-            method: api.modifyCar.method,
-            body: JSON.stringify(values),
-            headers: { "Content-type": "application/json; charset=UTF-8" }
-        })
+                method: api.modifyCar.method,
+                body: JSON.stringify(values),
+                headers: { "Content-type": "application/json; charset=UTF-8" }
+            })
             .then(response => response.json())
             .then(json => {
-                console.log(json)
+                if (json.error) {
+                    if (json.error.includes(`fails to match the required pattern`)) {
+                        document.getElementById(`car-search-status`).innerHTML = "Numărul de înmatriculare nu respectă formatul";
+                        document.getElementById(`nr-inmatriculare`).style.backgroundColor = "rgb(211, 110, 110)";
+                    }
+                } else
+                    document.getElementById(`car-search-status`).innerHTML = json.data;
+
 
             })
             .catch(err => {
