@@ -36,19 +36,33 @@ module.exports = {
                 })
             })
         } else {
-            req.db.modifyCar(req.body, (err, results) => {
+            req.db.searchCar(req.body.registration_number, (err, results) => {
                 if (err) {
                     res.status(StatusCodes.BAD_REQUEST).json({
                         success: false,
                         err: err.message
                     })
-                } else res.status(StatusCodes.OK).json({
-                    success: true,
-                    data: "masina a fost modificata cu succes!"
-                })
+                } else if (results) {
+                    req.db.modifyCar(req.body, (err, results) => {
+                        if (err) {
+                            res.status(StatusCodes.BAD_REQUEST).json({
+                                success: false,
+                                err: err.message
+                            })
+                        } else res.status(StatusCodes.OK).json({
+                            success: true,
+                            data: "masina a fost modificata cu succes!"
+                        })
+                    })
+                } else {
+                    res.status(StatusCodes.BAD_REQUEST).json({
+                        success: false,
+                        data: "masina nu exista"
+                    })
+                }
             })
+
         }
-        return res
     },
     addNotification: (req, res) => {
         if (req.accountType != `admin`)
@@ -80,7 +94,7 @@ module.exports = {
                 data: "notificarea a fost adaugata cu succes!"
             })
         })
-
+        return res;
     },
     deleteNotification: (req, res) => {
 
@@ -134,18 +148,18 @@ module.exports = {
                 })
             } else {
                 res.status(200).json({
-                    success: true
-                })
-                /* mailOptions.to = body.email
-                mailOptions.subject = 'Confirmare creare cont'
-                mailOptions.text = 'Ți-ai creat cont cu succes!'
-                transporter.sendMail(mailOptions, function (error, info) {
-                    if (error) {
-                        console.log(error.message);
-                    } else {
-                        console.log('Email sent: ' + info.response);
-                    }
-                }); */
+                        success: true
+                    })
+                    /* mailOptions.to = body.email
+                    mailOptions.subject = 'Confirmare creare cont'
+                    mailOptions.text = 'Ți-ai creat cont cu succes!'
+                    transporter.sendMail(mailOptions, function (error, info) {
+                        if (error) {
+                            console.log(error.message);
+                        } else {
+                            console.log('Email sent: ' + info.response);
+                        }
+                    }); */
             }
         })
         return res
@@ -165,16 +179,14 @@ module.exports = {
                     success: false,
                     error: error.message
                 })
-            }
-            else if (results != undefined) {
+            } else if (results != undefined) {
                 res.status(200).json({
                     success: true,
                     surname: results.surname,
                     name: results.name,
                     phone: results.phone
                 })
-            }
-            else {
+            } else {
                 res.status(200).json({
                     success: false
                 })
@@ -197,23 +209,20 @@ module.exports = {
                     success: false,
                     error: error.message
                 })
-            }
-            else if (results != undefined) {
+            } else if (results != undefined) {
                 req.db.deleteAccount(body.email, (error, results) => {
                     if (error) {
                         res.status(200).json({
                             success: false,
                             error: error.message
                         })
-                    }
-                    else {
+                    } else {
                         res.status(200).json({
                             success: true
                         })
                     }
                 })
-            }
-            else {
+            } else {
                 res.status(200).json({
                     success: false,
                     error: "not exist"

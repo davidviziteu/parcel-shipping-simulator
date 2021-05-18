@@ -136,7 +136,8 @@ window.addEventListener(`api-fetched`, (ev) => {
                 })
                 .then(response => response.json())
                 .then(json => {
-                    console.log(json)
+                    console.log(`data: ${JSON.stringify(json)}`)
+                    document.getElementById(`car-search-status`).innerHTML = `data: ${JSON.stringify(json.data)}`
 
                 })
                 .catch(err => {
