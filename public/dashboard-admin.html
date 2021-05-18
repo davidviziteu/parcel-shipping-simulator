@@ -187,10 +187,9 @@
                 </form>
 
                 <form name="remove-emplyee-account" class="full-width-form" id="delete-account-form">
-
                     <input required class="input-box" type="text" id="remove-employee-account-email" name="remove-emplyee-account-email" placeholder="Email">
                     <div class="button-container">
-                        <button>
+                        <button id="delete-account-button">
                             Șterge cont
                         </button>
                     </div>
@@ -249,13 +248,13 @@
                 <form id="add-car-form" name="add-car" class="full-width-form">
                     <input required class="input-box" type="text" placeholder="nr-înmatriculare" id="nr-inmatriculare">
                     <select class="input-box" name="add-emplyee-account-city" id="car-status">
-                        <option selected >
+                        <option selected>
                             Vezi status
                         </option>
-                        <option value="car-repaired">Reparată</option>
-                        <option value="car-damaged">Avariată</option>
-                        <option value="car-added">Adaugă</option>
-                        <option value="car-deleted">Șterge</option>
+                        <option value="Reparată" id="car-repaired">Reparată</option>
+                        <option value="Avariată" id="car-damaged">Avariată</option>
+                        <option value="Adaugă" id="car-added">Adaugă</option>
+                        <option value="Șterge" id="car-deleted">Șterge</option>
                     </select>
                     <div class="button-container">
                         <input type="submit" value="Trimite">
