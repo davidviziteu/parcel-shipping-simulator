@@ -5,6 +5,7 @@ const { StatusCodes } = require(`http-status-codes`)
 const { hashSync, genSaltSync, compare } = require("bcrypt");
 module.exports = {
     checkIfAwbExists: (req, res) => {
+        console.log(req.parameters)
         if (!req.parameters.awb)
             return res.status(StatusCodes.BAD_REQUEST).json({
                 error: "missing awb from query parameters"

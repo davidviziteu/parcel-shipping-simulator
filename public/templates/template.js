@@ -193,39 +193,32 @@ function loadRegisterButton() {
 }
 
 
-async function trackAwb(awb) {
-    document.getElementById("email").style.backgroundColor = "#fbfef7"
+async function trackAwb() {
+    let awb = document.getElementById(`awb-input`).value
     try {
-        let response = await fetch(`${hostName}${api.trackAwb.route}?awb=${awb}`, { method: api.trackAwb.method })
+        let response = await fetch(`${hostName}${api.checkIfAwbExists.route}?awb=${awb}`, { method: api.checkIfAwbExists.method })
         if (!response.ok)
             return document.getElementById("awb-input").style.backgroundColor = "rgb(211, 110, 110)"
         localStorage.setItem(`awb-to-fetch`, awb)
-        
+        window.location = api.trackAwb.location
     } catch (error) {
-
+        if (error instanceof QuotaExceededError)
+            alert(`error saving awb string to local storage. did you disable localstorage?`)
     }
 }
 
-function loadTrackAwbButton() {
-    let awb = document.getElementById(`awb-input`).value
-    document.getElementById(`track-awb-button`).addEventListener(`click`, trackAwb(awb))
-}
-
-(function addOrderDashboardFunctionalities() {
-    let expandableItems = document.getElementsByClassName(`expandable`)
-    for (let i = 0; i < expandableItems.length; ++i) {
-        let bttn = expandableItems[i]
-        bttn.addEventListener(`click`, function () {
-            let associatedList = this.nextElementSibling
-            if (associatedList && associatedList.tagName == `UL`) {
-                associatedList.toggleAttribute(`hidden`)
-                associatedList.scrollIntoView({ behavior: "smooth", block: "nearest" });
-                if (i + 1 == expandableItems.length)
-                    associatedList.scrollIntoView({ behavior: "smooth" });
-            }
-        })
-    }
+(function loadTrackAwbBox() {
+    let awbField = document.getElementById("awb-input")
+    awbField.addEventListener(`click`, () => awbField.style.backgroundColor = "#fbfef7")
+    awbField.addEventListener(`keypress`, (event) => {
+        if (event.key == `Enter`) {
+            event.preventDefault()
+            trackAwb()
+        }
+    })
+    document.getElementById(`track-awb-button`).addEventListener(`click`, trackAwb)
 })()
+
 
 
 

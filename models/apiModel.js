@@ -31,7 +31,7 @@ exports.baseApi = {
     checkIfAwbExists: {
         location: `/order-dashboard.html`,
         route: `/api/check-awb`,
-        method: `HEAD`,
+        method: `GET`,
     },
     changeCredentials: {
         location: `/ChangeCredentials.html`,

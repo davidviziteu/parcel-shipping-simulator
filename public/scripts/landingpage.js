@@ -21,7 +21,7 @@ window.addEventListener(`api-fetched`, (ev) => {
     console.log(api)
     console.log(`------------------`)
     changeCredentialsButton.addEventListener(`click`, () => location.href = api.changeCredentials.location)
-    registerButton.addEventListener(`click`, () => location.href = api.newAccout.location)
+    registerButton.addEventListener(`click`, () => location.href = api.newAccount.location)
     startOrderButton.addEventListener(`click`, () => location.href = api.newOrder.location)
     loginForm.onsubmit = async (e) => {
         e.preventDefault();
