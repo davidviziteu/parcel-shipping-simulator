@@ -1,9 +1,11 @@
 const newAccount = document.getElementById(`form-create-account`)
 const addNotificationtButton = document.getElementById(`add-notification-button`)
 const addNotificationForm = document.getElementById(`add-notification-form`);
+const removeNotificationForm = document.getElementById(`remove-notification`);
+
 window.addEventListener(`api-fetched`, (ev) => {
 
-    newAccount.onsubmit = async (e) => {
+    newAccount.onsubmit = async(e) => {
         e.preventDefault();
         var values = {
             surname: document.getElementById("surname-form-create-account").value,
@@ -15,45 +17,64 @@ window.addEventListener(`api-fetched`, (ev) => {
             type: document.getElementById("typeAccount-form-create-account").value
         }
         fetch(`${hostName}${api.newAccount.route}`, {
-            method: api.newAccount.method,
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            withCredentials: true,
-            body: JSON.stringify(values),
-        })
+                method: api.newAccount.method,
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                withCredentials: true,
+                body: JSON.stringify(values),
+            })
             .then(response => response.json())
             .then(json => {
                 if (json.error != undefined) {
                     if (json.error.includes("Duplicate")) {
                         document.getElementById("status-account").innerHTML = "Există deja un cont cu acest email!"
-                    }
-                    else if (json.error.includes("phone"))
+                    } else if (json.error.includes("phone"))
                         document.getElementById("status-account").innerHTML = "Introduce-ți un număr de telefon valid!"
-                }
-                else {
+                } else {
                     document.getElementById("status-account").innerHTML = "Cont creat!"
                 }
             })
             .catch(err => { console.log(err) });
     }
 
-    addNotificationtButton.addEventListener(`click`, async () => {
+    addNotificationtButton.addEventListener(`click`, async() => {
         var values = {
             text: document.getElementById(`new-notification-text`).value,
             expiry_date: getElementById(`new-notification-date`).value
         }
         fetch(`${hostName}${api.addNotification.route}`, {
-            method: api.addNotification.method,
-            body: JSON.stringify(values),
-            headers: { "Content-type": "application/json; charset=UTF-8" }
-        })
+                method: api.addNotification.method,
+                body: JSON.stringify(values),
+                headers: { "Content-type": "application/json; charset=UTF-8" }
+            })
             .then(response => response.json())
             .then(json => {
 
             })
             .catch(err => { console.log(err) });
     })
+    removeNotificationForm.onsubmit = async(e) => {
+        e.preventDefault();
+    }
+    removeNotificationForm.onsubmit = async(e) => {
+        e.preventDefault();
+        var values = {
+            id: document.getElementById(`delete-notification-id`).value
+        }
+        fetch(`${hostName}${api.deleteNotification.route}`, {
+                method: api.deleteNotification.method,
+                body: JSON.stringify(values),
+                headers: { "Content-type": "application/json; charset=UTF-8" }
+            })
+            .then(response => response.json())
+            .then(json => {
+                console.log(json)
 
+            })
+            .catch(err => {
+                console.log(err)
+            });
+    }
 
 })
