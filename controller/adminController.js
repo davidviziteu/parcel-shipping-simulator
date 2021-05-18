@@ -169,13 +169,14 @@ module.exports = {
             else if (results != undefined) {
                 res.status(200).json({
                     success: true,
+                    id: results.id,
                     surname: results.surname,
                     name: results.name,
                     phone: results.phone
                 })
             }
             else {
-                res.status(200).json({
+                res.status(StatusCodes.NOT_FOUND).json({
                     success: false
                 })
             }
@@ -186,14 +187,14 @@ module.exports = {
         body = req.body
         const { error, value } = models.adminModel.validationEmail.validate(body)
         if (error) {
-            return res.status(200).json({
+            return res.status(StatusCodes.BAD_REQUEST).json({
                 success: false,
                 error: error.message
             })
         }
         req.db.getUserByEmail(body.email, (error, results) => {
             if (error) {
-                res.status(200).json({
+                res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                     success: false,
                     error: error.message
                 })
@@ -201,7 +202,7 @@ module.exports = {
             else if (results != undefined) {
                 req.db.deleteAccount(body.email, (error, results) => {
                     if (error) {
-                        res.status(200).json({
+                        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                             success: false,
                             error: error.message
                         })
@@ -214,7 +215,7 @@ module.exports = {
                 })
             }
             else {
-                res.status(200).json({
+                res.status(StatusCodes.NOT_FOUND).json({
                     success: false,
                     error: "not exist"
                 })

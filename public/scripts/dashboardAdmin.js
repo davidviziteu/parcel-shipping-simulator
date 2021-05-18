@@ -68,7 +68,7 @@ window.addEventListener(`api-fetched`, (ev) => {
             body: JSON.stringify(values),
             headers: { "Content-type": "application/json; charset=UTF-8" }
         })
-            .then(response => {response.json()})
+            .then(response => { response.json() })
             .then(json => {
                 console.log(json)
             })
@@ -90,7 +90,7 @@ window.addEventListener(`api-fetched`, (ev) => {
                 if (json.success == false)
                     document.getElementById("status-employee-search").innerHTML = "Nu există niciun cont cu acest email!"
                 else {
-                    document.getElementById("status-employee-search").innerHTML = "Nume: " + json.surname + " Prenume: " + json.name + " Telefon: " + json.phone
+                    document.getElementById("status-employee-search").innerHTML = `Nume: ${json.surname} Prenume: ${json.name} Telefon: ${json.phone}`
                 }
             })
             .catch(err => { console.log(err) });
