@@ -2,7 +2,7 @@ const newAccount = document.getElementById(`form-create-account`)
 const addNotificationtButton = document.getElementById(`add-notification-button`)
 const addNotificationForm = document.getElementById(`add-notification-form`);
 const removeNotificationForm = document.getElementById(`remove-notification`);
-
+const addCarForm = document.getElementById(`add-car-form`)
 window.addEventListener(`api-fetched`, (ev) => {
 
     newAccount.onsubmit = async(e) => {
@@ -64,6 +64,27 @@ window.addEventListener(`api-fetched`, (ev) => {
         }
         fetch(`${hostName}${api.deleteNotification.route}`, {
                 method: api.deleteNotification.method,
+                body: JSON.stringify(values),
+                headers: { "Content-type": "application/json; charset=UTF-8" }
+            })
+            .then(response => response.json())
+            .then(json => {
+                console.log(json)
+
+            })
+            .catch(err => {
+                console.log(err)
+            });
+    }
+    addCarForm.onsubmit = async(e) => {
+        e.preventDefault();
+        var values = {
+            registration_number: document.getElementById(`nr-inmatriculare`).value,
+            status: document.getElementById("car-status").value
+
+        }
+        fetch(`${hostName}${api.modifyCar.route}`, {
+                method: api.modifyCar.method,
                 body: JSON.stringify(values),
                 headers: { "Content-type": "application/json; charset=UTF-8" }
             })

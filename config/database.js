@@ -294,5 +294,33 @@ module.exports = {
                 return callBack(null, results[0]);
             }
         )
-    }
+    },
+    addCar: (data, callBack) => {
+        pool.query(
+            `INSERT INTO cars (registration_number,status) VALUES(?,?)`, [
+                data.registration_number,
+                data.status
+            ],
+            (error, results, fields) => {
+                if (error) {
+                    callBack(error);
+                }
+                return callBack(null, results);
+            }
+        );
+    },
+    modifyCar: (data, callBack) => {
+        pool.query(
+            `UPDATE cars SET status = ? where registration_number = ?`, [
+                data.status,
+                data.registration_number
+            ],
+            (error, results, fields) => {
+                if (error) {
+                    callBack(error);
+                }
+                return callBack(null, results);
+            }
+        );
+    },
 }

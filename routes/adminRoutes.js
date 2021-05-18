@@ -7,6 +7,7 @@ const adminRouter = new Router();
 adminRouter.post(api.adminApi.addNotification.route, adminController.addNotification);
 adminRouter.delete(api.adminApi.deleteNotification.route, adminController.deleteNotification);
 adminRouter.post(api.baseApi.newAccount.route, controllers.adminController.createAccount)
+adminRouter.patch(api.adminApi.modifyCar.route, controllers.adminController.modifyCar)
 
 
 
