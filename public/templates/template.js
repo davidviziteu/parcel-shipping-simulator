@@ -184,3 +184,24 @@ const fetchEstimatedCost = async (from, to) => {
     })
 })()
 
+
+function loadRegisterButton() {
+    document.getElementById(`register-button`).addEventListener(`click`, () => location.href = api.newAccount.location)
+}
+
+async function trackAwb(awb) {
+    try {
+        let response = await fetch(`${hostName}${api.trackAwb.route}?awb=${awb}`,
+            {
+                method: api.trackAwb.method
+            }
+        )
+    } catch (error) {
+
+    }
+}
+
+function loadTrackAwbButton() {
+    let awb = document.getElementById(`awb-input`).value
+    document.getElementById(`track-awb-button`).addEventListener(`click`, trackAwb(awb))
+}
