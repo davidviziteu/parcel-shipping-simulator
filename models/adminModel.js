@@ -9,3 +9,7 @@ exports.newEmployeeSchema = Joi.object().options({ abortEarly: false }).keys({
     county: Joi.string().valid('Ilfov', 'Cluj', 'Constanța', 'Dolj', 'Galați', 'Iași', 'Oradea', 'Sibiu', 'Timișoara').required(),
     type: Joi.string().valid('employee', 'admin', 'driver').required()
 });
+
+exports.validationEmail = Joi.object().options({ abortEarly: false }).keys({
+    email: Joi.string().email().required()
+});

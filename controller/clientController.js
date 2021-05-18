@@ -30,14 +30,14 @@ module.exports = {
         body.password = hashSync(body.password, salt)
         const { error, value } = newUserSchema.validate(body);
         if (error) {
-            return res.status(500).json({
+            return res.status(200).json({
                 success: false,
                 error: error.message
             })
         }
         req.db.createAccount(body, (error, results) => {
             if (error) {
-                res.status(500).json({
+                res.status(200).json({
                     success: false,
                     error: error.message
                 })

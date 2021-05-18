@@ -10,5 +10,7 @@ adminRouter.post(api.baseApi.newAccount.route, controllers.adminController.creat
 adminRouter.patch(api.adminApi.modifyCar.route, controllers.adminController.modifyCar)
 
 
+adminRouter.get(api.adminApi.getInfoUser.route, controllers.adminController.getInfoUser)
+adminRouter.delete(api.adminApi.deleteAccount.route, controllers.adminController.deleteAccount)
 
 module.exports = adminRouter

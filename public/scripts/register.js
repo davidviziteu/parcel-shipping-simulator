@@ -116,8 +116,7 @@ function nextPrev(n) {
             })
                 .then(response => response.json())
                 .then(json => {
-                    console.log(json)
-                    if (json.error.includes("Duplicate")) {
+                    if (json.error != undefined && json.error.includes("Duplicate")) {
                         var children = document.getElementsByClassName("button-container")[2].children
                         children[0].remove()
                         var x = document.getElementsByClassName("button-container")

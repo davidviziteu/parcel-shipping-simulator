@@ -3,6 +3,9 @@ const addNotificationtButton = document.getElementById(`add-notification-button`
 const addNotificationForm = document.getElementById(`add-notification-form`);
 const removeNotificationForm = document.getElementById(`remove-notification`);
 const addCarForm = document.getElementById(`add-car-form`)
+const getEmployee = document.getElementById(`get-employee`)
+const deleteAccount = document.getElementById(`delete-account-form`)
+
 window.addEventListener(`api-fetched`, (ev) => {
 
     newAccount.onsubmit = async(e) => {
@@ -54,48 +57,92 @@ window.addEventListener(`api-fetched`, (ev) => {
             })
             .catch(err => { console.log(err) });
     })
+
     removeNotificationForm.onsubmit = async(e) => {
-        e.preventDefault();
-    }
-    removeNotificationForm.onsubmit = async(e) => {
-        e.preventDefault();
-        var values = {
-            id: document.getElementById(`delete-notification-id`).value
-        }
-        fetch(`${hostName}${api.deleteNotification.route}`, {
-                method: api.deleteNotification.method,
-                body: JSON.stringify(values),
+            e.preventDefault();
+        },
+
+        removeNotificationForm.onsubmit = async(e) => {
+            e.preventDefault();
+            var values = {
+                id: document.getElementById(`delete-notification-id`).value
+            }
+            fetch(`${hostName}${api.deleteNotification.route}`, {
+                    method: api.deleteNotification.method,
+                    body: JSON.stringify(values),
+                    headers: { "Content-type": "application/json; charset=UTF-8" }
+                })
+                .then(response => response.json())
+                .then(json => {
+                    console.log(json)
+                })
+        },
+
+        getEmployee.onsubmit = async(e) => {
+            e.preventDefault()
+            values = {
+                email: document.getElementById("employee-search").value
+            }
+            fetch(`${hostName}${api.getInfoUser.route}?email=${values.email}`, {
+                method: api.getInfoUser.method,
                 headers: { "Content-type": "application/json; charset=UTF-8" }
             })
+
             .then(response => response.json())
-            .then(json => {
-                console.log(json)
+                .then(json => {
+                    console.log(json)
+                    if (json.success == false)
+                        document.getElementById("status-employee-search").innerHTML = "Nu există niciun cont cu acest email!"
+                    else {
+                        document.getElementById("status-employee-search").innerHTML = "Nume: " + json.surname + " Prenume: " + json.name + " Telefon: " + json.phone
+                    }
+                })
+                .catch(err => { console.log(err) });
+        },
+        deleteAccount.onsubmit = async(e) => {
+            e.preventDefault()
+            values = {
+                email: document.getElementById("remove-employee-account-email").value
+            }
+            fetch(`${hostName}${api.deleteAccount.route}`, {
+                    method: api.deleteAccount.method,
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    withCredentials: true,
+                    body: JSON.stringify(values),
+                })
+                .then(response => response.json())
+                .then(json => {
+                    if (json.error == "not exist") {
+                        document.getElementById("status-account").innerHTML = "Nu există un cont cu acest email!"
+                    } else {
+                        document.getElementById("status-account").innerHTML = "Contul a fost șters!"
+                    }
+                })
+                .catch(err => { console.log(err) });
+        },
+        addCarForm.onsubmit = async(e) => {
+            e.preventDefault();
+            var values = {
+                registration_number: document.getElementById(`nr-inmatriculare`).value,
+                status: document.getElementById("car-status").value
 
-            })
-            .catch(err => {
-                console.log(err)
-            });
-    }
-    addCarForm.onsubmit = async(e) => {
-        e.preventDefault();
-        var values = {
-            registration_number: document.getElementById(`nr-inmatriculare`).value,
-            status: document.getElementById("car-status").value
+            }
+            fetch(`${hostName}${api.modifyCar.route}`, {
+                    method: api.modifyCar.method,
+                    body: JSON.stringify(values),
+                    headers: { "Content-type": "application/json; charset=UTF-8" }
+                })
+                .then(response => response.json())
+                .then(json => {
+                    console.log(json)
 
+                })
+                .catch(err => {
+                    console.log(err)
+                });
         }
-        fetch(`${hostName}${api.modifyCar.route}`, {
-                method: api.modifyCar.method,
-                body: JSON.stringify(values),
-                headers: { "Content-type": "application/json; charset=UTF-8" }
-            })
-            .then(response => response.json())
-            .then(json => {
-                console.log(json)
 
-            })
-            .catch(err => {
-                console.log(err)
-            });
-    }
 
 })

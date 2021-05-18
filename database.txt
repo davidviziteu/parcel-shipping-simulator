@@ -62,7 +62,7 @@ CREATE TABLE awb_events(
 
 CREATE TABLE cars (
   registration_number VARCHAR(25) PRIMARY KEY,
-  id_driver INTEGER NOT NULL references users(id),
+  id_driver INTEGER references users(id),
   status VARCHAR(25),
   CHECK (status = "Bună" OR stare = "Stricată")
 );
