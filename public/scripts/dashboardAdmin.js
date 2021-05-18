@@ -30,11 +30,9 @@ window.addEventListener(`api-fetched`, (ev) => {
                 if (json.error != undefined) {
                     if (json.error.includes("Duplicate")) {
                         document.getElementById("status-account").innerHTML = "Există deja un cont cu acest email!"
-                    }
-                    else if (json.error.includes("phone"))
+                    } else if (json.error.includes("phone"))
                         document.getElementById("status-account").innerHTML = "Introduce-ți un număr de telefon valid!"
-                }
-                else {
+                } else {
                     document.getElementById("status-account").innerHTML = "Cont creat!"
                 }
             })
@@ -58,50 +56,70 @@ window.addEventListener(`api-fetched`, (ev) => {
             .catch(err => { console.log(err) });
     })
 
-    getEmployee.onsubmit = async (e) => {
-        e.preventDefault()
-        values = {
-            email: document.getElementById("employee-search").value
-        }
-        fetch(`${hostName}${api.getInfoUser.route}?email=${values.email}`, {
-            method: api.getInfoUser.method,
-            headers: { "Content-type": "application/json; charset=UTF-8" }
-        })
-            .then(response => response.json())
-            .then(json => {
-                console.log(json)
-                if (json.success == false)
-                    document.getElementById("status-employee-search").innerHTML = "Nu există niciun cont cu acest email!"
-                else {
-                    document.getElementById("status-employee-search").innerHTML = "Nume: " + json.surname + " Prenume: " + json.name + " Telefon: " + json.phone
-                }
-            })
-            .catch(err => { console.log(err) });
-    }
+    removeNotificationForm.onsubmit = async (e) => {
+        e.preventDefault();
+    },
 
-    deleteAccount.onsubmit = async (e) => {
-        e.preventDefault()
-        values = {
-            email: document.getElementById("remove-employee-account-email").value
-        }
-        fetch(`${hostName}${api.deleteAccount.route}`, {
-            method: api.deleteAccount.method,
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            withCredentials: true,
-            body: JSON.stringify(values),
-        })
-            .then(response => response.json())
-            .then(json => {
-                if (json.error == "not exist") {
-                    document.getElementById("status-account").innerHTML = "Nu există un cont cu acest email!"
-                }
-                else {
-                    document.getElementById("status-account").innerHTML = "Contul a fost șters!"
-                }
+        removeNotificationForm.onsubmit = async (e) => {
+            e.preventDefault();
+            var values = {
+                id: document.getElementById(`delete-notification-id`).value
+            }
+            fetch(`${hostName}${api.deleteNotification.route}`, {
+                method: api.deleteNotification.method,
+                body: JSON.stringify(values),
+                headers: { "Content-type": "application/json; charset=UTF-8" }
             })
-            .catch(err => { console.log(err) });
-    }
+                .then(response => response.json())
+                .then(json => {
+                    console.log(json)
+                })
+        },
+
+        getEmployee.onsubmit = async (e) => {
+            e.preventDefault()
+            values = {
+                email: document.getElementById("employee-search").value
+            }
+            fetch(`${hostName}${api.getInfoUser.route}?email=${values.email}`, {
+                method: api.getInfoUser.method,
+                headers: { "Content-type": "application/json; charset=UTF-8" }
+            })
+                .then(response => response.json())
+                .then(json => {
+                    console.log(json)
+                    if (json.success == false)
+                        document.getElementById("status-employee-search").innerHTML = "Nu există niciun cont cu acest email!"
+                    else {
+                        document.getElementById("status-employee-search").innerHTML = "Nume: " + json.surname + " Prenume: " + json.name + " Telefon: " + json.phone
+                    }
+                })
+                .catch(err => { console.log(err) });
+        },
+
+        deleteAccount.onsubmit = async (e) => {
+            e.preventDefault()
+            values = {
+                email: document.getElementById("remove-employee-account-email").value
+            }
+            fetch(`${hostName}${api.deleteAccount.route}`, {
+                method: api.deleteAccount.method,
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                withCredentials: true,
+                body: JSON.stringify(values),
+            })
+                .then(response => response.json())
+                .then(json => {
+                    if (json.error == "not exist") {
+                        document.getElementById("status-account").innerHTML = "Nu există un cont cu acest email!"
+                    }
+                    else {
+                        document.getElementById("status-account").innerHTML = "Contul a fost șters!"
+                    }
+                })
+                .catch(err => { console.log(err) });
+        }
 
 })

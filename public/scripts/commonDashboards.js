@@ -6,9 +6,9 @@ window.addEventListener(`api-fetched`, (ev) => {
     console.log(`------------------`)
 
 
-    updateNotificationsBox()
+    // updateNotificationsBox()
 
-    logoutButton.addEventListener(`click`, async () => {
+    logoutButton.addEventListener(`click`, async() => {
         try {
             let result = await fetch(`${hostName}${api.logout.route}`, { method: api.logout.method }).then(resp => resp.json())
             location.href = api.logout.location
@@ -20,4 +20,3 @@ window.addEventListener(`api-fetched`, (ev) => {
     })
 
 }, false)
-

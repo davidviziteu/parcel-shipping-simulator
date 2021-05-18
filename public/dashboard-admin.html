@@ -213,17 +213,16 @@
                     <input required class="input-box" type="text" id="new-notification-text" placeholder="Text">
                     <label>Expiră</label>
                     <input class="input-box" type="date" name="data" id="new-notification-date">
-                    <input class="input-box" type="time" name="ora" id="new-notification-time">
                     <div class="button-container">
                         <button type="submit" id="add-notification-button">
                             Adaugă notificare
                         </button>
                     </div>
                 </form>
-                <form action="backend" name="remove-notification" class="full-width-form">
-                    <input required class="input-box" type="text" id="notification-id" placeholder="Id">
+                <form id="remove-notification" class="full-width-form">
+                    <input required class="input-box" type="text" id="delete-notification-id" placeholder="Id">
                     <div class="button-container">
-                        <button type="submit">
+                        <button type="submit" id="delete-notification-button">
                             Șterge notificare
                         </button>
                     </div>

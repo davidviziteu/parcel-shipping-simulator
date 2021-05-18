@@ -176,7 +176,7 @@ module.exports = {
         )
     },
 
-    deleteNofication: (id, callback) => {
+    deleteNotification: (id, callBack) => {
         pool.query(
             `DELETE FROM notifications WHERE id=(?)`, [
             id
