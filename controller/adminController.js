@@ -3,7 +3,6 @@ const models = require("../models")
 const nodemailer = require('nodemailer');
 const { hashSync, genSaltSync, compareSync } = require("bcrypt")
 
-const newAccountSchema = models.newEmployeeSchema
 
 module.exports = {
 
@@ -76,7 +75,7 @@ module.exports = {
         const body = req.body
         const salt = genSaltSync(10)
         body.password = hashSync(body.password, salt)
-        const { error, value } = newAccountSchema.validate(body);
+        const { error, value } = models.adminModel.newEmployeeSchema.validate(body);
         if (error) {
             return res.status(300).json({
                 success: false,
@@ -91,18 +90,90 @@ module.exports = {
                 })
             } else {
                 res.status(200).json({
-                        success: true
-                    })
-                    /* mailOptions.to = body.email
-                    mailOptions.subject = 'Confirmare creare cont'
-                    mailOptions.text = 'Ți-ai creat cont cu succes!'
-                    transporter.sendMail(mailOptions, function (error, info) {
-                        if (error) {
-                            console.log(error.message);
-                        } else {
-                            console.log('Email sent: ' + info.response);
-                        }
-                    }); */
+                    success: true
+                })
+                /* mailOptions.to = body.email
+                mailOptions.subject = 'Confirmare creare cont'
+                mailOptions.text = 'Ți-ai creat cont cu succes!'
+                transporter.sendMail(mailOptions, function (error, info) {
+                    if (error) {
+                        console.log(error.message);
+                    } else {
+                        console.log('Email sent: ' + info.response);
+                    }
+                }); */
+            }
+        })
+        return res
+    },
+    getInfoUser: (req, res) => {
+        body = req.parameters
+        const { error, value } = models.adminModel.validationEmail.validate(body)
+        if (error) {
+            return res.status(200).json({
+                success: false,
+                error: error.message
+            })
+        }
+        req.db.getUserByEmail(body.email, (error, results) => {
+            if (error) {
+                res.status(200).json({
+                    success: false,
+                    error: error.message
+                })
+            }
+            else if (results != undefined) {
+                res.status(200).json({
+                    success: true,
+                    surname: results.surname,
+                    name: results.name,
+                    phone: results.phone
+                })
+            }
+            else {
+                res.status(200).json({
+                    success: false
+                })
+            }
+        })
+        return res
+    },
+    deleteAccount: (req, res) => {
+        body = req.body
+        const { error, value } = models.adminModel.validationEmail.validate(body)
+        if (error) {
+            return res.status(200).json({
+                success: false,
+                error: error.message
+            })
+        }
+        req.db.getUserByEmail(body.email, (error, results) => {
+            if (error) {
+                res.status(200).json({
+                    success: false,
+                    error: error.message
+                })
+            }
+            else if (results != undefined) {
+                req.db.deleteAccount(body.email, (error, results) => {
+                    if (error) {
+                        res.status(200).json({
+                            success: false,
+                            error: error.message
+                        })
+                    }
+                    else {
+                        res.status(200).json({
+                            success: true
+                        })
+                    }
+                })
+            }
+            else {
+                res.status(200).json({
+                    success: false,
+                    error: "not exist"
+                })
             }
         })
         return res

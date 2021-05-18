@@ -48,7 +48,8 @@ module.exports = {
                     error: error.message
                 })
             }
-            else {
+            else if (results[0] != undefined) {
+                console.log("aici")
                 res.status(200).json({
                     success: true,
                     fullName_sender: results[0].fullName_sender,
@@ -84,6 +85,11 @@ module.exports = {
 
                     status: results[0].status
 
+                })
+            }
+            else {
+                res.status(200).json({
+                    success: true
                 })
             }
         })
