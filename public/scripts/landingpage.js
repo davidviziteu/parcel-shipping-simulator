@@ -52,7 +52,7 @@ window.addEventListener(`api-fetched`, (ev) => {
 function handleLoginResponse(resp) {
     console.log(`handling response from front ${JSON.stringify(resp)}`)
     if (!resp.error)
-        location.assign(location.origin + resp.redirect)
+        setTimeout(function () { document.location.href = resp.redirect; }, 250);
     if (resp.error.toLowerCase().includes(`email`))
         document.getElementById("user-email").style.backgroundColor = "rgb(211, 110, 110)";
 
