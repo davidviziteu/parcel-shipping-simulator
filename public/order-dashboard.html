@@ -21,7 +21,7 @@
             <button id="hamburger">
             </button>
             <div>
-                <img src="../templates/logo.png" alt="">
+                <img src="../templates/logo.png" alt="decorative image">
             </div>
             <div id="login-info">
                 Bună!
@@ -66,19 +66,19 @@
             </div>
             <div class="box">
                 <div class="title-with-image">
-                    <img src="./assets/parcel.png" alt="">
+                    <img src="./assets/parcel.png" alt="decorative image">
                     <h1>
                         Detalii locație pachet
                     </h1>
                 </div>
 
                 <div class="button-container buttons-with-image expandable">
-                    <button type="button" class="progress-done">
-                        <img src="./assets/counseling.png" alt="">
+                    <button type="button" class="progress-now" aria-label="Comanda a fost primită" id="order-recieved-button">
+                        <img src="./assets/counseling.png" alt="decorative image">
                         Comanda a fost primită
                     </button>
                 </div>
-                <ul hidden id="status-comanda-primita" class="collapsable-list">
+                <ul hidden id="order-recieved-list" class="collapsable-list">
                     <li>
                         Comanda a fost primită 7-apr-2021, 19:22:30
                     </li>
@@ -91,12 +91,12 @@
 
 
                 <div class="button-container buttons-with-image expandable">
-                    <button type="button" class="progress-now">
-                        <img src="./assets/package.png" alt="">
+                    <button type="button" class="" aria-label="Ridicat de la expeditor" id="order-picked-up-button">
+                        <img src="./assets/package.png" alt="decorative image">
                         Ridicat de la expeditor
                     </button>
                 </div>
-                <ul hidden id="status-ridicare" class="collapsable-list">
+                <ul hidden id="order-picked-up-list" class="collapsable-list">
                     <li>
                         Pachetul urmează a fi ridicat de la expeditor în data de 8-apr-2021
                     </li>
@@ -107,29 +107,13 @@
 
                 </div>
 
-
                 <div class="button-container buttons-with-image expandable">
-                    <button type="button" class="">
-                        <img src="./assets/distribution.png" alt="">
-                        A ajuns la hub local
-                    </button>
-                </div>
-                <ul hidden id="status-hub-local" class="collapsable-list">
-                </ul>
-
-                <div class="progress-arrow">
-                    <img src="./assets/arrow.png" alt="down-arrow">
-
-                </div>
-
-
-                <div class="button-container buttons-with-image expandable">
-                    <button type="button" class="">
-                        <img src="./assets/box.png" alt="">
+                    <button type="button" class="" aria-label="În tranzit" id="order-in-transit-button">
+                        <img src="./assets/box.png" alt="decorative image">
                         În tranzit
                     </button>
                 </div>
-                <ul hidden id="status-in-tranzit" class="collapsable-list">
+                <ul hidden id="order-in-transit-list" class="collapsable-list">
                 </ul>
                 <div class="progress-arrow">
                     <img src="./assets/arrow.png" alt="down-arrow">
@@ -137,12 +121,12 @@
                 </div>
 
                 <div class="button-container buttons-with-image expandable">
-                    <button type="button" class="">
-                        <img src="./assets/telephone.png" alt="">
+                    <button type="button" class="" aria-label="În curs de livrare" id="order-in-delivery-button">
+                        <img src="./assets/telephone.png" alt="decorative image">
                         În curs de livrare
                     </button>
                 </div>
-                <ul hidden id="status-livrare" class="collapsable-list">
+                <ul hidden id="order-in-delivery-list" class="collapsable-list">
                 </ul>
                 <div class="progress-arrow">
                     <img src="./assets/arrow.png" alt="down-arrow">
@@ -150,12 +134,12 @@
                 </div>
 
                 <div class="button-container buttons-with-image expandable">
-                    <button type="button" class="detalii-tranzit">
-                        <img src="./assets/review.png" alt="">
+                    <button type="button" class="" aria-label="Destinatar" id="order-destinatary-button">
+                        <img src="./assets/review.png" alt="decorative image">
                         Destinatar
                     </button>
                 </div>
-                <ul hidden id="status-destinatar" class="collapsable-list">
+                <ul hidden id="order-destinatary-list" class="collapsable-list">
                     <li>
                         Estimare data livrare: 10-apr-2021
                     </li>
@@ -165,18 +149,18 @@
             </div>
             <div class="box">
                 <div class="button-container buttons-with-image">
-                    <button id="bttn-comanda-refuzata" type="button"
+                    <button id="order-refused-button" type="button" aria-label="Clientul refuză coletul / retur"
                         onclick="location.href = '(demo)dashboard-refused2.html' ">
                         Clientul refuză coletul / retur
                     </button>
                 </div>
                 <div class="button-container buttons-with-image">
-                    <button id="bttn-comanda-ridicata" type="button" class="disabled">
+                    <button id="order-done-button" type="button" aria-label="Clientul a ridicat coletul">
                         Clientul a ridicat coletul
                     </button>
                 </div>
                 <div class="title-with-image">
-                    <img src="./assets/view-details.png" alt="">
+                    <img src="./assets/view-details.png" alt="decorative image">
                     <h1>
                         Alte detalii
                     </h1>
@@ -222,7 +206,7 @@
                     Valoare declarata 1000 RON
                 </p>
                 <div class="title-with-image">
-                    <img src="./assets/equalizer.png" alt="">
+                    <img src="./assets/equalizer.png" alt="decorative image">
                     <h1>
                         Opțiuni selectate
                     </h1>

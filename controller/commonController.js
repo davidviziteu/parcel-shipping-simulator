@@ -26,26 +26,26 @@ module.exports = {
         if (req.parameters.awb == "example1")
             return res.status(StatusCodes.OK).json({
                 awb: "example1",
-                events: [
-                    statusComandPrimita = [
+                events: {
+                    statusComandPrimita: [
                         `Comanda a fost primită 7-apr-2021, 19:22:30`
                     ],
-                    statusRidicare = [
+                    statusRidicare: [
                         `Pachetul urmează a fi ridicat de la expeditor în data de 8-apr-2021`
                     ]
-                ],
+                },
             })
         if (req.parameters.awb == "example2")
             return res.status(StatusCodes.OK).json({
                 awb: "example2",
-                events: [
-                    statusComandPrimita = [
+                events: {
+                    statusComandPrimita: [
                         `Comanda a fost primită 7-apr-2021, 19:22:30`
                     ],
-                    statusRidicare = [
+                    statusRidicare: [
                         `Pachetul urmează a fi ridicat de la expeditor în data de 8-apr-2021`
                     ],
-                    statusTranzit = [
+                    statusTranzit: [
                         "A părăsit hub - ul Focșani în data de 1 - apr - 2021, 21: 30: 22",
                         `Șofer - Vasile Vasilescu(ID - 1256)`,
                         `A ajuns în hub - ul Bacău în data de 2 - apr - 2021, 00: 30: 21`,
@@ -53,18 +53,18 @@ module.exports = {
                         `Șofer - Vasile Alexandrescu(ID - 332)`,
                         `A ajuns în hub - ul Iași în data de 3 - apr - 2021, 00: 10: 21`,
                     ],
-                    statusLivrare = [
+                    statusLivrare: [
                         `Livrare astăzi, 3 - apr - 2021`,
                         `Șofer - Poescu Andrei(ID - 3323) - masina is - 33 - abc`,
                         `Curierul a raportat autoturism avariat, livrare amânată`,
                         `Livrare astăzi, 5 - apr - 2021`,
                         `Șofer - Poescu Andrei(ID - 3323) - masina is - 33 - abc`,
                     ],
-                    statusDestinar = [
+                    statusDestinar: [
                         `livrat`,
                         `sau altceva`
                     ],
-                ],
+                },
                 details: [
                 ],
                 selectedOptions: [

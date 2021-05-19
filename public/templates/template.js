@@ -1,17 +1,25 @@
-let hamburgerMenu = document.getElementById(`hamburger`)
-let menu = document.getElementsByTagName(`menu`)[0]
+const hamburgerMenu = document.getElementById(`hamburger`)
+const menu = document.getElementsByTagName(`menu`)[0]
+const navBar = document.getElementsByTagName(`nav`)[0]
 console.log("loaded tamplets.js")
 let api
 const hostName = location.hostname == `localhost` ? `http://localhost:4000` : `https://parcel-shipping-simulator.herokuapp.com`
 const fetchDone = new Event(`api-fetched`);
 
 function toggleStatus(status) {
-    if (status == 'loading')
+    if (status == 'loading') {
+        navBar.style.backgroundColor = "#0f5d82"
         document.getElementById("login-info").innerHTML = "⌛"
-    else if (status == 'ok')
+        // navBar.classList.add(`animated`)
+    }
+    else if (status == 'ok') {
         document.getElementById("login-info").innerHTML = "✅"
-    else if (status == 'network error')
+        // navBar.classList.remove(`animated`)
+    }
+    else if (status == 'network error') {
         document.getElementById("login-info").innerHTML = "📶❌"
+        navBar.style.backgroundColor = "var(--orange-accent)"
+    }
 }
 
 toggleStatus(`loading`)
