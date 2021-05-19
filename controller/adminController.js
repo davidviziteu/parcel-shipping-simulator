@@ -5,6 +5,38 @@ const { hashSync, genSaltSync, compareSync } = require("bcrypt")
 
 
 module.exports = {
+    changePrice: (req, res) => {
+        if (req.accountType != `admin`) {
+            return res.status(StatusCodes.UNAUTHORIZED).json({
+                success: false,
+                error: "doar adminul poate executa aceasta comanda!"
+            })
+        }
+        if (!req.body)
+            return res.status(StatusCodes.BAD_REQUEST).json({
+                success: false,
+                error: `missing body`
+            })
+        const { error, value } = models.adminModel.bestPrice.validate(req.body)
+        if (error) {
+            console.log(error.message)
+            return res.status(StatusCodes.BAD_REQUEST).json({
+                success: false,
+                error: error.message
+            })
+        }
+        req.db.updateBestPrice(req.body.price, (err, results) => {
+            if (err) {
+                res.status(StatusCodes.BAD_REQUEST).json({
+                    success: false,
+                    err: err.message
+                })
+            } else res.status(StatusCodes.OK).json({
+                success: true,
+                data: "Pretul de bază a fost modificat cu succes!"
+            })
+        })
+    },
     modifyCar: (req, res) => {
         if (req.accountType != `admin`)
             return res.status(StatusCodes.UNAUTHORIZED).json({

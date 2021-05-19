@@ -8,7 +8,7 @@ adminRouter.post(api.adminApi.addNotification.route, adminController.addNotifica
 adminRouter.delete(api.adminApi.deleteNotification.route, adminController.deleteNotification);
 adminRouter.post(api.baseApi.newAccount.route, controllers.adminController.createAccount)
 adminRouter.patch(api.adminApi.modifyCar.route, controllers.adminController.modifyCar)
-
+adminRouter.post(api.adminApi.changePrice.route, adminController.changePrice);
 
 adminRouter.get(api.adminApi.getInfoUser.route, controllers.adminController.getInfoUser)
 adminRouter.delete(api.adminApi.deleteAccount.route, controllers.adminController.deleteAccount)
