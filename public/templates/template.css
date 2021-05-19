@@ -95,9 +95,8 @@ body {
 }
 
 .hidden {
-    position: absolute;
-    left: -105%;
-}
+    display: none !important;
+} 
 
 ul, ol {
     padding: 0px;

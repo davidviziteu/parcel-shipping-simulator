@@ -4,6 +4,7 @@ exports.domain = process.env.PORT ? `parcel-shipping-simulator.herokuapp.com` : 
 
 //obiectele astea se combina prin spread syntax si se trimit la front in functie de tipul de login
 exports.baseApi = {
+    loginType: `undefined`, //se modifica 
     hostName: host,
     estimateCost: {
         route: `/api/new-order`,

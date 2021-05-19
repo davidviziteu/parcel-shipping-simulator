@@ -5,6 +5,9 @@ try {
     document.getElementById(`awb-title`).innerHTML = `Error loading awb from local storage: ${error}`
 }
 
+const orderRefusedButton = document.getElementById(`order-refused-button`)
+const orderConfirmedButton = document.getElementById(`order-confirmed-button`)
+
 window.addEventListener(`api-fetched`, async (ev) => {
     try {
         toggleStatus(`loading`)
@@ -17,14 +20,16 @@ window.addEventListener(`api-fetched`, async (ev) => {
         }).then(response => response.json())
 
 
-
         toggleStatus(`ok`)
         console.log(resp)
     } catch (error) {
         toggleStatus(`network error`)
         console.error(error)
     }
-
+    if (api.loginType == `admin` || api.loginType == `employee` || api.loginType == `driver`) {
+        orderConfirmedButton.classList.remove(`hidden`)
+        orderRefusedButton.classList.remove(`hidden`)
+    }
 }, false)
 
 const statusComandaPrimitaButton = document.getElementById(`order-recieved-button`)
