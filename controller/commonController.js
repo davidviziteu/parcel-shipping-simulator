@@ -66,9 +66,11 @@ module.exports = {
                     ],
                 },
                 details: [
+                    "fragil",
+                    "exemplu detalii2"
                 ],
                 selectedOptions: [
-
+                    1, 2, 3
                 ]
             })
         return res.status(StatusCodes.NOT_FOUND).json({

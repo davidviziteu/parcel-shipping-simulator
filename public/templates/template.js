@@ -35,11 +35,13 @@ fetch(`${hostName}/api`, {
             throw new Error(api.error)
         window.dispatchEvent(fetchDone)
         toggleStatus(`ok`)
+        alert(JSON.stringify(api))
         console.log(`api: `)
         console.log(api)
     })
     .catch(error => {
         toggleStatus(`error`)
+        alert(JSON.stringify(error))
         console.log(error)
         console.log(`^ cannot fetch GET ${hostName}/api`)
     })
