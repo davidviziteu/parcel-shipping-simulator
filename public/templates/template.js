@@ -27,7 +27,8 @@ toggleStatus(`loading`)
 fetch(`${hostName}/api`, {
     method: "GET",
     headers: { "Content-type": "application/json" },
-    credentials: 'same-origin'
+    credentials: 'same-origin',
+    mode: 'same-origin', // no-cors, *cors, same-origin
 })
     .then(response => response.json())
     .then(json => {
