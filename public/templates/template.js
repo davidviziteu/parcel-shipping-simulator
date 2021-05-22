@@ -26,7 +26,8 @@ toggleStatus(`loading`)
 
 fetch(`${hostName}/api`, {
     method: "GET",
-    headers: { "Content-type": "application/json" }
+    headers: { "Content-type": "application/json" },
+    credentials: 'same-origin'
 })
     .then(response => response.json())
     .then(json => {
