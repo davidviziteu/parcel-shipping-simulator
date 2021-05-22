@@ -24,7 +24,7 @@ function toggleStatus(status) {
 
 toggleStatus(`loading`)
 
-fetch(`${hostName}/api`, {
+fetch(`${hostName}/api/`, {
     method: "GET",
     headers: { "Content-type": "application/json" },
     credentials: 'same-origin',
