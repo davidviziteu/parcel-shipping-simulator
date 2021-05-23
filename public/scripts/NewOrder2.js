@@ -80,14 +80,14 @@ form.onsubmit = async(e) => {
         phone_sender: document.getElementById("expPhone").value,
         email_sender: document.getElementById("expEmail").value,
         county_sender: document.getElementById("judet1").value,
-        country_sender: document.getElementById("localitate1").value,
+        city_sender: document.getElementById("localitate1").value,
         address_sender: document.getElementById("expAddress").value,
 
         fullName_receiver: document.getElementById("destName").value,
         contactPerson_receiver: document.getElementById("destContactName").value,
         phone_receiver: document.getElementById("destPhone").value,
         county_receiver: document.getElementById("judet2").value,
-        country_receiver: document.getElementById("localitate2").value,
+        city_receiver: document.getElementById("localitate2").value,
         address_receiver: document.getElementById("destAddress").value,
 
         nrEnvelope: document.getElementById("envelope").value,
@@ -109,8 +109,8 @@ form.onsubmit = async(e) => {
 
         mentions: document.getElementById("mentions").value
     }
-    fetch('http://localhost:4000/api/neworder', {
-            method: "POST",
+    fetch(`${hostName}${api.newOrder.route}`, {
+            method: api.newOrder.method,
             body: JSON.stringify(values),
             headers: { "Content-type": "application/json; charset=UTF-8" }
         })
@@ -127,7 +127,7 @@ form.onsubmit = async(e) => {
                 document.getElementById("expEmail").style.backgroundColor = "rgb(211, 110, 110)";
             if (json.error.includes('county_sender'))
                 document.getElementById("judet1").style.backgroundColor = "rgb(211, 110, 110)";
-            if (json.error.includes('country_sender'))
+            if (json.error.includes('city_sender'))
                 document.getElementById("localitate1").style.backgroundColor = "rgb(211, 110, 110)";
             if (json.error.includes('address_sender'))
                 document.getElementById("expAddress").style.backgroundColor = "rgb(211, 110, 110)";
@@ -140,7 +140,7 @@ form.onsubmit = async(e) => {
                 document.getElementById("destPhone").style.backgroundColor = "rgb(211, 110, 110)";
             if (json.error.includes('county_receiver'))
                 document.getElementById("judet2").style.backgroundColor = "rgb(211, 110, 110)";
-            if (json.error.includes('country_receiver'))
+            if (json.error.includes('city_receiver'))
                 document.getElementById("localitate2").style.backgroundColor = "rgb(211, 110, 110)";
             if (json.error.includes('address_receiver'))
                 document.getElementById("destAddress").style.backgroundColor = "rgb(211, 110, 110)";
