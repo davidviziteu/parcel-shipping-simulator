@@ -63,6 +63,10 @@ exports.userApi = {
         route: `/api/accounts`,
         method: `DELETE`,
     },
+    autocomplete: {
+        route: `/api/autocomplete`,
+        method: `GET`
+    }
 }
 
 exports.driverApi = {

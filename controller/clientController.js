@@ -3,6 +3,8 @@ const { StatusCodes } = require(`http-status-codes`)
 const models = require("../models")
 const Joi = require('joi')
 const nodemailer = require('nodemailer');
+const jwt_decode = require('jwt-decode');
+
 
 const newUserSchema = models.userModel.newUserSchema
 const newOrderSchema = models.newOrderModel
@@ -237,5 +239,22 @@ module.exports = {
             }
         })
         return res
+    },
+    autoComplete: (req, res) => {
+        const body = req.body;
+        const token = req.headers.cookie.split('=')[1];
+        var decoded = jwt_decode(token);
+        const email = decoded.results.email;
+        req.db.getUserByEmail(email, (err, results) => {
+            if (err) {
+                res.status(StatusCodes.BAD_REQUEST).json({
+                    success: false,
+                    err: err.message
+                })
+            } else res.status(StatusCodes.OK).json({
+                success: true,
+                data: results
+            })
+        })
     }
 }
