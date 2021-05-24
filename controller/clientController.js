@@ -1,10 +1,11 @@
 const { hashSync, genSaltSync, compareSync } = require("bcrypt")
 const { StatusCodes } = require(`http-status-codes`)
 const models = require("../models")
-const Joi = require('joi')
 const nodemailer = require('nodemailer');
-const { isRef } = require("joi");
 const { id } = require("../models/validationNewOrder");
+const { apiModel } = models
+const { sign } = require("jsonwebtoken");
+
 
 const newUserSchema = models.userModel.newUserSchema
 const newOrderSchema = models.newOrderModel
@@ -28,6 +29,7 @@ var mailOptions = {
 module.exports = {
     createAccountUser: (req, res) => {
         const body = req.body
+        body.type = "user"
         const salt = genSaltSync(10)
         body.password = hashSync(body.password, salt)
         const { error, value } = newUserSchema.validate(body);
@@ -44,8 +46,16 @@ module.exports = {
                     error: error.message
                 })
             } else {
+                body.id = results.insertId
+                body.password = undefined
+                console.log(body)
+                const jsontoken = sign({ body }, process.env.secretKey, {
+                    expiresIn: "1h"
+                });
+                res.setHeader('Set-Cookie', 'token=' + jsontoken + `; HttpOnly;Domain=${models.apiModel.domain};Path=/`);
                 res.status(200).json({
-                    success: true
+                    success: true,
+                    redirect: `/dashboard-user.html`
                 })
                 /* mailOptions.to = body.email
                 mailOptions.subject = 'Confirmare creare cont'

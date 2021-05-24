@@ -18,8 +18,14 @@ app.useAuth((req) => {
         return req;
     const token = req.headers.cookie.split('=')[1];
     var decoded = jwt_decode(token);
-    req.accountId = decoded.results.id;
-    req.accountType = decoded.results.type;
+    if (decoded.results != undefined) {
+        req.accountId = decoded.results.id;
+        req.accountType = decoded.results.type;
+    }
+    else if (decoded.body != undefined) {
+        req.accountId = decoded.body.id;
+        req.accountType = decoded.body.type;
+    }
     return req;
 })
 app.listen()
