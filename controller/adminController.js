@@ -38,33 +38,52 @@ module.exports = {
         })
     },
     modifyCar: (req, res) => {
-        if (req.accountType != `admin`)
+        if (req.accountType != `admin`) {
             return res.status(StatusCodes.UNAUTHORIZED).json({
                 success: false,
                 error: "doar adminul poate executa aceasta comanda!"
             })
-        if (!req.body)
+        }
+        if (!req.body) {
             return res.status(StatusCodes.BAD_REQUEST).json({
                 success: false,
                 error: `missing body`
             })
+        }
         const { error, value } = models.carModel.modifyCarSchema.validate(req.body)
-        if (error)
+        if (error) {
             return res.status(StatusCodes.BAD_REQUEST).json({
                 success: false,
                 error: error.message
             })
+        }
         if (req.body.status == `Adaugă`) {
-            req.db.addCar(req.body, (err, results) => {
+            req.db.searchDriverById(req.body.id_driver, (err, results) => {
                 if (err) {
                     res.status(StatusCodes.BAD_REQUEST).json({
                         success: false,
-                        err: err.message
+                        err: "Eroare la baza de date"
                     })
-                } else res.status(StatusCodes.OK).json({
-                    success: true,
-                    data: "masina a fost adaugata cu succes!"
-                })
+                } else {
+                    if (results == undefined) {
+                        res.status(StatusCodes.BAD_REQUEST).json({
+                            success: false,
+                            data: "no driver with that id"
+                        })
+                    } else {
+                        req.db.addCar(req.body, (err, results) => {
+                            if (err) {
+                                res.status(StatusCodes.BAD_REQUEST).json({
+                                    success: false,
+                                    err: err.message
+                                })
+                            } else res.status(StatusCodes.OK).json({
+                                success: true,
+                                data: "masina a fost adaugata cu succes!"
+                            })
+                        })
+                    }
+                }
             })
         } else {
             req.db.searchCar(req.body.registration_number, (err, results) => {
@@ -115,17 +134,17 @@ module.exports = {
                 error: error
             })
         req.db.addNotification(req.body, (err, results) => {
-            if (err) {
-                res.status(StatusCodes.BAD_REQUEST).json({
-                    success: false,
-                    err: err.message
+                if (err) {
+                    res.status(StatusCodes.BAD_REQUEST).json({
+                        success: false,
+                        err: err.message
+                    })
+                } else res.status(StatusCodes.OK).json({
+                    success: true,
+                    data: "notificarea a fost adaugata cu succes!"
                 })
-            } else res.status(StatusCodes.OK).json({
-                success: true,
-                data: "notificarea a fost adaugata cu succes!"
             })
-        })
-        return res;
+            // return res;
     },
     deleteNotification: (req, res) => {
 

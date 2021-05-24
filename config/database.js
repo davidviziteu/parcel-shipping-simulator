@@ -322,8 +322,9 @@ module.exports = {
     },
     addCar: (data, callBack) => {
         pool.query(
-            `INSERT INTO cars (registration_number,status) VALUES(?,?)`, [
+            `INSERT INTO cars (registration_number,id_driver,status) VALUES(?,?,?)`, [
                 data.registration_number,
+                data.id_driver,
                 data.status
             ],
             (error, results, fields) => {
@@ -360,5 +361,18 @@ module.exports = {
                 return callBack(null, results);
             }
         );
-    }
+    },
+    searchDriverById: (id, callBack) => {
+        pool.query(
+            `SELECT * from users where id=? AND type=driver`, [
+                id
+            ],
+            (error, results, fields) => {
+                if (error) {
+                    callBack(error);
+                }
+                return callBack(null, results);
+            }
+        )
+    },
 }
