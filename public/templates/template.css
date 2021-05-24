@@ -18,7 +18,8 @@
 body {
     background-color: #fbfef7;
     font-family: var(--default-font), var(--fallback-font);
-    background-image: url('../assets/newBackground.jpg');
+    /* background-image: url('../assets/newBackground.jpg'); */
+    background: rgba(0, 0, 0, 0) linear-gradient(115deg, rgb(29, 69, 104) 0%, 16.4063%, rgb(56, 141, 144) 32.8125%, 45.8529%, rgb(169, 150, 118) 58.8933%, 68.2487%, rgb(242, 144, 57) 77.6042%, 88.8021%, rgb(96, 17, 0) 100%) repeat scroll 0% 0%;
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: 120% 100%;
@@ -94,9 +95,8 @@ body {
 }
 
 .hidden {
-    position: absolute;
-    left: -105%;
-}
+    display: none !important;
+} 
 
 ul, ol {
     padding: 0px;
@@ -358,6 +358,39 @@ img {
     width: 30px;
     margin-right: 1vw;
 }
+
+/* .animated {
+    animation-name: color;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes color {
+    25% {
+        background-color: hsl(100, 79%, 28%);
+    }
+    50% {
+        background-color: hsl(125, 79%, 28%);
+    }
+    75% {
+        background-color: hsl(150, 79%, 28%);
+    } 
+    0% {
+        background-color: hsl(199, 79%, 21%);
+    }
+    25% {
+        background-color: hsl(199, 79%, 7%);
+    }
+    50% {
+        background-color: hsl(199, 79%, 14%);
+    }
+    75% {
+        background-color: hsl(199, 79%, 21%);
+    }
+    100% {
+        background-color: hsl(199, 79%, 28%);
+    } 
+}*/
 
 @media screen and (max-width: 800px) {
     section {

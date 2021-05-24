@@ -4,6 +4,7 @@ exports.domain = process.env.PORT ? `parcel-shipping-simulator.herokuapp.com` : 
 
 //obiectele astea se combina prin spread syntax si se trimit la front in functie de tipul de login
 exports.baseApi = {
+    loginType: `undefined`, //se modifica 
     hostName: host,
     estimateCost: {
         route: `/api/new-order`,
@@ -24,8 +25,13 @@ exports.baseApi = {
         method: `POST`,
     },
     trackAwb: {
-        location: `/demo-dashboard.html`,
+        location: `/order-dashboard.html`,
         route: `/api/awb`,
+        method: `GET`,
+    },
+    checkIfAwbExists: {
+        location: `/order-dashboard.html`,
+        route: `/api/check-awb`,
         method: `GET`,
     },
     changeCredentials: {
@@ -57,6 +63,10 @@ exports.userApi = {
         route: `/api/accounts`,
         method: `DELETE`,
     },
+    autocomplete: {
+        route: `/api/autocomplete`,
+        method: `GET`
+    }
 }
 
 exports.driverApi = {
@@ -93,10 +103,6 @@ exports.adminApi = {
         route: `/api/notifications`,
         method: `DELETE`,
     },
-    deleteNotification: {
-        route: `/api/notifications`,
-        method: `DELETE`,
-    },
     getInfoUser: {
         route: `/api/accounts`,
         method: `GET`,
@@ -104,6 +110,9 @@ exports.adminApi = {
     deleteAccount: {
         route: `/api/accounts`,
         method: `DELETE`
+    },
+    changePrice: {
+        route: `/api/price`,
+        method: `POST`
     }
 }
-

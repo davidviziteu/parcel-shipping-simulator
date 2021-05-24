@@ -23,7 +23,7 @@
             <button id="hamburger">
             </button>
             <div>
-                <img src="templates/logo.png" alt="">
+                <img src="templates/logo.png" alt="decorative image">
             </div>
             <div id="login-info">
                 Bună!
@@ -68,7 +68,7 @@
         <section>
             <div class="box" id="login-box">
                 <div class="title-with-image">
-                    <img src="./assets/man-user.png" alt="">
+                    <img src="./assets/man-user.png" alt="decorative image">
                     <h1 id="hello-username">Admin dashboard</h1>
                 </div>
                 <div class="button-container">
@@ -135,8 +135,7 @@
                     <h1>Notificări</h1>
                 </div>
                 <p>
-                    [1] Butonul login NU merge, deoarece noi ne bazam pe tipul de cont in care se intra. Va rugam sa
-                    folositi butoanele demo pentru login
+                    [1] Butonul login NU merge, deoarece noi ne bazam pe tipul de cont in care se intra. Va rugam sa folositi butoanele demo pentru login
                 </p>
                 <p>
                     [2] Website-ul foloseste cookie-uri
@@ -157,10 +156,8 @@
                     <input class="input-box" type="text" placeholder="Nume" required id="surname-form-create-account">
                     <input class="input-box" type="text" placeholder="Prenume" required id="name-form-create-account">
                     <input class="input-box" type="tel" placeholder="Telefon" required id="phone-form-create-account">
-                    <input class="input-box" type="password" placeholder="Parola" required
-                        id="password-form-create-account">
-                    <select class="input-box" name="add-emplyee-account-type" required
-                        id="typeAccount-form-create-account">
+                    <input class="input-box" type="password" placeholder="Parola" required id="password-form-create-account">
+                    <select class="input-box" name="add-emplyee-account-type" required id="typeAccount-form-create-account">
                         <option selected hidden value="">
                             Alege tipul contului
                         </option>
@@ -190,11 +187,9 @@
                 </form>
 
                 <form name="remove-emplyee-account" class="full-width-form" id="delete-account-form">
-
-                    <input required class="input-box" type="text" id="remove-employee-account-email"
-                        name="remove-emplyee-account-email" placeholder="Email">
+                    <input required class="input-box" type="text" id="remove-employee-account-email" name="remove-emplyee-account-email" placeholder="Email">
                     <div class="button-container">
-                        <button>
+                        <button id="delete-account-button">
                             Șterge cont
                         </button>
                     </div>
@@ -250,44 +245,40 @@
                     <img alt="image" src="./assets/arrow.png">
                     <h1>Mașini</h1>
                 </div>
-                <form action="backend" name="add-car" class="full-width-form">
-                    <input required class="input-box" type="text" placeholder="nr-înmatriculare">
-                    <select class="input-box" name="add-emplyee-account-city">
-                        <option selected value="car-status">
+                <form id="add-car-form" name="add-car" class="full-width-form">
+                    <input required class="input-box" type="text" placeholder="nr-înmatriculare" id="nr-inmatriculare">
+                    <select class="input-box" name="add-emplyee-account-city" id="car-status">
+                        <option selected>
                             Vezi status
                         </option>
-                        <option value="car-repaired">Reparată</option>
-                        <option value="car-damaged">Avariată</option>
-                        <option value="car-added">Adaugă</option>
-                        <option value="car-deleted">Șterge</option>
+                        <option value="Reparată" id="car-repaired">Reparată</option>
+                        <option value="Avariată" id="car-damaged">Avariată</option>
+                        <option value="Adaugă" id="car-added">Adaugă</option>
+                        <option value="Șterge" id="car-deleted">Șterge</option>
                     </select>
                     <div class="button-container">
-                        <button type="submit">
-                            Trimite
-                        </button>
+                        <input type="submit" value="Trimite">
                     </div>
                 </form>
-                <p id="car-search">
+                <p id="car-search-status">
                     Status
                 </p>
             </div>
 
-
             <div class="box">
                 <div class="title-with-image">
                     <img alt="image" src="./assets/arrow.png">
-                    <h1 id="base-price">Preț de bază - 20 RON</h1>
+                    <h1 id="base-price">Preț de bază</h1>
                 </div>
-                <form name="change-price" class="full-width-form">
-                    <input required class="input-box" type="text" placeholder="Preț nou">
+                <form name="change-price-form" id="change-price-form" class="full-width-form">
+                    <input required class="input-box" id="price-update-field" type="text" placeholder="Preț nou">
                     <div class="button-container">
-                        <button type="submit">
+                        <button type="submit" id="price-update-button" aria-label="Actualizează">
                             Actualizează
                         </button>
                     </div>
                 </form>
-                <p id="price-update">
-                    Status
+                <p id="price-update-status">
                 </p>
             </div>
         </section>
@@ -301,14 +292,9 @@
                     De ce nu?
                 </p>
                 <p>
-                    Gândiți-vă la toate momentele în care ați pierdut o oportunitate de-a lungul anilor. Nenumăratele
-                    autobuze ratate. Acel RTX 3080 pe care l-ați fi putut cumpăra înainte de a fi vândut. Eșecul de a
-                    cumpăra Bitcoin în 2013... apoi din nou în 2019. Lăsând
-                    deoparte faptul că(,) cripto-ul este încă inutil, ce aveau în comun toate aceste evenimente? Nu ați
-                    colaborat cu noi. Ei bine, nu aveți nicio scuză pentru a rata această oportunitate. Bineînțeles,
-                    veți tot pierde autobuzele... și 3080-ul
-                    va fi în continuare indisponibil până în 3080, dar cel puțin veți primi fiecare pachet livrat de
-                    NOI. Mulțumiți-ne mai târziu - timpul trece.
+                    Gândiți-vă la toate momentele în care ați pierdut o oportunitate de-a lungul anilor. Nenumăratele autobuze ratate. Acel RTX 3080 pe care l-ați fi putut cumpăra înainte de a fi vândut. Eșecul de a cumpăra Bitcoin în 2013... apoi din nou în 2019. Lăsând
+                    deoparte faptul că(,) cripto-ul este încă inutil, ce aveau în comun toate aceste evenimente? Nu ați colaborat cu noi. Ei bine, nu aveți nicio scuză pentru a rata această oportunitate. Bineînțeles, veți tot pierde autobuzele... și 3080-ul
+                    va fi în continuare indisponibil până în 3080, dar cel puțin veți primi fiecare pachet livrat de NOI. Mulțumiți-ne mai târziu - timpul trece.
                 </p>
                 <div class="button-container">
                     <button type="button" id="our-team-button">Echipa noastră</button>
@@ -329,7 +315,7 @@
         <section>
             <div class="box margin-footer">
                 <div class="center-vertical">
-                    <img src="templates/autori.png" alt="">
+                    <img src="templates/autori.png" alt="decorative image">
                     <h4>Autori</h4>
                 </div>
                 <p>
@@ -344,7 +330,7 @@
             </div>
             <div class="box margin-footer">
                 <div class="center-vertical">
-                    <img src="templates/referinte.png" alt="">
+                    <img src="templates/referinte.png" alt="decorative image">
                     <h4>Referințe</h4>
                 </div>
                 <p><a href="https://www.flaticon.com/">www.flaticon.com</a></p>
@@ -354,7 +340,7 @@
 
             <div class="box margin-footer">
                 <div class="center-vertical">
-                    <img src="templates/instagram.png" alt="">
+                    <img src="templates/instagram.png" alt="decorative image">
                     <h4>Instagram</h4>
                 </div>
                 <p>

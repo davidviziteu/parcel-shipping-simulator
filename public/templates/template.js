@@ -1,14 +1,34 @@
-let hamburgerMenu = document.getElementById(`hamburger`)
-let menu = document.getElementsByTagName(`menu`)[0]
+const hamburgerMenu = document.getElementById(`hamburger`)
+const menu = document.getElementsByTagName(`menu`)[0]
+const navBar = document.getElementsByTagName(`nav`)[0]
 console.log("loaded tamplets.js")
 let api
 const hostName = location.hostname == `localhost` ? `http://localhost:4000` : `https://parcel-shipping-simulator.herokuapp.com`
 const fetchDone = new Event(`api-fetched`);
 
+function toggleStatus(status) {
+    if (status == 'loading') {
+        navBar.style.backgroundColor = "#0f5d82"
+        document.getElementById("login-info").innerHTML = "⌛"
+        // navBar.classList.add(`animated`)
+    }
+    else if (status == 'ok') {
+        document.getElementById("login-info").innerHTML = "✅"
+        // navBar.classList.remove(`animated`)
+    }
+    else if (status == 'network error') {
+        document.getElementById("login-info").innerHTML = "📶❌"
+        navBar.style.backgroundColor = "var(--orange-accent)"
+    }
+}
+
+toggleStatus(`loading`)
 
 fetch(`${hostName}/api`, {
     method: "GET",
-    headers: { "Content-type": "application/json" }
+    headers: { "Content-type": "application/json" },
+    credentials: 'same-origin',
+    mode: 'same-origin', // no-cors, *cors, same-origin
 })
     .then(response => response.json())
     .then(json => {
@@ -16,10 +36,13 @@ fetch(`${hostName}/api`, {
         if (api.success == `false`)
             throw new Error(api.error)
         window.dispatchEvent(fetchDone)
+        toggleStatus(`ok`)
         console.log(`api: `)
         console.log(api)
     })
     .catch(error => {
+        toggleStatus(`error`)
+        alert(`error fetching /api. are you on https?`)
         console.log(error)
         console.log(`^ cannot fetch GET ${hostName}/api`)
     })
@@ -61,15 +84,6 @@ hamburgerMenu.addEventListener(`click`, () => {
         x.style.overflowY = "scroll"
     }
 })
-
-function toggleStatus(status) {
-    if (status == 'loading')
-        document.getElementById("login-info").innerHTML = "Așteaptă!"
-    else if (status == 'ok')
-        document.getElementById("login-info").innerHTML = "Bună!"
-    else if (status == 'network error')
-        document.getElementById("login-info").innerHTML = "Eroare de conexiune!"
-}
 
 function disableScroll() {
     scrollTop = window.pageYOffset || document.documentElement.scrollTop;
@@ -183,4 +197,39 @@ const fetchEstimatedCost = async (from, to) => {
         }
     })
 })()
+
+
+function loadRegisterButton() {
+    document.getElementById(`register-button`).addEventListener(`click`, () => location.href = api.newAccount.location)
+}
+
+
+async function trackAwb() {
+    let awb = document.getElementById(`awb-input`).value
+    try {
+        let response = await fetch(`${hostName}${api.checkIfAwbExists.route}?awb=${awb}`, { method: api.checkIfAwbExists.method })
+        if (!response.ok)
+            return document.getElementById("awb-input").style.backgroundColor = "rgb(211, 110, 110)"
+        localStorage.setItem(`awb-to-fetch`, awb)
+        window.location = api.trackAwb.location
+    } catch (error) {
+        if (error instanceof QuotaExceededError)
+            alert(`error saving awb string to local storage. did you disable localstorage?`)
+    }
+}
+
+(function loadTrackAwbBox() {
+    let awbField = document.getElementById("awb-input")
+    awbField.addEventListener(`click`, () => awbField.style.backgroundColor = "#fbfef7")
+    awbField.addEventListener(`keypress`, (event) => {
+        if (event.key == `Enter`) {
+            event.preventDefault()
+            trackAwb()
+        }
+    })
+    document.getElementById(`track-awb-button`).addEventListener(`click`, trackAwb)
+})()
+
+
+
 

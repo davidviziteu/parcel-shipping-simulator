@@ -22,7 +22,8 @@ class App {
             req = this.authFunction(req);
             res.setHeader('Access-Control-Allow-Origin', '*');
             res.setHeader('Access-Control-Allow-Credentials', true);
-            //res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET');
+            res.setHeader('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, PATCH');
+            res.setHeader('Access-Control-Allow-Headers', 'Accept,Content-Type,X-Requested-With,x-api-key');
             res.setHeader('Access-Control-Max-Age', 2592000);
             res = this.addResponseFunctionalities(res)
             req = this.addRequestFunctionalities(req)
