@@ -8,8 +8,12 @@ let password = document.getElementById(`password`);
 let forgot = document.getElementById(`forgot`);
 let submit = document.getElementById(`continue`);
 let expandableItems = document.getElementsByClassName(`expandable`);
-
-window.onload = function () {
+let newOrderButton = document.getElementById(`new-order-button`)
+window.addEventListener(`api-fetched`, (ev) => {
+    console.log(api)
+    newOrderButton.addEventListener(`click`, () => location.href = api.newOrder.location)
+}, false)
+window.onload = function() {
     resetEmail.style.display = "none";
     resetPass.style.display = "none";
     detalii.style.display = "none";
@@ -45,7 +49,7 @@ forgot.addEventListener(`click`, () => {
 })
 for (let i = 0; i < expandableItems.length; ++i) {
     let bttn = expandableItems[i]
-    bttn.addEventListener(`click`, function () {
+    bttn.addEventListener(`click`, function() {
         let associatedList = this.nextElementSibling
         if (associatedList && associatedList.tagName == `UL`) {
             associatedList.toggleAttribute(`hidden`)

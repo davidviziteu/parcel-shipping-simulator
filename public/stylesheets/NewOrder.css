@@ -48,25 +48,26 @@ select::placeholder {
     border-radius: 8px;
     font-size: 1em;
     font-family: 'Poppins', sans-serif;
- }
- .check-box{
+}
+
+.check-box {
     margin-left: 3%;
 }
 
 input[type='checkbox'] {
     align-self: center;
-    width:30px;
-    height:30px;
-    background:white;
-    border-radius:5px;
-    border:2px solid #555;
+    width: 30px;
+    height: 30px;
+    background: white;
+    border-radius: 5px;
+    border: 2px solid #555;
 }
 
-#preference1{
+#preference1 {
     text-align: center;
 }
 
-.horizontal-center{
+.horizontal-center {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -76,18 +77,20 @@ input[type='checkbox'] {
 .horizontal-center label {
     align-self: center;
 }
-.horizontal-center>*{
+
+.horizontal-center>* {
     margin-left: 10px;
 }
+
 @media screen and (max-width: 800px) {
-     html,
-     body {
-            max-width: 100%;
-            overflow-x: hidden;
-        }
-        .centered {
-            margin-right: 10%;
-            margin-left: 10%;
-            margin-top: 10em;
-        }
- }  
+    html,
+    body {
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+    .centered {
+        margin-right: 10%;
+        margin-left: 10%;
+        margin-top: 10em;
+    }
+}

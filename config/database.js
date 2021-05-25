@@ -103,20 +103,20 @@ module.exports = {
     },
     placeNewOrder: (data, callBack) => {
         pool.query(
-            `INSERT INTO orders (fullName_sender,contactPerson_sender,phone_sender,email_sender,county_sender,country_sender,address_sender,fullName_receiver,contactPerson_receiver,phone_receiver,county_receiver,country_receiver,address_receiver,nrEnvelope,nrParcel, weight,length,width,height,date, hour, preference1, preference2, preference3, payment, mentions) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`, [
+            `INSERT INTO orders (fullName_sender,contactPerson_sender,phone_sender,email_sender,county_sender,city_sender,address_sender,fullName_receiver,contactPerson_receiver,phone_receiver,county_receiver,city_receiver,address_receiver,nrEnvelope,nrParcel, weight,length,width,height,date, hour, preference1, preference2, preference3, payment, mentions) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`, [
                 data.fullName_sender,
                 data.contactPerson_sender,
                 data.phone_sender,
                 data.email_sender,
                 data.county_sender,
-                data.country_sender,
+                data.city_sender,
                 data.address_sender,
 
                 data.fullName_receiver,
                 data.contactPerson_receiver,
                 data.phone_receiver,
                 data.county_receiver,
-                data.country_receiver,
+                data.city_receiver,
                 data.address_receiver,
 
                 data.nrEnvelope,
@@ -322,8 +322,9 @@ module.exports = {
     },
     addCar: (data, callBack) => {
         pool.query(
-            `INSERT INTO cars (registration_number,status) VALUES(?,?)`, [
+            `INSERT INTO cars (registration_number,id_driver,status) VALUES(?,?,?)`, [
                 data.registration_number,
+                data.id_driver,
                 data.status
             ],
             (error, results, fields) => {
@@ -360,5 +361,18 @@ module.exports = {
                 return callBack(null, results);
             }
         );
-    }
+    },
+    searchDriverById: (id, callBack) => {
+        pool.query(
+            `SELECT * from users where id=? AND type=driver`, [
+                id
+            ],
+            (error, results, fields) => {
+                if (error) {
+                    callBack(error);
+                }
+                return callBack(null, results);
+            }
+        )
+    },
 }

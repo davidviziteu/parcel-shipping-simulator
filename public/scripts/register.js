@@ -107,7 +107,9 @@ function nextPrev(n) {
                 email: email,
                 password: pwd,
                 phone: phone,
-                type: "user"
+                county: document.getElementById("citySelect").value,
+                city: document.getElementById("placeSelect").value,
+                address: document.getElementById("adress").value
             }
             fetch('http://localhost:4000/api/register', {
                 method: "POST",
@@ -123,6 +125,9 @@ function nextPrev(n) {
                         x[2].innerHTML = "Trimite"
                         document.getElementById("email-nevalid").style.display = "block";
                         document.getElementById("email").style.backgroundColor = "rgb(211, 110, 110)";
+                    }
+                    else {
+                        window.location.href = json.redirect;
                     }
                 })
                 .catch(err => { console.log(err) });
