@@ -15,9 +15,17 @@ var buttonContinut = document.getElementById('continut')
 var buttonLivrat = document.getElementById('livrat')
 var buutonSubmit = document.getElementById('submit')
 
-window.onload = detailsFromDB()
+window.addEventListener(`api-fetched`, (ev) => {
+    fetch(`${hostName}${api.driverApi.route}`, {
+        method: api.driverApi.method,
+        headers: { "Content-type": "application/json; charset=UTF-8" }
+    })
+        .then(response => response.json())
+        .then(json => { })
+        .catch(err => { console.log(err) });
+})
 
-function detailsFromDB() {
+function detailsFromDBforAWB() {
     fetch(`${hostName}/api/driver`, {
         method: "GET",
         headers: { "Content-type": "application/json; charset=UTF-8" }
@@ -61,7 +69,6 @@ function detailsFromDB() {
         })
         .catch(err => { console.log(err) });
 }
-
 
 buttonExpeditor.addEventListener('click', () => {
     detaliiExpeditor.toggleAttribute('hidden')

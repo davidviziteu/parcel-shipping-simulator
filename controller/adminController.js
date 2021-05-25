@@ -171,17 +171,17 @@ module.exports = {
                 error: error
             })
         req.db.addNotification(req.body, (err, results) => {
-                if (err) {
-                    res.status(StatusCodes.BAD_REQUEST).json({
-                        success: false,
-                        err: err.message
-                    })
-                } else res.status(StatusCodes.OK).json({
-                    success: true,
-                    data: "notificarea a fost adaugata cu succes!"
+            if (err) {
+                res.status(StatusCodes.BAD_REQUEST).json({
+                    success: false,
+                    err: err.message
                 })
+            } else res.status(StatusCodes.OK).json({
+                success: true,
+                data: "notificarea a fost adaugata cu succes!"
             })
-            // return res;
+        })
+        // return res;
     },
     deleteNotification: (req, res) => {
 
@@ -217,24 +217,30 @@ module.exports = {
         }
     },
     createAccount: (req, res) => {
-        const body = req.body
-        const salt = genSaltSync(10)
-        body.password = hashSync(body.password, salt)
-        const { error, value } = models.adminModel.newEmployeeSchema.validate(body);
-        if (error) {
-            return res.status(300).json({
-                success: false,
-                error: error.message
-            })
-        }
-        req.db.createAccount(body, (error, results) => {
+        if (req.accountType == `admin`) {
+            if (!req.body)
+                return res.status(StatusCodes.BAD_REQUEST).json({
+                    success: false,
+                    error: `missing body`
+                })
+            const body = req.body
+            const salt = genSaltSync(10)
+            body.password = hashSync(body.password, salt)
+            const { error, value } = models.adminModel.newEmployeeSchema.validate(body);
             if (error) {
-                res.status(200).json({
+                return res.status(300).json({
                     success: false,
                     error: error.message
                 })
-            } else {
-                res.status(200).json({
+            }
+            req.db.createAccount(body, (error, results) => {
+                if (error) {
+                    res.status(200).json({
+                        success: false,
+                        error: error.message
+                    })
+                } else {
+                    res.status(200).json({
                         success: true
                     })
                     /* mailOptions.to = body.email
@@ -247,76 +253,106 @@ module.exports = {
                             console.log('Email sent: ' + info.response);
                         }
                     }); */
-            }
-        })
-        return res
+                }
+            })
+        }
+        else {
+            res.status(StatusCodes.UNAUTHORIZED).json({
+                success: 0,
+                error: "doar adminul poate executa aceasta comanda!"
+            })
+        }
     },
     getInfoUser: (req, res) => {
-        body = req.parameters
-        const { error, value } = models.adminModel.validationEmail.validate(body)
-        if (error) {
-            return res.status(200).json({
-                success: false,
-                error: error.message
-            })
-        }
-        req.db.getUserByEmail(body.email, (error, results) => {
+        if (req.accountType == `admin`) {
+            if (!req.body)
+                return res.status(StatusCodes.BAD_REQUEST).json({
+                    success: false,
+                    error: `missing body`
+                })
+            body = req.parameters
+            const { error, value } = models.adminModel.validationEmail.validate(body)
             if (error) {
-                res.status(200).json({
+                return res.status(200).json({
                     success: false,
                     error: error.message
                 })
-            } else if (results != undefined) {
-                res.status(200).json({
-                    success: true,
-                    id: results.id,
-                    surname: results.surname,
-                    name: results.name,
-                    phone: results.phone
-                })
-            } else {
-                res.status(StatusCodes.NOT_FOUND).json({
-                    success: false
-                })
             }
-        })
-        return res
+            req.db.getUserByEmail(body.email, (error, results) => {
+                if (error) {
+                    res.status(200).json({
+                        success: false,
+                        error: error.message
+                    })
+                } else if (results != undefined) {
+                    res.status(200).json({
+                        success: true,
+                        id: results.id,
+                        surname: results.surname,
+                        name: results.name,
+                        phone: results.phone
+                    })
+                } else {
+                    res.status(StatusCodes.NOT_FOUND).json({
+                        success: false
+                    })
+                }
+            })
+        }
+        else {
+            res.status(StatusCodes.UNAUTHORIZED).json({
+                success: 0,
+                error: "doar adminul poate executa aceasta comanda!"
+            })
+        }
     },
     deleteAccount: (req, res) => {
-        body = req.body
-        const { error, value } = models.adminModel.validationEmail.validate(body)
-        if (error) {
-            return res.status(StatusCodes.BAD_REQUEST).json({
-                success: false,
-                error: error.message
-            })
-        }
-        req.db.getUserByEmail(body.email, (error, results) => {
+        if (req.accountType == `admin`) {
+            if (!req.body)
+                return res.status(StatusCodes.BAD_REQUEST).json({
+                    success: false,
+                    error: `missing body`
+                })
+            body = req.body
+            const { error, value } = models.adminModel.validationEmail.validate(body)
             if (error) {
-                res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+                return res.status(StatusCodes.BAD_REQUEST).json({
                     success: false,
                     error: error.message
                 })
-            } else if (results != undefined) {
-                req.db.deleteAccount(body.email, (error, results) => {
-                    if (error) {
-                        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-                            success: false,
-                            error: error.message
-                        })
-                    } else {
-                        res.status(200).json({
-                            success: true
-                        })
-                    }
-                })
-            } else {
-                res.status(StatusCodes.NOT_FOUND).json({
-                    success: false,
-                    error: "not exist"
-                })
             }
-        })
-        return res
+            req.db.getUserByEmail(body.email, (error, results) => {
+                if (error) {
+                    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+                        success: false,
+                        error: error.message
+                    })
+                } else if (results != undefined) {
+                    req.db.deleteAccount(body.email, (error, results) => {
+                        if (error) {
+                            res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+                                success: false,
+                                error: error.message
+                            })
+                        } else {
+                            res.status(200).json({
+                                success: true
+                            })
+                        }
+                    })
+                } else {
+                    res.status(StatusCodes.NOT_FOUND).json({
+                        success: false,
+                        error: "not exist"
+                    })
+                }
+            })
+        }
+        else {
+            res.status(StatusCodes.UNAUTHORIZED).json({
+                success: 0,
+                error: "doar adminul poate executa aceasta comanda!"
+            })
+        }
     }
 }
