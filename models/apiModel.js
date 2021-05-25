@@ -79,8 +79,9 @@ exports.driverApi = {
     /**
      * ce primeste front ul: 
      * {
-     *  task: "local delivery" sau "national delivery",
-     *  county: "Iasi" //locul unde for trebui facute livrarile/pickup urile
+     *  task: "Livrare colete local" sau "Livrare colete national",
+     *  countySource: "Iasi" //locul unde for trebui facute livrarile/pickup urile
+     *  countyDestination: "Iasi" //locul unde for trebui facute livrarile/pickup urile
      *  car: "IS47AVI" //locul unde for trebui facute livrarile/pickup urile
      *  toDeliver: [1, 2, 3], //array de awb uri (de int uri)
      *  toPickup: [], //array de awb uri (de int uri)
