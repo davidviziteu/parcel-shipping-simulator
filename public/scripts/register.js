@@ -111,7 +111,7 @@ function nextPrev(n) {
                 city: document.getElementById("placeSelect").value,
                 address: document.getElementById("adress").value
             }
-            fetch('http://localhost:4000/api/register', {
+            fetch(`${hostName}/api/register`, {
                 method: "POST",
                 body: JSON.stringify(values),
                 headers: { "Content-type": "application/json; charset=UTF-8" }
