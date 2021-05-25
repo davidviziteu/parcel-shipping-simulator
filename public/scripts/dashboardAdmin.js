@@ -146,10 +146,20 @@ window.addEventListener(`api-fetched`, (ev) => {
                             document.getElementById(`car-search-status`).innerHTML = "Id-ul soferului nu respecta formatul";
                             document.getElementById(`id-sofer`).style.backgroundColor = "rgb(211, 110, 110)";
                         }
-                    } else if (json.data.includes(`no driver with that id`)) {
+                    } else if (json.data.includes(`Nu există niciun șofer înregistrat cu acest id`)) {
                         document.getElementById(`car-search-status`).innerHTML = "Nu există niciun șofer înregistrat cu acest id";
                         document.getElementById(`id-sofer`).style.backgroundColor = "rgb(211, 110, 110)";
-                    } else document.getElementById(`car-search-status`).innerHTML = json.data;
+                    } else {
+                        if (json.data.includes(`Mașina nu există în baza de date.`)) {
+                            document.getElementById(`nr-inmatriculare`).style.backgroundColor = "rgb(211, 110, 110)";
+                            document.getElementById(`car-search-status`).innerHTML = json.data;
+                        }
+                        if (json.data.includes(`Șoferul nu corespunde cu mașina.`)) {
+                            document.getElementById(`id-sofer`).style.backgroundColor = "rgb(211, 110, 110)";
+                            document.getElementById(`car-search-status`).innerHTML = json.data;
+
+                        } else document.getElementById(`car-search-status`).innerHTML = json.data;
+                    }
 
                 })
                 .catch(err => {

@@ -57,43 +57,81 @@ module.exports = {
                 error: error.message
             })
         }
-        if (req.body.status == `Adaugă`) {
-            req.db.searchDriverById(req.body.id_driver, (err, results) => {
-                if (err) {
+
+
+        req.db.searchCar(req.body.registration_number, (err, results) => {
+            if (err) {
+                res.status(StatusCodes.BAD_REQUEST).json({
+                    success: false,
+                    err: err.message
+                })
+            } else if (!results) {
+                res.status(StatusCodes.BAD_REQUEST).json({
+                    success: false,
+                    data: `Mașina nu există în baza de date.`
+                })
+            } else {
+                if (results.id_driver != req.body.id_driver) {
                     res.status(StatusCodes.BAD_REQUEST).json({
                         success: false,
-                        err: "Eroare la baza de date"
+                        data: `Șoferul nu corespunde cu mașina.`
                     })
                 } else {
-                    if (results == undefined) {
-                        res.status(StatusCodes.BAD_REQUEST).json({
-                            success: false,
-                            data: "no driver with that id"
-                        })
-                    } else {
-                        req.db.addCar(req.body, (err, results) => {
-                            if (err) {
-                                res.status(StatusCodes.BAD_REQUEST).json({
-                                    success: false,
-                                    err: err.message
-                                })
-                            } else res.status(StatusCodes.OK).json({
-                                success: true,
-                                data: "masina a fost adaugata cu succes!"
+                    req.db.modifyCar(req.body, (err, results) => {
+                        if (err) {
+                            res.status(StatusCodes.BAD_REQUEST).json({
+                                success: false,
+                                err: err.message
                             })
-                        })
-                    }
+                        } else {
+                            res.status(StatusCodes.OK).json({
+                                success: true,
+                                data: `Mașina a fost modificată cu succes.`
+                            })
+                        }
+                    })
                 }
+            }
+        })
+
+
+    },
+    addCar: (req, res) => {
+        if (req.accountType != `admin`) {
+            return res.status(StatusCodes.UNAUTHORIZED).json({
+                success: false,
+                error: "doar adminul poate executa aceasta comanda!"
             })
-        } else {
-            req.db.searchCar(req.body.registration_number, (err, results) => {
-                if (err) {
+        }
+        if (!req.body) {
+            return res.status(StatusCodes.BAD_REQUEST).json({
+                success: false,
+                error: `missing body`
+            })
+        }
+        const { error, value } = models.carModel.modifyCarSchema.validate(req.body)
+        if (error) {
+            return res.status(StatusCodes.BAD_REQUEST).json({
+                success: false,
+                error: error.message
+            })
+        }
+        req.db.searchDriverById(req.body.id_driver, (err, results) => {
+            if (err) {
+                res.status(StatusCodes.BAD_REQUEST).json({
+                    success: false,
+                    err: "Eroare la baza de date"
+                })
+            } else {
+                console.log(results)
+                if (!results) {
+                    console.log("aici")
                     res.status(StatusCodes.BAD_REQUEST).json({
                         success: false,
-                        err: err.message
+                        data: "Nu există niciun șofer înregistrat cu acest id"
                     })
-                } else if (results) {
-                    req.db.modifyCar(req.body, (err, results) => {
+                } else {
+                    req.db.addCar(req.body, (err, results) => {
                         if (err) {
                             res.status(StatusCodes.BAD_REQUEST).json({
                                 success: false,
@@ -101,19 +139,18 @@ module.exports = {
                             })
                         } else res.status(StatusCodes.OK).json({
                             success: true,
-                            data: "masina a fost modificata cu succes!"
+                            data: "masina a fost adaugata cu succes!"
                         })
                     })
-                } else {
-                    res.status(StatusCodes.BAD_REQUEST).json({
-                        success: false,
-                        data: "masina nu exista"
-                    })
                 }
-            })
+            }
+        })
 
-        }
     },
+    deleteCar: (req, res) => {
+
+    },
+
     addNotification: (req, res) => {
         if (req.accountType != `admin`)
             return res.status(StatusCodes.UNAUTHORIZED).json({
@@ -180,106 +217,143 @@ module.exports = {
         }
     },
     createAccount: (req, res) => {
-        const body = req.body
-        const salt = genSaltSync(10)
-        body.password = hashSync(body.password, salt)
-        const { error, value } = models.adminModel.newEmployeeSchema.validate(body);
-        if (error) {
-            return res.status(300).json({
-                success: false,
-                error: error.message
-            })
-        }
-        req.db.createAccount(body, (error, results) => {
+        if (req.accountType == `admin`) {
+            if (!req.body)
+                return res.status(StatusCodes.BAD_REQUEST).json({
+                    success: false,
+                    error: `missing body`
+                })
+            const body = req.body
+            const salt = genSaltSync(10)
+            body.password = hashSync(body.password, salt)
+            const { error, value } = models.adminModel.newEmployeeSchema.validate(body);
             if (error) {
-                res.status(200).json({
+                return res.status(300).json({
                     success: false,
                     error: error.message
                 })
-            } else {
-                res.status(200).json({
-                    success: true
-                })
-                /* mailOptions.to = body.email
-                mailOptions.subject = 'Confirmare creare cont'
-                mailOptions.text = 'Ți-ai creat cont cu succes!'
-                transporter.sendMail(mailOptions, function (error, info) {
-                    if (error) {
-                        console.log(error.message);
-                    } else {
-                        console.log('Email sent: ' + info.response);
-                    }
-                }); */
+
             }
-        })
-        return res
+            req.db.createAccount(body, (error, results) => {
+                if (error) {
+                    res.status(200).json({
+                        success: false,
+                        error: error.message
+                    })
+                } else {
+                    res.status(200).json({
+                        success: true
+                    })
+                    /* mailOptions.to = body.email
+                    mailOptions.subject = 'Confirmare creare cont'
+                    mailOptions.text = 'Ți-ai creat cont cu succes!'
+                    transporter.sendMail(mailOptions, function (error, info) {
+                        if (error) {
+                            console.log(error.message);
+                        } else {
+                            console.log('Email sent: ' + info.response);
+                        }
+                    }); */
+                }
+            })
+        }
+        else {
+            res.status(StatusCodes.UNAUTHORIZED).json({
+                success: 0,
+                error: "doar adminul poate executa aceasta comanda!"
+            })
+        }
     },
     getInfoUser: (req, res) => {
-        body = req.parameters
-        const { error, value } = models.adminModel.validationEmail.validate(body)
-        if (error) {
-            return res.status(200).json({
-                success: false,
-                error: error.message
-            })
-        }
-        req.db.getUserByEmail(body.email, (error, results) => {
+        if (req.accountType == `admin`) {
+            if (!req.body)
+                return res.status(StatusCodes.BAD_REQUEST).json({
+                    success: false,
+                    error: `missing body`
+                })
+            body = req.parameters
+            const { error, value } = models.adminModel.validationEmail.validate(body)
             if (error) {
-                res.status(200).json({
+                return res.status(200).json({
                     success: false,
                     error: error.message
                 })
-            } else if (results != undefined) {
-                res.status(200).json({
-                    success: true,
-                    id: results.id,
-                    surname: results.surname,
-                    name: results.name,
-                    phone: results.phone
-                })
-            } else {
-                res.status(StatusCodes.NOT_FOUND).json({
-                    success: false
-                })
             }
-        })
-        return res
+            req.db.getUserByEmail(body.email, (error, results) => {
+                if (error) {
+                    res.status(200).json({
+                        success: false,
+                        error: error.message
+                    })
+                } else if (results != undefined) {
+                    res.status(200).json({
+                        success: true,
+                        id: results.id,
+                        surname: results.surname,
+                        name: results.name,
+                        phone: results.phone
+                    })
+                } else {
+                    res.status(StatusCodes.NOT_FOUND).json({
+                        success: false
+                    })
+                }
+            })
+        }
+        else {
+            res.status(StatusCodes.UNAUTHORIZED).json({
+                success: 0,
+                error: "doar adminul poate executa aceasta comanda!"
+            })
+        }
     },
     deleteAccount: (req, res) => {
-        body = req.body
-        const { error, value } = models.adminModel.validationEmail.validate(body)
-        if (error) {
-            return res.status(StatusCodes.BAD_REQUEST).json({
-                success: false,
-                error: error.message
-            })
-        }
-        req.db.getUserByEmail(body.email, (error, results) => {
+        if (req.accountType == `admin`) {
+            if (!req.body)
+                return res.status(StatusCodes.BAD_REQUEST).json({
+                    success: false,
+                    error: `missing body`
+                })
+            body = req.body
+            const { error, value } = models.adminModel.validationEmail.validate(body)
             if (error) {
-                res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+                return res.status(StatusCodes.BAD_REQUEST).json({
                     success: false,
                     error: error.message
                 })
-            } else if (results != undefined) {
-                req.db.deleteAccount(body.email, (error, results) => {
-                    if (error) {
-                        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-                            success: false,
-                            error: error.message
-                        })
-                    } else {
-                        res.status(200).json({
-                            success: true
-                        })
-                    }
-                })
-            } else {
-                res.status(StatusCodes.NOT_FOUND).json({
-                    success: false,
-                    error: "not exist"
-                })
             }
-        })
-        return res
+            req.db.getUserByEmail(body.email, (error, results) => {
+                if (error) {
+                    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+                        success: false,
+                        error: error.message
+                    })
+                } else if (results != undefined) {
+                    req.db.deleteAccount(body.email, (error, results) => {
+                        if (error) {
+                            res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+                                success: false,
+                                error: error.message
+                            })
+                        } else {
+                            res.status(200).json({
+                                success: true
+                            })
+                        }
+                    })
+                } else {
+                    res.status(StatusCodes.NOT_FOUND).json({
+                        success: false,
+                        error: "not exist"
+                    })
+                }
+            })
+        }
+        else {
+            res.status(StatusCodes.UNAUTHORIZED).json({
+                success: 0,
+                error: "doar adminul poate executa aceasta comanda!"
+            })
+        }
     }
 }
