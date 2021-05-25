@@ -265,48 +265,6 @@ window.addEventListener(`api-fetched`, (ev) => {
                     });
 
             }
-
-
-            // var values = {
-            //     registration_number: document.getElementById(`nr-inmatriculare`).value,
-            //     id_driver: document.getElementById(`id-sofer`).value,
-            //     status: document.getElementById(`car-status`).value
-
-            // }
-            // fetch(`${hostName}${api.modifyCar.route}`, {
-            //         method: api.modifyCar.method,
-            //         body: JSON.stringify(values),
-            //         headers: { "Content-type": "application/json; charset=UTF-8" }
-            //     })
-            //     .then(response => response.json())
-            //     .then(json => {
-            //         if (json.error) {
-            //             if (json.error.includes(`registration_number`)) {
-            //                 document.getElementById(`car-search-status`).innerHTML = "Numărul de înmatriculare nu respectă formatul";
-            //                 document.getElementById(`nr-inmatriculare`).style.backgroundColor = "rgb(211, 110, 110)";
-            //             } else if (json.error.includes(`id_driver`)) {
-            //                 document.getElementById(`car-search-status`).innerHTML = "Id-ul soferului nu respecta formatul";
-            //                 document.getElementById(`id-sofer`).style.backgroundColor = "rgb(211, 110, 110)";
-            //             }
-            //         } else if (json.data.includes(`Nu există niciun șofer înregistrat cu acest id`)) {
-            //             document.getElementById(`car-search-status`).innerHTML = "Nu există niciun șofer înregistrat cu acest id";
-            //             document.getElementById(`id-sofer`).style.backgroundColor = "rgb(211, 110, 110)";
-            //         } else {
-            //             if (json.data.includes(`Mașina nu există în baza de date.`)) {
-            //                 document.getElementById(`nr-inmatriculare`).style.backgroundColor = "rgb(211, 110, 110)";
-            //                 document.getElementById(`car-search-status`).innerHTML = json.data;
-            //             }
-            //             if (json.data.includes(`Șoferul nu corespunde cu mașina.`)) {
-            //                 document.getElementById(`id-sofer`).style.backgroundColor = "rgb(211, 110, 110)";
-            //                 document.getElementById(`car-search-status`).innerHTML = json.data;
-
-            //             } else document.getElementById(`car-search-status`).innerHTML = json.data;
-            //         }
-
-            //     })
-            //     .catch(err => {
-            //         console.log(err)
-            //     });
         },
 
         changePriceForm.onsubmit = async(e) => {
