@@ -19,7 +19,7 @@ module.exports = {
             `select * from awb_events where awb = ?`, [awb],
             (error, results, fields) => {
                 if (error) {
-                    callBack(error);
+                    return callBack(error);
                 }
                 return callBack(null, results);
             }
@@ -30,7 +30,7 @@ module.exports = {
             `INSERT INTO tokens where id = ?`, [id],
             (error, results, fields) => {
                 if (error) {
-                    callBack(error);
+                    return callBack(error);
                 }
                 return callBack(null, results);
             }
@@ -41,7 +41,7 @@ module.exports = {
             `SELECT *FROM tokens where id = ?`, [id],
             (error, results, fields) => {
                 if (error) {
-                    callBack(error);
+                    return callBack(error);
                 }
                 return callBack(null, results);
             }
@@ -52,7 +52,7 @@ module.exports = {
             `SELECT type FROM users where id = ?`, [id],
             (error, results, fields) => {
                 if (error) {
-                    callBack(error);
+                    return callBack(error);
                 }
                 return callBack(null, results);
             }
@@ -63,7 +63,7 @@ module.exports = {
             `select * from users where email = ?`, [email],
             (error, results, fields) => {
                 if (error) {
-                    callBack(error);
+                    return callBack(error);
                 }
                 return callBack(null, results[0]);
             }
@@ -74,7 +74,7 @@ module.exports = {
             `select * from tokens where id = ?`, [id],
             (error, results, fields) => {
                 if (error) {
-                    callBack(error);
+                    return callBack(error);
                 }
                 return callBack(null, results);
             }
@@ -190,7 +190,7 @@ module.exports = {
             `SELECT *FROM notifications`,
             (error, results, fields) => {
                 if (error) {
-                    callBack(error);
+                    return callBack(error);
                 }
                 return callBack(null, results);
             }
@@ -203,7 +203,7 @@ module.exports = {
             ],
             (error, results, fields) => {
                 if (error) {
-                    callBack(error);
+                    return callBack(error);
                 }
                 return callBack(null, results);
             }
@@ -218,7 +218,7 @@ module.exports = {
             ],
             (error, results, fields) => {
                 if (error) {
-                    callBack(error);
+                    return callBack(error);
                 }
                 return callBack(null, results);
             }
@@ -231,7 +231,7 @@ module.exports = {
             ],
             (error, results, fields) => {
                 if (error) {
-                    callBack(error);
+                    return callBack(error);
                 }
                 return callBack(null, results[0]);
             }
@@ -245,7 +245,7 @@ module.exports = {
             ],
             (error, results, fields) => {
                 if (error) {
-                    callBack(error);
+                    return callBack(error);
                 }
                 return callBack(null, results[0]);
             }
@@ -259,7 +259,7 @@ module.exports = {
             ],
             (error, results, fields) => {
                 if (error) {
-                    callBack(error);
+                    return callBack(error);
                 }
                 return callBack(null, results[0]);
             }
@@ -273,7 +273,7 @@ module.exports = {
             ],
             (error, results, fields) => {
                 if (error) {
-                    callBack(error);
+                    return callBack(error);
                 }
                 return callBack(null, results[0]);
             }
@@ -288,7 +288,7 @@ module.exports = {
             ],
             (error, results, fields) => {
                 if (error) {
-                    callBack(error);
+                    return callBack(error);
                 }
                 return callBack(null, results[0]);
             }
@@ -301,7 +301,7 @@ module.exports = {
             ],
             (error, results, fields) => {
                 if (error) {
-                    callBack(error);
+                    return callBack(error);
                 }
                 return callBack(null, results[0]);
             }
@@ -314,7 +314,7 @@ module.exports = {
             ],
             (error, results, fields) => {
                 if (error) {
-                    callBack(error);
+                    return callBack(error);
                 }
                 return callBack(null, results[0]);
             }
@@ -329,7 +329,7 @@ module.exports = {
             ],
             (error, results, fields) => {
                 if (error) {
-                    callBack(error);
+                    return callBack(error);
                 }
                 return callBack(null, results);
             }
@@ -343,11 +343,19 @@ module.exports = {
             ],
             (error, results, fields) => {
                 if (error) {
-                    callBack(error);
+                    return callBack(error);
                 }
                 return callBack(null, results);
             }
         );
+    },
+    deleteCar: (registration_number, callBack) => {
+        pool.query(
+            `DELETE FROM cars WHERE registration_number=?`, [
+                registration_number
+            ],
+            (error) => callBack(error)
+        )
     },
     updateBestPrice: (price, callBack) => {
         pool.query(
@@ -356,7 +364,7 @@ module.exports = {
             ],
             (error, results, fields) => {
                 if (error) {
-                    callBack(error);
+                    return callBack(error);
                 }
                 return callBack(null, results);
             }
@@ -364,14 +372,30 @@ module.exports = {
     },
     searchDriverById: (id, callBack) => {
         pool.query(
-            `SELECT * from users where id=? AND type=driver`, [
-                id
+            `SELECT * from users where id=? AND type=?`, [
+                id,
+                `driver`
             ],
             (error, results, fields) => {
                 if (error) {
-                    callBack(error);
+                    return callBack(error);
                 }
-                return callBack(null, results);
+                return callBack(null, results[0]);
+            }
+        )
+    },
+    checkDriverCar: (data, callBack) => {
+        pool.query(
+            `SELECT * from cars where id_driver=? AND type=? AND registration_number=?`, [
+                data.id,
+                `driver`,
+                data.registration_number
+            ],
+            (error, results, fields) => {
+                if (error) {
+                    return callBack(error);
+                }
+                return callBack(null, results[0]);
             }
         )
     },
