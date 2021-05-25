@@ -55,19 +55,19 @@ module.exports = {
                 });
                 res.setHeader('Set-Cookie', 'token=' + jsontoken + `; HttpOnly;Domain=${models.apiModel.domain};Path=/`);
                 res.status(200).json({
-                        success: true,
-                        redirect: `/dashboard-user.html`
-                    })
-                    /* mailOptions.to = body.email
-                    mailOptions.subject = 'Confirmare creare cont'
-                    mailOptions.text = 'Ți-ai creat cont cu succes!'
-                    transporter.sendMail(mailOptions, function (error, info) {
-                        if (error) {
-                            console.log(error.message);
-                        } else {
-                            console.log('Email sent: ' + info.response);
-                        }
-                    }); */
+                    success: true,
+                    redirect: `/dashboard-user.html`
+                })
+                /* mailOptions.to = body.email
+                mailOptions.subject = 'Confirmare creare cont'
+                mailOptions.text = 'Ți-ai creat cont cu succes!'
+                transporter.sendMail(mailOptions, function (error, info) {
+                    if (error) {
+                        console.log(error.message);
+                    } else {
+                        console.log('Email sent: ' + info.response);
+                    }
+                }); */
             }
         })
         return res
@@ -137,13 +137,13 @@ module.exports = {
                         mailOptions.to = body.email
                         mailOptions.subject = 'Schimbarea datelor'
                         mailOptions.text = 'Codul pentru resetare este:\n' + results.insertId
-                            /* transporter.sendMail(mailOptions, function (error, info) {
-                                if (error) {
-                                    console.log(error.message);
-                                } else {
-                                    console.log('Email sent: ' + info.response);
-                                }
-                            }); */
+                        /* transporter.sendMail(mailOptions, function (error, info) {
+                            if (error) {
+                                console.log(error.message);
+                            } else {
+                                console.log('Email sent: ' + info.response);
+                            }
+                        }); */
                         const data = {
                             id: id,
                             code: results.insertId,

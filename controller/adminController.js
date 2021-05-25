@@ -134,17 +134,17 @@ module.exports = {
                 error: error
             })
         req.db.addNotification(req.body, (err, results) => {
-                if (err) {
-                    res.status(StatusCodes.BAD_REQUEST).json({
-                        success: false,
-                        err: err.message
-                    })
-                } else res.status(StatusCodes.OK).json({
-                    success: true,
-                    data: "notificarea a fost adaugata cu succes!"
+            if (err) {
+                res.status(StatusCodes.BAD_REQUEST).json({
+                    success: false,
+                    err: err.message
                 })
+            } else res.status(StatusCodes.OK).json({
+                success: true,
+                data: "notificarea a fost adaugata cu succes!"
             })
-            // return res;
+        })
+        // return res;
     },
     deleteNotification: (req, res) => {
 
@@ -198,18 +198,18 @@ module.exports = {
                 })
             } else {
                 res.status(200).json({
-                        success: true
-                    })
-                    /* mailOptions.to = body.email
-                    mailOptions.subject = 'Confirmare creare cont'
-                    mailOptions.text = 'Ți-ai creat cont cu succes!'
-                    transporter.sendMail(mailOptions, function (error, info) {
-                        if (error) {
-                            console.log(error.message);
-                        } else {
-                            console.log('Email sent: ' + info.response);
-                        }
-                    }); */
+                    success: true
+                })
+                /* mailOptions.to = body.email
+                mailOptions.subject = 'Confirmare creare cont'
+                mailOptions.text = 'Ți-ai creat cont cu succes!'
+                transporter.sendMail(mailOptions, function (error, info) {
+                    if (error) {
+                        console.log(error.message);
+                    } else {
+                        console.log('Email sent: ' + info.response);
+                    }
+                }); */
             }
         })
         return res
