@@ -33,6 +33,17 @@ const newOrderSchema = Joi.object().options({ abortEarly: false }).keys({
     mentions: Joi.string().required().allow(null, '')
 });
 
+const orderDashboardObjectTemplate = {
+    'order-received': [],
+    'order-picked-up': [],
+    'order-in-transit': [],
+    'order-in-delivery': [],
+    'order-destinatary': [],
+}
+
+const orderDashboardModel = JSON.parse(JSON.stringify(orderDashboardObjectTemplate))
+
+
 
 
 var cities = {
@@ -47,7 +58,8 @@ var cities = {
     Timișoara: ["Timișoara", "Buziaș", "Ciacova", "Deta", "Făget", "Gătaia", "Jimbolia", "Lugoj", "Recaș", "Sâncicolau Mare"]
 }
 
-
 var listCity = ["Ilfov", "Cluj", "Constanța", "Dolj", "Galați", "Iași", "Oradea", "Sibiu", "Timișoara"];
 
-module.exports = newOrderSchema
+
+
+module.exports = { newOrderSchema, orderDashboardModel }

@@ -1,6 +1,6 @@
 const { StatusCodes } = require(`http-status-codes`)
 const models = require("../models")
-const { id } = require("../models/validationNewOrder")
+const { id } = require("../models/orderModel")
 
 const driverEventsSchema = models.userModel.driverEventsSchema
 

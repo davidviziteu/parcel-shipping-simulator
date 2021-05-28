@@ -2,14 +2,12 @@ const { hashSync, genSaltSync, compareSync } = require("bcrypt")
 const { StatusCodes } = require(`http-status-codes`)
 const models = require("../models")
 const nodemailer = require('nodemailer');
-const { id } = require("../models/validationNewOrder");
-const { apiModel } = models
 const { sign } = require("jsonwebtoken");
 const jwt_decode = require('jwt-decode');
 
 
 const newUserSchema = models.userModel.newUserSchema
-const newOrderSchema = models.newOrderModel
+const { newOrderSchema } = models.orderModel
 const validationEmailChangeCredentials = models.userModel.validationEmailChangeCredentials
 
 var transporter = nodemailer.createTransport({

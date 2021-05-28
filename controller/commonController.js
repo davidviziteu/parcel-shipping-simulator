@@ -3,40 +3,37 @@ const { apiModel } = models
 const { sign } = require("jsonwebtoken");
 const { StatusCodes } = require(`http-status-codes`)
 const { hashSync, genSaltSync, compare } = require("bcrypt");
+const { orderDashboardModel } = models.orderModel
+
 module.exports = {
-    checkIfAwbExists: async (req, res) => {
+    trackAwb: async (req, res) => {
+        console.log(`here`);
         if (!req.parameters.awb)
             return res.status(StatusCodes.BAD_REQUEST).json({
                 error: "missing awb from query parameters"
             })
         try {
-            const orderDetails = await req.db.getDetailsOrder(req.parameters.awb)
-            return res.status(StatusCodes.OK).json({ orderDetails: orderDetails })
-        } catch (error) {
-            if (error == `No such awb in db`)
-                return res.status(StatusCodes.NOT_FOUND).json({ success: false, error: error })
-            res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ success: false, error: error })
+            let awbDataPromise = req.db.getDetailsOrder(req.parameters.awb);
+            let awbEventsPromise = req.db.getAwbEvents(req.parameters.awb);
+            const [awbData, awbRawEvents] = await Promise.all([awbDataPromise, awbEventsPromise])
+            let awbEventsObject = models.orderModel.orderDashboardModel
+            console.log(awbRawEvents);
+            console.log(awbEventsObject);
+            //check for auth
+            awbRawEvents.forEach(awbEv => {
+                awbEventsObject[awbEv.event_type].push(`${awbEv.details} ${awbEv.employees_details} ${awbEv.date_time}`)
+            });
 
-        }
-    },
-    orderDashboardController: async (req, res) => {
-        if (!req.parameters.awb)
-            return res.status(StatusCodes.BAD_REQUEST).json({
-                error: "missing awb from query parameters"
-            })
-        try {
-            const awbEvents = await req.db.getAwbEvents(req.parameters.awb);
-            // if (req.accountType == `admin` || req.accountType == `employee`)
             return res.status(StatusCodes.OK).json({
-                awb: req.parameters.awb,
-                events: awbEvents
+                success: true,
+                data: awbData,
+                events: awbEventsObject
             })
         } catch (error) {
             if (error == `No such awb in db`)
-                return res.status(StatusCodes.NOT_FOUND).json({ success: false, error: error })
-            res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ success: false, error: error })
+                return res.status(StatusCodes.NOT_FOUND).json({ success: false, error: `No such awb in db` })
+            res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ success: false, error: error.message })
         }
-
     },
     handleLogin: (req, res) => {
         if (!req.body)
