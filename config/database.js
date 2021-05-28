@@ -15,6 +15,19 @@ const pool = createPool({
 
 module.exports = {
     getAwbEvents: (awb, callBack) => {
+        if (!callBack)
+            return new Promise((resolve, reject) => {
+                pool.query(
+                    `select * from awb_events where awb = ?`, [awb],
+                    (error, results, fields) => {
+                        if (error)
+                            return reject(error);
+                        if (!results[0])
+                            return reject(`No such awb in db`)
+                        return resolve(results);
+                    }
+                );
+            })
         pool.query(
             `select * from awb_events where awb = ?`, [awb],
             (error, results, fields) => {
@@ -197,6 +210,22 @@ module.exports = {
         )
     },
     getDetailsOrder: (awb, callBack) => {
+        //promise wrapping
+        if (!callBack)
+            return new Promise((resolve, reject) => {
+                pool.query(
+                    `SELECT * FROM orders where awb = ?`, [
+                    awb
+                ],
+                    (error, results, fields) => {
+                        if (error)
+                            return reject(error);
+                        if (!results[0])
+                            return reject(`No such awb in db`)
+                        return resolve(results[0]);
+                    }
+                )
+            })
         pool.query(
             `SELECT * FROM orders where awb = ?`, [
             awb
@@ -205,7 +234,7 @@ module.exports = {
                 if (error) {
                     return callBack(error);
                 }
-                return callBack(null, results);
+                return callBack(null, results[0]);
             }
         )
     },
@@ -410,7 +439,7 @@ module.exports = {
                     (error, results, fields) => {
                         if (error)
                             return reject(error)
-                        return resolve(results, fields)
+                        return resolve(results)
                     }
                 )
             })

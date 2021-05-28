@@ -1,5 +1,7 @@
 try {
-    var awb = localStorage.getItem(`awb-to-fetch`)
+    var awb = sessionStorage.getItem(`awb-to-fetch`)
+    var orderDetails = sessionStorage.getItem(`order-details`)
+    console.log(JSON.stringify(orderDetails));
     document.getElementById(`awb-title`).innerHTML = `AWB: ${awb}`
 } catch (error) {
     document.getElementById(`awb-title`).innerHTML = `Error loading awb from local storage: ${error}`

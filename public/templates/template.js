@@ -207,10 +207,11 @@ function loadRegisterButton() {
 async function trackAwb() {
     let awb = document.getElementById(`awb-input`).value
     try {
-        let response = await fetch(`${hostName}${api.checkIfAwbExists.route}?awb=${awb}`, { method: api.checkIfAwbExists.method })
+        let response = await fetch(`${hostName}${api.checkIfAwbExists.route}?awb=${awb}`, { method: api.checkIfAwbExists.method }).then(res => res.json())
         if (!response.ok)
             return document.getElementById("awb-input").style.backgroundColor = "rgb(211, 110, 110)"
-        localStorage.setItem(`awb-to-fetch`, awb)
+        sessionStorage.setItem(`awb-to-fetch`, awb)
+        sessionStorage.setItem(`order-details`, response)
         window.location = api.trackAwb.location
     } catch (error) {
         if (error instanceof QuotaExceededError)

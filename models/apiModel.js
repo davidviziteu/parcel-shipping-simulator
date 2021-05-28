@@ -3,7 +3,8 @@ const host = process.env.PORT ? `https://parcel-shipping-simulator.herokuapp.com
 exports.domain = process.env.PORT ? `parcel-shipping-simulator.herokuapp.com` : `localhost`
 /**
  * client lanseaza comanda, -> insert awb_events (awb, 'order-received', 'comanda a fost primita', '',datetime)
- * soferul preia pachetul -> insert awb_events (awb, 'order-picked-up', 'ridicat de la expeditor','nume sofer/angajat, id, email, masina, nr de inmatriculare', datetime)
+ * soferul preia pachetul -> insert awb_events (awb, '
+2021-05-28 09:53:27	', 'ridicat de la expeditor','nume sofer/angajat, id, email, masina, nr de inmatriculare', datetime)
  * soferul aduce pachetul la baza -> insert awb_events (awb, 'order-picked-up', 'ajuns la sediu [oras]', 'nume sofer, id, email, masina, nr de inmatriculare', datetime)
  * soferul soferul preia pachetul din baza -> insert awb_events (awb, 'order-in-transit', 'a plecat de la sediu [oras]', 'nume sofer, id, email, masina, nr de inmatriculare', datetime)
  * soferul soferul preia pachetul din baza (dar e vremea proasta sau s a stricat masina sau orice, se pune motivul intarzierii in al 2 lea camp) -> insert awb_events (awb, 'order-in-transit', 'motiv intarziere', 'nume sofer, id, email, masina, nr de inmatriculare', datetime)

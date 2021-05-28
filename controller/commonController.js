@@ -4,78 +4,38 @@ const { sign } = require("jsonwebtoken");
 const { StatusCodes } = require(`http-status-codes`)
 const { hashSync, genSaltSync, compare } = require("bcrypt");
 module.exports = {
-    checkIfAwbExists: (req, res) => {
-        console.log(req.parameters)
+    checkIfAwbExists: async (req, res) => {
         if (!req.parameters.awb)
             return res.status(StatusCodes.BAD_REQUEST).json({
                 error: "missing awb from query parameters"
             })
+        try {
+            const orderDetails = await req.db.getDetailsOrder(req.parameters.awb)
+            return res.status(StatusCodes.OK).json({ orderDetails: orderDetails })
+        } catch (error) {
+            if (error == `No such awb in db`)
+                return res.status(StatusCodes.NOT_FOUND).json({ success: false, error: error })
+            res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ success: false, error: error })
 
-        if (req.parameters.awb == "example1" || req.parameters.awb == "example2")
-            return res.status(StatusCodes.OK).json({ success: true })
-
-        return res.status(StatusCodes.NOT_FOUND).json({
-            error: "at the moment there are only 2 awbs suported: example1 and example2"
-        })
+        }
     },
-    trackAwb: (req, res) => {
+    orderDashboardController: async (req, res) => {
         if (!req.parameters.awb)
             return res.status(StatusCodes.BAD_REQUEST).json({
                 error: "missing awb from query parameters"
             })
-        if (req.parameters.awb == "example1")
+        try {
+            const awbEvents = await req.db.getAwbEvents(req.parameters.awb);
+            // if (req.accountType == `admin` || req.accountType == `employee`)
             return res.status(StatusCodes.OK).json({
-                awb: "example1",
-                events: {
-                    statusComandPrimita: [
-                        `Comanda a fost primită 7-apr-2021, 19:22:30`
-                    ],
-                    statusRidicare: [
-                        `Pachetul urmează a fi ridicat de la expeditor în data de 8-apr-2021`
-                    ]
-                },
+                awb: req.parameters.awb,
+                events: awbEvents
             })
-        if (req.parameters.awb == "example2")
-            return res.status(StatusCodes.OK).json({
-                awb: "example2",
-                events: {
-                    statusComandPrimita: [
-                        `Comanda a fost primită 7-apr-2021, 19:22:30`
-                    ],
-                    statusRidicare: [
-                        `Pachetul urmează a fi ridicat de la expeditor în data de 8-apr-2021`
-                    ],
-                    statusTranzit: [
-                        "A părăsit hub - ul Focșani în data de 1 - apr - 2021, 21: 30: 22",
-                        `Șofer - Vasile Vasilescu(ID - 1256)`,
-                        `A ajuns în hub - ul Bacău în data de 2 - apr - 2021, 00: 30: 21`,
-                        `A părăsit hub - ul Bacău în data de 3 - apr - 2021, 21: 30: 12`,
-                        `Șofer - Vasile Alexandrescu(ID - 332)`,
-                        `A ajuns în hub - ul Iași în data de 3 - apr - 2021, 00: 10: 21`,
-                    ],
-                    statusLivrare: [
-                        `Livrare astăzi, 3 - apr - 2021`,
-                        `Șofer - Poescu Andrei(ID - 3323) - masina is - 33 - abc`,
-                        `Curierul a raportat autoturism avariat, livrare amânată`,
-                        `Livrare astăzi, 5 - apr - 2021`,
-                        `Șofer - Poescu Andrei(ID - 3323) - masina is - 33 - abc`,
-                    ],
-                    statusDestinar: [
-                        `livrat`,
-                        `sau altceva`
-                    ],
-                },
-                details: [
-                    "fragil",
-                    "exemplu detalii2"
-                ],
-                selectedOptions: [
-                    1, 2, 3
-                ]
-            })
-        return res.status(StatusCodes.NOT_FOUND).json({
-            error: "at the moment there are only 2 awbs suported: example1 and example2"
-        })
+        } catch (error) {
+            if (error == `No such awb in db`)
+                return res.status(StatusCodes.NOT_FOUND).json({ success: false, error: error })
+            res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ success: false, error: error })
+        }
 
     },
     handleLogin: (req, res) => {

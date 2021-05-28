@@ -4,7 +4,7 @@ const { apiModel } = require(`../models`)
 
 let commonRouter = new Router();
 commonRouter.get(apiModel.baseApi.checkIfAwbExists.route, controllers.commonController.checkIfAwbExists)
-commonRouter.get(apiModel.baseApi.trackAwb.route, controllers.commonController.trackAwb);
+commonRouter.get(apiModel.baseApi.trackAwb.route, controllers.commonController.orderDashboardController);
 commonRouter.post(`/api/login`, controllers.commonController.handleLogin);
 commonRouter.get(`/api/notifications`, controllers.commonController.getNotifications);
 commonRouter.get(`/api`, controllers.commonController.getApi);
