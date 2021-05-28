@@ -41,7 +41,7 @@ module.exports = {
         if (req.accountType != `admin`) {
             return res.status(StatusCodes.UNAUTHORIZED).json({
                 success: false,
-                error: "doar adminul poate executa aceasta comanda!"
+                error: "Doar adminul poate executa aceasta comanda!"
             })
         }
         if (!req.body) {
@@ -57,8 +57,6 @@ module.exports = {
                 error: error.message
             })
         }
-
-
         req.db.searchCar(req.body.registration_number, (err, results) => {
             if (err) {
                 res.status(StatusCodes.BAD_REQUEST).json({
@@ -71,26 +69,19 @@ module.exports = {
                     data: `Mașina nu există în baza de date.`
                 })
             } else {
-                if (results.id_driver != req.body.id_driver) {
-                    res.status(StatusCodes.BAD_REQUEST).json({
-                        success: false,
-                        data: `Șoferul nu corespunde cu mașina.`
-                    })
-                } else {
-                    req.db.modifyCar(req.body, (err, results) => {
-                        if (err) {
-                            res.status(StatusCodes.BAD_REQUEST).json({
-                                success: false,
-                                err: err.message
-                            })
-                        } else {
-                            res.status(StatusCodes.OK).json({
-                                success: true,
-                                data: `Mașina a fost modificată cu succes.`
-                            })
-                        }
-                    })
-                }
+                req.db.modifyCar(req.body, (err, results) => {
+                    if (err) {
+                        res.status(StatusCodes.BAD_REQUEST).json({
+                            success: false,
+                            err: err.message
+                        })
+                    } else {
+                        res.status(StatusCodes.OK).json({
+                            success: true,
+                            data: `Mașina a fost modificată cu succes.`
+                        })
+                    }
+                })
             }
         })
 
@@ -100,7 +91,7 @@ module.exports = {
         if (req.accountType != `admin`) {
             return res.status(StatusCodes.UNAUTHORIZED).json({
                 success: false,
-                error: "doar adminul poate executa aceasta comanda!"
+                error: "Doar adminul poate executa aceasta comanda!"
             })
         }
         if (!req.body) {
@@ -116,38 +107,161 @@ module.exports = {
                 error: error.message
             })
         }
-        req.db.searchDriverById(req.body.id_driver, (err, results) => {
+        req.db.searchCar(req.body.registration_number, (err, results) => {
             if (err) {
                 res.status(StatusCodes.BAD_REQUEST).json({
                     success: false,
-                    err: "Eroare la baza de date"
+                    err: err.message
+                })
+            }
+            if (results) {
+                res.status(StatusCodes.BAD_REQUEST).json({
+                    success: false,
+                    data: "Mașina există deja în baza de date."
                 })
             } else {
-                console.log(results)
-                if (!results) {
-                    console.log("aici")
-                    res.status(StatusCodes.BAD_REQUEST).json({
-                        success: false,
-                        data: "Nu există niciun șofer înregistrat cu acest id"
-                    })
-                } else {
-                    req.db.addCar(req.body, (err, results) => {
-                        if (err) {
+                req.db.searchDriverById(req.body.id_driver, (err, results) => {
+                    if (err) {
+                        res.status(StatusCodes.BAD_REQUEST).json({
+                            success: false,
+                            err: err.message
+                        })
+                    } else {
+                        if (!results) {
                             res.status(StatusCodes.BAD_REQUEST).json({
                                 success: false,
-                                err: err.message
+                                data: "Nu există niciun șofer înregistrat cu acest id."
                             })
-                        } else res.status(StatusCodes.OK).json({
-                            success: true,
-                            data: "masina a fost adaugata cu succes!"
-                        })
-                    })
-                }
+                        } else {
+                            req.db.addCar(req.body, (err, results) => {
+                                if (err) {
+                                    res.status(StatusCodes.BAD_REQUEST).json({
+                                        success: false,
+                                        err: err.message
+                                    })
+                                } else res.status(StatusCodes.OK).json({
+                                    success: true,
+                                    data: "Mașina a fost adaugată cu succes!"
+                                })
+                            })
+                        }
+                    }
+                })
             }
         })
 
     },
-    deleteCar: (req, res) => {
+    removeCar: (req, res) => {
+        if (req.accountType != `admin`) {
+            return res.status(StatusCodes.UNAUTHORIZED).json({
+                success: false,
+                error: "Doar adminul poate executa aceasta comanda!"
+            })
+        }
+        if (!req.body) {
+            return res.status(StatusCodes.BAD_REQUEST).json({
+                success: false,
+                error: `missing body`
+            })
+        }
+        const { error, value } = models.carModel.modifyCarSchema.validate(req.body)
+        if (error) {
+            return res.status(StatusCodes.BAD_REQUEST).json({
+                success: false,
+                error: error.message
+            })
+        }
+        req.db.searchCar(req.body.registration_number, (err, results) => {
+            if (err) {
+                res.status(StatusCodes.BAD_REQUEST).json({
+                    success: false,
+                    err: err.message
+                })
+            } else if (!results) {
+                res.status(StatusCodes.BAD_REQUEST).json({
+                    success: false,
+                    data: `Mașina nu există în baza de date.`
+                })
+            } else {
+                req.db.removeCar(req.body.registration_number, (err, results) => {
+                    if (err) {
+                        res.status(StatusCodes.BAD_REQUEST).json({
+                            success: false,
+                            err: err.message
+                        })
+                    } else {
+                        res.status(StatusCodes.OK).json({
+                            success: true,
+                            data: `Mașina a fost eliminată cu succes.`
+                        })
+                    }
+                })
+            }
+        })
+
+    },
+    changeDriver: (req, res) => {
+        if (req.accountType != `admin`) {
+            return res.status(StatusCodes.UNAUTHORIZED).json({
+                success: false,
+                error: "Doar adminul poate executa aceasta comanda!"
+            })
+        }
+        if (!req.body) {
+            return res.status(StatusCodes.BAD_REQUEST).json({
+                success: false,
+                error: `missing body`
+            })
+        }
+        const { error, value } = models.carModel.modifyCarSchema.validate(req.body)
+        if (error) {
+            return res.status(StatusCodes.BAD_REQUEST).json({
+                success: false,
+                error: error.message
+            })
+        }
+        req.db.searchCar(req.body.registration_number, (err, results) => {
+            console.log(results)
+            if (err) {
+                res.status(StatusCodes.BAD_REQUEST).json({
+                    success: false,
+                    err: err.message
+                })
+            } else if (!results) {
+                res.status(StatusCodes.BAD_REQUEST).json({
+                    success: false,
+                    data: `Mașina nu există în baza de date.`
+                })
+            } else {
+                req.db.searchDriverById(req.body.id_driver, (err, results) => {
+                    if (err) {
+                        res.status(StatusCodes.BAD_REQUEST).json({
+                            success: false,
+                            err: err.message
+                        })
+                    } else if (!results) {
+                        res.status(StatusCodes.BAD_REQUEST).json({
+                            success: false,
+                            data: "Nu există niciun șofer înregistrat cu acest id."
+                        })
+                    } else {
+                        req.db.changeDriver(req.body, (err, results) => {
+                            if (err) {
+                                res.status(StatusCodes.BAD_REQUEST).json({
+                                    success: false,
+                                    err: err.message
+                                })
+                            } else {
+                                res.status(StatusCodes.OK).json({
+                                    success: true,
+                                    data: "Șoferul mașinii a fost schimbat cu succes!"
+                                })
+                            }
+                        })
+                    }
+                })
+            }
+        })
 
     },
 
@@ -181,7 +295,6 @@ module.exports = {
                 data: "notificarea a fost adaugata cu succes!"
             })
         })
-        // return res;
     },
     deleteNotification: (req, res) => {
 
@@ -242,22 +355,21 @@ module.exports = {
                     })
                 } else {
                     res.status(200).json({
-                        success: true
-                    })
-                    /* mailOptions.to = body.email
-                    mailOptions.subject = 'Confirmare creare cont'
-                    mailOptions.text = 'Ți-ai creat cont cu succes!'
-                    transporter.sendMail(mailOptions, function (error, info) {
-                        if (error) {
-                            console.log(error.message);
-                        } else {
-                            console.log('Email sent: ' + info.response);
-                        }
-                    }); */
+                            success: true
+                        })
+                        /* mailOptions.to = body.email
+                        mailOptions.subject = 'Confirmare creare cont'
+                        mailOptions.text = 'Ți-ai creat cont cu succes!'
+                        transporter.sendMail(mailOptions, function (error, info) {
+                            if (error) {
+                                console.log(error.message);
+                            } else {
+                                console.log('Email sent: ' + info.response);
+                            }
+                        }); */
                 }
             })
-        }
-        else {
+        } else {
             res.status(StatusCodes.UNAUTHORIZED).json({
                 success: 0,
                 error: "doar adminul poate executa aceasta comanda!"
@@ -299,8 +411,7 @@ module.exports = {
                     })
                 }
             })
-        }
-        else {
+        } else {
             res.status(StatusCodes.UNAUTHORIZED).json({
                 success: 0,
                 error: "doar adminul poate executa aceasta comanda!"
@@ -348,8 +459,7 @@ module.exports = {
                     })
                 }
             })
-        }
-        else {
+        } else {
             res.status(StatusCodes.UNAUTHORIZED).json({
                 success: 0,
                 error: "doar adminul poate executa aceasta comanda!"
