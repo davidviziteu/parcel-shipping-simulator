@@ -78,7 +78,7 @@ buttonLivrat.addEventListener('click', () => {
 window.addEventListener(`api-fetched`, (ev) => {
     fetch(`${hostName}${api.getDetailsAwbforDriver.route}`, {
         method: api.getDetailsAwbforDriver.method,
-        headers: { "Content-type": "application/json; charset=UTF-8" }
+        headers: { "Content-type": "application/json" }
     })
         .then(response => response.json())
         .then(json => {
@@ -132,7 +132,7 @@ window.addEventListener(`api-fetched`, (ev) => {
         fetch(`${hostName}${api.driverEvent.route}`, {
             method: api.driverEvent.route,
             body: JSON.stringify(values),
-            headers: { "Content-type": "application/json; charset=UTF-8" }
+            headers: { "Content-type": "application/json" }
         })
             .then(response => response.json())
             .then(json => {

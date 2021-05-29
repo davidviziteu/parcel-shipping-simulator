@@ -16,7 +16,7 @@ window.addEventListener(`api-fetched`, (ev) => {
         fetch(`${hostName}${api.getCode.route}`, {
             method: api.getCode.method,
             body: JSON.stringify(value),
-            headers: { "Content-type": "application/json; charset=UTF-8" }
+            headers: { "Content-type": "application/json" }
         })
             .then(response => response.json())
             .then(json => {
@@ -42,7 +42,7 @@ window.addEventListener(`api-fetched`, (ev) => {
         fetch(`${hostName}${api.changeCredentials.route}`, {
             method: api.changeCredentials.method,
             body: JSON.stringify(value),
-            headers: { "Content-type": "application/json; charset=UTF-8" }
+            headers: { "Content-type": "application/json" }
         })
             .then(response => response.json())
             .then(json => {
@@ -68,7 +68,7 @@ window.addEventListener(`api-fetched`, (ev) => {
         fetch(`${hostName}${api.getCode.route}`, {
             method: api.getCode.method,
             body: JSON.stringify(value),
-            headers: { "Content-type": "application/json; charset=UTF-8" }
+            headers: { "Content-type": "application/json" }
         })
             .then(response => response.json())
             .then(json => {
@@ -94,7 +94,7 @@ window.addEventListener(`api-fetched`, (ev) => {
         fetch(`${hostName}${api.changeCredentials.route}`, {
             method: api.changeCredentials.method,
             body: JSON.stringify(value),
-            headers: { "Content-type": "application/json; charset=UTF-8" }
+            headers: { "Content-type": "application/json" }
         })
             .then(response => response.json())
             .then(json => {

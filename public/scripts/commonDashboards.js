@@ -8,9 +8,9 @@ window.addEventListener(`api-fetched`, (ev) => {
 
     // updateNotificationsBox()
 
-    logoutButton.addEventListener(`click`, async() => {
+    logoutButton.addEventListener(`click`, async () => {
         try {
-            let result = await fetch(`${hostName}${api.logout.route}`, { method: api.logout.method }).then(resp => resp.json())
+            let result = await fetch(`${hostName}${api.logout.route}`, { method: api.logout.method, headers: { "Content-type": "application/json" } }).then(resp => resp.json())
             location.href = api.logout.location
             console.log(`redirected`)
         } catch (error) {

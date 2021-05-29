@@ -72,7 +72,7 @@ window.addEventListener(`api-fetched`, (ev) => {
         fetch(`${hostName}${api.newOrder.route}`, {
             method: api.newOrder.method,
             body: JSON.stringify(values),
-            headers: { "Content-type": "application/json; charset=UTF-8" }
+            headers: { "Content-type": "application/json" }
         })
             .then(response => response.json())
             .then(json => {

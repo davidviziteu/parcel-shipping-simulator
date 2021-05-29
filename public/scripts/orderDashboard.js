@@ -58,7 +58,7 @@ window.addEventListener(`api-fetched`, async (ev) => {
         if (!responseBody) {
             let rawResp = await fetch(`${hostName}${api.trackAwb.route}?awb=${awb}`, {
                 method: api.trackAwb.method,
-                headers: { "Content-type": "application/json; charset=UTF-8" }
+                headers: { "Content-type": "application/json" }
             })
             if (rawResp.status == 404)
                 throw new Error(`AWB-ul nu (mai) exista in baza de date`)

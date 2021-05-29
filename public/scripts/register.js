@@ -114,7 +114,7 @@ function nextPrev(n) {
             fetch(`${hostName}/api/register`, {
                 method: "POST",
                 body: JSON.stringify(values),
-                headers: { "Content-type": "application/json; charset=UTF-8" }
+                headers: { "Content-type": "application/json" }
             })
                 .then(response => response.json())
                 .then(json => {

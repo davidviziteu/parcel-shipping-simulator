@@ -1,7 +1,7 @@
 const hamburgerMenu = document.getElementById(`hamburger`)
 const menu = document.getElementsByTagName(`menu`)[0]
 const navBar = document.getElementsByTagName(`nav`)[0]
-console.log("loaded tamplets.js")
+console.log("loaded templates.js")
 let api
 const hostName = location.hostname == `localhost` ? `http://localhost:4000` : `https://parcel-shipping-simulator.herokuapp.com`
 const fetchDone = new Event(`api-fetched`);
@@ -20,49 +20,53 @@ function toggleStatus(status) {
         document.getElementById("login-info").innerHTML = "📶❌"
         navBar.style.backgroundColor = "var(--orange-accent)"
     }
-}
+};
 
-toggleStatus(`loading`)
+toggleStatus(`loading`);
 
-fetch(`${hostName}/api`, {
-    method: "GET",
-    headers: { "Content-type": "application/json" },
-    credentials: 'same-origin',
-    mode: 'same-origin', // no-cors, *cors, same-origin
-})
-    .then(response => response.json())
-    .then(json => {
-        api = json
+// fetch(`${hostName}/api`, {
+//     method: "GET",
+//     headers: { "Content-type": "application/json" },
+//     credentials: 'same-origin',
+//     mode: 'same-origin', // no-cors, *cors, same-origin
+// })
+//     .then(response => response.json())
+//     .then(json => {
+//         api = json
+//         if (api.success == `false`)
+//             throw new Error(api.error)
+//         window.dispatchEvent(fetchDone)
+//         toggleStatus(`ok`)
+//         console.log(`api: `)
+//         console.log(api)
+//     })
+//     .catch(error => {
+//         toggleStatus(`error`)
+//         alert(`error fetching /api. are you on https?`)
+//         console.log(error)
+//         console.log(`^ cannot fetch GET ${hostName}/api`)
+//     });
+
+(async () => {
+    try {
+        let rawResponse = await fetch(`${hostName}/api`, {
+            method: "GET",
+            headers: { "Content-type": "application/json" }
+        })
+        api = await rawResponse.json();
         if (api.success == `false`)
             throw new Error(api.error)
-        window.dispatchEvent(fetchDone)
+        dispatchEvent(fetchDone)
         toggleStatus(`ok`)
         console.log(`api: `)
         console.log(api)
-    })
-    .catch(error => {
+    } catch (error) {
+        console.error(error)
         toggleStatus(`error`)
         alert(`error fetching /api. are you on https?`)
-        console.log(error)
         console.log(`^ cannot fetch GET ${hostName}/api`)
-    })
-// (async () => {
-//     try {
-//         let rawResponse = await fetch(`${hostName}/api`, {
-//             method: "GET",
-//             headers: { "Content-type": "application/json" }
-//         })
-//         api = rawResponse.json();
-//         if (api.success == `false`)
-//             throw new Error(api.error)
-//         dispatchEvent(fetchDone)
-//         console.log(`api: `)
-//         console.log(api)
-//     } catch (error) {
-//         console.log(err)
-//         console.log(`^ cannot fetch GET ${hostName}/api`)
-//     }
-// })()
+    }
+})()
 
 
 hamburgerMenu.addEventListener(`click`, () => {
@@ -127,38 +131,41 @@ var cities = {
 
 var listCity = ["Ilfov", "Cluj", "Constanța", "Dolj", "Galați", "Iași", "Oradea", "Sibiu", "Timișoara"];
 
-
-const updateNotificationsBox = async () => {
+async function updateNotificationsBox() {
     try {
         let notificationBox = document.getElementById(`notifications-box`)
-        notificationBox.appendChild()
-        let notificatinos = await fetch(`${hostName}${api.getNotifications.route}`).then(resp => resp.json())
+        let rawResp = await fetch(`${hostName}${api.getNotifications.route}`, { headers: { "Content-type": "application/json" } })
         //cam asa ar trebui facut
+        let notifications = []
+        let respObject = await rawResp.json()
+
+        
+        // if (rawResp.ok)
         if (api.loginType == `admin`) {
-            for (item in notificatinos) {
+            for (item in notifications) {
                 let p = document.createElement(`p`)
                 p.innerHTML = item.text
                 notificationBox.appendChild(p)
             }
         }
         else {
-            for (item in notificatinos) {
+            for (item in notifications) {
                 let p = document.createElement(`p`)
                 p.innerHTML = `[${item.id}] ${item.text} ${item.exp_date}`
                 notificationBox.appendChild(p) // tre sa fie doar textul de la notificare nu si restu
             }
         }
     } catch (error) {
-        console.error(error)
+        console.error(error);
     }
 }
 
-const fetchEstimatedCost = async (from, to) => {
+async function fetchEstimatedCost(from, to) {
     try {
         let resp = await fetch(`${hostName}${api.estimateCost.route}?from=${from}&to=${to}`, {
             method: api.estimateCost.method,
             // body: JSON.stringify({ from: from, to: to }),
-            headers: { "Content-type": "application/json; charset=UTF-8" }
+            headers: { "Content-type": "application/json" }
         }).then(data => data.json())
         return resp;
     } catch (error) {
@@ -166,7 +173,7 @@ const fetchEstimatedCost = async (from, to) => {
     }
 }
 
-(async function loadEstimateCostBox() {
+async function loadEstimateCostBox() {
     const sourceSelector = document.getElementById(`judet-exp`)
     const destinationSelector = document.getElementById(`judet-dest`)
     const estimateCostButton = document.getElementById(`estimate-cost-button`)
@@ -196,18 +203,20 @@ const fetchEstimatedCost = async (from, to) => {
             else totalCostText.innerHTML = `${from} -> ${to}: aproximativ ${response} RON`
         }
     })
-})()
-
-
-function loadRegisterButton() {
-    document.getElementById(`register-button`).addEventListener(`click`, () => location.href = api.newAccount.location)
 }
 
+
+async function loadRegisterButton() {
+    try {
+        document.getElementById(`register-button`).addEventListener(`click`, () => location.href = api.newAccount.location)
+    } catch (error) {
+    }
+}
 
 async function trackAwb() {
     let awb = document.getElementById(`awb-input`).value
     try {
-        let response = await fetch(`${hostName}${api.trackAwb.route}?awb=${awb}`, { method: api.trackAwb.method })
+        let response = await fetch(`${hostName}${api.trackAwb.route}?awb=${awb}`, { method: api.trackAwb.method, headers: { "Content-type": "application/json" } })
         if (response.status == 404)
             return document.getElementById("awb-input").style.backgroundColor = "rgb(211, 110, 110)"
         const responseBody = await response.json()
@@ -220,18 +229,35 @@ async function trackAwb() {
     }
 }
 
-(function loadTrackAwbBox() {
-    let awbField = document.getElementById("awb-input")
-    awbField.addEventListener(`click`, () => awbField.style.backgroundColor = "#fbfef7")
-    awbField.addEventListener(`keypress`, (event) => {
-        if (event.key == `Enter`) {
-            event.preventDefault()
-            trackAwb()
-        }
-    })
-    document.getElementById(`track-awb-button`).addEventListener(`click`, trackAwb)
-})()
+function loadTrackAwbBox() {
+    try {
+        let awbField = document.getElementById("awb-input")
+        awbField.addEventListener(`click`, () => awbField.style.backgroundColor = "#fbfef7")
+        awbField.addEventListener(`keypress`, (event) => {
+            if (event.key == `Enter`) {
+                event.preventDefault()
+                trackAwb()
+            }
+        })
+        document.getElementById(`track-awb-button`).addEventListener(`click`, trackAwb)
+    } catch (error) {
+    }
+}
+
+function loadOurLocationsButton() {
+    try {
+        document.getElementById("our-locations").addEventListener(`click`, () => window.location = api.ourLocations.location)
+    } catch (error) {
+
+    }
+}
 
 
 
-
+window.addEventListener(`api-fetched`, async (ev) => {
+    updateNotificationsBox();
+    loadTrackAwbBox();
+    loadEstimateCostBox();
+    loadOurLocationsButton();
+    loadRegisterButton();
+}, false)

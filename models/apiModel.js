@@ -84,6 +84,9 @@ exports.baseApi = {
     aboutUs: {
         location: `/AboutUs.html`
     },
+    ourLocations: {
+        location: `/Locatii.html`
+    },
 }
 
 exports.userApi = {
