@@ -12,13 +12,13 @@ var form = document.getElementById("newOrderForm");
 window.addEventListener(`api-fetched`, (ev) => {
     if (api.loginType != "undefined") {
         fetch(`${hostName}${api.autocomplete.route}`, {
-                method: api.autocomplete.method,
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                withCredentials: true,
-                body: JSON.stringify(),
-            })
+            method: api.autocomplete.method,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            withCredentials: true,
+            body: JSON.stringify(),
+        })
             .then(response => response.json())
             .then(json => {
                 document.getElementById("expName").defaultValue = json.data.name + " " + json.data.surname;
@@ -31,7 +31,7 @@ window.addEventListener(`api-fetched`, (ev) => {
             .catch(err => console.log(err));
     }
 
-    form.onsubmit = async(e) => {
+    form.onsubmit = async (e) => {
         e.preventDefault();
         resetColorField();
         var values = {
@@ -70,10 +70,10 @@ window.addEventListener(`api-fetched`, (ev) => {
             mentions: document.getElementById("mentions").value
         }
         fetch(`${hostName}${api.newOrder.route}`, {
-                method: api.newOrder.method,
-                body: JSON.stringify(values),
-                headers: { "Content-type": "application/json; charset=UTF-8" }
-            })
+            method: api.newOrder.method,
+            body: JSON.stringify(values),
+            headers: { "Content-type": "application/json; charset=UTF-8" }
+        })
             .then(response => response.json())
             .then(json => {
                 console.log(json.error);
@@ -146,7 +146,7 @@ costBtn.addEventListener(`click`, () => {
 for (var judet in cities) {
     judetSelector1.options[judetSelector1.options.length] = new Option(judet, judet);
 }
-judetSelector1.onchange = function() {
+judetSelector1.onchange = function () {
     localitateSelector1.length = 1;
     for (var localitate in cities[this.value]) {
         localitateSelector1.options[localitateSelector1.options.length] = new Option(cities[this.value][localitate]);
@@ -156,7 +156,7 @@ for (var judet in cities) {
     judetSelector2.options[judetSelector2.options.length] = new Option(judet, judet);
 
 }
-judetSelector2.onchange = function() {
+judetSelector2.onchange = function () {
     localitateSelector2.length = 1;
     for (var localitate in cities[this.value]) {
         localitateSelector2.options[localitateSelector2.options.length] = new Option(cities[this.value][localitate]);
@@ -166,7 +166,7 @@ for (var mod in metodePlata) {
     plata.options[plata.options.length] = new Option(metodePlata[mod]);
 
 }
-window.onload = function() {
+window.onload = function () {
     document.getElementById("preference1").checked = false;
     document.getElementById("preference2").checked = false;
     document.getElementById("preference3").checked = false;
