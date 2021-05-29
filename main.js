@@ -28,4 +28,4 @@ app.useAuth((req) => {
     }
     return req;
 })
-app.listen()
+app.listen();

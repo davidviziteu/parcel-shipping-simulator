@@ -3,80 +3,37 @@ const { apiModel } = models
 const { sign } = require("jsonwebtoken");
 const { StatusCodes } = require(`http-status-codes`)
 const { hashSync, genSaltSync, compare } = require("bcrypt");
+const { orderDashboardModel } = models.orderModel
+
 module.exports = {
-    checkIfAwbExists: (req, res) => {
-        console.log(req.parameters)
+    trackAwb: async (req, res) => {
+        console.log(`here`);
         if (!req.parameters.awb)
             return res.status(StatusCodes.BAD_REQUEST).json({
                 error: "missing awb from query parameters"
             })
+        try {
+            let awbDataPromise = req.db.getDetailsOrder(req.parameters.awb);
+            let awbEventsPromise = req.db.getAwbEvents(req.parameters.awb);
+            const [awbData, awbRawEvents] = await Promise.all([awbDataPromise, awbEventsPromise])
+            let awbEventsObject = models.orderModel.orderDashboardModel
+            console.log(awbRawEvents);
+            console.log(awbEventsObject);
+            //check for auth
+            awbRawEvents.forEach(awbEv => {
+                awbEventsObject[awbEv.event_type].push(`${awbEv.details} ${awbEv.employees_details} ${awbEv.date_time}`)
+            });
 
-        if (req.parameters.awb == "example1" || req.parameters.awb == "example2")
-            return res.status(StatusCodes.OK).json({ success: true })
-
-        return res.status(StatusCodes.NOT_FOUND).json({
-            error: "at the moment there are only 2 awbs suported: example1 and example2"
-        })
-    },
-    trackAwb: (req, res) => {
-        if (!req.parameters.awb)
-            return res.status(StatusCodes.BAD_REQUEST).json({
-                error: "missing awb from query parameters"
-            })
-        if (req.parameters.awb == "example1")
             return res.status(StatusCodes.OK).json({
-                awb: "example1",
-                events: {
-                    statusComandPrimita: [
-                        `Comanda a fost primită 7-apr-2021, 19:22:30`
-                    ],
-                    statusRidicare: [
-                        `Pachetul urmează a fi ridicat de la expeditor în data de 8-apr-2021`
-                    ]
-                },
+                success: true,
+                data: awbData,
+                events: awbEventsObject
             })
-        if (req.parameters.awb == "example2")
-            return res.status(StatusCodes.OK).json({
-                awb: "example2",
-                events: {
-                    statusComandPrimita: [
-                        `Comanda a fost primită 7-apr-2021, 19:22:30`
-                    ],
-                    statusRidicare: [
-                        `Pachetul urmează a fi ridicat de la expeditor în data de 8-apr-2021`
-                    ],
-                    statusTranzit: [
-                        "A părăsit hub - ul Focșani în data de 1 - apr - 2021, 21: 30: 22",
-                        `Șofer - Vasile Vasilescu(ID - 1256)`,
-                        `A ajuns în hub - ul Bacău în data de 2 - apr - 2021, 00: 30: 21`,
-                        `A părăsit hub - ul Bacău în data de 3 - apr - 2021, 21: 30: 12`,
-                        `Șofer - Vasile Alexandrescu(ID - 332)`,
-                        `A ajuns în hub - ul Iași în data de 3 - apr - 2021, 00: 10: 21`,
-                    ],
-                    statusLivrare: [
-                        `Livrare astăzi, 3 - apr - 2021`,
-                        `Șofer - Poescu Andrei(ID - 3323) - masina is - 33 - abc`,
-                        `Curierul a raportat autoturism avariat, livrare amânată`,
-                        `Livrare astăzi, 5 - apr - 2021`,
-                        `Șofer - Poescu Andrei(ID - 3323) - masina is - 33 - abc`,
-                    ],
-                    statusDestinar: [
-                        `livrat`,
-                        `sau altceva`
-                    ],
-                },
-                details: [
-                    "fragil",
-                    "exemplu detalii2"
-                ],
-                selectedOptions: [
-                    1, 2, 3
-                ]
-            })
-        return res.status(StatusCodes.NOT_FOUND).json({
-            error: "at the moment there are only 2 awbs suported: example1 and example2"
-        })
-
+        } catch (error) {
+            if (error == `No such awb in db`)
+                return res.status(StatusCodes.NOT_FOUND).json({ success: false, error: `No such awb in db` })
+            res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ success: false, error: error.message })
+        }
     },
     handleLogin: (req, res) => {
         if (!req.body)
@@ -100,34 +57,34 @@ module.exports = {
                     error: error
                 })
             } else
-            if (!results) {
-                return res.json({
-                    success: 0,
-                    error: "No user with that email!"
-                });
-            } else {
-                const result = compare(req.body.password, results.password);
-                if (result) {
-                    results.password = undefined;
-                    const jsontoken = sign({ results }, process.env.secretKey, {
-                        expiresIn: "1h"
-                    });
-                    if (value.rememberMe == true)
-                        res.setHeader('Set-Cookie', 'token=' + jsontoken + `; HttpOnly;Secure;expires=Wed, 21 Oct 2030 07:28:00 GMT;Max-Age=9000000;Domain=${models.apiModel.domain};Path=/;overwrite=true`);
-                    else
-                        res.setHeader('Set-Cookie', 'token=' + jsontoken + `; HttpOnly;Domain=${models.apiModel.domain};Path=/`);
-                    return res.json({
-                        success: true,
-                        redirect: `/dashboard-${results.type}.html`
-                    });
-
-                } else {
+                if (!results) {
                     return res.json({
                         success: 0,
-                        data: "Invalid password!"
+                        error: "No user with that email!"
                     });
+                } else {
+                    const result = compare(req.body.password, results.password);
+                    if (result) {
+                        results.password = undefined;
+                        const jsontoken = sign({ results }, process.env.secretKey, {
+                            expiresIn: "1h"
+                        });
+                        if (value.rememberMe == true)
+                            res.setHeader('Set-Cookie', 'token=' + jsontoken + `; HttpOnly;Secure;expires=Wed, 21 Oct 2030 07:28:00 GMT;Max-Age=9000000;Domain=${models.apiModel.domain};Path=/;overwrite=true`);
+                        else
+                            res.setHeader('Set-Cookie', 'token=' + jsontoken + `; HttpOnly;Domain=${models.apiModel.domain};Path=/`);
+                        return res.json({
+                            success: true,
+                            redirect: `/dashboard-${results.type}.html`
+                        });
+
+                    } else {
+                        return res.json({
+                            success: 0,
+                            data: "Invalid password!"
+                        });
+                    }
                 }
-            }
         })
     },
     handleLogout: (req, res) => {
@@ -177,19 +134,19 @@ module.exports = {
             case `user`:
                 return res
                     .status(StatusCodes.OK)
-                    .json({...apiModel.baseApi, ...apiModel.userApi, loginType, })
+                    .json({ ...apiModel.baseApi, ...apiModel.userApi, loginType, })
             case `driver`:
                 return res
                     .status(StatusCodes.OK)
-                    .json({...apiModel.baseApi, ...apiModel.userApi, ...apiModel.driverApi, loginType, })
+                    .json({ ...apiModel.baseApi, ...apiModel.userApi, ...apiModel.driverApi, loginType, })
             case `employee`:
                 return res
                     .status(StatusCodes.OK)
-                    .json({...apiModel.baseApi, ...apiModel.userApi, ...apiModel.employeeApi, loginType, })
+                    .json({ ...apiModel.baseApi, ...apiModel.userApi, ...apiModel.employeeApi, loginType, })
             case `admin`:
                 return res
                     .status(StatusCodes.OK)
-                    .json({...apiModel.baseApi, ...apiModel.userApi, ...apiModel.driverApi, ...apiModel.employeeApi, ...apiModel.adminApi, loginType, })
+                    .json({ ...apiModel.baseApi, ...apiModel.userApi, ...apiModel.driverApi, ...apiModel.employeeApi, ...apiModel.adminApi, loginType, })
             default:
                 return res
                     .status(StatusCodes.OK)

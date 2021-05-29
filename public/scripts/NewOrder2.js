@@ -31,72 +31,6 @@ window.addEventListener(`api-fetched`, (ev) => {
             .catch(err => console.log(err));
     }
 
-    costBtn.addEventListener(`click`, () => {
-        costCalculat.innerHTML = "Costul final este de 50 de lei.";
-    });
-    for (var judet in cities) {
-        judetSelector1.options[judetSelector1.options.length] = new Option(judet, judet);
-    }
-    judetSelector1.onchange = function () {
-        localitateSelector1.length = 1;
-        for (var localitate in cities[this.value]) {
-            localitateSelector1.options[localitateSelector1.options.length] = new Option(cities[this.value][localitate]);
-        }
-    }
-    for (var judet in cities) {
-        judetSelector2.options[judetSelector2.options.length] = new Option(judet, judet);
-
-    }
-    judetSelector2.onchange = function () {
-        localitateSelector2.length = 1;
-        for (var localitate in cities[this.value]) {
-            localitateSelector2.options[localitateSelector2.options.length] = new Option(cities[this.value][localitate]);
-        }
-    }
-    for (var mod in metodePlata) {
-        plata.options[plata.options.length] = new Option(metodePlata[mod]);
-
-    }
-    window.onload = function () {
-        document.getElementById("preference1").checked = false;
-        document.getElementById("preference2").checked = false;
-        document.getElementById("preference3").checked = false;
-        document.getElementById("order-placed-status1").style.display = "none";
-        document.getElementById("order-placed-status2").style.display = "none";
-    }
-
-    function resetColorField() {
-        document.getElementById("expName").style.backgroundColor = "white";
-        document.getElementById("expContactName").style.backgroundColor = "white";
-        document.getElementById("expPhone").style.backgroundColor = "white";
-        document.getElementById("expEmail").style.backgroundColor = "white";
-        document.getElementById("judet1").style.backgroundColor = "white";
-        document.getElementById("localitate1").style.backgroundColor = "white";
-        document.getElementById("expAddress").style.backgroundColor = "white";
-
-        document.getElementById("destName").style.backgroundColor = "white";
-        document.getElementById("destContactName").style.backgroundColor = "white";
-        document.getElementById("destPhone").style.backgroundColor = "white";
-        document.getElementById("judet2").style.backgroundColor = "white";
-        document.getElementById("localitate2").style.backgroundColor = "white";
-        document.getElementById("destAddress").style.backgroundColor = "white";
-
-        document.getElementById("envelope").style.backgroundColor = "white";
-        document.getElementById("parcel").style.backgroundColor = "white";
-        document.getElementById("weight").style.backgroundColor = "white";
-
-        document.getElementById("date").style.backgroundColor = "white";
-        document.getElementById("hour").style.backgroundColor = "white";
-
-        document.getElementById("preference1").style.backgroundColor = "white";
-        document.getElementById("preference2").style.backgroundColor = "white";
-        document.getElementById("preference3").style.backgroundColor = "white";
-
-        document.getElementById("payment").style.backgroundColor = "white";
-
-        document.getElementById("mentions").style.backgroundColor = "white";
-
-    }
     form.onsubmit = async (e) => {
         e.preventDefault();
         resetColorField();
@@ -206,3 +140,69 @@ window.addEventListener(`api-fetched`, (ev) => {
             .catch(err => { console.log(err) });
     }
 })
+costBtn.addEventListener(`click`, () => {
+    costCalculat.innerHTML = "Costul final este de 50 de lei.";
+});
+for (var judet in cities) {
+    judetSelector1.options[judetSelector1.options.length] = new Option(judet, judet);
+}
+judetSelector1.onchange = function () {
+    localitateSelector1.length = 1;
+    for (var localitate in cities[this.value]) {
+        localitateSelector1.options[localitateSelector1.options.length] = new Option(cities[this.value][localitate]);
+    }
+}
+for (var judet in cities) {
+    judetSelector2.options[judetSelector2.options.length] = new Option(judet, judet);
+
+}
+judetSelector2.onchange = function () {
+    localitateSelector2.length = 1;
+    for (var localitate in cities[this.value]) {
+        localitateSelector2.options[localitateSelector2.options.length] = new Option(cities[this.value][localitate]);
+    }
+}
+for (var mod in metodePlata) {
+    plata.options[plata.options.length] = new Option(metodePlata[mod]);
+
+}
+window.onload = function () {
+    document.getElementById("preference1").checked = false;
+    document.getElementById("preference2").checked = false;
+    document.getElementById("preference3").checked = false;
+    document.getElementById("order-placed-status1").style.display = "none";
+    document.getElementById("order-placed-status2").style.display = "none";
+}
+
+function resetColorField() {
+    document.getElementById("expName").style.backgroundColor = "white";
+    document.getElementById("expContactName").style.backgroundColor = "white";
+    document.getElementById("expPhone").style.backgroundColor = "white";
+    document.getElementById("expEmail").style.backgroundColor = "white";
+    document.getElementById("judet1").style.backgroundColor = "white";
+    document.getElementById("localitate1").style.backgroundColor = "white";
+    document.getElementById("expAddress").style.backgroundColor = "white";
+
+    document.getElementById("destName").style.backgroundColor = "white";
+    document.getElementById("destContactName").style.backgroundColor = "white";
+    document.getElementById("destPhone").style.backgroundColor = "white";
+    document.getElementById("judet2").style.backgroundColor = "white";
+    document.getElementById("localitate2").style.backgroundColor = "white";
+    document.getElementById("destAddress").style.backgroundColor = "white";
+
+    document.getElementById("envelope").style.backgroundColor = "white";
+    document.getElementById("parcel").style.backgroundColor = "white";
+    document.getElementById("weight").style.backgroundColor = "white";
+
+    document.getElementById("date").style.backgroundColor = "white";
+    document.getElementById("hour").style.backgroundColor = "white";
+
+    document.getElementById("preference1").style.backgroundColor = "white";
+    document.getElementById("preference2").style.backgroundColor = "white";
+    document.getElementById("preference3").style.backgroundColor = "white";
+
+    document.getElementById("payment").style.backgroundColor = "white";
+
+    document.getElementById("mentions").style.backgroundColor = "white";
+
+}
