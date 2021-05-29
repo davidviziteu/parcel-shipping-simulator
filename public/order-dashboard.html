@@ -62,7 +62,7 @@
     <form action="InfoOrder">
         <section class="big">
             <div class="wide box">
-                <h4 id="awb-title">AWB: 123213123</h4>
+                <h4 id="awb-title">AWB: ⌛</h4>
             </div>
             <div class="box">
                 <div class="title-with-image">
@@ -73,16 +73,12 @@
                 </div>
 
                 <div class="button-container buttons-with-image expandable">
-                    <button type="button" class="progress-now" aria-label="Comanda a fost primită"
-                        id="order-received-button">
+                    <button type="button" class="" aria-label="Comanda a fost primită" id="order-received-button">
                         <img src="./assets/counseling.png" alt="decorative image">
                         Comanda a fost primită
                     </button>
                 </div>
                 <ul hidden id="order-received-list" class="collapsable-list">
-                    <li>
-                        Comanda a fost primită 7-apr-2021, 19:22:30
-                    </li>
                 </ul>
 
                 <div class="progress-arrow">
@@ -141,19 +137,16 @@
                     </button>
                 </div>
                 <ul hidden id="order-destinatary-list" class="collapsable-list">
-                    <li>
-                        Estimare data livrare: 10-apr-2021
-                    </li>
                 </ul>
             </div>
             <div class="box">
-                <div class="button-container buttons-with-image hidden">
-                    <button id="order-refused-button" type="button" aria-label="Clientul refuză coletul / retur">
+                <div id="refuse-order-button-div" class="button-container buttons-with-image hidden">
+                    <button id="refuse-order-button" type="button" aria-label="Clientul refuză coletul / retur">
                         Clientul refuză coletul / retur
                     </button>
                 </div>
-                <div class="button-container buttons-with-image hidden">
-                    <button id="order-confirmed-button" type="button" aria-label="Clientul a ridicat coletul">
+                <div id="confirm-order-button-div" class="button-container buttons-with-image hidden">
+                    <button id="confirm-order-button" type="button" aria-label="Clientul a ridicat coletul">
                         Clientul a ridicat coletul
                     </button>
                 </div>
@@ -164,59 +157,31 @@
                     </h1>
                 </div>
                 <p>
-                    Expeditor:
+                    Expeditor
                 </p>
-                <ul>
-                    <li>
-                        Altex București
-                    </li>
-                    <li>
-                        București, Sector 2, str Pantelimon nr 59
-                    </li>
-                    <li>
-                        Contact1: Alin 0712345678
-                    </li>
-                    <li>
-                        Contact2: Alex 0712345678
-                    </li>
+                <ul id="sender-details">
                 </ul>
                 <p>
-                    Destinatar:
+                    Destinatar
                 </p>
-                <ul>
-                    <li>
-                        Andreea Madalina Vina
-                    </li>
-                    <li>
-                        Iasi, Horpaz, aleea rozelor nr 10
-                    </li>
-                    <li>
-                        0712345678
-                    </li>
-                    <li>
-                        vinaandreea27@gmail.com
-                    </li>
+                <ul id="destinatary-details">
                 </ul>
                 <p>
-                    Continut: iphone 32 pro plus
+                    Alte detalii
                 </p>
-                <p>
-                    Valoare declarata 1000 RON
+                <ul id="other-details">
+                </ul>
+                <!-- <p id="content-details">
+                </p>
+                <p id="declared-value">
                 </p>
                 <div class="title-with-image">
                     <img src="./assets/equalizer.png" alt="decorative image">
                     <h1>
                         Opțiuni selectate
                     </h1>
-                </div>
-                <ul id="details-list">
-                    <li>
-                        Livrare Sambata
-                    </li>
-                    <li>
-                        Fragil
-                    </li>
-                </ul>
+                </div> -->
+
 
             </div>
         </section>

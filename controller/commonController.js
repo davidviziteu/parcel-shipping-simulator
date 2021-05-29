@@ -3,7 +3,7 @@ const { apiModel } = models
 const { sign } = require("jsonwebtoken");
 const { StatusCodes } = require(`http-status-codes`)
 const { hashSync, genSaltSync, compare } = require("bcrypt");
-const { orderDashboardModel } = models.orderModel
+const { orderDashboardModel, awbDetailsModel } = models.orderModel
 
 module.exports = {
     trackAwb: async (req, res) => {
@@ -16,17 +16,66 @@ module.exports = {
             let awbDataPromise = req.db.getDetailsOrder(req.parameters.awb);
             let awbEventsPromise = req.db.getAwbEvents(req.parameters.awb);
             const [awbData, awbRawEvents] = await Promise.all([awbDataPromise, awbEventsPromise])
-            let awbEventsObject = models.orderModel.orderDashboardModel
+            let awbEventsObject = new orderDashboardModel()
+            let awbDetailsObject = new awbDetailsModel()
+
             console.log(awbRawEvents);
-            console.log(awbEventsObject);
-            //check for auth
-            awbRawEvents.forEach(awbEv => {
-                awbEventsObject[awbEv.event_type].push(`${awbEv.details} ${awbEv.employees_details} ${awbEv.date_time}`)
-            });
+            console.log(awbData);
+
+
+            if (!req.accountType) { // || if req.userId != awbData.id...........
+                awbRawEvents.forEach(awbEv => {
+                    awbEventsObject[awbEv.event_type].push(`${awbEv.details} ${awbEv.date_time}`)
+                });
+                awbDetailsObject.sender.push(awbData.fullName_sender)
+                awbDetailsObject.destinatary.push(awbData.fullName_receiver)
+                awbData.preference1 ? awbDetailsObject.other.push(`Livrare sâmbătă`) : null
+                awbData.preference2 ? awbDetailsObject.other.push(`Fragil`) : null
+                awbData.preference3 ? awbDetailsObject.other.push(`andreea ce inseamna 'preferinta3'???????????`) : null
+                return res.status(StatusCodes.OK).json({
+                    success: true,
+                    data: awbDetailsObject,
+                    events: awbEventsObject
+                })
+            }
+
+            if (req.accountType == `driver` || req.accountType == `admin` || req.accountType == `employee`) {
+                awbRawEvents.forEach(awbEv => {
+                    awbEventsObject[awbEv.event_type].push(`${awbEv.details} ${awbEv.employees_details} ${awbEv.date_time}`)
+                });
+            }
+            else { //else if req.userId == awbData.id...........
+                awbRawEvents.forEach(awbEv => {
+                    awbEventsObject[awbEv.event_type].push(`${awbEv.details} ${awbEv.date_time}`)
+                });
+            }
+
+            awbDetailsObject.sender.push(awbData.fullName_sender)
+            awbDetailsObject.sender.push(`Persoana de contact - ${awbData.contactPerson_sender}`)
+            awbDetailsObject.sender.push(`Telefon - ${awbData.phone_sender}`)
+            awbDetailsObject.sender.push(`Email - ${awbData.email_sender}`)
+            awbDetailsObject.sender.push(`Adresa -
+                        România, ${awbData.county_sender}, ${awbData.city_sender}, 
+                        strada ${awbData.address_sender}`)
+
+            awbDetailsObject.destinatary.push(awbData.fullName_receiver)
+            awbDetailsObject.destinatary.push(`Persoana de contact - ${awbData.contactPerson_receiver}`)
+            awbDetailsObject.destinatary.push(`Telefon - ${awbData.phone_receiver}`)
+            awbDetailsObject.destinatary.push(`Email - ${awbData.email_sender}`)
+            awbDetailsObject.destinatary.push(`Adresa -
+                        România, ${awbData.county_receiver}, ${awbData.city_receiver},
+                        strada ${awbData.address_receiver}`)
+
+            awbData.preference1 ? awbDetailsObject.other.push(`Livrare sâmbătă`) : null
+            awbData.preference2 ? awbDetailsObject.other.push(`Fragil`) : null
+            awbData.preference3 ? awbDetailsObject.other.push(`andreea ce inseamna 'preferinta3'???????????`) : null
+            awbData.payment ? awbDetailsObject.other.push(`Metoda de plată - ${awbData.payment}`) : null
+
+            awbData.mentions ? awbDetailsObject.other.push(`Mențiuni - '${awbData.mentions}'`) : null
 
             return res.status(StatusCodes.OK).json({
                 success: true,
-                data: awbData,
+                data: awbDetailsObject,
                 events: awbEventsObject
             })
         } catch (error) {

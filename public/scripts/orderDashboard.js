@@ -1,21 +1,40 @@
-const statusComandaPrimitaButton = document.getElementById(`order-received-button`)
-const statusRidicatButton = document.getElementById(`order-picked-up-button`)
-const statusInTranzitButton = document.getElementById(`order-in-transit-button`)
-const statusInLivrareButton = document.getElementById(`order-in-delivery-button`)
-const statusDestinatarButton = document.getElementById(`order-destinatary-button`)
+const orderReceivedButton = document.getElementById(`order-received-button`)
+const orderPickedUpButton = document.getElementById(`order-picked-up-button`)
+const orderInTransitButton = document.getElementById(`order-in-transit-button`)
+const orderInDeliveryButton = document.getElementById(`order-in-delivery-button`)
+const orderDestinataryButton = document.getElementById(`order-destinatary-button`)
 
-const statusComandaPrimitaList = document.getElementById(`order-received-list`)
-const statusRidicatList = document.getElementById(`order-picked-up-list`)
-const statusInTranzitList = document.getElementById(`order-in-transit-list`)
-const statusInLivrareList = document.getElementById(`order-in-delivery-list`)
-const statusDestinatarList = document.getElementById(`order-destinatary-list`)
+const orderReceivedList = document.getElementById(`order-received-list`)
+const orderPickedUpList = document.getElementById(`order-picked-up-list`)
+const orderInTransitList = document.getElementById(`order-in-transit-list`)
+const orderInDeliveryList = document.getElementById(`order-in-delivery-list`)
+const orderDestinataryList = document.getElementById(`order-destinatary-list`)
 
 
+const orderRefusedButton = document.getElementById(`refuse-order-button`)
+const orderConfirmedButton = document.getElementById(`confirm-order-button`)
 
-const orderRefusedButton = document.getElementById(`order-refused-button`)
-const orderConfirmedButton = document.getElementById(`order-confirmed-button`)
+const orderRefusedButtonDiv = document.getElementById(`refuse-order-button-div`)
+const orderConfirmedButtonDiv = document.getElementById(`confirm-order-button-div`)
 
-const appendItemsToList = (items, list) => {
+const senderDetailsList = document.getElementById(`sender-details`)
+const destinataryDetailsList = document.getElementById(`destinatary-details`)
+const otherDetailsList = document.getElementById(`other-details`)
+
+const markProgress = (button, progress) => {
+    switch (progress) {
+        case `done`:
+            button.classList.remove(`progress-now`)
+            button.classList.add(`progress-done`)
+            break;
+        case `now`:
+            button.classList.remove(`progress-done`)
+            button.classList.add(`progress-now`)
+            break;
+    }
+}
+
+const appendArrayToList = (items, list) => {
     list.innerHTML = ``
     items.forEach(item => {
         let newLi = document.createElement(`li`)
@@ -24,23 +43,75 @@ const appendItemsToList = (items, list) => {
     })
 }
 
-try {
-    var awb = sessionStorage.getItem(`fetched-awb`)
-    var responseBody = JSON.parse(sessionStorage.getItem(`order-details`))
-    console.log(responseBody);
-    document.getElementById(`awb-title`).innerHTML = `AWB: ${awb}`
-
-    appendItemsToList(responseBody.events['order-received'], statusComandaPrimitaList)
-    appendItemsToList(responseBody.events['order-picked-up'], statusRidicatList)
-    appendItemsToList(responseBody.events['order-in-transit'], statusInTranzitList)
-    appendItemsToList(responseBody.events['order-in-delivery'], statusInLivrareList)
-    appendItemsToList(responseBody.events['order-destinatary'], statusDestinatarList)
-
-} catch (error) {
-    document.getElementById(`awb-title`).innerHTML = `Error loading awb from local storage: ${error}`
+const appendItemToList = (item, list) => {
+    let newLi = document.createElement(`li`)
+    newLi.innerHTML = item
+    list.appendChild(newLi)
 }
 
+
+
 window.addEventListener(`api-fetched`, async (ev) => {
+    try {
+        let awb = sessionStorage.getItem(`fetched-awb`)
+        let responseBody = JSON.parse(sessionStorage.getItem(`order-details`))
+        if (!responseBody) {
+            let rawResp = await fetch(`${hostName}${api.trackAwb.route}?awb=${awb}`, {
+                method: api.trackAwb.method,
+                headers: { "Content-type": "application/json; charset=UTF-8" }
+            })
+            if (rawResp.status == 404)
+                throw new Error(`AWB-ul nu (mai) exista in baza de date`)
+            responseBody = await rawResp.json()
+        }
+        else
+            sessionStorage.removeItem(`order-details`)
+        console.log(responseBody);
+        document.getElementById(`awb-title`).innerHTML = `AWB: ${awb}`
+
+        if (api.loginType == `employee` || api.loginType == `driver` || api.loginType == `admin`) {
+            orderRefusedButtonDiv.classList.remove(`hidden`)
+            orderConfirmedButtonDiv.classList.remove(`hidden`)
+        }
+
+        appendArrayToList(responseBody.events['order-received'], orderReceivedList)
+        appendArrayToList(responseBody.events['order-picked-up'], orderPickedUpList)
+        appendArrayToList(responseBody.events['order-in-transit'], orderInTransitList)
+        appendArrayToList(responseBody.events['order-in-delivery'], orderInDeliveryList)
+        appendArrayToList(responseBody.events['order-destinatary'], orderDestinataryList)
+
+        if (responseBody.events['order-received'].length > 0) {
+            markProgress(orderReceivedButton, `now`)
+        }
+
+        if (responseBody.events['order-picked-up'].length > 0) {
+            markProgress(orderReceivedButton, `done`)
+            markProgress(orderPickedUpButton, `now`)
+        }
+
+        if (responseBody.events['order-in-transit'].length > 0) {
+            markProgress(orderPickedUpButton, `done`)
+            markProgress(orderInTransitButton, `now`)
+        }
+
+        if (responseBody.events['order-in-delivery'].length > 0) {
+            markProgress(orderInTransitButton, `done`)
+            markProgress(orderInDeliveryButton, `now`)
+        }
+
+        if (responseBody.events['order-destinatary'].length > 0) {
+            markProgress(orderInDeliveryButton, `done`)
+            markProgress(orderDestinataryButton, `done`)
+        }
+
+        responseBody.data.sender.forEach(e => appendItemToList(e, senderDetailsList))
+        responseBody.data.destinatary.forEach(e => appendItemToList(e, destinataryDetailsList))
+        responseBody.data.other.forEach(e => appendItemToList(e, otherDetailsList))
+
+
+    } catch (error) {
+        document.getElementById(`awb-title`).innerHTML = `Eroare: ${error.message}`
+    }
     // if (api.loginType == `admin` || api.loginType == `employee` || api.loginType == `driver`) {
     //     orderConfirmedButton.classList.remove(`hidden`)
     //     orderRefusedButton.classList.remove(`hidden`)

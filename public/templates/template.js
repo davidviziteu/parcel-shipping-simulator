@@ -216,7 +216,7 @@ async function trackAwb() {
         window.location = api.trackAwb.location
     } catch (error) {
         if (error instanceof QuotaExceededError)
-            alert(`error saving awb string to local storage. did you disable localstorage?`)
+            alert(`error saving awb string to session storage. did you disable session storage?`)
     }
 }
 

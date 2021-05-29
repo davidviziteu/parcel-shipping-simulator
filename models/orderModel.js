@@ -33,15 +33,22 @@ const newOrderSchema = Joi.object().options({ abortEarly: false }).keys({
     mentions: Joi.string().required().allow(null, '')
 });
 
-const orderDashboardObjectTemplate = {
-    'order-received': [],
-    'order-picked-up': [],
-    'order-in-transit': [],
-    'order-in-delivery': [],
-    'order-destinatary': [],
+class OrderDashboardTemplate {
+    'order-received' = []
+    'order-picked-up' = []
+    'order-in-transit' = []
+    'order-in-delivery' = []
+    'order-destinatary' = []
 }
 
-const orderDashboardModel = JSON.parse(JSON.stringify(orderDashboardObjectTemplate))
+class AwbDetailsTemplate {
+    sender = []
+    destinatary = []
+    other = []
+}
+
+const orderDashboardModel = OrderDashboardTemplate
+const awbDetailsModel = AwbDetailsTemplate
 
 
 
@@ -62,4 +69,4 @@ var listCity = ["Ilfov", "Cluj", "Constanța", "Dolj", "Galați", "Iași", "Orad
 
 
 
-module.exports = { newOrderSchema, orderDashboardModel }
+module.exports = { newOrderSchema, orderDashboardModel, awbDetailsModel }
