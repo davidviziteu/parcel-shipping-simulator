@@ -76,6 +76,15 @@ exports.driverApi = {
         method: `PATCH`,
     },
 
+    getDetailsAwbforDriver: {
+        route: `/api/driver`,
+        method: `GET`
+    },
+    driverEvent: {
+        route: `/api/driver`,
+        method: `POST`
+    },
+
     /**
      * ce primeste front ul: 
      * {
