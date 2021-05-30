@@ -221,7 +221,6 @@ module.exports = {
             })
         }
         req.db.searchCar(req.body.registration_number, (err, results) => {
-            console.log(results)
             if (err) {
                 res.status(StatusCodes.BAD_REQUEST).json({
                     success: false,
