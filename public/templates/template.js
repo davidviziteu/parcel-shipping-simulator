@@ -143,8 +143,9 @@ function handleLoginResponse(resp) {
 
     if (resp.error.toLowerCase().includes(`password`))
         document.getElementById("user-password").style.backgroundColor = "rgb(211, 110, 110)";
-}
-async function updateNotificationsBox() {
+};
+
+(async function updateNotificationsBox() {
     try {
         let notificationBox = document.getElementById(`notifications-box`)
         let rawResp = await fetch(`${hostName}${api.getNotifications.route}`, { headers: { "Content-type": "application/json" } })
@@ -166,12 +167,14 @@ async function updateNotificationsBox() {
                 item.expiry_date
                     ? p.innerHTML = `[${item.id}] ${item.text} expiră: ${item.expiry_date}`
                     : p.innerHTML = `[${item.id}] ${item.text} fără dată de expirare`
-                notificationBox.appendChild(p) // tre sa fie doar textul de la notificare nu si restu
+                notificationBox.appendChild(p)
             })
     } catch (error) {
         console.error(error);
     }
-}
+})()
+
+setInterval(updateNotificationsBox(), 60000, null); //la 1 minut
 
 async function fetchEstimatedCost(from, to) {
     try {
