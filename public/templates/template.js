@@ -2,6 +2,7 @@ const hamburgerMenu = document.getElementById(`hamburger`)
 const menu = document.getElementsByTagName(`menu`)[0]
 const navBar = document.getElementsByTagName(`nav`)[0]
 const loginForm = document.getElementById("login-form");
+const estimateCostForm = document.getElementById(`estimate-cost-form`)
 
 console.log("loaded templates.js")
 let api
@@ -12,13 +13,11 @@ function toggleStatus(status) {
     if (status == 'loading') {
         navBar.style.backgroundColor = "#0f5d82"
         document.getElementById("login-info").innerHTML = "⌛"
-        // navBar.classList.add(`animated`)
-    }
-    else if (status == 'ok') {
+            // navBar.classList.add(`animated`)
+    } else if (status == 'ok') {
         document.getElementById("login-info").innerHTML = "✅"
-        // navBar.classList.remove(`animated`)
-    }
-    else if (status == 'network error') {
+            // navBar.classList.remove(`animated`)
+    } else if (status == 'network error') {
         document.getElementById("login-info").innerHTML = "📶❌"
         navBar.style.backgroundColor = "var(--orange-accent)"
     }
@@ -49,7 +48,7 @@ toggleStatus(`loading`);
 //         console.log(`^ cannot fetch GET ${hostName}/api`)
 //     });
 
-(async () => {
+(async() => {
     try {
         let rawResponse = await fetch(`${hostName}/api`, {
             method: "GET",
@@ -81,8 +80,7 @@ hamburgerMenu.addEventListener(`click`, () => {
         // disableScroll();
         var x = document.getElementsByTagName("body")[0];
         x.style.overflow = "hidden";
-    }
-    else {
+    } else {
         document.getElementById("hamburger").innerHTML = ""
         document.getElementById("hamburger").style.backgroundImage = "url(templates/hamburger-menu.jpg)"
         menu.className = `hidden`
@@ -95,16 +93,16 @@ function disableScroll() {
     scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
 
-        window.onscroll = function () {
+        window.onscroll = function() {
             window.scrollTo(scrollLeft, scrollTop);
         };
 }
 
 function enableScroll() {
-    window.onscroll = function () { };
+    window.onscroll = function() {};
 }
 
-window.onscroll = function () { scrollFunction(); };
+window.onscroll = function() { scrollFunction(); };
 
 function scrollFunction() {
     var navbar = document.getElementsByTagName("nav")[0]
@@ -145,11 +143,11 @@ function handleLoginResponse(resp) {
         document.getElementById("user-password").style.backgroundColor = "rgb(211, 110, 110)";
 };
 
-const updateNotificationsBox = async () => {
+const updateNotificationsBox = async() => {
     try {
         let notificationBox = document.getElementById(`notifications-box`)
         let rawResp = await fetch(`${hostName}${api.getNotifications.route}`, { headers: { "Content-type": "application/json" } })
-        //cam asa ar trebui facut
+            //cam asa ar trebui facut
         let respObject = await rawResp.json()
         let notifications = respObject.data
         console.log(notifications);
@@ -164,9 +162,9 @@ const updateNotificationsBox = async () => {
         else
             notifications.forEach(item => {
                 let p = document.createElement(`p`)
-                item.expiry_date
-                    ? p.innerHTML = `[${item.id}] ${item.text} expiră: ${item.expiry_date}`
-                    : p.innerHTML = `[${item.id}] ${item.text} fără dată de expirare`
+                item.expiry_date ?
+                    p.innerHTML = `[${item.id}] ${item.text} expiră: ${item.expiry_date}` :
+                    p.innerHTML = `[${item.id}] ${item.text} fără dată de expirare`
                 notificationBox.appendChild(p)
             })
     } catch (error) {
@@ -174,24 +172,9 @@ const updateNotificationsBox = async () => {
     }
 }
 
-
-async function fetchEstimatedCost(from, to) {
-    try {
-        let resp = await fetch(`${hostName}${api.estimateCost.route}?from=${from}&to=${to}`, {
-            method: api.estimateCost.method,
-            // body: JSON.stringify({ from: from, to: to }),
-            headers: { "Content-type": "application/json" }
-        }).then(data => data.json())
-        return resp;
-    } catch (error) {
-        return error.message
-    }
-}
-
 async function loadEstimateCostBox() {
     const sourceSelector = document.getElementById(`judet-exp`)
     const destinationSelector = document.getElementById(`judet-dest`)
-    const estimateCostButton = document.getElementById(`estimate-cost-button`)
     const totalCostText = document.getElementById(`total-cost`)
 
     for (let element in cities) {
@@ -199,9 +182,18 @@ async function loadEstimateCostBox() {
         destinationSelector.appendChild(new Option(element))
     }
 
-    estimateCostButton.addEventListener(`click`, async () => {
-        let from = sourceSelector.value
-        let to = destinationSelector.value
+    estimateCostForm.onsubmit = async(e) => {
+        e.preventDefault();
+        var from = sourceSelector.value
+        var to = destinationSelector.value
+        var from2 = from.replace('ș', 's');
+        from = from2;
+        from2 = from.replace('ț', 't');
+        from = from2;
+        var to2 = to.replace('ș', 's');
+        to = to2;
+        to2 = to.replace('ț', 't');
+        to = to2;
         if (!to && !from)
             totalCostText.innerHTML = `Alegeți județul expeditorului și al destinatarului`
         else if (!from)
@@ -209,23 +201,27 @@ async function loadEstimateCostBox() {
         else if (!to)
             totalCostText.innerHTML = `Alegeți județul destinatarului`
         else {
-            let response = await fetchEstimatedCost(from, to)
-            if (response)
-                totalCostText.innerHTML = `raw response: ${JSON.stringify(response)}. add functionalities. templates.js function loadEstimateCostBox()`
-            return
-            if (to == from)
-                totalCostText.innerHTML = `Expediere în același județ (${from}): aproximativ ${response} RON`
-            else totalCostText.innerHTML = `${from} -> ${to}: aproximativ ${response} RON`
+            fetch(`${hostName}${api.estimateCost.route}?source=${from}&destination=${to}`, {
+                    method: api.estimateCost.method,
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    withCredentials: true,
+                })
+                .then(response => response.json())
+                .then(json => {
+                    totalCostText.innerHTML = "Pretul estimativ este : " + json.data + " ron";
+                })
+                .catch(err => { console.log(err) });
         }
-    })
+    }
 }
 
 
 async function loadRegisterButton() {
     try {
         document.getElementById(`register-button`).addEventListener(`click`, () => location.href = api.newAccount.location)
-    } catch (error) {
-    }
+    } catch (error) {}
 }
 
 async function trackAwb() {
@@ -255,8 +251,7 @@ function loadTrackAwbBox() {
             }
         })
         document.getElementById(`track-awb-button`).addEventListener(`click`, trackAwb)
-    } catch (error) {
-    }
+    } catch (error) {}
 }
 
 function loadOurLocationsButton() {
@@ -268,7 +263,7 @@ function loadOurLocationsButton() {
 }
 
 async function login() {
-    loginForm.onsubmit = async (e) => {
+    loginForm.onsubmit = async(e) => {
 
         e.preventDefault();
         document.getElementById("user-email").style.backgroundColor = "#fbfef7";
@@ -279,20 +274,20 @@ async function login() {
             rememberMe: document.getElementById("remember-me").checked
         }
         fetch(`${hostName}${api.login.route}`, {
-            method: api.login.method,
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            withCredentials: true,
-            body: JSON.stringify(values),
-        })
+                method: api.login.method,
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                withCredentials: true,
+                body: JSON.stringify(values),
+            })
             .then(response => response.json())
             .then(json => handleLoginResponse(json))
             .catch(err => console.log(err));
     }
 }
 
-window.addEventListener(`api-fetched`, async (ev) => {
+window.addEventListener(`api-fetched`, async(ev) => {
     updateNotificationsBox();
     setInterval(updateNotificationsBox(), 60000, null); //la 1 minut
     loadTrackAwbBox();

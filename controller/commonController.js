@@ -4,9 +4,10 @@ const { sign } = require("jsonwebtoken");
 const { StatusCodes } = require(`http-status-codes`)
 const { hashSync, genSaltSync, compare } = require("bcrypt");
 const { orderDashboardModel, awbDetailsModel } = models.orderModel
+const fetch = require('node-fetch');
 
 module.exports = {
-    trackAwb: async (req, res) => {
+    trackAwb: async(req, res) => {
         console.log(`here`);
         if (!req.parameters.awb)
             return res.status(StatusCodes.BAD_REQUEST).json({
@@ -102,34 +103,34 @@ module.exports = {
                     error: error
                 })
             } else
-                if (!results) {
+            if (!results) {
+                return res.json({
+                    success: 0,
+                    error: "No user with that email!"
+                });
+            } else {
+                const result = compare(req.body.password, results.password);
+                if (result) {
+                    results.password = undefined;
+                    const jsontoken = sign({ results }, process.env.secretKey, {
+                        expiresIn: "1h"
+                    });
+                    if (value.rememberMe == true)
+                        res.setHeader('Set-Cookie', 'token=' + jsontoken + `; HttpOnly;Secure;expires=Wed, 21 Oct 2030 07:28:00 GMT;Max-Age=9000000;Domain=${models.apiModel.domain};Path=/;overwrite=true`);
+                    else
+                        res.setHeader('Set-Cookie', 'token=' + jsontoken + `; HttpOnly;Domain=${models.apiModel.domain};Path=/`);
+                    return res.json({
+                        success: true,
+                        redirect: `/dashboard-${results.type}.html`
+                    });
+
+                } else {
                     return res.json({
                         success: 0,
-                        error: "No user with that email!"
+                        data: "Invalid password!"
                     });
-                } else {
-                    const result = compare(req.body.password, results.password);
-                    if (result) {
-                        results.password = undefined;
-                        const jsontoken = sign({ results }, process.env.secretKey, {
-                            expiresIn: "1h"
-                        });
-                        if (value.rememberMe == true)
-                            res.setHeader('Set-Cookie', 'token=' + jsontoken + `; HttpOnly;Secure;expires=Wed, 21 Oct 2030 07:28:00 GMT;Max-Age=9000000;Domain=${models.apiModel.domain};Path=/;overwrite=true`);
-                        else
-                            res.setHeader('Set-Cookie', 'token=' + jsontoken + `; HttpOnly;Domain=${models.apiModel.domain};Path=/`);
-                        return res.json({
-                            success: true,
-                            redirect: `/dashboard-${results.type}.html`
-                        });
-
-                    } else {
-                        return res.json({
-                            success: 0,
-                            data: "Invalid password!"
-                        });
-                    }
                 }
+            }
         })
     },
     handleLogout: (req, res) => {
@@ -157,11 +158,48 @@ module.exports = {
         })
 
     },
-    estimateCost: (req, res) => {
-        if (!req.parameters.distance)
+    estimateCost: async(req, res) => {
+        var city1 = req.parameters.source;
+        var city2 = req.parameters.destination;
+        if (!city1 || !city2)
             return res.status(StatusCodes.BAD_REQUEST).json({
-                error: "missing distance from query parameters"
+                error: "missing cities from query parameters"
             })
+        const { error, value } = models.commonModel.estimateCostSchema.validate(req.body);
+        if (error) {
+            return res.status(StatusCodes.BAD_REQUEST).json({
+                success: false,
+                error: error.message
+            })
+        }
+        var response1 = await fetch(`https://api.geoapify.com/v1/geocode/search?text=${city1}&apiKey=d2cb09e3081941d7ba2ce4970a7b2e81`, {
+            method: 'get',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+        var coordinates1 = await response1.json();
+        var response2 = await fetch(`https://api.geoapify.com/v1/geocode/search?text=${city2}&apiKey=d2cb09e3081941d7ba2ce4970a7b2e81`, {
+            method: 'get',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+        var coordinates2 = await response2.json();
+        const data = {
+            mode: 'drive',
+            sources: [{ location: [coordinates1.features[0].properties.lon, coordinates1.features[0].properties.lat] }],
+            targets: [{ location: [coordinates2.features[0].properties.lon, coordinates2.features[0].properties.lat] }]
+        }
+        var response3 = await fetch('https://api.geoapify.com/v1/routematrix?apiKey=d2cb09e3081941d7ba2ce4970a7b2e81', {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        var dist = await response3.json();
+        var distanceCalculated = dist.sources_to_targets[0][0].distance;
         req.db.getBasePrice((error, results) => {
             if (error) {
                 res.status(StatusCodes.BAD_REQUEST).json({
@@ -169,7 +207,7 @@ module.exports = {
                     err: err.message
                 })
             } else {
-                var price = Math.round(results.price + req.parameters.distance / 10000);
+                var price = Math.round(results.price + distanceCalculated / 10000);
                 res.status(StatusCodes.OK).json({
                     success: 1,
                     data: price
@@ -184,19 +222,19 @@ module.exports = {
             case `user`:
                 return res
                     .status(StatusCodes.OK)
-                    .json({ ...apiModel.baseApi, ...apiModel.userApi, loginType, })
+                    .json({...apiModel.baseApi, ...apiModel.userApi, loginType, })
             case `driver`:
                 return res
                     .status(StatusCodes.OK)
-                    .json({ ...apiModel.baseApi, ...apiModel.userApi, ...apiModel.driverApi, loginType, })
+                    .json({...apiModel.baseApi, ...apiModel.userApi, ...apiModel.driverApi, loginType, })
             case `employee`:
                 return res
                     .status(StatusCodes.OK)
-                    .json({ ...apiModel.baseApi, ...apiModel.userApi, ...apiModel.employeeApi, loginType, })
+                    .json({...apiModel.baseApi, ...apiModel.userApi, ...apiModel.employeeApi, loginType, })
             case `admin`:
                 return res
                     .status(StatusCodes.OK)
-                    .json({ ...apiModel.baseApi, ...apiModel.userApi, ...apiModel.driverApi, ...apiModel.employeeApi, ...apiModel.adminApi, loginType, })
+                    .json({...apiModel.baseApi, ...apiModel.userApi, ...apiModel.driverApi, ...apiModel.employeeApi, ...apiModel.adminApi, loginType, })
             default:
                 return res
                     .status(StatusCodes.OK)
