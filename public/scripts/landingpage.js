@@ -19,9 +19,24 @@ window.addEventListener(`api-fetched`, (ev) => {
     console.log(`api-fetched event:`)
     console.log(api)
     console.log(`------------------`)
-    changeCredentialsButton.addEventListener(`click`, () => location.href = api.changeCredentials.location)
-    registerButton.addEventListener(`click`, () => location.href = api.newAccount.location)
-    startOrderButton.addEventListener(`click`, () => location.href = api.newOrder.location)
+    try {
+        changeCredentialsButton.addEventListener(`click`, () => location.href = api.changeCredentials.location)
+    } catch (error) {
+        if (error.name != `TypeError`)
+            console.error(error)
+    }
+    try {
+        registerButton.addEventListener(`click`, () => location.href = api.newAccount.location)
+    } catch (error) {
+        if (error.name != `TypeError`)
+            console.error(error)
+    }
+    try {
+        startOrderButton.addEventListener(`click`, () => location.href = api.newOrder.location)
+    } catch (error) {
+        if (error.name != `TypeError`)
+            console.error(error)
+    }
     login()
 
 }, false)

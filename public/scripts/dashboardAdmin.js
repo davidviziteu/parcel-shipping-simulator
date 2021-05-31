@@ -64,7 +64,8 @@ window.addEventListener(`api-fetched`, (ev) => {
                 return resultTextBox.innerHTML = responseBody.error
 
             resultTextBox.innerHTML = `Operația a fost realizată cu succes`
-            setInterval(() => resultTextBox.innerHTML = ``, 5000, null)
+            setTimeout(() => resultTextBox.innerHTML = ``, 5000)
+            setTimeout(() => updateNotificationsBox(), 1000)
 
         } catch (error) {
             resultTextBox.innerHTML = error
@@ -88,14 +89,18 @@ window.addEventListener(`api-fetched`, (ev) => {
             })
             let responseBody = await response.json()
             if (!response.ok)
-                return resultTextBox.innerHTML = responseBody.error
+                if (response.status == 404)
+                    return resultTextBox.innerHTML = `Nu exista notificarea cu id-ul ${id} în baza de date`
+                else
+                    return resultTextBox.innerHTML = responseBody.error
 
             resultTextBox.innerHTML = `Operația a fost realizată cu succes`
-            setInterval(() => resultTextBox.innerHTML = ``, 5000, null)
+            setTimeout(() => resultTextBox.innerHTML = ``, 5000)
+            //
+            setTimeout(() => updateNotificationsBox(), 1000)
         } catch (error) {
             resultTextBox.innerHTML = error
         }
-
     }
 
     getEmployee.onsubmit = async(e) => {

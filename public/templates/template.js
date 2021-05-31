@@ -13,17 +13,34 @@ function toggleStatus(status) {
     if (status == 'loading') {
         navBar.style.backgroundColor = "#0f5d82"
         document.getElementById("login-info").innerHTML = "⌛"
-            // navBar.classList.add(`animated`)
+        navBar.style.backgroundColor = "rgb(15, 93, 130)"
     } else if (status == 'ok') {
         document.getElementById("login-info").innerHTML = "✅"
             // navBar.classList.remove(`animated`)
+        navBar.style.backgroundColor = "rgb(15, 93, 130)"
     } else if (status == 'network error') {
         document.getElementById("login-info").innerHTML = "📶❌"
         navBar.style.backgroundColor = "var(--orange-accent)"
-    }
+    } else
+        alert(`invalid type given as parameters somewhere for toggleStatus function.
+            available parameters: 'loading', 'ok', 'network error'`)
 };
 
-toggleStatus(`loading`);
+
+
+(function(ns, fetch) {
+    if (typeof fetch !== 'function') return;
+
+    ns.fetch = function() {
+        toggleStatus(`loading`);
+        var out = fetch.apply(this, arguments);
+        out.then(({ ok }) => toggleStatus(`ok`))
+        out.catch(({ err }) => toggleStatus(`network error`))
+        return out;
+    }
+
+}(window, window.fetch));
+
 
 // fetch(`${hostName}/api`, {
 //     method: "GET",
@@ -48,6 +65,8 @@ toggleStatus(`loading`);
 //         console.log(`^ cannot fetch GET ${hostName}/api`)
 //     });
 
+
+
 (async() => {
     try {
         let rawResponse = await fetch(`${hostName}/api`, {
@@ -58,7 +77,6 @@ toggleStatus(`loading`);
         if (api.success == `false`)
             throw new Error(api.error)
         dispatchEvent(fetchDone)
-        toggleStatus(`ok`)
         console.log(`api: `)
         console.log(api)
     } catch (error) {
@@ -67,8 +85,42 @@ toggleStatus(`loading`);
         alert(`error fetching /api. are you on https?`)
         console.log(`^ cannot fetch GET ${hostName}/api`)
     }
-})()
+})();
 
+
+function newMenuItem(href, text) {
+    return `<li><a href="${href}">${text}</a></li>`
+}
+
+async function generateMenu() {
+    const mainMenu = document.getElementById(`main-menu`)
+    mainMenu.innerHTML = ``
+    mainMenu.innerHTML += newMenuItem(`/`, `Pagină de start`)
+    mainMenu.innerHTML += newMenuItem(`/Locatii.html`, `Locații`)
+    mainMenu.innerHTML += newMenuItem(`/AboutUs.html`, `Despre noi`)
+    mainMenu.innerHTML += newMenuItem(`/`, `Verificare AWB`)
+    mainMenu.innerHTML += newMenuItem(`/Contact.html`, `Contact`)
+    if (api) {
+        if (api.loginType == `admin`) {
+            mainMenu.innerHTML += newMenuItem(`Statistici.html`, `Statistici`)
+        }
+        if (api.loginType) {
+            let li = document.createElement(`li`)
+            let a = document.createElement(`a`)
+            a.innerHTML = `Ieși din cont`
+            a.addEventListener(`click`, async() => {
+                try {
+                    let result = await fetch(`${hostName}${api.logout.route}`, { method: api.logout.method, headers: { "Content-type": "application/json" } }).then(resp => resp.json())
+                    location.href = `/`
+                } catch (error) {
+                    console.error(error)
+                }
+            })
+            li.appendChild(a)
+            mainMenu.appendChild(li)
+        }
+    }
+}
 
 hamburgerMenu.addEventListener(`click`, () => {
     if (menu.className.includes(`hidden`)) {
@@ -147,11 +199,12 @@ const updateNotificationsBox = async() => {
     try {
         let notificationBox = document.getElementById(`notifications-box`)
         let rawResp = await fetch(`${hostName}${api.getNotifications.route}`, { headers: { "Content-type": "application/json" } })
-            //cam asa ar trebui facut
         let respObject = await rawResp.json()
         let notifications = respObject.data
-        console.log(notifications);
-        // if (rawResp.ok)
+        notificationBox.childNodes.forEach(child => {
+            if (child.nodeName == `P`)
+                notificationBox.removeChild(child)
+        })
         if (api.loginType != `admin`)
             notifications.forEach(item => {
                 let p = document.createElement(`p`)
@@ -168,7 +221,8 @@ const updateNotificationsBox = async() => {
                 notificationBox.appendChild(p)
             })
     } catch (error) {
-        console.error(error);
+        if (error.name != `TypeError`)
+            console.error(error)
     }
 }
 
@@ -221,15 +275,19 @@ async function loadEstimateCostBox() {
 async function loadRegisterButton() {
     try {
         document.getElementById(`register-button`).addEventListener(`click`, () => location.href = api.newAccount.location)
-    } catch (error) {}
+    } catch (error) {
+        if (error.name != `TypeError`)
+            console.error(error)
+    }
 }
 
 async function trackAwb() {
-    let awb = document.getElementById(`awb-input`).value
     try {
+        let awb = document.getElementById(`awb-input`).value
         let response = await fetch(`${hostName}${api.trackAwb.route}?awb=${awb}`, { method: api.trackAwb.method, headers: { "Content-type": "application/json" } })
-        if (!response.ok)
+        if (!response.ok) {
             return document.getElementById("awb-input").style.backgroundColor = "rgb(211, 110, 110)"
+        }
         const responseBody = await response.json()
         sessionStorage.setItem(`fetched-awb`, awb)
         sessionStorage.setItem(`order-details`, JSON.stringify(responseBody))
@@ -237,12 +295,15 @@ async function trackAwb() {
     } catch (error) {
         if (error instanceof QuotaExceededError)
             alert(`error saving awb string to session storage. did you disable session storage?`)
+        if (error.name != `TypeError`)
+            console.error(error)
     }
 }
 
 function loadTrackAwbBox() {
     try {
         let awbField = document.getElementById("awb-input")
+        if (!awbField) return
         awbField.addEventListener(`click`, () => awbField.style.backgroundColor = "#fbfef7")
         awbField.addEventListener(`keypress`, (event) => {
             if (event.key == `Enter`) {
@@ -251,20 +312,25 @@ function loadTrackAwbBox() {
             }
         })
         document.getElementById(`track-awb-button`).addEventListener(`click`, trackAwb)
-    } catch (error) {}
+    } catch (error) {
+        if (error.name != `TypeError`)
+            console.error(error)
+    }
 }
 
 function loadOurLocationsButton() {
     try {
         document.getElementById("our-locations").addEventListener(`click`, () => window.location = api.ourLocations.location)
     } catch (error) {
-
+        if (error.name != `TypeError`)
+            console.error(error)
     }
 }
 
 async function login() {
+    const loginForm = document.getElementById("login-form");
+    if (!loginForm) return
     loginForm.onsubmit = async(e) => {
-
         e.preventDefault();
         document.getElementById("user-email").style.backgroundColor = "#fbfef7";
         document.getElementById("user-password").style.backgroundColor = "#fbfef7";
@@ -288,8 +354,9 @@ async function login() {
 }
 
 window.addEventListener(`api-fetched`, async(ev) => {
+    generateMenu();
     updateNotificationsBox();
-    setInterval(updateNotificationsBox(), 60000, null); //la 1 minut
+    setTimeout(() => updateNotificationsBox(), 60000, null); //la 1 minut
     loadTrackAwbBox();
     loadEstimateCostBox();
     loadOurLocationsButton();
