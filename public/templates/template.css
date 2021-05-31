@@ -147,6 +147,10 @@ li {
     font-family: var(--default-font), var(--fallback-font);
 }
 
+.input-box:focus{
+    outline: none;
+}
+
 .input-box::placeholder {
     color: rgba(0, 0, 0, 0.7);
 }
