@@ -10,9 +10,10 @@ var costBtn = document.getElementById("calculeazaCostBtn");
 var metodePlata = ["card", "cash"];
 var form = document.getElementById("newOrderForm");
 const estimateCostButton = document.getElementById(`estimate-cost-button`);
+const totalCostText = document.getElementById(`total-cost`)
 
 window.addEventListener(`api-fetched`, (ev) => {
-    if (api.loginType != "undefined") {
+    if (api.loginType != null) {
         fetch(`${hostName}${api.autocomplete.route}`, {
                 method: api.autocomplete.method,
                 headers: {
@@ -33,8 +34,8 @@ window.addEventListener(`api-fetched`, (ev) => {
             .catch(err => console.log(err));
     }
     estimateCostButton.addEventListener(`click`, () => {
-        var from = document.getElementById(`judet1`)
-        var to = document.getElementById(`judet2`)
+        var from = document.getElementById(`judet1`).value
+        var to = document.getElementById(`judet2`).value
         var from2 = from.replace('ș', 's');
         from = from2;
         from2 = from.replace('ț', 't');
@@ -43,19 +44,26 @@ window.addEventListener(`api-fetched`, (ev) => {
         to = to2;
         to2 = to.replace('ț', 't');
         to = to2;
-        console.log("aici")
-        fetch(`${hostName}${api.estimateCost.route}?source=${from}&destination=${to}`, {
-                method: api.estimateCost.method,
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                withCredentials: true,
-            })
-            .then(response => response.json())
-            .then(json => {
-                totalCostText.innerHTML = "Pretul estimativ este : " + json.data + " ron";
-            })
-            .catch(err => { console.log(err) });
+        if (!to && !from)
+            totalCostText.innerHTML = `Alegeți județul expeditorului și al destinatarului`
+        else if (!from)
+            totalCostText.innerHTML = `Alegeți județul expeditorului`
+        else if (!to)
+            totalCostText.innerHTML = `Alegeți județul destinatarului`
+        else {
+            fetch(`${hostName}${api.estimateCost.route}?source=${from}&destination=${to}`, {
+                    method: api.estimateCost.method,
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    withCredentials: true,
+                })
+                .then(response => response.json())
+                .then(json => {
+                    totalCostText.innerHTML = "Pretul estimativ este : " + json.data + " ron";
+                })
+                .catch(err => { console.log(err) });
+        }
     })
 
     form.onsubmit = async(e) => {
