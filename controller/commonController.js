@@ -19,7 +19,6 @@ module.exports = {
 
             let awbEventsObject = new orderDashboardModel()
             let awbDetailsObject = new awbDetailsModel()
-
             if (!req.accountType) { // || if req.userId != awbData.id...........
                 awbRawEvents.forEach(awbEv => {
                     awbEventsObject[awbEv.event_type].push(`${awbEv.details} ${awbEv.date_time}`)

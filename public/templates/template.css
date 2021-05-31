@@ -13,6 +13,9 @@
     --default-font: 'Poppins';
     --fallback-font: sans-serif;
     --footer-background: black;
+    --orange-accent: #f08732e7;
+    --green-accent: rgb(0, 145, 31);
+    --red-accent: rgba(255, 70, 70, 0.952);
 }
 
 body {
@@ -250,7 +253,7 @@ nav>* {
 
 nav button {
     border: none;
-    background-color: #0f5d82;
+    background-color: transparent;
     background-image: url('hamburger-menu.jpg');
     background-position-y: center;
     background-size: cover;
