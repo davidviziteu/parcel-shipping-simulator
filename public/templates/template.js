@@ -145,7 +145,7 @@ function handleLoginResponse(resp) {
         document.getElementById("user-password").style.backgroundColor = "rgb(211, 110, 110)";
 };
 
-(async function updateNotificationsBox() {
+const updateNotificationsBox = async () => {
     try {
         let notificationBox = document.getElementById(`notifications-box`)
         let rawResp = await fetch(`${hostName}${api.getNotifications.route}`, { headers: { "Content-type": "application/json" } })
@@ -172,9 +172,8 @@ function handleLoginResponse(resp) {
     } catch (error) {
         console.error(error);
     }
-})()
+}
 
-setInterval(updateNotificationsBox(), 60000, null); //la 1 minut
 
 async function fetchEstimatedCost(from, to) {
     try {
@@ -295,6 +294,7 @@ async function login() {
 
 window.addEventListener(`api-fetched`, async (ev) => {
     updateNotificationsBox();
+    setInterval(updateNotificationsBox(), 60000, null); //la 1 minut
     loadTrackAwbBox();
     loadEstimateCostBox();
     loadOurLocationsButton();
