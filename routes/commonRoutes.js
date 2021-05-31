@@ -7,7 +7,8 @@ commonRouter.get(apiModel.baseApi.trackAwb.route, controllers.commonController.t
 commonRouter.post(`/api/login`, controllers.commonController.handleLogin);
 commonRouter.get(`/api/notifications`, controllers.commonController.getNotifications);
 commonRouter.get(`/api`, controllers.commonController.getApi);
-commonRouter.get(`/api/new-order`, controllers.clientController.getCost);
+// commonRouter.get(`/api/new-order`, controllers.clientController.getCost);
 commonRouter.post(`/api/new-order`, controllers.clientController.placeOrder);
 commonRouter.post(`/api/logout`, controllers.commonController.handleLogout);
+commonRouter.get(apiModel.baseApi.estimateCost.route, controllers.commonController.estimateCost);
 module.exports = commonRouter

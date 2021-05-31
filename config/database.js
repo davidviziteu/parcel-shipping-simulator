@@ -411,6 +411,17 @@ module.exports = {
             }
         );
     },
+    getBasePrice: (callBack) => {
+        pool.query(
+            `SELECT *FROM price`, [],
+            (error, results, fields) => {
+                if (error) {
+                    return callBack(error);
+                }
+                return callBack(null, results[0]);
+            }
+        );
+    },
     searchDriverById: (id, callBack) => {
         pool.query(
             `SELECT * from users where id=? AND type=?`, [
