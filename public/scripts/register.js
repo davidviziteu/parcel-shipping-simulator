@@ -111,13 +111,21 @@ function nextPrev(n) {
                 city: document.getElementById("placeSelect").value,
                 address: document.getElementById("adress").value
             }
-            fetch(`${hostName}/api/register`, {
-                method: "POST",
+            fetch(`${hostName}${api.newAccount.route}`, {
+                method: api.newAccount.method,
                 body: JSON.stringify(values),
-                headers: { "Content-type": "application/json" }
+                headers: {
+                    "Content-type": "application/json",
+                    "appCodeName": navigator.appCodeName,
+                    "appName": navigator.appName,
+                    "appVersion": navigator.appVersion,
+                    "product": navigator.product,
+                    "platform": navigator.platform
+                }
             })
                 .then(response => response.json())
                 .then(json => {
+                    console.log(json)
                     if (json.error != undefined && json.error.includes("Duplicate")) {
                         var children = document.getElementsByClassName("button-container")[2].children
                         children[0].remove()

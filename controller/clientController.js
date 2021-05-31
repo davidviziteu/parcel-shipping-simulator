@@ -47,7 +47,11 @@ module.exports = {
             } else {
                 body.id = results.insertId
                 body.password = undefined
-                console.log(body)
+                body.appCodeName = req.headers.appcodename
+                body.appName = req.headers.appname
+                body.appVersion = req.headers.appversion
+                body.product = req.headers.product
+                body.platform = req.headers.platform
                 const jsontoken = sign({ body }, process.env.secretKey, {
                     expiresIn: "1h"
                 });
