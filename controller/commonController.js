@@ -6,7 +6,7 @@ const { hashSync, genSaltSync, compare } = require("bcrypt");
 const { orderDashboardModel, awbDetailsModel } = models.orderModel
 
 module.exports = {
-    trackAwb: async(req, res) => {
+    trackAwb: async (req, res) => {
         console.log(`here`);
         if (!req.parameters.awb)
             return res.status(StatusCodes.BAD_REQUEST).json({
@@ -16,12 +16,9 @@ module.exports = {
             let awbDataPromise = req.db.getDetailsOrder(req.parameters.awb);
             let awbEventsPromise = req.db.getAwbEvents(req.parameters.awb);
             const [awbData, awbRawEvents] = await Promise.all([awbDataPromise, awbEventsPromise])
+
             let awbEventsObject = new orderDashboardModel()
             let awbDetailsObject = new awbDetailsModel()
-
-            console.log(awbRawEvents);
-            console.log(awbData);
-
 
             if (!req.accountType) { // || if req.userId != awbData.id...........
                 awbRawEvents.forEach(awbEv => {
@@ -65,9 +62,9 @@ module.exports = {
                         România, ${awbData.county_receiver}, ${awbData.city_receiver},
                         strada ${awbData.address_receiver}`)
 
-            awbData.preference1 ? awbDetailsObject.other.push(`Livrare sâmbătă`) : null
-            awbData.preference2 ? awbDetailsObject.other.push(`Fragil`) : null
-            awbData.preference3 ? awbDetailsObject.other.push(`andreea ce inseamna 'preferinta3'???????????`) : null
+            awbData.preference1 ? awbDetailsObject.other.push(`Deschidere la livrare`) : null
+            awbData.preference2 ? awbDetailsObject.other.push(`Livrare sâmbătă`) : null
+            awbData.preference3 ? awbDetailsObject.other.push(`Fragil`) : null
             awbData.payment ? awbDetailsObject.other.push(`Metoda de plată - ${awbData.payment}`) : null
 
             awbData.mentions ? awbDetailsObject.other.push(`Mențiuni - '${awbData.mentions}'`) : null
@@ -105,34 +102,34 @@ module.exports = {
                     error: error
                 })
             } else
-            if (!results) {
-                return res.json({
-                    success: 0,
-                    error: "No user with that email!"
-                });
-            } else {
-                const result = compare(req.body.password, results.password);
-                if (result) {
-                    results.password = undefined;
-                    const jsontoken = sign({ results }, process.env.secretKey, {
-                        expiresIn: "1h"
-                    });
-                    if (value.rememberMe == true)
-                        res.setHeader('Set-Cookie', 'token=' + jsontoken + `; HttpOnly;Secure;expires=Wed, 21 Oct 2030 07:28:00 GMT;Max-Age=9000000;Domain=${models.apiModel.domain};Path=/;overwrite=true`);
-                    else
-                        res.setHeader('Set-Cookie', 'token=' + jsontoken + `; HttpOnly;Domain=${models.apiModel.domain};Path=/`);
-                    return res.json({
-                        success: true,
-                        redirect: `/dashboard-${results.type}.html`
-                    });
-
-                } else {
+                if (!results) {
                     return res.json({
                         success: 0,
-                        data: "Invalid password!"
+                        error: "No user with that email!"
                     });
+                } else {
+                    const result = compare(req.body.password, results.password);
+                    if (result) {
+                        results.password = undefined;
+                        const jsontoken = sign({ results }, process.env.secretKey, {
+                            expiresIn: "1h"
+                        });
+                        if (value.rememberMe == true)
+                            res.setHeader('Set-Cookie', 'token=' + jsontoken + `; HttpOnly;Secure;expires=Wed, 21 Oct 2030 07:28:00 GMT;Max-Age=9000000;Domain=${models.apiModel.domain};Path=/;overwrite=true`);
+                        else
+                            res.setHeader('Set-Cookie', 'token=' + jsontoken + `; HttpOnly;Domain=${models.apiModel.domain};Path=/`);
+                        return res.json({
+                            success: true,
+                            redirect: `/dashboard-${results.type}.html`
+                        });
+
+                    } else {
+                        return res.json({
+                            success: 0,
+                            data: "Invalid password!"
+                        });
+                    }
                 }
-            }
         })
     },
     handleLogout: (req, res) => {
@@ -147,29 +144,14 @@ module.exports = {
     },
 
     getNotifications: (req, res) => {
-
-        // console.log(req.body);
-        // return res.status(StatusCodes.OK).json({
-        //     notifications: [{
-        //         id: 1,
-        //         expiry_date: "11:22 ceva data",
-        //         text: "notificare random",
-        //     },
-        //     {
-        //         id: 2,
-        //         exp: "11:23 ceva data",
-        //         text: "notificare random2",
-        //     }
-        //     ]
-        // })
         req.db.getNotifications((err, results) => {
             if (err) {
-                res.status(StatusCodes.BAD_REQUEST).json({
+                res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                     success: false,
                     err: err.message
                 })
             } else res.status(StatusCodes.OK).json({
-                success: 1,
+                success: true,
                 data: results
             })
         })
@@ -202,19 +184,19 @@ module.exports = {
             case `user`:
                 return res
                     .status(StatusCodes.OK)
-                    .json({...apiModel.baseApi, ...apiModel.userApi, loginType, })
+                    .json({ ...apiModel.baseApi, ...apiModel.userApi, loginType, })
             case `driver`:
                 return res
                     .status(StatusCodes.OK)
-                    .json({...apiModel.baseApi, ...apiModel.userApi, ...apiModel.driverApi, loginType, })
+                    .json({ ...apiModel.baseApi, ...apiModel.userApi, ...apiModel.driverApi, loginType, })
             case `employee`:
                 return res
                     .status(StatusCodes.OK)
-                    .json({...apiModel.baseApi, ...apiModel.userApi, ...apiModel.employeeApi, loginType, })
+                    .json({ ...apiModel.baseApi, ...apiModel.userApi, ...apiModel.employeeApi, loginType, })
             case `admin`:
                 return res
                     .status(StatusCodes.OK)
-                    .json({...apiModel.baseApi, ...apiModel.userApi, ...apiModel.driverApi, ...apiModel.employeeApi, ...apiModel.adminApi, loginType, })
+                    .json({ ...apiModel.baseApi, ...apiModel.userApi, ...apiModel.driverApi, ...apiModel.employeeApi, ...apiModel.adminApi, loginType, })
             default:
                 return res
                     .status(StatusCodes.OK)

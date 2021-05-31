@@ -354,18 +354,18 @@ module.exports = {
                     })
                 } else {
                     res.status(200).json({
-                            success: true
-                        })
-                        /* mailOptions.to = body.email
-                        mailOptions.subject = 'Confirmare creare cont'
-                        mailOptions.text = 'Ți-ai creat cont cu succes!'
-                        transporter.sendMail(mailOptions, function (error, info) {
-                            if (error) {
-                                console.log(error.message);
-                            } else {
-                                console.log('Email sent: ' + info.response);
-                            }
-                        }); */
+                        success: true
+                    })
+                    /* mailOptions.to = body.email
+                    mailOptions.subject = 'Confirmare creare cont'
+                    mailOptions.text = 'Ți-ai creat cont cu succes!'
+                    transporter.sendMail(mailOptions, function (error, info) {
+                        if (error) {
+                            console.log(error.message);
+                        } else {
+                            console.log('Email sent: ' + info.response);
+                        }
+                    }); */
                 }
             })
         } else {

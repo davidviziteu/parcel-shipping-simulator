@@ -1,6 +1,8 @@
 const hamburgerMenu = document.getElementById(`hamburger`)
 const menu = document.getElementsByTagName(`menu`)[0]
 const navBar = document.getElementsByTagName(`nav`)[0]
+const loginForm = document.getElementById("login-form");
+
 console.log("loaded templates.js")
 let api
 const hostName = location.hostname == `localhost` ? `http://localhost:4000` : `https://parcel-shipping-simulator.herokuapp.com`
@@ -131,30 +133,41 @@ var cities = {
 
 var listCity = ["Ilfov", "Cluj", "Constanța", "Dolj", "Galați", "Iași", "Oradea", "Sibiu", "Timișoara"];
 
+
+function handleLoginResponse(resp) {
+    console.log(`handling response from front ${JSON.stringify(resp)}`)
+    if (!resp.error)
+        window.location.href = window.location;
+    if (resp.error.toLowerCase().includes(`email`))
+        document.getElementById("user-email").style.backgroundColor = "rgb(211, 110, 110)";
+
+    if (resp.error.toLowerCase().includes(`password`))
+        document.getElementById("user-password").style.backgroundColor = "rgb(211, 110, 110)";
+}
 async function updateNotificationsBox() {
     try {
         let notificationBox = document.getElementById(`notifications-box`)
         let rawResp = await fetch(`${hostName}${api.getNotifications.route}`, { headers: { "Content-type": "application/json" } })
         //cam asa ar trebui facut
-        let notifications = []
         let respObject = await rawResp.json()
-
-        
+        let notifications = respObject.data
+        console.log(notifications);
         // if (rawResp.ok)
-        if (api.loginType == `admin`) {
-            for (item in notifications) {
+        if (api.loginType != `admin`)
+            notifications.forEach(item => {
                 let p = document.createElement(`p`)
                 p.innerHTML = item.text
                 notificationBox.appendChild(p)
-            }
-        }
-        else {
-            for (item in notifications) {
+            })
+
+        else
+            notifications.forEach(item => {
                 let p = document.createElement(`p`)
-                p.innerHTML = `[${item.id}] ${item.text} ${item.exp_date}`
+                item.expiry_date
+                    ? p.innerHTML = `[${item.id}] ${item.text} expiră: ${item.expiry_date}`
+                    : p.innerHTML = `[${item.id}] ${item.text} fără dată de expirare`
                 notificationBox.appendChild(p) // tre sa fie doar textul de la notificare nu si restu
-            }
-        }
+            })
     } catch (error) {
         console.error(error);
     }
@@ -217,7 +230,7 @@ async function trackAwb() {
     let awb = document.getElementById(`awb-input`).value
     try {
         let response = await fetch(`${hostName}${api.trackAwb.route}?awb=${awb}`, { method: api.trackAwb.method, headers: { "Content-type": "application/json" } })
-        if (response.status == 404)
+        if (!response.ok)
             return document.getElementById("awb-input").style.backgroundColor = "rgb(211, 110, 110)"
         const responseBody = await response.json()
         sessionStorage.setItem(`fetched-awb`, awb)
@@ -252,7 +265,30 @@ function loadOurLocationsButton() {
     }
 }
 
+async function login() {
+    loginForm.onsubmit = async (e) => {
 
+        e.preventDefault();
+        document.getElementById("user-email").style.backgroundColor = "#fbfef7";
+        document.getElementById("user-password").style.backgroundColor = "#fbfef7";
+        var values = {
+            email: document.getElementById("user-email").value,
+            password: document.getElementById("user-password").value,
+            rememberMe: document.getElementById("remember-me").checked
+        }
+        fetch(`${hostName}${api.login.route}`, {
+            method: api.login.method,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            withCredentials: true,
+            body: JSON.stringify(values),
+        })
+            .then(response => response.json())
+            .then(json => handleLoginResponse(json))
+            .catch(err => console.log(err));
+    }
+}
 
 window.addEventListener(`api-fetched`, async (ev) => {
     updateNotificationsBox();
