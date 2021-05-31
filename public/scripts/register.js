@@ -31,6 +31,7 @@ function showbox(n) {
 function nextPrev(n) {
     if (n == -1) showbox(n);
     else {
+        console.log(`n = ${n}, current box = ${currentbox}`);
         if (currentbox == 1) {
             fname = document.getElementById("fname").value;
             if (fname == "") {
@@ -71,7 +72,6 @@ function nextPrev(n) {
                 return false;
             }
             var valid = false;
-            if (pwd.toUpperCase() == pwd || pwd.toLowerCase() == pwd) return false;
             for (var i = 0; i < pwd.length; i++) {
                 if (pwd[i] == 0) valid = true;
                 if (pwd[i] == 1) valid = true;
