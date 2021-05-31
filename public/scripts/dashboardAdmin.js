@@ -11,96 +11,97 @@ const changePriceForm = document.getElementById(`change-price-form`)
 
 window.addEventListener(`api-fetched`, (ev) => {
 
-    newAccount.onsubmit = async(e) => {
-        e.preventDefault();
-        var values = {
-            surname: document.getElementById("surname-form-create-account").value,
-            name: document.getElementById("name-form-create-account").value,
-            email: document.getElementById("email-form-create-account").value,
-            password: document.getElementById("password-form-create-account").value,
-            phone: document.getElementById("phone-form-create-account").value,
-            county: document.getElementById("county-form-create-account").value,
-            type: document.getElementById("typeAccount-form-create-account").value
-        }
-        fetch(`${hostName}${api.newAccount.route}`, {
-                method: api.newAccount.method,
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                withCredentials: true,
-                body: JSON.stringify(values),
-            })
-            .then(response => response.json())
-            .then(json => {
-                if (json.error != undefined) {
-                    if (json.error.includes("Duplicate")) {
-                        document.getElementById("status-account").innerHTML = "Există deja un cont cu acest email!"
-                    } else if (json.error.includes("phone"))
-                        document.getElementById("status-account").innerHTML = "Introduce-ți un număr de telefon valid!"
-                } else {
-                    document.getElementById("status-account").innerHTML = "Cont creat!"
+            newAccount.onsubmit = async(e) => {
+                e.preventDefault();
+                var values = {
+                    surname: document.getElementById("surname-form-create-account").value,
+                    name: document.getElementById("name-form-create-account").value,
+                    email: document.getElementById("email-form-create-account").value,
+                    password: document.getElementById("password-form-create-account").value,
+                    phone: document.getElementById("phone-form-create-account").value,
+                    county: document.getElementById("county-form-create-account").value,
+                    type: document.getElementById("typeAccount-form-create-account").value
                 }
-            })
-            .catch(err => { console.log(err) });
-    }
+                fetch(`${hostName}${api.newAccount.route}`, {
+                        method: api.newAccount.method,
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        withCredentials: true,
+                        body: JSON.stringify(values),
+                    })
+                    .then(response => response.json())
+                    .then(json => {
+                        if (json.error != undefined) {
+                            if (json.error.includes("Duplicate")) {
+                                document.getElementById("status-account").innerHTML = "Există deja un cont cu acest email!"
+                            } else if (json.error.includes("phone"))
+                                document.getElementById("status-account").innerHTML = "Introduce-ți un număr de telefon valid!"
+                        } else {
+                            document.getElementById("status-account").innerHTML = "Cont creat!"
+                        }
+                    })
+                    .catch(err => { console.log(err) });
+            }
 
-    addNotificationForm.onsubmit = async(e) => {
-        e.preventDefault()
-        let resultTextBox = document.getElementById(`status-notification`)
-        var values = {
-            text: document.getElementById(`new-notification-text`).value,
-            expiry_date: document.getElementById(`new-notification-date`).value
-        }
-        try {
-            let response = await fetch(`${hostName}${api.addNotification.route}`, {
-                method: api.addNotification.method,
-                body: JSON.stringify(values),
-                headers: { "Content-type": "application/json" }
-            })
+            addNotificationForm.onsubmit = async(e) => {
+                e.preventDefault()
+                let resultTextBox = document.getElementById(`status-notification`)
+                var values = {
+                    text: document.getElementById(`new-notification-text`).value,
+                    expiry_date: document.getElementById(`new-notification-date`).value
+                }
+                try {
+                    let response = await fetch(`${hostName}${api.addNotification.route}`, {
+                        method: api.addNotification.method,
+                        body: JSON.stringify(values),
+                        headers: { "Content-type": "application/json" }
+                    })
 
 
-            let responseBody = await response.json()
-            if (!response.ok)
-                return resultTextBox.innerHTML = responseBody.error
+                    let responseBody = await response.json()
+                    if (!response.ok)
+                        return resultTextBox.innerHTML = responseBody.error
 
-            resultTextBox.innerHTML = `Operația a fost realizată cu succes`
+                    resultTextBox.innerHTML = `Notificarea a fost adaugată cu succes`
+                    setTimeout(() => resultTextBox.innerHTML = ``, 5000)
+                    setTimeout(() => updateNotificationsBox(), 1000)
+
+                } catch (error) {
+                    resultTextBox.innerHTML = responseBody.error
+
+                }
+
+
+            }
+
+            removeNotificationForm.onsubmit = async(e) => {
+                    e.preventDefault();
+                    document.getElementById(`delete-notification-id`).style.backgroundColor = "white";
+                    let resultTextBox = document.getElementById(`status-notification`)
+                    var values = {
+                        id: document.getElementById(`delete-notification-id`).value
+                    }
+
+                    let response = await fetch(`${hostName}${api.deleteNotification.route}`, {
+                        method: api.deleteNotification.method,
+                        body: JSON.stringify(values),
+                        headers: { "Content-type": "application/json" }
+                    })
+                    let responseBody = await response.json()
+                    if (response.status == 404) {
+                        document.getElementById(`delete-notification-id`).style.backgroundColor = "rgb(211, 110, 110)";
+                        resultTextBox.innerHTML = `Nu exista notificarea cu id-ul ${document.getElementById(`delete-notification-id`).value} în baza de date`
+            } else
+               { 
+                   if(responseBody.success == true)
+                        resultTextBox.innerHTML = responseBody.message;
+                    else 
+                        resultTextBox.innerHTML = responseBody.error
+               }
             setTimeout(() => resultTextBox.innerHTML = ``, 5000)
             setTimeout(() => updateNotificationsBox(), 1000)
-
-        } catch (error) {
-            resultTextBox.innerHTML = error
-
-        }
-
-
-    }
-
-    removeNotificationForm.onsubmit = async(e) => {
-        e.preventDefault();
-        let resultTextBox = document.getElementById(`status-notification`)
-        var values = {
-            id: document.getElementById(`delete-notification-id`).value
-        }
-        try {
-            let response = await fetch(`${hostName}${api.deleteNotification.route}`, {
-                method: api.deleteNotification.method,
-                body: JSON.stringify(values),
-                headers: { "Content-type": "application/json" }
-            })
-            let responseBody = await response.json()
-            if (!response.ok)
-                if (response.status == 404)
-                    return resultTextBox.innerHTML = `Nu exista notificarea cu id-ul ${id} în baza de date`
-                else
-                    return resultTextBox.innerHTML = responseBody.error
-
-            resultTextBox.innerHTML = `Operația a fost realizată cu succes`
-            setTimeout(() => resultTextBox.innerHTML = ``, 5000)
-            //
-            setTimeout(() => updateNotificationsBox(), 1000)
-        } catch (error) {
-            resultTextBox.innerHTML = error
-        }
+       
     }
 
     getEmployee.onsubmit = async(e) => {
