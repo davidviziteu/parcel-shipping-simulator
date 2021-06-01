@@ -12,12 +12,17 @@ app.use(routers.clientRouter)
 app.use(routers.driverRouter)
 app.use(routers.employeeRouter)
 app.use(routers.commonRouter)
+app.use(routers.privateRouter)
 
 app.useAuth((req) => {
-    if (!req.headers.cookie)
+    if (!req.headers.cookie && !req.body.token)
         return req;
-    const token = req.headers.cookie.split('=')[1];
-    var decoded = jwt_decode(token);
+    let token;
+    if (req.headers.cookie)
+        token = req.headers.cookie.split('=')[1];
+    else
+        token = req.body.token
+    let decoded = jwt_decode(token);
     if (decoded.results != undefined) {
         req.accountId = decoded.results.id;
         req.accountType = decoded.results.type;
@@ -26,6 +31,7 @@ app.useAuth((req) => {
         req.accountId = decoded.body.id;
         req.accountType = decoded.body.type;
     }
+    req.token = token;
     return req;
 })
 app.listen();

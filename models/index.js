@@ -6,3 +6,7 @@ exports.apiModel = require(`./apiModel.js`)
 exports.carModel = require(`./carModel.js`)
 exports.adminModel = require(`./adminModel`)
 exports.commonModel = require(`./commonModel`)
+exports.privateModel = require(`./privateModels`)
+
+
+
