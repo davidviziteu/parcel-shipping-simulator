@@ -19,7 +19,6 @@ class App {
     isRestAPI = (url) => String(url).startsWith(`/api`)
     listen() {
         http.createServer(function (req, res) {
-            req = this.authFunction(req);
             res.setHeader('Access-Control-Allow-Origin', '*');
             res.setHeader('Access-Control-Allow-Credentials', true);
             res.setHeader('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, PATCH');
@@ -65,6 +64,7 @@ class App {
                             // res.end()
                             return
                         }
+                    req = this.authFunction(req);
                     res = this.router.handleRoute(req, res)
                     // if (res.endNow)
                     //     res.end()

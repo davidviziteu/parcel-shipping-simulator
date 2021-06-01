@@ -1,22 +1,30 @@
 const http = require(`http`)
 const jwt_decode = require('jwt-decode');
-const db = require("./config/database")
 const routers = require(`./routes`)
 const { App } = require(`./utils/app.js`)
+const mongoose = require('mongoose');
+const driverTaskSchema = require('./models/driverTaskSchema');
+
 require("dotenv").config();
 
 
-app = new App(process.env.PORT || 4000, db)
-app.use(routers.adminRouter)
-app.use(routers.clientRouter)
-app.use(routers.driverRouter)
-app.use(routers.employeeRouter)
-app.use(routers.commonRouter)
+mongoose
+    .connect(process.env.DB_URI, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    })
+    .then(() => {
+        console.log('Connected to database')
+    });
+
+
+app = new App(process.env.PORT || 8000, driverTaskSchema)
+
 
 app.useAuth((req) => {
-    if (!req.headers.cookie)
+    if (!req.body.token)
         return req;
-    const token = req.headers.cookie.split('=')[1];
+    const token = req.body.token
     var decoded = jwt_decode(token);
     if (decoded.results != undefined) {
         req.accountId = decoded.results.id;
