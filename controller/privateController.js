@@ -8,20 +8,35 @@ const models = require("../models")
  */
 
 exports.getDriverData = async (req, res) => {
+    if (!req.parameters.county)
+        return req.status(StatusCodes.BAD_REQUEST);
 
-    req.db.getDriverCarCounty(`Iași`, (error, results) => {
-        if (error) {
-            res.status(StatusCodes.BAD_REQUEST).json({
-                success: false,
-                err: err.message
-            })
-        } else {
-            res.status(StatusCodes.OK).json({
-                success: true,
-                data: results
-            })
-        }
-    })
+    try {
+        let driversListPromise = await req.db.getDriverCarCounty(req.parameters.county);
+        let orderDetailsPromise = await req.db.getOrdersRelatedToCounty(req.parameters.county);
+        let awbList = {};
+        //
+        const [driversList, orderDetails] = await Promise.all([driversListPromise, orderDetailsPromise]);
+
+        awbList = orderDetails.map((v, i, m) => {
+            if (v.status == 'order-received')
+                return {
+                    awb: v.awb,
+                    currentLocation: v.county_sender,
+                    countyDestination: v.county_receiver,
+                }
+        })
+        return res.status(StatusCodes.OK).json({
+            driversList: driversList,
+            awbList: awbList,
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+            error: error.message
+        });
+    }
+
 
     return
     let data = {

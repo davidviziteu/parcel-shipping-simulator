@@ -593,6 +593,19 @@ module.exports = {
         )
     },
     getDriverCarCounty: (county, callBack) => {
+        if (!callBack)
+            return new Promise((resolve, reject) => {
+                pool.query(
+                    `SELECT users.id AS id  , users.county  AS county , cars.registration_number AS car from users JOIN cars on users.id = cars.id_driver where users.county = ?`, [
+                    county
+                ],
+                    (error, results, fields) => {
+                        if (error)
+                            return reject(error);
+                        return resolve(results);
+                    }
+                )
+            })
         pool.query(
             `SELECT users.id AS id  , users.county  AS county , cars.registration_number AS car from users JOIN cars on users.id = cars.id_driver where users.county = ?`, [
             county
@@ -603,5 +616,36 @@ module.exports = {
                 return callBack(null, results)
             }
         )
-    }
+    },
+
+
+    getOrdersRelatedToCounty(county, callBack) {
+        //TODO: VERIFICA SI PT CAND COLETUL ESTE IN BAZA NATIONALA
+        if (!callBack)
+            return new Promise((resolve, reject) => {
+                pool.query(
+                    `SELECT awb, county_sender, county_receiver, status from orders where (county_sender=? or county_receiver=?) and (status='order-received' or status='order-in-sender-county')`, [
+                    county,
+                    county
+                ],
+                    (error, results, fields) => {
+                        if (error)
+                            return reject(error)
+                        return resolve(results)
+                    }
+                )
+            })
+
+        pool.query(
+            `SELECT awb, county_sender, county_receiver, status from orders where (county_sender=? or county_receiver=?) and (status='order-received' or status='order-in-sender-county')`, [
+            county,
+            county
+        ],
+            (error, results, fields) => {
+                if (error)
+                    return callBack(error)
+                return callBack(null, results)
+            }
+        )
+    },
 }
