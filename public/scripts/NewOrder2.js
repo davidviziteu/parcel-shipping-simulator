@@ -169,6 +169,9 @@ window.addEventListener(`api-fetched`, (ev) => {
 
                     document.getElementById("order-placed-status1").style.display = "block";
                 }
+                setTimeout(() => document.getElementById("order-placed-status1").style.display = "none", 5000)
+                setTimeout(() => window.location.reload(5), 5000)
+
             })
             .catch(err => { console.log(err) });
     }
