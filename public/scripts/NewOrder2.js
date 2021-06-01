@@ -111,7 +111,6 @@ window.addEventListener(`api-fetched`, (ev) => {
             })
             .then(response => response.json())
             .then(json => {
-                console.log(json.error);
                 if (json.error) {
 
                     if (json.error.includes('fullName_sender'))
@@ -166,7 +165,7 @@ window.addEventListener(`api-fetched`, (ev) => {
 
                     if (json.error.includes('mentions'))
                         document.getElementById("mentions").style.backgroundColor = "rgb(211, 110, 110)";
-                } else {
+                } else if (json.success == true) {
 
                     document.getElementById("order-placed-status1").style.display = "block";
                 }

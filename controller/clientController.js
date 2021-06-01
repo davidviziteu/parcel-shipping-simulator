@@ -19,7 +19,7 @@ var transporter = nodemailer.createTransport({
 });
 
 var mailOptions = {
-    from: 'proiecttwpss@gmail.com',
+    from: 'curier@gmail.com',
     to: '',
     subject: '',
     text: ''
@@ -103,15 +103,31 @@ module.exports = {
             } else {
                 const result = Object.values(JSON.parse(JSON.stringify(results)))
                 req.body.awb = result[0]['LAST_INSERT_ID()'];
-                console.log(req.body.awb)
-                req.db.insertIntoAwbEvents(req.body, (error, results) => {})
-                res.status(200).json({
-                    success: true
+                req.db.insertIntoAwbEvents(req.body, (error, results) => {
+                    if (error) {
+                        res.status(500).json({
+                            success: false,
+                            error: error.message
+                        })
+                    } else {
+                        mailOptions.to = body.email_sender
+                        mailOptions.subject = `Comanda cu numarul ${req.body.awb} plasată cu succes`
+                        mailOptions.text = `Expeditor: ${req.body.fullName_sender} \nTelefon: ${req.body.phone_sender}\nEmail: ${req.body.email_sender}\nJudet: ${req.body.county_sender}\nLocalitate: ${req.body.city_sender}\nAdresă: ${req.body.address_sender} \n\nDestinatar:${req.body.fullName_receiver}\nTelefon: ${req.body.phone_receiver}\nJudet: ${req.body.county_receiver}\nLocalitate: ${req.body.city_receiver}\nAdresă: ${req.body.address_receiver}\n\n Vă mulțumim pentru comandă!\n Un curier va lua legătura cu dvs în scurt timp. `
+                        transporter.sendMail(mailOptions, function(error, info) {
+                            if (error) {
+                                console.log(error.message);
+                            } else {
+                                console.log('Email sent: ' + info.response);
+                            }
+                        });
+                        res.status(200).json({
+                            success: true
+                        })
+                    }
                 })
 
             }
         })
-        return res
     },
     codeChange: (req, res) => {
         const body = req.body

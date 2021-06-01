@@ -128,7 +128,6 @@ module.exports = {
         );
     },
     insertIntoAwbEvents: (data, callBack) => {
-        console.log("db " + data.awb)
         pool.query(
             `INSERT INTO awb_events (awb,event_type,details,date_time) VALUES (?,?,?,now())`, [
                 data.awb,
