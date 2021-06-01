@@ -99,9 +99,10 @@ body {
 
 .hidden {
     display: none !important;
-} 
+}
 
-ul, ol {
+ul,
+ol {
     padding: 0px;
 }
 
@@ -135,7 +136,7 @@ li {
     background-color: #fbfef7;
     caret-color: #42adf8;
     width: 100%;
-    box-sizing: border-box;  
+    box-sizing: border-box;
     height: 2.3em;
     text-align: left;
     padding-left: 10px;
@@ -147,7 +148,7 @@ li {
     font-family: var(--default-font), var(--fallback-font);
 }
 
-.input-box:focus{
+.input-box:focus {
     outline: none;
 }
 
@@ -223,7 +224,7 @@ menu a {
     color: black;
 }
 
-menu a:hover{
+menu a:hover {
     font-weight: bold;
 }
 
@@ -368,6 +369,7 @@ img {
     margin-right: 1vw;
 }
 
+
 /* .animated {
     animation-name: color;
     animation-duration: 1s;
@@ -425,20 +427,17 @@ img {
         width: 90% !important;
         margin: auto;
     }
-    menu > * {
+    menu>* {
         margin-top: 15%;
     }
-
     .margin-footer p {
         margin-top: 10px !important;
         margin-bottom: 10px !important;
     }
-
     .title-with-image {
         width: 90%;
     }
     .title-with-image h1 {
         font-size: x-large;
     }
-    
 }

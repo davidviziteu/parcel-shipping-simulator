@@ -5,7 +5,8 @@ const pool = createPool({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASS,
-    database: process.env.MYSQL_DB
+    database: process.env.MYSQL_DB,
+    multipleStatements: true
 });
 
 // pool.query(`select * from users`, [], (error, results, fields) => {
@@ -126,9 +127,29 @@ module.exports = {
             }
         );
     },
+    insertIntoAwbEvents: (data, callBack) => {
+        console.log("db " + data.awb)
+        pool.query(
+            `INSERT INTO awb_events (awb,event_type,details,date_time) VALUES (?,?,?,now())`, [
+                data.awb,
+                `order-received`,
+                `Comanda a fost primită`
+
+            ],
+            (error, results, fields) => {
+                if (error)
+                    return callBack(error)
+                return callBack(null, results, fields)
+            }
+        )
+
+    },
     placeNewOrder: (data, callBack) => {
         pool.query(
-            `INSERT INTO orders (fullName_sender,contactPerson_sender,phone_sender,email_sender,county_sender,city_sender,address_sender,fullName_receiver,contactPerson_receiver,phone_receiver,county_receiver,city_receiver,address_receiver,nrEnvelope,nrParcel, weight,length,width,height,date, hour, preference1, preference2, preference3, payment, mentions) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`, [
+            `INSERT INTO orders 
+            (fullName_sender,contactPerson_sender,phone_sender,email_sender,county_sender,city_sender,address_sender,fullName_receiver,contactPerson_receiver,phone_receiver,county_receiver,city_receiver,address_receiver,nrEnvelope,nrParcel, weight,length,width,height,date, hour, preference1, preference2, preference3, payment, mentions) 
+            VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);
+            SELECT  LAST_INSERT_ID()`, [
                 data.fullName_sender,
                 data.contactPerson_sender,
                 data.phone_sender,
@@ -168,7 +189,7 @@ module.exports = {
                 if (error) {
                     return callBack(error)
                 }
-                return callBack(null, results)
+                return callBack(null, results[1])
             }
         );
     },
@@ -505,4 +526,5 @@ module.exports = {
             }
         )
     },
+
 }
