@@ -169,7 +169,6 @@ window.addEventListener(`api-fetched`, (ev) => {
                 } else {
 
                     document.getElementById("order-placed-status1").style.display = "block";
-                    document.getElementById("order-placed-status2").style.display = "block";
                 }
             })
             .catch(err => { console.log(err) });
@@ -205,7 +204,6 @@ window.onload = function() {
     document.getElementById("preference2").checked = false;
     document.getElementById("preference3").checked = false;
     document.getElementById("order-placed-status1").style.display = "none";
-    document.getElementById("order-placed-status2").style.display = "none";
 }
 
 function resetColorField() {
