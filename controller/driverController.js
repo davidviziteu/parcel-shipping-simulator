@@ -102,5 +102,13 @@ module.exports = {
     },
     getTask: (req, res) => {
 
+        res.status(StatusCodes.OK).json({
+            task: "Livrare/preluare colete local", //sau "Livrare/preluare colete national - Brașov",
+            countySource: "Iasi", //locul unde for trebui facute livrarile/pickup urile
+            countyDestination: "Iasi", //locul unde for trebui facute livrarile/pickup urile
+            car: "IS47AVI", //locul unde for trebui facute livrarile/pickup urile
+            toDeliver: [1, 2, 3], //array de awb uri (de int uri)
+            toPickup: [], //array de awb uri (de int uri)
+        })
     },
 }
