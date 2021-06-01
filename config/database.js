@@ -194,21 +194,64 @@ module.exports = {
         );
     },
     addEventsDriver: (data, callBack) => {
+        if (data.accident)
+            pool.query(
+                `INSERT INTO driver_events values (?,?,now())`, [
+                    data.id,
+                    data.accident
+                ],
+                (error, results, fields) => {
+                    if (error) {
+                        return callBack(error)
+                    }
+                }
+            )
+        var status
         pool.query(
-            `INSERT INTO driver_events values (?,?,?,?,?,?,?)`, [
-                data.id,
-                data.accident,
-                data.meteo,
-                data.failure,
-                data.client,
-                data.content,
-                data.delivered
+            `SELECT status from orders where awb = ?`, [
+                data.awb
             ],
             (error, results, fields) => {
                 if (error) {
                     return callBack(error)
+                } else if (results[0].status != undefined) {
+                    var event
+                    if (data.accident) event = "accident"
+                    else if (data.meteo) event = "unfavorable weather"
+                    else if (data.failure) event = "failure"
+                    else if (data.client) event = "the client is not at home"
+                    else if (data.content) event = "damaged content"
+                    else if (data.delivered) event = "delivered"
+                    else if (data.pickup) event = "pickup"
+                    pool.query(
+                        `INSERT INTO awb_events(awb,event_type,employees_details,date_time) values(?,?,?,now())`, [
+                            data.awb,
+                            results[0].status,
+                            event
+                        ],
+                        (error, results, fields) => {
+                            if (error) {
+                                return callBack(error)
+                            }
+                        }
+                    )
+                    if (event == "delivered") {
+                        pool.query(
+                            `UPDATE orders SET status = ? WHERE awb = ?`, [
+                                "Livrat",
+                                data.awb
+                            ],
+                            (error, results, fields) => {
+                                if (error) {
+                                    return callBack(error)
+                                } else return callBack(null, error)
+                            }
+                        )
+                    }
+                } else {
+                    const error = "bad awb"
+                    return callBack(error)
                 }
-                return callBack(null, results)
             }
         )
     },
@@ -526,5 +569,40 @@ module.exports = {
             }
         )
     },
-
+    getInfoCounty: (date, callBack) => {
+        pool.query(
+            `SELECT SUBSTR(date, 1, 7), count(*) FROM orders where SUBSTR(date, 1, 7) > ? GROUP BY SUBSTR(date, 1, 7)`, [
+                date
+            ],
+            (error, results, fields) => {
+                if (error)
+                    return callBack(error)
+                return callBack(null, results, fields)
+            }
+        )
+    },
+    getDriverCar: (id, callBack) => {
+        pool.query(
+            `SELECT registration_number CARS  WHERE id_driver = ?`, [
+                id
+            ],
+            (error, results, fields) => {
+                if (error)
+                    return callBack(error)
+                return callBack(null, results[0])
+            }
+        )
+    },
+    getDriverCarCounty: (county, callBack) => {
+        pool.query(
+            `SELECT users.id AS id  , users.county  AS county , cars.registration_number AS car from users JOIN cars on users.id = cars.id_driver where users.county = ?`, [
+                county
+            ],
+            (error, results, fields) => {
+                if (error)
+                    return callBack(error)
+                return callBack(null, results[0])
+            }
+        )
+    }
 }

@@ -13,7 +13,7 @@ var buttonDefectiuni = document.getElementById('defectiuni')
 var buttonClient = document.getElementById('client')
 var buttonContinut = document.getElementById('continut')
 var buttonLivrat = document.getElementById('livrat')
-var buutonSubmit = document.getElementById('submit')
+var buttonSubmit = document.getElementById('submit')
 
 buttonExpeditor.addEventListener('click', () => {
     detaliiExpeditor.toggleAttribute('hidden')
@@ -118,28 +118,27 @@ window.addEventListener(`api-fetched`, (ev) => {
             document.getElementById("status").innerHTML = json["status"]
         })
         .catch(err => { console.log(err) });
+})
 
-    buutonSubmit.onsubmit = async (e) => {
-        e.preventDefault();
-        const values = {
-            accident: check[0].checked,
-            meteo: check[1].checked,
-            failure: check[2].checked,
-            client: check[3].checked,
-            content: check[4].checked,
-            delivered: check[5].checked
-        }
-        fetch(`${hostName}${api.driverEvent.route}`, {
-            method: api.driverEvent.route,
-            body: JSON.stringify(values),
-            headers: { "Content-type": "application/json" }
-        })
-            .then(response => response.json())
-            .then(json => {
-                if (json.error === "unselected") {
-                    document.getElementById("unselected").style.display = "block"
-                }
-            })
-            .catch(err => { console.log(err) });
+buttonSubmit.addEventListener(`click`, (ev) => {
+    const values = {
+        accident: check[0].checked,
+        meteo: check[1].checked,
+        failure: check[2].checked,
+        client: check[3].checked,
+        content: check[4].checked,
+        delivered: check[5].checked
     }
+    fetch(`${hostName}${api.driverEvent.route}`, {
+        method: api.driverEvent.method,
+        body: JSON.stringify(values),
+        headers: { "Content-type": "application/json" }
+    })
+        .then(response => response.json())
+        .then(json => {
+            if (json.error === "unselected") {
+                document.getElementById("unselected").style.display = "block"
+            }
+        })
+        .catch(err => { console.log(err) });
 })

@@ -1,6 +1,7 @@
 const { StatusCodes } = require(`http-status-codes`)
 const models = require("../models")
 const { id } = require("../models/orderModel")
+const jwt_decode = require('jwt-decode');
 
 const driverEventsSchema = models.userModel.driverEventsSchema
 
@@ -24,10 +25,14 @@ module.exports = {
                 error: "unselected"
             })
         }
+
+        body.awb = 1234
+        body.id = req.accountId
+        console.log(body)
         req.db.addEventsDriver(body, (error, results) => {
             if (error) {
                 console.log(error.message)
-                res.status(500).json({
+                return res.status(200).json({
                     success: false,
                     error: error.message
                 })
@@ -96,6 +101,7 @@ module.exports = {
         return res;
     },
     getTask: (req, res) => {
+
         res.status(StatusCodes.OK).json({
             task: "Livrare/preluare colete local", //sau "Livrare/preluare colete national - Brașov",
             countySource: "Iasi", //locul unde for trebui facute livrarile/pickup urile
