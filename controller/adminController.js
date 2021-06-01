@@ -354,18 +354,18 @@ module.exports = {
                     })
                 } else {
                     res.status(200).json({
-                            success: true
-                        })
-                        /* mailOptions.to = body.email
-                        mailOptions.subject = 'Confirmare creare cont'
-                        mailOptions.text = 'Ți-ai creat cont cu succes!'
-                        transporter.sendMail(mailOptions, function (error, info) {
-                            if (error) {
-                                console.log(error.message);
-                            } else {
-                                console.log('Email sent: ' + info.response);
-                            }
-                        }); */
+                        success: true
+                    })
+                    /* mailOptions.to = body.email
+                    mailOptions.subject = 'Confirmare creare cont'
+                    mailOptions.text = 'Ți-ai creat cont cu succes!'
+                    transporter.sendMail(mailOptions, function (error, info) {
+                        if (error) {
+                            console.log(error.message);
+                        } else {
+                            console.log('Email sent: ' + info.response);
+                        }
+                    }); */
                 }
             })
         } else {
@@ -459,6 +459,22 @@ module.exports = {
                 }
             })
         } else {
+            res.status(StatusCodes.UNAUTHORIZED).json({
+                success: 0,
+                error: "doar adminul poate executa aceasta comanda!"
+            })
+        }
+    },
+    getInfoCounty: (req, res) => {
+        if (req.accountType == `admin`) {
+            if (!req.body)
+                return res.status(StatusCodes.BAD_REQUEST).json({
+                    success: false,
+                    error: `missing body`
+                })
+            body = req.body
+        }
+        else {
             res.status(StatusCodes.UNAUTHORIZED).json({
                 success: 0,
                 error: "doar adminul poate executa aceasta comanda!"
