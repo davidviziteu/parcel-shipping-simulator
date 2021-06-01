@@ -177,11 +177,11 @@ window.addEventListener(`api-fetched`, (ev) => {
     }
 
 })
-
 for (var judet in cities) {
     judetSelector1.options[judetSelector1.options.length] = new Option(judet, judet);
 }
 judetSelector1.onchange = function() {
+    console.log("bau cica bau bau")
     localitateSelector1.length = 1;
     for (var localitate in cities[this.value]) {
         localitateSelector1.options[localitateSelector1.options.length] = new Option(cities[this.value][localitate]);
@@ -197,6 +197,7 @@ judetSelector2.onchange = function() {
         localitateSelector2.options[localitateSelector2.options.length] = new Option(cities[this.value][localitate]);
     }
 }
+
 for (var mod in metodePlata) {
     plata.options[plata.options.length] = new Option(metodePlata[mod]);
 
