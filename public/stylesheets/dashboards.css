@@ -16,10 +16,7 @@ main {
     margin: 0px;
 }
 
-.check{
-    pointer-events: none;
-    
-}
+
 
 .progress-arrow img {
     height: 30px;

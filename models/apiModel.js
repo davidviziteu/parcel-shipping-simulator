@@ -18,6 +18,7 @@ exports.domain = process.env.PORT ? `parcel-shipping-simulator.herokuapp.com` : 
  * order-received
  * order-picked-up
  * order-in-transit
+ * order-in-base
  * order-in-delivery
  * order-destinatary //pt cand comanda a fost livrata
  */
@@ -97,6 +98,10 @@ exports.userApi = {
 
 exports.driverApi = {
     //va include tot ce are baseApi si userApi
+    getDriverCar: {
+        route: `/api/driver/car`,
+        method: `GET`
+    },
     modifyCar: {
         route: `/api/cars`,
         method: `PATCH`,
