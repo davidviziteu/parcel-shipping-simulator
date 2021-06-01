@@ -47,7 +47,7 @@ select{
         display: block ;
     }
     .input-box{
-        width: 85%;
+        width: 85% !important;
         margin-right: 0px !important;
     }
 
