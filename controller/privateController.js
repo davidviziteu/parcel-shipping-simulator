@@ -8,6 +8,10 @@ const models = require("../models")
  */
 
 exports.getDriverData = async (req, res) => {
+    return req.status(StatusCodes.BAD_REQUEST).json({
+        message: "disable this to prevent unauthorized access"
+    });
+
     if (!req.parameters.county)
         return req.status(StatusCodes.BAD_REQUEST);
 
