@@ -1,6 +1,9 @@
 const hamburgerMenu = document.getElementById(`hamburger`)
 const menu = document.getElementsByTagName(`menu`)[0]
 const navBar = document.getElementsByTagName(`nav`)[0]
+const loginForm = document.getElementById("login-form");
+const estimateCostForm = document.getElementById(`estimate-cost-form`)
+
 console.log("loaded templates.js")
 let api
 const hostName = location.hostname == `localhost` ? `http://localhost:4000` : `https://parcel-shipping-simulator.herokuapp.com`
@@ -10,19 +13,34 @@ function toggleStatus(status) {
     if (status == 'loading') {
         navBar.style.backgroundColor = "#0f5d82"
         document.getElementById("login-info").innerHTML = "⌛"
-        // navBar.classList.add(`animated`)
-    }
-    else if (status == 'ok') {
+        navBar.style.backgroundColor = "rgb(15, 93, 130)"
+    } else if (status == 'ok') {
         document.getElementById("login-info").innerHTML = "✅"
         // navBar.classList.remove(`animated`)
-    }
-    else if (status == 'network error') {
+        navBar.style.backgroundColor = "rgb(15, 93, 130)"
+    } else if (status == 'network error') {
         document.getElementById("login-info").innerHTML = "📶❌"
         navBar.style.backgroundColor = "var(--orange-accent)"
-    }
+    } else
+        alert(`invalid type given as parameters somewhere for toggleStatus function.
+            available parameters: 'loading', 'ok', 'network error'`)
 };
 
-toggleStatus(`loading`);
+
+
+(function (ns, fetch) {
+    if (typeof fetch !== 'function') return;
+
+    ns.fetch = function () {
+        toggleStatus(`loading`);
+        var out = fetch.apply(this, arguments);
+        out.then(({ ok }) => toggleStatus(`ok`))
+        out.catch(({ err }) => toggleStatus(`network error`))
+        return out;
+    }
+
+}(window, window.fetch));
+
 
 // fetch(`${hostName}/api`, {
 //     method: "GET",
@@ -47,6 +65,8 @@ toggleStatus(`loading`);
 //         console.log(`^ cannot fetch GET ${hostName}/api`)
 //     });
 
+
+
 (async () => {
     try {
         let rawResponse = await fetch(`${hostName}/api`, {
@@ -57,7 +77,6 @@ toggleStatus(`loading`);
         if (api.success == `false`)
             throw new Error(api.error)
         dispatchEvent(fetchDone)
-        toggleStatus(`ok`)
         console.log(`api: `)
         console.log(api)
     } catch (error) {
@@ -66,8 +85,42 @@ toggleStatus(`loading`);
         alert(`error fetching /api. are you on https?`)
         console.log(`^ cannot fetch GET ${hostName}/api`)
     }
-})()
+})();
 
+
+function newMenuItem(href, text) {
+    return `<li><a href="${href}">${text}</a></li>`
+}
+
+async function generateMenu() {
+    const mainMenu = document.getElementById(`main-menu`)
+    mainMenu.innerHTML = ``
+    mainMenu.innerHTML += newMenuItem(`/`, `Pagină de start`)
+    mainMenu.innerHTML += newMenuItem(`/Locatii.html`, `Locații`)
+    mainMenu.innerHTML += newMenuItem(`/AboutUs.html`, `Despre noi`)
+    mainMenu.innerHTML += newMenuItem(`/`, `Verificare AWB`)
+    mainMenu.innerHTML += newMenuItem(`/Contact.html`, `Contact`)
+    if (api) {
+        if (api.loginType == `admin`) {
+            mainMenu.innerHTML += newMenuItem(`Statistici.html`, `Statistici`)
+        }
+        if (api.loginType) {
+            let li = document.createElement(`li`)
+            let a = document.createElement(`a`)
+            a.innerHTML = `Ieși din cont`
+            a.addEventListener(`click`, async () => {
+                try {
+                    let result = await fetch(`${hostName}${api.logout.route}`, { method: api.logout.method, headers: { "Content-type": "application/json" } }).then(resp => resp.json())
+                    location.href = `/`
+                } catch (error) {
+                    console.error(error)
+                }
+            })
+            li.appendChild(a)
+            mainMenu.appendChild(li)
+        }
+    }
+}
 
 hamburgerMenu.addEventListener(`click`, () => {
     if (menu.className.includes(`hidden`)) {
@@ -79,8 +132,7 @@ hamburgerMenu.addEventListener(`click`, () => {
         // disableScroll();
         var x = document.getElementsByTagName("body")[0];
         x.style.overflow = "hidden";
-    }
-    else {
+    } else {
         document.getElementById("hamburger").innerHTML = ""
         document.getElementById("hamburger").style.backgroundImage = "url(templates/hamburger-menu.jpg)"
         menu.className = `hidden`
@@ -131,62 +183,71 @@ var cities = {
 
 var listCity = ["Ilfov", "Cluj", "Constanța", "Dolj", "Galați", "Iași", "Oradea", "Sibiu", "Timișoara"];
 
-async function updateNotificationsBox() {
+
+function handleLoginResponse(resp) {
+    console.log(`handling response from front ${JSON.stringify(resp)}`)
+    if (!resp.error)
+        window.location.href = window.location;
+    if (resp.error.toLowerCase().includes(`email`))
+        document.getElementById("user-email").style.backgroundColor = "rgb(211, 110, 110)";
+
+    if (resp.error.toLowerCase().includes(`password`))
+        document.getElementById("user-password").style.backgroundColor = "rgb(211, 110, 110)";
+};
+
+const updateNotificationsBox = async () => {
     try {
         let notificationBox = document.getElementById(`notifications-box`)
         let rawResp = await fetch(`${hostName}${api.getNotifications.route}`, { headers: { "Content-type": "application/json" } })
-        //cam asa ar trebui facut
-        let notifications = []
         let respObject = await rawResp.json()
-
-        
-        // if (rawResp.ok)
-        if (api.loginType == `admin`) {
-            for (item in notifications) {
+        let notifications = respObject.data
+        notificationBox.childNodes.forEach(child => {
+            if (child.nodeName == `P`)
+                notificationBox.removeChild(child)
+        })
+        if (api.loginType != `admin`)
+            notifications.forEach(item => {
                 let p = document.createElement(`p`)
                 p.innerHTML = item.text
                 notificationBox.appendChild(p)
-            }
-        }
-        else {
-            for (item in notifications) {
-                let p = document.createElement(`p`)
-                p.innerHTML = `[${item.id}] ${item.text} ${item.exp_date}`
-                notificationBox.appendChild(p) // tre sa fie doar textul de la notificare nu si restu
-            }
-        }
-    } catch (error) {
-        console.error(error);
-    }
-}
+            })
 
-async function fetchEstimatedCost(from, to) {
-    try {
-        let resp = await fetch(`${hostName}${api.estimateCost.route}?from=${from}&to=${to}`, {
-            method: api.estimateCost.method,
-            // body: JSON.stringify({ from: from, to: to }),
-            headers: { "Content-type": "application/json" }
-        }).then(data => data.json())
-        return resp;
+        else
+            notifications.forEach(item => {
+                let p = document.createElement(`p`)
+                item.expiry_date ?
+                    p.innerHTML = `[${item.id}] ${item.text} expiră: ${item.expiry_date}` :
+                    p.innerHTML = `[${item.id}] ${item.text} fără dată de expirare`
+                notificationBox.appendChild(p)
+            })
     } catch (error) {
-        return error.message
+        if (error.name != `TypeError`)
+            console.error(error)
     }
 }
 
 async function loadEstimateCostBox() {
     const sourceSelector = document.getElementById(`judet-exp`)
     const destinationSelector = document.getElementById(`judet-dest`)
-    const estimateCostButton = document.getElementById(`estimate-cost-button`)
     const totalCostText = document.getElementById(`total-cost`)
-
+    if (!sourceSelector || !destinationSelector || !totalCostText) return
     for (let element in cities) {
         sourceSelector.appendChild(new Option(element))
         destinationSelector.appendChild(new Option(element))
     }
 
-    estimateCostButton.addEventListener(`click`, async () => {
-        let from = sourceSelector.value
-        let to = destinationSelector.value
+    estimateCostForm.onsubmit = async (e) => {
+        e.preventDefault();
+        var from = sourceSelector.value
+        var to = destinationSelector.value
+        var from2 = from.replace('ș', 's');
+        from = from2;
+        from2 = from.replace('ț', 't');
+        from = from2;
+        var to2 = to.replace('ș', 's');
+        to = to2;
+        to2 = to.replace('ț', 't');
+        to = to2;
         if (!to && !from)
             totalCostText.innerHTML = `Alegeți județul expeditorului și al destinatarului`
         else if (!from)
@@ -194,15 +255,20 @@ async function loadEstimateCostBox() {
         else if (!to)
             totalCostText.innerHTML = `Alegeți județul destinatarului`
         else {
-            let response = await fetchEstimatedCost(from, to)
-            if (response)
-                totalCostText.innerHTML = `raw response: ${JSON.stringify(response)}. add functionalities. templates.js function loadEstimateCostBox()`
-            return
-            if (to == from)
-                totalCostText.innerHTML = `Expediere în același județ (${from}): aproximativ ${response} RON`
-            else totalCostText.innerHTML = `${from} -> ${to}: aproximativ ${response} RON`
+            fetch(`${hostName}${api.estimateCost.route}?source=${from}&destination=${to}`, {
+                method: api.estimateCost.method,
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                withCredentials: true,
+            })
+                .then(response => response.json())
+                .then(json => {
+                    totalCostText.innerHTML = "Pretul estimativ este : " + json.data + " ron";
+                })
+                .catch(err => { console.log(err) });
         }
-    })
+    }
 }
 
 
@@ -210,15 +276,18 @@ async function loadRegisterButton() {
     try {
         document.getElementById(`register-button`).addEventListener(`click`, () => location.href = api.newAccount.location)
     } catch (error) {
+        if (error.name != `TypeError`)
+            console.error(error)
     }
 }
 
 async function trackAwb() {
-    let awb = document.getElementById(`awb-input`).value
     try {
+        let awb = document.getElementById(`awb-input`).value
         let response = await fetch(`${hostName}${api.trackAwb.route}?awb=${awb}`, { method: api.trackAwb.method, headers: { "Content-type": "application/json" } })
-        if (response.status == 404)
+        if (!response.ok) {
             return document.getElementById("awb-input").style.backgroundColor = "rgb(211, 110, 110)"
+        }
         const responseBody = await response.json()
         sessionStorage.setItem(`fetched-awb`, awb)
         sessionStorage.setItem(`order-details`, JSON.stringify(responseBody))
@@ -226,12 +295,15 @@ async function trackAwb() {
     } catch (error) {
         if (error instanceof QuotaExceededError)
             alert(`error saving awb string to session storage. did you disable session storage?`)
+        if (error.name != `TypeError`)
+            console.error(error)
     }
 }
 
 function loadTrackAwbBox() {
     try {
         let awbField = document.getElementById("awb-input")
+        if (!awbField) return
         awbField.addEventListener(`click`, () => awbField.style.backgroundColor = "#fbfef7")
         awbField.addEventListener(`keypress`, (event) => {
             if (event.key == `Enter`) {
@@ -241,6 +313,8 @@ function loadTrackAwbBox() {
         })
         document.getElementById(`track-awb-button`).addEventListener(`click`, trackAwb)
     } catch (error) {
+        if (error.name != `TypeError`)
+            console.error(error)
     }
 }
 
@@ -248,14 +322,41 @@ function loadOurLocationsButton() {
     try {
         document.getElementById("our-locations").addEventListener(`click`, () => window.location = api.ourLocations.location)
     } catch (error) {
-
+        if (error.name != `TypeError`)
+            console.error(error)
     }
 }
 
-
+async function login() {
+    const loginForm = document.getElementById("login-form");
+    if (!loginForm) return
+    loginForm.onsubmit = async (e) => {
+        e.preventDefault();
+        document.getElementById("user-email").style.backgroundColor = "#fbfef7";
+        document.getElementById("user-password").style.backgroundColor = "#fbfef7";
+        var values = {
+            email: document.getElementById("user-email").value,
+            password: document.getElementById("user-password").value,
+            rememberMe: document.getElementById("remember-me").checked
+        }
+        fetch(`${hostName}${api.login.route}`, {
+            method: api.login.method,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            withCredentials: true,
+            body: JSON.stringify(values),
+        })
+            .then(response => response.json())
+            .then(json => handleLoginResponse(json))
+            .catch(err => console.log(err));
+    }
+}
 
 window.addEventListener(`api-fetched`, async (ev) => {
+    generateMenu();
     updateNotificationsBox();
+    setTimeout(() => updateNotificationsBox(), 60000, null); //la 1 minut
     loadTrackAwbBox();
     loadEstimateCostBox();
     loadOurLocationsButton();

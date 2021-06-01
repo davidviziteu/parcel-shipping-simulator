@@ -10,6 +10,7 @@ const orderInTransitList = document.getElementById(`order-in-transit-list`)
 const orderInDeliveryList = document.getElementById(`order-in-delivery-list`)
 const orderDestinataryList = document.getElementById(`order-destinatary-list`)
 
+const loginBox = document.getElementById(`login-box`)
 
 const orderRefusedButton = document.getElementById(`refuse-order-button`)
 const orderConfirmedButton = document.getElementById(`confirm-order-button`)
@@ -52,6 +53,9 @@ const appendItemToList = (item, list) => {
 
 
 window.addEventListener(`api-fetched`, async (ev) => {
+    login()
+    if (!api.loginType)
+        loginBox.classList.remove(`hidden`)
     try {
         let awb = sessionStorage.getItem(`fetched-awb`)
         let responseBody = JSON.parse(sessionStorage.getItem(`order-details`))

@@ -4,6 +4,7 @@ const { sign } = require("jsonwebtoken");
 const { StatusCodes } = require(`http-status-codes`)
 const { hashSync, genSaltSync, compare } = require("bcrypt");
 const { orderDashboardModel, awbDetailsModel } = models.orderModel
+const fetch = require('node-fetch');
 
 module.exports = {
     trackAwb: async(req, res) => {
@@ -16,13 +17,9 @@ module.exports = {
             let awbDataPromise = req.db.getDetailsOrder(req.parameters.awb);
             let awbEventsPromise = req.db.getAwbEvents(req.parameters.awb);
             const [awbData, awbRawEvents] = await Promise.all([awbDataPromise, awbEventsPromise])
+
             let awbEventsObject = new orderDashboardModel()
             let awbDetailsObject = new awbDetailsModel()
-
-            console.log(awbRawEvents);
-            console.log(awbData);
-
-
             if (!req.accountType) { // || if req.userId != awbData.id...........
                 awbRawEvents.forEach(awbEv => {
                     awbEventsObject[awbEv.event_type].push(`${awbEv.details} ${awbEv.date_time}`)
@@ -65,9 +62,9 @@ module.exports = {
                         România, ${awbData.county_receiver}, ${awbData.city_receiver},
                         strada ${awbData.address_receiver}`)
 
-            awbData.preference1 ? awbDetailsObject.other.push(`Livrare sâmbătă`) : null
-            awbData.preference2 ? awbDetailsObject.other.push(`Fragil`) : null
-            awbData.preference3 ? awbDetailsObject.other.push(`andreea ce inseamna 'preferinta3'???????????`) : null
+            awbData.preference1 ? awbDetailsObject.other.push(`Deschidere la livrare`) : null
+            awbData.preference2 ? awbDetailsObject.other.push(`Livrare sâmbătă`) : null
+            awbData.preference3 ? awbDetailsObject.other.push(`Fragil`) : null
             awbData.payment ? awbDetailsObject.other.push(`Metoda de plată - ${awbData.payment}`) : null
 
             awbData.mentions ? awbDetailsObject.other.push(`Mențiuni - '${awbData.mentions}'`) : null
@@ -147,39 +144,61 @@ module.exports = {
     },
 
     getNotifications: (req, res) => {
-
-        // console.log(req.body);
-        // return res.status(StatusCodes.OK).json({
-        //     notifications: [{
-        //         id: 1,
-        //         expiry_date: "11:22 ceva data",
-        //         text: "notificare random",
-        //     },
-        //     {
-        //         id: 2,
-        //         exp: "11:23 ceva data",
-        //         text: "notificare random2",
-        //     }
-        //     ]
-        // })
         req.db.getNotifications((err, results) => {
             if (err) {
-                res.status(StatusCodes.BAD_REQUEST).json({
+                res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                     success: false,
                     err: err.message
                 })
             } else res.status(StatusCodes.OK).json({
-                success: 1,
+                success: true,
                 data: results
             })
         })
 
     },
-    estimateCost: (req, res) => {
-        if (!req.parameters.distance)
+    estimateCost: async(req, res) => {
+        var city1 = req.parameters.source;
+        var city2 = req.parameters.destination;
+        if (!city1 || !city2)
             return res.status(StatusCodes.BAD_REQUEST).json({
-                error: "missing distance from query parameters"
+                error: "missing cities from query parameters"
             })
+        const { error, value } = models.commonModel.estimateCostSchema.validate(req.body);
+        if (error) {
+            return res.status(StatusCodes.BAD_REQUEST).json({
+                success: false,
+                error: error.message
+            })
+        }
+        var response1 = await fetch(`https://api.geoapify.com/v1/geocode/search?text=${city1}&apiKey=d2cb09e3081941d7ba2ce4970a7b2e81`, {
+            method: 'get',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+        var coordinates1 = await response1.json();
+        var response2 = await fetch(`https://api.geoapify.com/v1/geocode/search?text=${city2}&apiKey=d2cb09e3081941d7ba2ce4970a7b2e81`, {
+            method: 'get',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+        var coordinates2 = await response2.json();
+        const data = {
+            mode: 'drive',
+            sources: [{ location: [coordinates1.features[0].properties.lon, coordinates1.features[0].properties.lat] }],
+            targets: [{ location: [coordinates2.features[0].properties.lon, coordinates2.features[0].properties.lat] }]
+        }
+        var response3 = await fetch('https://api.geoapify.com/v1/routematrix?apiKey=d2cb09e3081941d7ba2ce4970a7b2e81', {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        var dist = await response3.json();
+        var distanceCalculated = dist.sources_to_targets[0][0].distance;
         req.db.getBasePrice((error, results) => {
             if (error) {
                 res.status(StatusCodes.BAD_REQUEST).json({
@@ -187,7 +206,7 @@ module.exports = {
                     err: err.message
                 })
             } else {
-                var price = Math.round(results.price + req.parameters.distance / 10000);
+                var price = Math.round(results.price + distanceCalculated / 10000);
                 res.status(StatusCodes.OK).json({
                     success: 1,
                     data: price

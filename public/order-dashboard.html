@@ -3,9 +3,7 @@
 
 <head>
     <meta charset='utf-8'>
-    <meta name="description" content="Mary's simple recipe for maple bacon donuts
-           makes a sticky, sweet treat with just a hint
-           of salt that you'll keep coming back for.">
+    <meta name="description" content="Order tracking dashboard.">
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <title>PSS</title>
@@ -24,11 +22,11 @@
                 <img src="../templates/logo.png" alt="decorative image">
             </div>
             <div id="login-info">
-                Bună!
+                ⌛
             </div>
         </div>
     </nav>
-    <menu class="hidden">
+    <menu id="main-menu" class="hidden">
         <li>
             <a href="landingPage.html">
                 Pagină de start
@@ -59,119 +57,139 @@
             <a href="Contact.html"> Contact</a>
         </li>
     </menu>
-    <form action="InfoOrder">
-        <section class="big">
-            <div class="wide box">
-                <h4 id="awb-title">AWB: ⌛</h4>
+    <section class="big">
+        <div class="wide box">
+            <h4 id="awb-title">AWB: ⌛</h4>
+        </div>
+        <div class="box">
+            <div class="title-with-image">
+                <img src="./assets/parcel.png" alt="decorative image">
+                <h1>
+                    Detalii locație pachet
+                </h1>
             </div>
-            <div class="box">
-                <div class="title-with-image">
-                    <img src="./assets/parcel.png" alt="decorative image">
-                    <h1>
-                        Detalii locație pachet
-                    </h1>
-                </div>
 
-                <div class="button-container buttons-with-image expandable">
-                    <button type="button" class="" aria-label="Comanda a fost primită" id="order-received-button">
-                        <img src="./assets/counseling.png" alt="decorative image">
-                        Comanda a fost primită
-                    </button>
-                </div>
-                <ul hidden id="order-received-list" class="collapsable-list">
-                </ul>
-
-                <div class="progress-arrow">
-                    <img src="./assets/arrow.png" alt="down-arrow">
-
-                </div>
-
-
-                <div class="button-container buttons-with-image expandable">
-                    <button type="button" class="" aria-label="Ridicat de la expeditor" id="order-picked-up-button">
-                        <img src="./assets/package.png" alt="decorative image">
-                        Ridicat de la expeditor
-                    </button>
-                </div>
-                <ul hidden id="order-picked-up-list" class="collapsable-list">
-                    <li>
-                        Pachetul urmează a fi ridicat de la expeditor în data de 8-apr-2021
-                    </li>
-
-                </ul>
-                <div class="progress-arrow">
-                    <img src="./assets/arrow.png" alt="down-arrow">
-
-                </div>
-
-                <div class="button-container buttons-with-image expandable">
-                    <button type="button" class="" aria-label="În tranzit" id="order-in-transit-button">
-                        <img src="./assets/box.png" alt="decorative image">
-                        În tranzit
-                    </button>
-                </div>
-                <ul hidden id="order-in-transit-list" class="collapsable-list">
-                </ul>
-                <div class="progress-arrow">
-                    <img src="./assets/arrow.png" alt="down-arrow">
-
-                </div>
-
-                <div class="button-container buttons-with-image expandable">
-                    <button type="button" class="" aria-label="În curs de livrare" id="order-in-delivery-button">
-                        <img src="./assets/telephone.png" alt="decorative image">
-                        În curs de livrare
-                    </button>
-                </div>
-                <ul hidden id="order-in-delivery-list" class="collapsable-list">
-                </ul>
-                <div class="progress-arrow">
-                    <img src="./assets/arrow.png" alt="down-arrow">
-
-                </div>
-
-                <div class="button-container buttons-with-image expandable">
-                    <button type="button" class="" aria-label="Destinatar" id="order-destinatary-button">
-                        <img src="./assets/review.png" alt="decorative image">
-                        Destinatar
-                    </button>
-                </div>
-                <ul hidden id="order-destinatary-list" class="collapsable-list">
-                </ul>
+            <div class="button-container buttons-with-image expandable">
+                <button type="button" class="" aria-label="Comanda a fost primită" id="order-received-button">
+                    <img src="./assets/counseling.png" alt="decorative image">
+                    Comanda a fost primită
+                </button>
             </div>
-            <div class="box">
-                <div id="refuse-order-button-div" class="button-container buttons-with-image hidden">
-                    <button id="refuse-order-button" type="button" aria-label="Clientul refuză coletul / retur">
-                        Clientul refuză coletul / retur
-                    </button>
-                </div>
-                <div id="confirm-order-button-div" class="button-container buttons-with-image hidden">
-                    <button id="confirm-order-button" type="button" aria-label="Clientul a ridicat coletul">
-                        Clientul a ridicat coletul
-                    </button>
-                </div>
-                <div class="title-with-image">
-                    <img src="./assets/view-details.png" alt="decorative image">
-                    <h1>
-                        Alte detalii
-                    </h1>
-                </div>
-                <p>
-                    Expeditor
-                </p>
-                <ul id="sender-details">
-                </ul>
-                <p>
+            <ul hidden id="order-received-list" class="collapsable-list">
+            </ul>
+
+            <div class="progress-arrow">
+                <img src="./assets/arrow.png" alt="down-arrow">
+
+            </div>
+
+
+            <div class="button-container buttons-with-image expandable">
+                <button type="button" class="" aria-label="Ridicat de la expeditor" id="order-picked-up-button">
+                    <img src="./assets/package.png" alt="decorative image">
+                    Ridicat de la expeditor
+                </button>
+            </div>
+            <ul hidden id="order-picked-up-list" class="collapsable-list">
+                <li>
+                    Pachetul urmează a fi ridicat de la expeditor în data de 8-apr-2021
+                </li>
+
+            </ul>
+            <div class="progress-arrow">
+                <img src="./assets/arrow.png" alt="down-arrow">
+
+            </div>
+
+            <div class="button-container buttons-with-image expandable">
+                <button type="button" class="" aria-label="În tranzit" id="order-in-transit-button">
+                    <img src="./assets/box.png" alt="decorative image">
+                    În tranzit
+                </button>
+            </div>
+            <ul hidden id="order-in-transit-list" class="collapsable-list">
+            </ul>
+            <div class="progress-arrow">
+                <img src="./assets/arrow.png" alt="down-arrow">
+
+            </div>
+
+            <div class="button-container buttons-with-image expandable">
+                <button type="button" class="" aria-label="În curs de livrare" id="order-in-delivery-button">
+                    <img src="./assets/telephone.png" alt="decorative image">
+                    În curs de livrare
+                </button>
+            </div>
+            <ul hidden id="order-in-delivery-list" class="collapsable-list">
+            </ul>
+            <div class="progress-arrow">
+                <img src="./assets/arrow.png" alt="down-arrow">
+
+            </div>
+
+            <div class="button-container buttons-with-image expandable">
+                <button type="button" class="" aria-label="Destinatar" id="order-destinatary-button">
+                    <img src="./assets/review.png" alt="decorative image">
                     Destinatar
-                </p>
-                <ul id="destinatary-details">
-                </ul>
-                <p>
+                </button>
+            </div>
+            <ul hidden id="order-destinatary-list" class="collapsable-list">
+            </ul>
+        </div>
+
+        <div class="box">
+            <div class="hidden" id="login-box">
+                <div class="title-with-image">
+                    <img alt="image" src="./assets/login.png">
+                    <h1>Autentifică-te pentru mai multe detalii</h1>
+                </div>
+                <form id="login-form" class="full-width-form" action="" name="login-form-dashboard">
+                    <input class="input-box" type="text" id="user-email" name="fname" placeholder="Email" required>
+                    <input class="input-box" type="password" id="user-password" name="lname" placeholder="Parolă"
+                        required>
+                    <div class="button-container">
+                        <button type="submit">
+                            Login
+                        </button>
+                    </div>
+                    <div id="remember-me-input">
+                        <input type="checkbox" id="remember-me" name="remember-me">
+                        <label for="remember-me">Ține-mă minte</label>
+                    </div>
+                </form>
+            </div>
+            <div id="refuse-order-button-div" class="button-container buttons-with-image hidden">
+                <button id="refuse-order-button" type="button" aria-label="Clientul refuză coletul / retur">
+                    Clientul refuză coletul / retur
+                </button>
+            </div>
+            <div id="confirm-order-button-div" class="button-container buttons-with-image hidden">
+                <button id="confirm-order-button" type="button" aria-label="Clientul a ridicat coletul">
+                    Clientul a ridicat coletul
+                </button>
+            </div>
+            <div class="title-with-image">
+                <img src="./assets/view-details.png" alt="decorative image">
+                <h1>
                     Alte detalii
-                </p>
-                <ul id="other-details">
-                </ul>
-                <!-- <p id="content-details">
+                </h1>
+            </div>
+            <p>
+                Expeditor
+            </p>
+            <ul id="sender-details">
+            </ul>
+            <p>
+                Destinatar
+            </p>
+            <ul id="destinatary-details">
+            </ul>
+            <p>
+                Alte detalii
+            </p>
+            <ul id="other-details">
+            </ul>
+            <!-- <p id="content-details">
                 </p>
                 <p id="declared-value">
                 </p>
@@ -183,9 +201,8 @@
                 </div> -->
 
 
-            </div>
-        </section>
-    </form>
+        </div>
+    </section>
 
     <script src='templates/template.js'></script>
     <script src='scripts/orderDashboard.js'></script>

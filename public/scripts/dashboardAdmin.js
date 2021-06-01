@@ -1,123 +1,107 @@
 const newAccount = document.getElementById(`form-create-account`)
-const addNotificationtButton = document.getElementById(`add-notification-button`)
+    // const addNotificationButton = document.getElementById(`add-notification-button`)
 const addNotificationForm = document.getElementById(`add-notification-form`);
 const removeNotificationForm = document.getElementById(`remove-notification`);
 const addCarForm = document.getElementById(`add-car-form`)
 const getEmployee = document.getElementById(`get-employee`)
 const deleteAccount = document.getElementById(`delete-account-form`)
 const changePriceForm = document.getElementById(`change-price-form`)
-const estimateCostForm = document.getElementById(`cost-estimate-form`)
-const estimateCounty1 = document.getElementById(`judet-exp`)
-const estimateCounty2 = document.getElementById(`judet-dest`)
+
+
+
 window.addEventListener(`api-fetched`, (ev) => {
-    estimateCostForm.onsubmit = async(e) => {
-        e.preventDefault();
-        var response1 = await fetch(`https://api.geoapify.com/v1/geocode/search?text=${estimateCounty1.value}&apiKey=d2cb09e3081941d7ba2ce4970a7b2e81`, {
-            method: 'get',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-        })
-        var coordinates1 = await response1.json();
-        var response2 = await fetch(`https://api.geoapify.com/v1/geocode/search?text=${estimateCounty2.value}&apiKey=d2cb09e3081941d7ba2ce4970a7b2e81`, {
-            method: 'get',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-        })
-        var coordinates2 = await response2.json();
-        const data = {
-            mode: 'drive',
-            sources: [{ location: [coordinates1.features[0].properties.lon, coordinates1.features[0].properties.lat] }],
-            targets: [{ location: [coordinates2.features[0].properties.lon, coordinates2.features[0].properties.lat] }]
-        }
-        var response3 = await fetch('https://api.geoapify.com/v1/routematrix?apiKey=d2cb09e3081941d7ba2ce4970a7b2e81', {
-            method: 'post',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        })
-        var dist = await response3.json();
-        var distanceCalculated = dist.sources_to_targets[0][0].distance;
-        fetch(`${hostName}${api.estimateCost.route}?distance=${distanceCalculated}`, {
-                method: api.estimateCost.method,
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                withCredentials: true,
-            })
-            .then(response => response.json())
-            .then(json => {
-                document.getElementById(`total-cost`).innerHTML = "Pretul estimativ este : " + json.data + " ron";
-            })
-            .catch(err => { console.log(err) });
-    }
 
-    newAccount.onsubmit = async(e) => {
-        e.preventDefault();
-        var values = {
-            surname: document.getElementById("surname-form-create-account").value,
-            name: document.getElementById("name-form-create-account").value,
-            email: document.getElementById("email-form-create-account").value,
-            password: document.getElementById("password-form-create-account").value,
-            phone: document.getElementById("phone-form-create-account").value,
-            county: document.getElementById("county-form-create-account").value,
-            type: document.getElementById("typeAccount-form-create-account").value
-        }
-        fetch(`${hostName}${api.newAccount.route}`, {
-                method: api.newAccount.method,
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                withCredentials: true,
-                body: JSON.stringify(values),
-            })
-            .then(response => response.json())
-            .then(json => {
-                if (json.error != undefined) {
-                    if (json.error.includes("Duplicate")) {
-                        document.getElementById("status-account").innerHTML = "Există deja un cont cu acest email!"
-                    } else if (json.error.includes("phone"))
-                        document.getElementById("status-account").innerHTML = "Introduce-ți un număr de telefon valid!"
-                } else {
-                    document.getElementById("status-account").innerHTML = "Cont creat!"
+            newAccount.onsubmit = async(e) => {
+                e.preventDefault();
+                var values = {
+                    surname: document.getElementById("surname-form-create-account").value,
+                    name: document.getElementById("name-form-create-account").value,
+                    email: document.getElementById("email-form-create-account").value,
+                    password: document.getElementById("password-form-create-account").value,
+                    phone: document.getElementById("phone-form-create-account").value,
+                    county: document.getElementById("county-form-create-account").value,
+                    type: document.getElementById("typeAccount-form-create-account").value
                 }
-            })
-            .catch(err => { console.log(err) });
-    }
+                fetch(`${hostName}${api.newAccount.route}`, {
+                        method: api.newAccount.method,
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        withCredentials: true,
+                        body: JSON.stringify(values),
+                    })
+                    .then(response => response.json())
+                    .then(json => {
+                        if (json.error != undefined) {
+                            if (json.error.includes("Duplicate")) {
+                                document.getElementById("status-account").innerHTML = "Există deja un cont cu acest email!"
+                            } else if (json.error.includes("phone"))
+                                document.getElementById("status-account").innerHTML = "Introduce-ți un număr de telefon valid!"
+                        } else {
+                            document.getElementById("status-account").innerHTML = "Cont creat!"
+                        }
+                    })
+                    .catch(err => { console.log(err) });
+            }
 
-    addNotificationtButton.addEventListener(`click`, async() => {
-        var values = {
-            text: document.getElementById(`new-notification-text`).value,
-            expiry_date: getElementById(`new-notification-date`).value
-        }
-        fetch(`${hostName}${api.addNotification.route}`, {
-                method: api.addNotification.method,
-                body: JSON.stringify(values),
-                headers: { "Content-type": "application/json" }
-            })
-            .then(response => response.json())
-            .then(json => {
+            addNotificationForm.onsubmit = async(e) => {
+                e.preventDefault()
+                let resultTextBox = document.getElementById(`status-notification`)
+                var values = {
+                    text: document.getElementById(`new-notification-text`).value,
+                    expiry_date: document.getElementById(`new-notification-date`).value
+                }
+                try {
+                    let response = await fetch(`${hostName}${api.addNotification.route}`, {
+                        method: api.addNotification.method,
+                        body: JSON.stringify(values),
+                        headers: { "Content-type": "application/json" }
+                    })
 
-            })
-            .catch(err => { console.log(err) });
-    })
 
-    removeNotificationForm.onsubmit = async(e) => {
-        e.preventDefault();
-        var values = {
-            id: document.getElementById(`delete-notification-id`).value
-        }
-        fetch(`${hostName}${api.deleteNotification.route}`, {
-                method: api.deleteNotification.method,
-                body: JSON.stringify(values),
-                headers: { "Content-type": "application/json" }
-            })
-            .then(response => { response.json() })
-            .then(json => {
-                console.log(json)
-            })
+                    let responseBody = await response.json()
+                    if (!response.ok)
+                        return resultTextBox.innerHTML = responseBody.error
+
+                    resultTextBox.innerHTML = `Notificarea a fost adaugată cu succes`
+                    setTimeout(() => resultTextBox.innerHTML = ``, 5000)
+                    setTimeout(() => updateNotificationsBox(), 1000)
+
+                } catch (error) {
+                    resultTextBox.innerHTML = responseBody.error
+
+                }
+
+
+            }
+
+            removeNotificationForm.onsubmit = async(e) => {
+                    e.preventDefault();
+                    document.getElementById(`delete-notification-id`).style.backgroundColor = "white";
+                    let resultTextBox = document.getElementById(`status-notification`)
+                    var values = {
+                        id: document.getElementById(`delete-notification-id`).value
+                    }
+
+                    let response = await fetch(`${hostName}${api.deleteNotification.route}`, {
+                        method: api.deleteNotification.method,
+                        body: JSON.stringify(values),
+                        headers: { "Content-type": "application/json" }
+                    })
+                    let responseBody = await response.json()
+                    if (response.status == 404) {
+                        document.getElementById(`delete-notification-id`).style.backgroundColor = "rgb(211, 110, 110)";
+                        resultTextBox.innerHTML = `Nu exista notificarea cu id-ul ${document.getElementById(`delete-notification-id`).value} în baza de date`
+            } else
+               { 
+                   if(responseBody.success == true)
+                        resultTextBox.innerHTML = responseBody.message;
+                    else 
+                        resultTextBox.innerHTML = responseBody.error
+               }
+            setTimeout(() => resultTextBox.innerHTML = ``, 5000)
+            setTimeout(() => updateNotificationsBox(), 1000)
+       
     }
 
     getEmployee.onsubmit = async(e) => {

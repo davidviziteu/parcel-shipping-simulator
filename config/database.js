@@ -209,10 +209,21 @@ module.exports = {
             (error) => callBack(error)
         )
     },
+    searchNotification: (id, callBack) => {
+        pool.query(
+            `SELECT * FROM notifications where id = ?`, [id],
+            (error, results, fields) => {
+                if (error) {
+                    return callBack(error);
+                }
+                return callBack(null, results[0]);
+            }
+        )
+    },
 
     getNotifications: (callBack) => {
         pool.query(
-            `SELECT * FROM notifications`,
+            `SELECT id, DATE_FORMAT(expiry_date, '%d-%m-%Y') expiry_date,text FROM notifications`,
             (error, results, fields) => {
                 if (error) {
                     return callBack(error);

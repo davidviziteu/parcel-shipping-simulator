@@ -283,6 +283,8 @@ module.exports = {
                 success: false,
                 error: error
             })
+        if (!req.body.expiry_date)
+            req.body.expiry_date = null
         req.db.addNotification(req.body, (err, results) => {
             if (err) {
                 res.status(StatusCodes.BAD_REQUEST).json({
@@ -303,23 +305,35 @@ module.exports = {
                     success: false,
                     error: `missing body`
                 })
-            console.log(req.body)
             const { error, value } = models.notificationModel.deleteNotificationSchema.validate(req.body)
             if (error)
                 return res.status(StatusCodes.BAD_REQUEST).json({
                     success: false,
                     error: error
                 })
-            req.db.deleteNotification(req.body.id, (err, results) => {
+            req.db.searchNotification(req.body.id, (err, results) => {
                 if (err) {
                     res.status(StatusCodes.BAD_REQUEST).json({
                         success: false,
                         err: err.message
                     })
-                } else res.status(StatusCodes.OK).json({
-                    success: true,
-                    message: "notificarea a fost stearsa cu succes!"
-                })
+                } else if (!results) {
+                    res.status(404).json({
+                        success: false,
+                    })
+                } else {
+                    req.db.deleteNotification(req.body.id, (err, results) => {
+                        if (err) {
+                            res.status(StatusCodes.BAD_REQUEST).json({
+                                success: false,
+                                err: err.message
+                            })
+                        } else res.status(StatusCodes.OK).json({
+                            success: true,
+                            message: "Notificarea a fost stearsa cu succes!"
+                        })
+                    })
+                }
             })
         } else {
             res.status(StatusCodes.UNAUTHORIZED).json({
