@@ -31,5 +31,8 @@
     "nodemon": "^2.0.7",
     "querystring": "^0.2.1"
   },
-  "keywords": []
+  "keywords": [],
+  "devDependencies": {
+    "eslint-plugin-security-node": "^1.0.14"
+  }
 }

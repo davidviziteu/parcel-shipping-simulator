@@ -5,8 +5,8 @@ const countyTasksDoneToday = new Schema({
         type: String,
         required: true,
     },
-    date: {
-        type: Date,
+    dayOfWeek: {
+        type: Number,
         required: true,
     },
 }, { collection: 'done-today' })

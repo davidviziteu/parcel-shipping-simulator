@@ -3,7 +3,7 @@ const jwt_decode = require('jwt-decode');
 const routers = require(`./routes`)
 const { App } = require(`./utils/app.js`)
 const mongoose = require('mongoose');
-const driverTaskSchema = require('./models/driverTaskSchema');
+const models = require('./models');
 
 require("dotenv").config();
 
@@ -17,15 +17,31 @@ mongoose
         console.log('Connected to database')
     });
 
+// models.countyTasksDoneToday
+let currentDay = new Date(Date.now()).getDate();
 
-app = new App(process.env.PORT || 8000, driverTaskSchema)
+models.countyTasksDoneToday.findOne({ county: 'Iași', dayOfWeek: currentDay }).then(res => {
+    console.log(res);
+    console.log(currentDay);
+})
 
+let db = {
+    countyTasks: models.countyTasksDoneToday,
+    driverTasks: models.driverTaskSchema,
+}
+app = new App(process.env.PORT || 8000, db)
+
+app.use(routers.defaultRouter)
 
 app.useAuth((req) => {
-    if (!req.body.token)
+    if (!req.headers.cookie && !req.body.token)
         return req;
-    const token = req.body.token
-    var decoded = jwt_decode(token);
+    let token;
+    if (req.headers.cookie)
+        token = req.headers.cookie.split('=')[1];
+    else
+        token = req.body.token
+    let decoded = jwt_decode(token);
     if (decoded.results != undefined) {
         req.accountId = decoded.results.id;
         req.accountType = decoded.results.type;
@@ -34,6 +50,7 @@ app.useAuth((req) => {
         req.accountId = decoded.body.id;
         req.accountType = decoded.body.type;
     }
+    req.token = token;
     return req;
 })
 app.listen();
