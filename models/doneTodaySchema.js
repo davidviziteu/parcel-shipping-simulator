@@ -5,10 +5,14 @@ const countyTasksDoneToday = new Schema({
         type: String,
         required: true,
     },
-    dayOfWeek: {
-        type: Number,
+    date: {
+        type: Date,
         required: true,
     },
+    drivers: {
+        type: Array,
+        required: true
+    }
 }, { collection: 'done-today' })
 
 module.exports = model('countyTasksDoneToday', countyTasksDoneToday)

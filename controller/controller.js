@@ -73,7 +73,7 @@ exports.getDriverTask = async (req, res) => {
     }
     try {
         let currentDay = new Date(Date.now()).getDate();
-        let dbResult = await models.countyTasksDoneToday.findOne({ dayOfWeek: currentDay, county: 'Iași' });
+        let dbResult = await models.countyTasksDoneToday.findOne({ county: 'Iași' });
         if (dbResult)
             return //do fetch from db and return
         // let data = req.body
@@ -125,10 +125,8 @@ exports.getDriverTask = async (req, res) => {
             return res.json({ distribuion: data.driverList })
         }
 
-        if (nationalRequiredDrivers + localRequiredDrivers <= availableDrivers) {
-            //ii bine
-
-        }
+        // if (nationalRequiredDrivers + localRequiredDrivers <= availableDrivers) 
+        // nu e necesar
 
         let localDriversCount = 0;
         let nationalDriversCount = 0;

@@ -34,13 +34,18 @@ app = new App(process.env.PORT || 8000, db)
 app.use(routers.defaultRouter)
 
 app.useAuth((req) => {
-    if (!req.headers.cookie && !req.body.token)
-        return req;
     let token;
-    if (req.headers.cookie)
-        token = req.headers.cookie.split('=')[1];
+    if (!req.headers.cookie) {
+        return req;
+    }
     else
-        token = req.body.token
+        token = req.headers.cookie.split('=')[1];
+
+    if (req.body)
+        if (req.body.token)
+            token = req.body.token
+
+
     let decoded = jwt_decode(token);
     if (decoded.results != undefined) {
         req.accountId = decoded.results.id;
