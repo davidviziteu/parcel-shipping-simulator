@@ -38,7 +38,7 @@ const markProgress = (button, progress) => {
 const appendArrayToList = (items, list) => {
     list.innerHTML = ``
     items.forEach(item => {
-        let newLi = document.createElement(`li`)
+        let newLi = document.createElement(`item`)
         newLi.innerHTML = item
         list.appendChild(newLi)
     })

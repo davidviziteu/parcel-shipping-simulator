@@ -15,8 +15,12 @@ app.use(routers.commonRouter)
 app.use(routers.privateRouter)
 
 app.useAuth((req) => {
-    if (!req.headers.cookie && !req.body.token)
+    if (!req.headers.cookie && !req.body) {
         return req;
+    }
+    if (!req.body.token)
+        return req;
+    
     let token;
     if (req.headers.cookie)
         token = req.headers.cookie.split('=')[1];
