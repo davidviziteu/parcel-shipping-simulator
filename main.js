@@ -15,18 +15,18 @@ app.use(routers.commonRouter)
 app.use(routers.privateRouter)
 
 app.useAuth((req) => {
-    let token;
-    if (!req.headers.cookie) {
-        return req;
-    }
-    else
-        token = req.headers.cookie.split('=')[1];
+    let token = null;
 
-    if (req.body) {
-        if (!req.body.token)
-            return req;
-        token = req.body.token
-    }
+    if (req.headers)
+        if (req.headers.cookie)
+            token = req.headers.cookie.split('=')[1];
+
+    if (req.body)
+        if (req.body.token)
+            token = req.body.token
+
+    if (token == null)
+        return req
 
     let decoded = jwt_decode(token);
     if (decoded.results != undefined) {
