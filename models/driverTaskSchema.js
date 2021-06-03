@@ -25,11 +25,11 @@ const driverTaskSchema = new Schema({
         type: Array,
         required: true,
     },
-    driverCounty: {
+    county: {
         type: String,
         required: true,
     },
-    driverId: {
+    id: {
         type: Number,
         required: true,
     },

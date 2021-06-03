@@ -5,7 +5,7 @@ const countyTasksDoneToday = new Schema({
         type: String,
         required: true,
     },
-    date: {
+    lastTimeComputed: {
         type: Date,
         required: true,
     },

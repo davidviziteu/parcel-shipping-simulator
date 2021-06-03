@@ -49,17 +49,28 @@ const nationalCarPackagesLimit = 15
 const localCarPackagesLimit = 15
 
 exports.getDriverTask = async (req, res) => {
-    //auth
-    if (!req.parameters.county)
-        return res.status(StatusCodes.BAD_REQUEST).json({
-            success: false,
-            message: "County required in parameters"
+
+    if (req.accountType != `driver` && req.accountType != `admin` && req.accountType != `employee`)
+        return res.status(StatusCodes.UNAUTHORIZED).json({
+            success: false
         })
 
-    if (!req.parameters.idDriver)
+    if (!req.body)
         return res.status(StatusCodes.BAD_REQUEST).json({
             success: false,
-            message: "Id driver required in parameters"
+            message: "Body required with id and county of the driver"
+        })
+
+    if (!req.body.county)
+        return res.status(StatusCodes.BAD_REQUEST).json({
+            success: false,
+            message: "County required in body"
+        })
+
+    if (!req.body.id)
+        return res.status(StatusCodes.BAD_REQUEST).json({
+            success: false,
+            message: "Id driver required in body"
         })
 
     //do validation of county in params
@@ -73,10 +84,30 @@ exports.getDriverTask = async (req, res) => {
     }
     try {
         let currentDay = new Date(Date.now()).getDate();
-        let dbResult = await models.countyTasksDoneToday.findOne({ county: 'Iași' });
-        if (dbResult)
-            return //do fetch from db and return
-        // let data = req.body
+        let dbResults = await req.db.countyTasks.find({ county: 'Iași' });
+        if (dbResults.length > 0) {
+            if (dbResults.length > 1)
+                return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+                    error: `more than 1 entries for ${req.body.county} county in tasks done collection`
+                })
+            dbResults = dbResults[0]
+            let hoursDiff = Math.abs(Date.parse(dbResults.lastTimeComputed) - Date.now()) / 36e5;
+            console.log(`hours diff: ${hoursDiff}, date: ${dbResults.lastTimeComputed}`);
+            if (isNaN(hoursDiff))
+                return
+            if (hoursDiff <= 1) { // ar trebui sa fie 24 aici
+                let driverTasks = await req.db.driverTasks.find({ id: req.body.id })
+                if (!driverTasks)
+                    return res.status(StatusCodes.NOT_FOUND).json({
+                        error: "Driver not found in computed data"
+                    })
+                console.log(`got data for driver id = ${req.body.id} from db`);
+                return res.status(StatusCodes.OK).json({
+                    ...dbResults
+                })
+            }
+            //do fetch from db and return
+        }
 
         if (!Array.isArray(data.driverList) || data.driverList.length == 0)
             return res.status(StatusCodes.BAD_REQUEST)
@@ -165,17 +196,77 @@ exports.getDriverTask = async (req, res) => {
                 awbObject ? data.driverList[index].toPickup.push(awbObject.awb) : null;
             }
         }
+        try {
+            let resultPromses = [,];
+            resultPromses[0] = req.db.driverTasks.insertMany(data.driverList)
+            let taskModel = new req.db.countyTasks({
+                county: req.body.county,
+                lastTimeComputed: Date.now(),
+                drivers: data.driverList.map(driver => driver.id)
+            });
+            resultPromses[1] = taskModel.save()
+            await Promise.all(resultPromses)
+            console.log(`computed data for county = ${req.body.county} and saved results in db`);
+        } catch (error) {
+            console.error(error);
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+                db: error.message
+            })
+        }
 
-        // res.status(StatusCodes.OK).json({
-        //     task: "Livrare/preluare colete local", //sau "Livrare/preluare colete national - Brașov",
-        //     countySource: "Iași", //locul unde for trebui facute livrarile/pickup urile
-        //     countyDestination: "Iași", //locul unde for trebui facute livrarile/pickup urile
-        //     car: "IS47AVI", //locul unde for trebui facute livrarile/pickup urile
-        //     toDeliver: [1, 2, 3], //array de awb uri (de int uri)
-        //     toPickup: [], //array de awb uri (de int uri)
-        // })
-        res.json({ distribuion: data.driverList })
+        let requestedData = data.driverList.find(({ id }) => id == req.body.id)
+
+        res.status(StatusCodes.OK).json({
+            ...requestedData
+        })
+        // res.json({ distribuion: data.driverList })
     } catch (error) {
         console.error(error);
     }
+}
+
+let a = {
+    "distribuion": [
+        {
+            "id": 1,
+            "car": "is05www",
+            "county": "Iași",
+            "task": "Livrare / preluare colete national",
+            "countySource": "Iași",
+            "countyDestination": "Baza Nationala Brasov",
+            "toDeliver": [
+                10,
+                9,
+                8
+            ],
+            "toPickup": [
+                18,
+                17,
+                16,
+                15,
+                14,
+                13,
+                12
+            ]
+        },
+        {
+            "id": 2,
+            "car": "is07eee",
+            "county": "Iași",
+            "task": "Livrare / preluare colete local",
+            "countySource": "Iași",
+            "countyDestination": "Iași",
+            "toDeliver": [
+                5,
+                1
+            ],
+            "toPickup": [
+                11,
+                6,
+                4,
+                3,
+                2
+            ]
+        }
+    ]
 }
