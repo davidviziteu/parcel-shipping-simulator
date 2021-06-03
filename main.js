@@ -15,17 +15,19 @@ app.use(routers.commonRouter)
 app.use(routers.privateRouter)
 
 app.useAuth((req) => {
-    if (!req.headers.cookie && !req.body) {
+    let token;
+    if (!req.headers.cookie) {
         return req;
     }
-    if (!req.body.token)
-        return req;
-    
-    let token;
-    if (req.headers.cookie)
-        token = req.headers.cookie.split('=')[1];
     else
+        token = req.headers.cookie.split('=')[1];
+
+    if (req.body) {
+        if (!req.body.token)
+            return req;
         token = req.body.token
+    }
+
     let decoded = jwt_decode(token);
     if (decoded.results != undefined) {
         req.accountId = decoded.results.id;
