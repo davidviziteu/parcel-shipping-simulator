@@ -1,12 +1,10 @@
-const { hashSync, genSaltSync, compareSync } = require("bcrypt")
+const { hashSync, genSaltSync, compare } = require("bcrypt")
 const { StatusCodes } = require(`http-status-codes`)
 const models = require("../models")
 const nodemailer = require('nodemailer');
 const { sign } = require("jsonwebtoken");
 const jwt_decode = require('jwt-decode');
 
-
-const newUserSchema = models.userModel.newUserSchema
 const { newOrderSchema } = models.orderModel
 const validationEmailChangeCredentials = models.userModel.validationEmailChangeCredentials
 
@@ -26,54 +24,7 @@ var mailOptions = {
 };
 
 module.exports = {
-    createAccountUser: (req, res) => {
-        const body = req.body
-        body.type = "user"
-        const salt = genSaltSync(10)
-        body.password = hashSync(body.password, salt)
-        const { error, value } = newUserSchema.validate(body);
-        if (error) {
-            return res.status(200).json({
-                success: false,
-                error: error.message
-            })
-        }
-        req.db.createAccount(body, (error, results) => {
-            if (error) {
-                res.status(200).json({
-                    success: false,
-                    error: error.message
-                })
-            } else {
-                body.id = results.insertId
-                body.password = undefined
-                body.appCodeName = req.headers.appcodename
-                body.appName = req.headers.appname
-                body.appVersion = req.headers.appversion
-                body.product = req.headers.product
-                body.platform = req.headers.platform
-                const jsontoken = sign({ body }, process.env.secretKey, {
-                    expiresIn: "1h"
-                });
-                res.setHeader('Set-Cookie', 'token=' + jsontoken + `; HttpOnly;Domain=${models.apiModel.domain};Path=/`);
-                res.status(200).json({
-                        success: true,
-                        redirect: `/dashboard-user.html`
-                    })
-                    /* mailOptions.to = body.email
-                    mailOptions.subject = 'Confirmare creare cont'
-                    mailOptions.text = 'Ți-ai creat cont cu succes!'
-                    transporter.sendMail(mailOptions, function (error, info) {
-                        if (error) {
-                            console.log(error.message);
-                        } else {
-                            console.log('Email sent: ' + info.response);
-                        }
-                    }); */
-            }
-        })
-        return res
-    },
+
     getCost: (req, res) => {
         console.log(req.body);
         return res.json({ message: res.body });

@@ -2,13 +2,62 @@ const models = require(`../models`)
 const { apiModel } = models
 const { sign } = require("jsonwebtoken");
 const { StatusCodes } = require(`http-status-codes`)
-const { hashSync, genSaltSync, compare } = require("bcrypt");
+const { hashSync, genSaltSync, compareSync } = require("bcrypt")
 const { orderDashboardModel, awbDetailsModel } = models.orderModel
 const fetch = require('node-fetch');
 const jwt_decode = require('jwt-decode');
+const newUserSchema = models.userModel.newUserSchema;
 
 module.exports = {
-    trackAwb: async (req, res) => {
+    createAccountUser: (req, res) => {
+        const body = req.body
+        body.type = "user"
+        const salt = genSaltSync(10)
+        body.password = hashSync(body.password, salt)
+        const { error, value } = newUserSchema.validate(body);
+        if (error) {
+            return res.status(200).json({
+                success: false,
+                error: error.message
+            })
+        }
+        req.db.createAccount(body, (error, results) => {
+            if (error) {
+                res.status(200).json({
+                    success: false,
+                    error: error.message
+                })
+            } else {
+                body.id = results.insertId
+                body.password = undefined
+                body.appCodeName = req.headers.appcodename
+                body.appName = req.headers.appname
+                body.appVersion = req.headers.appversion
+                body.product = req.headers.product
+                body.platform = req.headers.platform
+                const jsontoken = sign({ body }, process.env.secretKey, {
+                    expiresIn: "1h"
+                });
+                res.setHeader('Set-Cookie', 'token=' + jsontoken + `; HttpOnly;Domain=${models.apiModel.domain};Path=/`);
+                res.status(200).json({
+                        success: true,
+                        redirect: `/dashboard-user.html`
+                    })
+                    /* mailOptions.to = body.email
+                    mailOptions.subject = 'Confirmare creare cont'
+                    mailOptions.text = 'Ți-ai creat cont cu succes!'
+                    transporter.sendMail(mailOptions, function (error, info) {
+                        if (error) {
+                            console.log(error.message);
+                        } else {
+                            console.log('Email sent: ' + info.response);
+                        }
+                    }); */
+            }
+        })
+        return res
+    },
+    trackAwb: async(req, res) => {
         console.log(`here`);
         if (!req.parameters.awb)
             return res.status(StatusCodes.BAD_REQUEST).json({
@@ -107,34 +156,34 @@ module.exports = {
                     error: error
                 })
             } else
-                if (!results) {
+            if (!results) {
+                return res.json({
+                    success: 0,
+                    error: "No user with that email!"
+                });
+            } else {
+                const result = compareSync(req.body.password, results.password);
+                if (result) {
+                    results.password = undefined;
+                    const jsontoken = sign({ results }, process.env.secretKey, {
+                        expiresIn: "1h"
+                    });
+                    if (value.rememberMe == true)
+                        res.setHeader('Set-Cookie', 'token=' + jsontoken + `; HttpOnly;Secure;expires=Wed, 21 Oct 2030 07:28:00 GMT;Max-Age=9000000;Domain=${models.apiModel.domain};Path=/;overwrite=true`);
+                    else
+                        res.setHeader('Set-Cookie', 'token=' + jsontoken + `; HttpOnly;Domain=${models.apiModel.domain};Path=/`);
+                    return res.json({
+                        success: true,
+                        redirect: `/dashboard-${results.type}.html`
+                    });
+
+                } else {
                     return res.json({
                         success: 0,
-                        error: "No user with that email!"
+                        error: "Invalid password!"
                     });
-                } else {
-                    const result = compare(req.body.password, results.password);
-                    if (result) {
-                        results.password = undefined;
-                        const jsontoken = sign({ results }, process.env.secretKey, {
-                            expiresIn: "1h"
-                        });
-                        if (value.rememberMe == true)
-                            res.setHeader('Set-Cookie', 'token=' + jsontoken + `; HttpOnly;Secure;expires=Wed, 21 Oct 2030 07:28:00 GMT;Max-Age=9000000;Domain=${models.apiModel.domain};Path=/;overwrite=true`);
-                        else
-                            res.setHeader('Set-Cookie', 'token=' + jsontoken + `; HttpOnly;Domain=${models.apiModel.domain};Path=/`);
-                        return res.json({
-                            success: true,
-                            redirect: `/dashboard-${results.type}.html`
-                        });
-
-                    } else {
-                        return res.json({
-                            success: 0,
-                            data: "Invalid password!"
-                        });
-                    }
                 }
+            }
         })
     },
     handleLogout: (req, res) => {
@@ -162,7 +211,7 @@ module.exports = {
         })
 
     },
-    estimateCost: async (req, res) => {
+    estimateCost: async(req, res) => {
         var city1 = req.parameters.source;
         var city2 = req.parameters.destination;
         if (!city1 || !city2)
@@ -226,19 +275,19 @@ module.exports = {
             case `user`:
                 return res
                     .status(StatusCodes.OK)
-                    .json({ ...apiModel.baseApi, ...apiModel.userApi, loginType, })
+                    .json({...apiModel.baseApi, ...apiModel.userApi, loginType, })
             case `driver`:
                 return res
                     .status(StatusCodes.OK)
-                    .json({ ...apiModel.baseApi, ...apiModel.userApi, ...apiModel.driverApi, loginType, })
+                    .json({...apiModel.baseApi, ...apiModel.userApi, ...apiModel.driverApi, loginType, })
             case `employee`:
                 return res
                     .status(StatusCodes.OK)
-                    .json({ ...apiModel.baseApi, ...apiModel.userApi, ...apiModel.employeeApi, loginType, })
+                    .json({...apiModel.baseApi, ...apiModel.userApi, ...apiModel.employeeApi, loginType, })
             case `admin`:
                 return res
                     .status(StatusCodes.OK)
-                    .json({ ...apiModel.baseApi, ...apiModel.userApi, ...apiModel.driverApi, ...apiModel.employeeApi, ...apiModel.adminApi, loginType, })
+                    .json({...apiModel.baseApi, ...apiModel.userApi, ...apiModel.driverApi, ...apiModel.employeeApi, ...apiModel.adminApi, loginType, })
             default:
                 return res
                     .status(StatusCodes.OK)
