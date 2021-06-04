@@ -4,6 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const url = require('url');
 const { func } = require('joi');
+const { StatusCodes } = require('http-status-codes');
 
 class App {
     port
@@ -26,6 +27,7 @@ class App {
             res.setHeader('Access-Control-Max-Age', 2592000);
             res = this.addResponseFunctionalities(res)
             req = this.addRequestFunctionalities(req)
+            req = this.authFunction(req);
             if (!this.isRestAPI(req.url)) { //nume prost ales pt functia aia
                 res = this.handleStatic(req, res)
                 // if (res.endNow)
@@ -142,7 +144,7 @@ class App {
                 const extension = path.parse(filePath).ext;
                 var stat = await fs.promises.stat(filePath)
                 if (!stat.isFile) {
-                    return res.status(400).json({
+                    return res.status(StatusCodes.BAD_REQUEST).json({
                         error: `bad request. not a file`
                     })
                 } else {
@@ -155,13 +157,13 @@ class App {
             } catch (err) {
                 console.error(err)
                 if (err.code == 'ENOENT') //ENOENT = ERROR NO ENTITY
-                    return res.status(404).json({
+                    return res.status(StatusCodes.NOT_FOUND).json({
                         error: err.message,
                         path: filePath
                     })
 
                 //altfel e alta eraore. fie de la stat, fie de la readFile
-                return res.status(500).json({
+                return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                     error: err.message,
                     path: filePath
                 })

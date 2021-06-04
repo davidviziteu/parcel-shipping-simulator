@@ -8,16 +8,16 @@ const models = require("../models")
  */
 
 exports.getDriverData = async (req, res) => {
-    return req.status(StatusCodes.BAD_REQUEST).json({
-        message: "disable this to prevent unauthorized access"
-    });
+    // return req.status(StatusCodes.BAD_REQUEST).json({
+    //     message: "disable this to prevent unauthorized access"
+    // });
 
     if (!req.parameters.county)
         return req.status(StatusCodes.BAD_REQUEST);
 
     try {
-        let driversListPromise = await req.db.getDriverCarCounty(req.parameters.county);
-        let orderDetailsPromise = await req.db.getOrdersRelatedToCounty(req.parameters.county);
+        let driversListPromise = req.db.getDriverCarCounty(req.parameters.county);
+        let orderDetailsPromise = req.db.getOrdersRelatedToCounty(req.parameters.county);
         let awbList = {};
         //
         const [driversList, orderDetails] = await Promise.all([driversListPromise, orderDetailsPromise]);

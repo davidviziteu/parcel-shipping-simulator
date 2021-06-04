@@ -15,6 +15,7 @@ app.use(routers.commonRouter)
 app.use(routers.privateRouter)
 
 app.useAuth((req) => {
+
     let token = null;
 
     if (req.headers)

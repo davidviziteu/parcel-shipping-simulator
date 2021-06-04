@@ -187,7 +187,7 @@ var listCity = ["Ilfov", "Cluj", "Constanța", "Dolj", "Galați", "Iași", "Orad
 function handleLoginResponse(resp) {
     console.log(`handling response from front ${JSON.stringify(resp)}`)
     if (!resp.error)
-        window.location.href = window.location;
+        return window.location.href = window.location;
     if (resp.error.toLowerCase().includes(`email`))
         document.getElementById("user-email").style.backgroundColor = "rgb(211, 110, 110)";
 

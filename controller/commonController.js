@@ -23,7 +23,8 @@ module.exports = {
             let awbDetailsObject = new awbDetailsModel()
             if (!req.accountType) { // || if req.userId != awbData.id...........
                 awbRawEvents.forEach(awbEv => {
-                    awbEventsObject[awbEv.event_type].push(`${awbEv.details} ${awbEv.date_time}`)
+                    if (awbEventsObject[awbEv.event_type])
+                        awbEventsObject[awbEv.event_type].push(`${awbEv.details} ${awbEv.date_time}`)
                 });
                 awbDetailsObject.sender.push(awbData.fullName_sender)
                 awbDetailsObject.destinatary.push(awbData.fullName_receiver)
@@ -39,11 +40,13 @@ module.exports = {
 
             if (req.accountType == `driver` || req.accountType == `admin` || req.accountType == `employee`) {
                 awbRawEvents.forEach(awbEv => {
-                    awbEventsObject[awbEv.event_type].push(`${awbEv.details} ${awbEv.employees_details} ${awbEv.date_time}`)
+                    if (awbEventsObject[awbEv.event_type])
+                        awbEventsObject[awbEv.event_type].push(`${awbEv.details} ${awbEv.employees_details} ${awbEv.date_time}`)
                 });
             } else { //else if req.userId == awbData.id...........
                 awbRawEvents.forEach(awbEv => {
-                    awbEventsObject[awbEv.event_type].push(`${awbEv.details} ${awbEv.date_time}`)
+                    if (awbEventsObject[awbEv.event_type])
+                        awbEventsObject[awbEv.event_type].push(`${awbEv.details} ${awbEv.date_time}`)
                 });
             }
 
@@ -79,6 +82,7 @@ module.exports = {
             if (error == `No such awb in db`)
                 return res.status(StatusCodes.NOT_FOUND).json({ success: false, error: `No such awb in db` })
             res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ success: false, error: error.message })
+            console.error(error);
         }
     },
     handleLogin: (req, res) => {
