@@ -13,7 +13,7 @@ exports.getDriverData = async (req, res) => {
     // });
 
     if (!req.parameters.county)
-        return req.status(StatusCodes.BAD_REQUEST);
+        return res.status(StatusCodes.BAD_REQUEST);
 
     try {
         let driversListPromise = req.db.getDriverCarCounty(req.parameters.county);

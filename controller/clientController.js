@@ -64,7 +64,7 @@ module.exports = {
                         mailOptions.to = body.email_sender
                         mailOptions.subject = `Comanda cu numarul ${req.body.awb} plasată cu succes`
                         mailOptions.text = `Expeditor: ${req.body.fullName_sender} \nTelefon: ${req.body.phone_sender}\nEmail: ${req.body.email_sender}\nJudet: ${req.body.county_sender}\nLocalitate: ${req.body.city_sender}\nAdresă: ${req.body.address_sender} \n\nDestinatar:${req.body.fullName_receiver}\nTelefon: ${req.body.phone_receiver}\nJudet: ${req.body.county_receiver}\nLocalitate: ${req.body.city_receiver}\nAdresă: ${req.body.address_receiver}\n\n Vă mulțumim pentru comandă!\n Un curier va lua legătura cu dvs în scurt timp. `
-                        transporter.sendMail(mailOptions, function(error, info) {
+                        transporter.sendMail(mailOptions, function (error, info) {
                             if (error) {
                                 console.log(error.message);
                             } else {
@@ -113,13 +113,13 @@ module.exports = {
                         mailOptions.to = body.email
                         mailOptions.subject = 'Schimbarea datelor'
                         mailOptions.text = 'Codul pentru resetare este:\n' + results.insertId
-                            /* transporter.sendMail(mailOptions, function (error, info) {
-                                if (error) {
-                                    console.log(error.message);
-                                } else {
-                                    console.log('Email sent: ' + info.response);
-                                }
-                            }); */
+                        transporter.sendMail(mailOptions, function (error, info) {
+                            if (error) {
+                                console.log(error.message);
+                            } else {
+                                console.log('Email sent: ' + info.response);
+                            }
+                        });
                         const data = {
                             id: id,
                             code: results.insertId,
