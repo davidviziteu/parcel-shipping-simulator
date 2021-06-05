@@ -1,15 +1,18 @@
 const { StatusCodes } = require(`http-status-codes`)
 const models = require("../models")
+const hostName = require("../models/apiModel")
 const { id } = require("../models/orderModel")
 const jwt_decode = require('jwt-decode');
+const fetch = require('node-fetch');
 
 const driverEventsSchema = models.userModel.driverEventsSchema
 
 module.exports = {
-    addEvents: (req, res) => {
+    addEvents: async (req, res) => {
         const body = req.body
         const { error, value } = driverEventsSchema.validate(body)
         if (error) {
+            console.log(error)
             return res.status(300).json({
                 success: false,
                 error: error.message
@@ -17,7 +20,7 @@ module.exports = {
         }
         var ok = false;
         for (var i in body) {
-            if (body[i] == true) ok = true
+            if (body[i] == true && i != "toPickup" && i != "toDeliver") ok = true
         }
         if (!ok) {
             return res.status(300).json({
@@ -25,26 +28,214 @@ module.exports = {
                 error: "unselected"
             })
         }
-
-        body.awb = 1234
-        body.id = req.accountId
-        console.log(body)
-        req.db.addEventsDriver(body, (error, results) => {
+        req.db.getDriverCar(req.accountId, (error, results) => {
             if (error) {
-                console.log(error.message)
                 return res.status(200).json({
                     success: false,
                     error: error.message
                 })
             }
-            else res.status(200).json({
-                success: true
-            })
+            else {
+                if (body.task == "local" && body.toPickup && body.picked_up) {
+                    const data = {
+                        awb: body.awb,
+                        event_type: "order-picked-up",
+                        status: "order-picked-up",
+                        details: "Ridicat de la expeditor",
+                        employees_details: "Coletul a fost ridicat de soferul " + results.name + " cu masina " + results.registration_number + "de la client."
+                    }
+                    req.db.newAWBEvent(data, (error, results) => {
+                        if (error) {
+                            return res.status(200).json({
+                                success: false,
+                                error: error.message
+                            })
+                        }
+                    })
+                    req.db.updateStatusAWB(data, (error, results) => {
+                        if (error) {
+                            return res.status(200).json({
+                                success: false,
+                                error: error.message
+                            })
+                        }
+                    })
+                    return res.status(200).json({
+                        success: true
+                    })
+                }
+                else if (body.task == "local" && body.toPickup && body.delivered) {
+                    const data = {
+                        awb: body.awb,
+                        event_type: 'order-picked-up',
+                        status: 'order-in-local-base-sender',
+                        details: 'Coletul ajuns la sediu',
+                        employees_details: "Coletul a fost adus la sediul local de soferul " + results.name + " cu masina " + results.registration_number + ".",
+                    }
+                    req.db.newAWBEvent(data, (error, results) => {
+                        if (error) {
+                            return res.status(200).json({
+                                success: false,
+                                error: error.message
+                            })
+                        }
+                    })
+                    req.db.updateStatusAWB(data, (error, results) => {
+                        if (error) {
+                            return res.status(200).json({
+                                success: false,
+                                error: error.message
+                            })
+                        }
+                    })
+                    return res.status(200).json({
+                        success: true
+                    })
+                }
+                else if (body.task == "local" && body.toDeliver && body.delivered) {
+                    const data = {
+                        awb: body.awb,
+                        event_type: 'order-destinatary',
+                        status: 'order-destinatary',
+                        details: 'Livrat',
+                        employees_details: "Coletul a fost livrat de soferul " + results.name + " cu masina " + results.registration_number + ".",
+                    }
+                    req.db.newAWBEvent(data, (error, results) => {
+                        if (error) {
+                            return res.status(200).json({
+                                success: false,
+                                error: error.message
+                            })
+                        }
+                    })
+                    req.db.updateStatusAWB(data, (error, results) => {
+                        if (error) {
+                            return res.status(200).json({
+                                success: false,
+                                error: error.message
+                            })
+                        }
+                    })
+                    return res.status(200).json({
+                        success: true
+                    })
+                }
+                else if (body.task == "national" && body.toPickup && body.picked_up) {
+                    const data = {
+                        awb: body.awb,
+                        event_type: 'order-in-transit',
+                        status: 'order-in-transit',
+                        details: 'A plecat de la sediul din Sighisoara',
+                        employees_details: "Coletul a fost ridicat de soferul " + results.name + " cu masina " + results.registration_number + "din baza din Sighisoara.",
+                    }
+                    req.db.newAWBEvent(data, (error, results) => {
+                        if (error) {
+                            return res.status(200).json({
+                                success: false,
+                                error: error.message
+                            })
+                        }
+                    })
+                    req.db.updateStatusAWB(data, (error, results) => {
+                        if (error) {
+                            return res.status(200).json({
+                                success: false,
+                                error: error.message
+                            })
+                        }
+                    })
+                    return res.status(200).json({
+                        success: true
+                    })
+                }
+                else if (body.task == "national" && body.toPickup && body.delivered) {
+                    const data = {
+                        awb: body.awb,
+                        event_type: 'order-in-transit',
+                        status: 'order-in-local-base-sender',
+                        details: 'A ajuns in orasul de livrare',
+                        employees_details: "Coletul a fost adus de soferul " + results.name + " cu masina " + results.registration_number + "din baza din Sighisoara.",
+                    }
+                    req.db.newAWBEvent(data, (error, results) => {
+                        if (error) {
+                            return res.status(200).json({
+                                success: false,
+                                error: error.message
+                            })
+                        }
+                    })
+                    req.db.updateStatusAWB(data, (error, results) => {
+                        if (error) {
+                            return res.status(200).json({
+                                success: false,
+                                error: error.message
+                            })
+                        }
+                    })
+                    return res.status(200).json({
+                        success: true
+                    })
+                }
+                else if (body.task == "national" && body.toDeliver && body.picked_up) {
+                    const data = {
+                        awb: body.awb,
+                        event_type: 'order-in-transit',
+                        status: 'order-in-transit',
+                        details: 'A plecat din baza locala',
+                        employees_details: "Coletul a fost ridicat de soferul " + results.name + " cu masina " + results.registration_number + "din baza locala.",
+                    }
+                    req.db.newAWBEvent(data, (error, results) => {
+                        if (error) {
+                            return res.status(200).json({
+                                success: false,
+                                error: error.message
+                            })
+                        }
+                    })
+                    req.db.updateStatusAWB(data, (error, results) => {
+                        if (error) {
+                            return res.status(200).json({
+                                success: false,
+                                error: error.message
+                            })
+                        }
+                    })
+                    return res.status(200).json({
+                        success: true
+                    })
+                }
+                else if (body.task == "national" && body.toDeliver && body.delivered) {
+                    const data = {
+                        awb: body.awb,
+                        event_type: 'order-in-transit',
+                        status: 'order-in-national-base',
+                        details: 'A ajuns in baza din Sighisoara',
+                        employees_details: "Coletul a fost adus de soferul " + results.name + " cu masina " + results.registration_number + "in baza din Sighisoara.",
+                    }
+                    req.db.newAWBEvent(data, (error, results) => {
+                        if (error) {
+                            return res.status(200).json({
+                                success: false,
+                                error: error.message
+                            })
+                        }
+                    })
+                    req.db.updateStatusAWB(data, (error, results) => {
+                        if (error) {
+                            return res.status(200).json({
+                                success: false,
+                                error: error.message
+                            })
+                        }
+                    })
+                    return res.status(200).json({
+                        success: true
+                    })
+                }
+            }
         })
-        return res;
     },
     detailsOrder: (req, res) => {
-        req.awb = 5;
         req.db.getDetailsOrder(req.awb, (error, results) => {
             if (error) {
                 console.log(error)
@@ -54,7 +245,6 @@ module.exports = {
                 })
             }
             else if (results[0] != undefined) {
-                console.log("aici")
                 res.status(200).json({
                     success: true,
                     fullName_sender: results[0].fullName_sender,

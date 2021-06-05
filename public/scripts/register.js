@@ -71,23 +71,6 @@ function nextPrev(n) {
                 document.getElementById("pwd").style.backgroundColor = "rgb(211, 110, 110)";
                 return false;
             }
-            var valid = false;
-            for (var i = 0; i < pwd.length; i++) {
-                if (pwd[i] == 0) valid = true;
-                if (pwd[i] == 1) valid = true;
-                if (pwd[i] == 2) valid = true;
-                if (pwd[i] == 3) valid = true;
-                if (pwd[i] == 4) valid = true;
-                if (pwd[i] == 5) valid = true;
-                if (pwd[i] == 6) valid = true;
-                if (pwd[i] == 7) valid = true;
-                if (pwd[i] == 8) valid = true;
-                if (pwd[i] == 9) valid = true;
-            }
-            if (valid == false) {
-                document.getElementById("pwd").style.backgroundColor = "rgb(211, 110, 110)";
-                return false;
-            }
             document.getElementById("pwd").style.backgroundColor = "#fbfef7";
             phone = document.getElementById("phone").value;
             if (phone.length != 10 || isNaN(phone) || phone[0] != 0 || phone[1] != 7) {
@@ -109,7 +92,8 @@ function nextPrev(n) {
                 phone: phone,
                 county: document.getElementById("citySelect").value,
                 city: document.getElementById("placeSelect").value,
-                address: document.getElementById("adress").value
+                address: document.getElementById("adress").value,
+                type: "user"
             }
             fetch(`${hostName}${api.newAccount.route}`, {
                 method: api.newAccount.method,

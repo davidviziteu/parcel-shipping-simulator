@@ -13,7 +13,35 @@ var buttonDefectiuni = document.getElementById('defectiuni')
 var buttonClient = document.getElementById('client')
 var buttonContinut = document.getElementById('continut')
 var buttonLivrat = document.getElementById('livrat')
+var buttonRidicat = document.getElementById('ridicat')
 var buttonSubmit = document.getElementById('submit')
+
+//const task = localStorage.getItem('task')
+//const toDeliver = localStorage.getItem('toDeliver')
+//const toPickup = localStorage.getItem('toPickup')
+//const awb = localStorage.getItem('awb')
+const task = "local"
+const toDeliver = true
+const toPickup = false
+const awb = 1234
+
+if (task == "national" && toDeliver) {
+    buttonRidicat.innerHTML = "Am ridicat coletul din baza locala"
+    buttonLivrat.innerHTML = "Am lasat coletul in baza nationala"
+}
+if (task == "national" && toPickup) {
+    buttonRidicat.innerHTML = "Am ridicat coletul din baza nationala"
+    buttonLivrat.innerHTML = "Am lasat coletul in baza locala"
+}
+if (task == "local" && toPickup) {
+    buttonRidicat.innerHTML = "Am ridicat coletul de la client"
+    buttonLivrat.innerHTML = "Am lasat coletul in baza locala"
+}
+if (task == "local" && toDeliver) {
+    buttonLivrat.innerHTML = "Am livrat coletul la client"
+    buttonRidicat.style.display = "none"
+    document.getElementById("check").style.display = "none"
+}
 
 buttonExpeditor.addEventListener('click', () => {
     detaliiExpeditor.toggleAttribute('hidden')
@@ -24,7 +52,6 @@ buttonDestinatar.addEventListener('click', () =>
 )
 
 buttonDetalii.addEventListener('click', () => {
-    console.log("aici")
     listDetails.toggleAttribute('hidden')
 })
 
@@ -34,6 +61,9 @@ buttonStatus.addEventListener('click', () => {
 )
 
 buttonAccident.addEventListener('click', () => {
+    for (var i in check) {
+        if (i != 0) check[i].checked = false
+    }
     var change = check[0].checked
     check[0].checked = true
     if (change == true) check[0].checked = false
@@ -41,6 +71,9 @@ buttonAccident.addEventListener('click', () => {
 )
 
 buttonMeteo.addEventListener('click', () => {
+    for (var i in check) {
+        if (i != 1) check[i].checked = false
+    }
     var change = check[1].checked
     check[1].checked = true
     if (change == true) check[1].checked = false
@@ -48,6 +81,9 @@ buttonMeteo.addEventListener('click', () => {
 )
 
 buttonDefectiuni.addEventListener('click', () => {
+    for (var i in check) {
+        if (i != 2) check[i].checked = false
+    }
     var change = check[2].checked
     check[2].checked = true
     if (change == true) check[2].checked = false
@@ -55,6 +91,9 @@ buttonDefectiuni.addEventListener('click', () => {
 )
 
 buttonClient.addEventListener('click', () => {
+    for (var i in check) {
+        if (i != 3) check[i].checked = false
+    }
     var change = check[3].checked
     check[3].checked = true
     if (change == true) check[3].checked = false
@@ -62,6 +101,9 @@ buttonClient.addEventListener('click', () => {
 )
 
 buttonContinut.addEventListener('click', () => {
+    for (var i in check) {
+        if (i != 4) check[i].checked = false
+    }
     var change = check[4].checked
     check[4].checked = true
     if (change == true) check[4].checked = false
@@ -69,11 +111,27 @@ buttonContinut.addEventListener('click', () => {
 )
 
 buttonLivrat.addEventListener('click', () => {
+    for (var i in check) {
+        if (i != 5) check[i].checked = false
+    }
     var change = check[5].checked
     check[5].checked = true
     if (change == true) check[5].checked = false
 }
 )
+
+buttonRidicat.addEventListener('click', () => {
+    for (var i in check) {
+        if (i != 6) check[i].checked = false
+    }
+    var change = check[6].checked
+    check[6].checked = true
+    if (change == true) check[6].checked = false
+}
+)
+
+
+
 
 window.addEventListener(`api-fetched`, (ev) => {
     fetch(`${hostName}${api.getDetailsAwbforDriver.route}`, {
@@ -127,7 +185,12 @@ buttonSubmit.addEventListener(`click`, (ev) => {
         failure: check[2].checked,
         client: check[3].checked,
         content: check[4].checked,
-        delivered: check[5].checked
+        delivered: check[5].checked,
+        picked_up: check[6].checked,
+        task: task,
+        toDeliver: toDeliver,
+        toPickup: toPickup,
+        awb: awb
     }
     fetch(`${hostName}${api.driverEvent.route}`, {
         method: api.driverEvent.method,
@@ -136,6 +199,7 @@ buttonSubmit.addEventListener(`click`, (ev) => {
     })
         .then(response => response.json())
         .then(json => {
+            console.log(json)
             if (json.error === "unselected") {
                 document.getElementById("unselected").style.display = "block"
             }

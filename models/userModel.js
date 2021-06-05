@@ -19,12 +19,17 @@ exports.loginUserSchema = Joi.object().options({ abortEarly: false }).keys({
 })
 
 exports.driverEventsSchema = Joi.object().options({ abortEarly: false }).keys({
-    accident: Joi.boolean(),
-    meteo: Joi.boolean(),
-    failure: Joi.boolean(),
-    client: Joi.boolean(),
-    content: Joi.boolean(),
-    delivered: Joi.boolean(),
+    accident: Joi.boolean().required(),
+    meteo: Joi.boolean().required(),
+    failure: Joi.boolean().required(),
+    client: Joi.boolean().required(),
+    content: Joi.boolean().required(),
+    delivered: Joi.boolean().required(),
+    picked_up: Joi.boolean().required(),
+    task: Joi.string().required(),
+    toDeliver: Joi.boolean().required(),
+    toPickup: Joi.boolean().required(),
+    awb: Joi.number().required()
 })
 
 exports.validationEmailChangeCredentials = Joi.object().options({ abortEarly: false }).keys({

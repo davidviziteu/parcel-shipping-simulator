@@ -36,57 +36,61 @@ class App {
             }
             console.log(`${req.method} on ${req.url}`)
 
-            if (req.headers && req.headers['content-type'])
-                if (req.headers['content-type'] != "application/json" && req.headers['content-type'] != "application/octet-stream") {
-                    res.status(415).json({
-                        error: `Invalid Content Type Header`
-                    })
-                    return req.connection.destroy()
-                }
-            
-            
-            let data = '';
-            req.on('data', chunk => {
-                data += chunk
-                if (data.length > 1e6) {
-                    req.connection.destroy()
-                    res.status(413).json({
-                        error: `Payload too large`
-                    })
-                    // res.end()
-                }
 
-            })
-            req.on('end', function () {
-                let finalData = {}
-                if (data)
-                    try {
-                        finalData = JSON.parse(data)
-                        req.body = finalData
-                    } catch (err) {
-                        //daca nu reusim sa parsam body ul de la client, ii spunem eroarea si inchidem conexiunea
-                        console.error(`error parsing json from client: `)
-                        console.error(err)
-                        res.status(400).json({
-                            success: false,
-                            error: err.message
+            if (req.method == "GET" || req.method == "HEAD") {
+                res = this.router.handleRoute(req, res)
+                return
+            }
+            else if (req.headers['content-type'] == "application/json" || req.headers['content-type'] == "application/octet-stream") {
+                let data = '';
+                req.on('data', chunk => {
+                    data += chunk
+                    if (data.length > 1e6) {
+                        req.connection.destroy()
+                        res.status(413).json({
+                            error: `Payload too large`
                         })
                         // res.end()
                         return
                     }
-                req = this.authFunction(req);
-                res = this.router.handleRoute(req, res)
-                // if (res.endNow)
-                //     res.end()
-            }.bind(this))
-            req.on('error', function (err) {
-                console.error(err.message)
-                req.json({
-                    success: false,
-                    error: err.message
-                });
-                // req.end();
-            }.bind(this))
+                })
+                req.on('end', function () {
+                    let finalData = {}
+                    if (data)
+                        try {
+                            finalData = JSON.parse(data)
+                            req.body = finalData
+                        } catch (err) {
+                            //daca nu reusim sa parsam body ul de la client, ii spunem eroarea si inchidem conexiunea
+                            console.error(`error parsing json from client: `)
+                            console.error(err)
+                            res.status(400).json({
+                                success: false,
+                                error: err.message
+                            })
+                            // res.end()
+                            return
+                        }
+                    req = this.authFunction(req);
+                    res = this.router.handleRoute(req, res)
+                    // if (res.endNow)
+                    //     res.end()
+                }.bind(this))
+                req.on('error', function (err) {
+                    console.error(err.message)
+                    req.json({
+                        success: false,
+                        error: err.message
+                    });
+                    // req.end();
+                }.bind(this))
+            }
+            else {
+                res.status(415).json({
+                    error: `Invalid Content Type Header`
+                })
+                req.connection.destroy()
+            }
         }.bind(this)).listen(this.port)
 
 
