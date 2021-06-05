@@ -11,16 +11,19 @@ exports.getDriverData = async (req, res) => {
     // return req.status(StatusCodes.BAD_REQUEST).json({
     //     message: "disable this to prevent unauthorized access"
     // });
+    if (!req.parameters || !req.parameters.county)
+        return res.status(StatusCodes.BAD_REQUEST).json({
+            success: false,
+            error: "missing county from query parameters"
+        });
 
-    if (!req.parameters.county)
-        return res.status(StatusCodes.BAD_REQUEST);
 
     try {
         let driversListPromise = req.db.getDriverCarCounty(req.parameters.county);
         let orderDetailsPromise = req.db.getOrdersRelatedToCounty(req.parameters.county);
         let awbList = {};
         //
-        const [driversList, orderDetails] = await Promise.all([driversListPromise, orderDetailsPromise]);
+        const [driverList, orderDetails] = await Promise.all([driversListPromise, orderDetailsPromise]);
 
         awbList = orderDetails.map((v, i, m) => {
             if (v.status == 'order-received')
@@ -29,9 +32,45 @@ exports.getDriverData = async (req, res) => {
                     currentLocation: v.county_sender,
                     countyDestination: v.county_receiver,
                 }
+            if (v.status == `order-in-local-base-sender`) {
+                if (v.county_receiver == v.county_sender)
+                    return {
+                        awb: v.awb,
+                        currentLocation: `${v.county_sender} Base`,
+                        countyDestination: v.county_receiver,
+                    }
+                //este in baza locala a expeditorului si tre sa ajunga la baza nationala
+                return {
+                    awb: v.awb,
+                    currentLocation: `${v.county_sender} Base`,
+                    countyDestination: `National Base`,
+                }
+            }
+            if (v.county_receiver == `order-in-local-base-receiver`) {
+                if (v.county_receiver == v.county_sender)
+                    return {
+                        awb: v.awb,
+                        currentLocation: `${v.county_sender} Base`,
+                        countyDestination: v.county_receiver,
+                    }
+                //este in baza locala a destinatarului si tre sa ajunga la destinatar
+                return {
+                    awb: v.awb,
+                    currentLocation: `${v.county_receiver} Base`,
+                    countyDestination: v.county_receiver,
+                }
+            }
+            if (v.status == `order-in-national-base`)
+                return {
+                    awb: v.awb,
+                    currentLocation: `National Base`,
+                    countyDestination: v.county_receiver,
+                }
         })
+
         return res.status(StatusCodes.OK).json({
-            driversList: driversList,
+            county: req.parameters.county,
+            driverList: driverList,
             awbList: awbList,
         });
     } catch (error) {
