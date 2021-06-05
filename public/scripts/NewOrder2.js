@@ -111,7 +111,6 @@ window.addEventListener(`api-fetched`, (ev) => {
             })
             .then(response => response.json())
             .then(json => {
-                console.log(json.error);
                 if (json.error) {
 
                     if (json.error.includes('fullName_sender'))
@@ -166,20 +165,23 @@ window.addEventListener(`api-fetched`, (ev) => {
 
                     if (json.error.includes('mentions'))
                         document.getElementById("mentions").style.backgroundColor = "rgb(211, 110, 110)";
-                } else {
+                } else if (json.success == true) {
 
                     document.getElementById("order-placed-status1").style.display = "block";
+                    setTimeout(() => document.getElementById("order-placed-status1").style.display = "none", 5000)
+                    setTimeout(() => window.location.reload(5), 5000)
                 }
+
             })
             .catch(err => { console.log(err) });
     }
 
 })
-
 for (var judet in cities) {
     judetSelector1.options[judetSelector1.options.length] = new Option(judet, judet);
 }
 judetSelector1.onchange = function() {
+    console.log("bau cica bau bau")
     localitateSelector1.length = 1;
     for (var localitate in cities[this.value]) {
         localitateSelector1.options[localitateSelector1.options.length] = new Option(cities[this.value][localitate]);
@@ -195,6 +197,7 @@ judetSelector2.onchange = function() {
         localitateSelector2.options[localitateSelector2.options.length] = new Option(cities[this.value][localitate]);
     }
 }
+
 for (var mod in metodePlata) {
     plata.options[plata.options.length] = new Option(metodePlata[mod]);
 

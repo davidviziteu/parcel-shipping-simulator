@@ -2,11 +2,61 @@ const models = require(`../models`)
 const { apiModel } = models
 const { sign } = require("jsonwebtoken");
 const { StatusCodes } = require(`http-status-codes`)
-const { hashSync, genSaltSync, compare } = require("bcrypt");
+const { hashSync, genSaltSync, compareSync } = require("bcrypt")
 const { orderDashboardModel, awbDetailsModel } = models.orderModel
 const fetch = require('node-fetch');
+const jwt_decode = require('jwt-decode');
+const newUserSchema = models.userModel.newUserSchema;
 
 module.exports = {
+    createAccountUser: (req, res) => {
+        const body = req.body
+        body.type = "user"
+        const salt = genSaltSync(10)
+        body.password = hashSync(body.password, salt)
+        const { error, value } = newUserSchema.validate(body);
+        if (error) {
+            return res.status(200).json({
+                success: false,
+                error: error.message
+            })
+        }
+        req.db.createAccount(body, (error, results) => {
+            if (error) {
+                res.status(200).json({
+                    success: false,
+                    error: error.message
+                })
+            } else {
+                body.id = results.insertId
+                body.password = undefined
+                body.appCodeName = req.headers.appcodename
+                body.appName = req.headers.appname
+                body.appVersion = req.headers.appversion
+                body.product = req.headers.product
+                body.platform = req.headers.platform
+                const jsontoken = sign({ body }, process.env.secretKey, {
+                    expiresIn: "1h"
+                });
+                res.setHeader('Set-Cookie', 'token=' + jsontoken + `; HttpOnly;Domain=${models.apiModel.domain};Path=/`);
+                res.status(200).json({
+                    success: true,
+                    redirect: `/dashboard-user.html`
+                })
+                mailOptions.to = body.email
+                mailOptions.subject = 'Confirmare creare cont'
+                mailOptions.text = 'Ți-ai creat cont cu succes!'
+                transporter.sendMail(mailOptions, function (error, info) {
+                    if (error) {
+                        console.log(error.message);
+                    } else {
+                        console.log('Email sent: ' + info.response);
+                    }
+                });
+            }
+        })
+        return res
+    },
     trackAwb: async (req, res) => {
         console.log(`here`);
         if (!req.parameters.awb)
@@ -22,7 +72,8 @@ module.exports = {
             let awbDetailsObject = new awbDetailsModel()
             if (!req.accountType) { // || if req.userId != awbData.id...........
                 awbRawEvents.forEach(awbEv => {
-                    awbEventsObject[awbEv.event_type].push(`${awbEv.details} ${awbEv.date_time}`)
+                    if (awbEventsObject[awbEv.event_type])
+                        awbEventsObject[awbEv.event_type].push(`${awbEv.details} ${awbEv.date_time}`)
                 });
                 awbDetailsObject.sender.push(awbData.fullName_sender)
                 awbDetailsObject.destinatary.push(awbData.fullName_receiver)
@@ -38,11 +89,13 @@ module.exports = {
 
             if (req.accountType == `driver` || req.accountType == `admin` || req.accountType == `employee`) {
                 awbRawEvents.forEach(awbEv => {
-                    awbEventsObject[awbEv.event_type].push(`${awbEv.details} ${awbEv.employees_details} ${awbEv.date_time}`)
+                    if (awbEventsObject[awbEv.event_type])
+                        awbEventsObject[awbEv.event_type].push(`${awbEv.details} ${awbEv.employees_details} ${awbEv.date_time}`)
                 });
             } else { //else if req.userId == awbData.id...........
                 awbRawEvents.forEach(awbEv => {
-                    awbEventsObject[awbEv.event_type].push(`${awbEv.details} ${awbEv.date_time}`)
+                    if (awbEventsObject[awbEv.event_type])
+                        awbEventsObject[awbEv.event_type].push(`${awbEv.details} ${awbEv.date_time}`)
                 });
             }
 
@@ -78,6 +131,7 @@ module.exports = {
             if (error == `No such awb in db`)
                 return res.status(StatusCodes.NOT_FOUND).json({ success: false, error: `No such awb in db` })
             res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ success: false, error: error.message })
+            console.error(error);
         }
     },
     handleLogin: (req, res) => {
@@ -108,7 +162,7 @@ module.exports = {
                         error: "No user with that email!"
                     });
                 } else {
-                    const result = compare(req.body.password, results.password);
+                    const result = compareSync(req.body.password, results.password);
                     if (result) {
                         results.password = undefined;
                         const jsontoken = sign({ results }, process.env.secretKey, {
@@ -126,7 +180,7 @@ module.exports = {
                     } else {
                         return res.json({
                             success: 0,
-                            data: "Invalid password!"
+                            error: "Invalid password!"
                         });
                     }
                 }
@@ -257,6 +311,7 @@ module.exports = {
                     }
                 })
             case `admin`:
+                //am dat copy la asta in alta parte
                 req.db.getDriverCarCounty((error, results) => {
                     if (error) {
                         res.status(StatusCodes.BAD_REQUEST).json({
@@ -270,6 +325,22 @@ module.exports = {
                         })
                     }
                 })
+        }
+    },
+    helloWord: (req, res) => {
+        const token = req.headers.cookie.split('=')[1];
+        var decoded = jwt_decode(token);
+        if (!decoded.results.type) {
+            console.log("aici")
+            return res.status(StatusCodes.BAD_REQUEST).json({
+                success: false,
+                error: `not on dashboards`
+            })
+        } else {
+            res.status(200).json({
+                success: true,
+                message: "Hello, " + decoded.results.name + " " + decoded.results.surname + " !"
+            })
         }
     }
 }

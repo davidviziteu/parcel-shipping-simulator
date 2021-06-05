@@ -1,12 +1,10 @@
-const { hashSync, genSaltSync, compareSync } = require("bcrypt")
+const { hashSync, genSaltSync, compare } = require("bcrypt")
 const { StatusCodes } = require(`http-status-codes`)
 const models = require("../models")
 const nodemailer = require('nodemailer');
 const { sign } = require("jsonwebtoken");
 const jwt_decode = require('jwt-decode');
 
-
-const newUserSchema = models.userModel.newUserSchema
 const { newOrderSchema } = models.orderModel
 const validationEmailChangeCredentials = models.userModel.validationEmailChangeCredentials
 
@@ -19,61 +17,14 @@ var transporter = nodemailer.createTransport({
 });
 
 var mailOptions = {
-    from: 'proiecttwpss@gmail.com',
+    from: 'curier@gmail.com',
     to: '',
     subject: '',
     text: ''
 };
 
 module.exports = {
-    createAccountUser: (req, res) => {
-        const body = req.body
-        body.type = "user"
-        const salt = genSaltSync(10)
-        body.password = hashSync(body.password, salt)
-        const { error, value } = newUserSchema.validate(body);
-        if (error) {
-            return res.status(200).json({
-                success: false,
-                error: error.message
-            })
-        }
-        req.db.createAccount(body, (error, results) => {
-            if (error) {
-                res.status(200).json({
-                    success: false,
-                    error: error.message
-                })
-            } else {
-                body.id = results.insertId
-                body.password = undefined
-                body.appCodeName = req.headers.appcodename
-                body.appName = req.headers.appname
-                body.appVersion = req.headers.appversion
-                body.product = req.headers.product
-                body.platform = req.headers.platform
-                const jsontoken = sign({ body }, process.env.secretKey, {
-                    expiresIn: "1h"
-                });
-                res.setHeader('Set-Cookie', 'token=' + jsontoken + `; HttpOnly;Domain=${models.apiModel.domain};Path=/`);
-                res.status(200).json({
-                    success: true,
-                    redirect: `/dashboard-user.html`
-                })
-                /* mailOptions.to = body.email
-                mailOptions.subject = 'Confirmare creare cont'
-                mailOptions.text = 'Ți-ai creat cont cu succes!'
-                transporter.sendMail(mailOptions, function (error, info) {
-                    if (error) {
-                        console.log(error.message);
-                    } else {
-                        console.log('Email sent: ' + info.response);
-                    }
-                }); */
-            }
-        })
-        return res
-    },
+
     getCost: (req, res) => {
         console.log(req.body);
         return res.json({ message: res.body });
@@ -100,11 +51,34 @@ module.exports = {
                     success: false,
                     error: error.message
                 })
-            } else res.status(200).json({
-                success: true
-            })
+            } else {
+                const result = Object.values(JSON.parse(JSON.stringify(results)))
+                req.body.awb = result[0]['LAST_INSERT_ID()'];
+                req.db.insertIntoAwbEvents(req.body, (error, results) => {
+                    if (error) {
+                        res.status(500).json({
+                            success: false,
+                            error: error.message
+                        })
+                    } else {
+                        mailOptions.to = body.email_sender
+                        mailOptions.subject = `Comanda cu numarul ${req.body.awb} plasată cu succes`
+                        mailOptions.text = `Expeditor: ${req.body.fullName_sender} \nTelefon: ${req.body.phone_sender}\nEmail: ${req.body.email_sender}\nJudet: ${req.body.county_sender}\nLocalitate: ${req.body.city_sender}\nAdresă: ${req.body.address_sender} \n\nDestinatar:${req.body.fullName_receiver}\nTelefon: ${req.body.phone_receiver}\nJudet: ${req.body.county_receiver}\nLocalitate: ${req.body.city_receiver}\nAdresă: ${req.body.address_receiver}\n\n Vă mulțumim pentru comandă!\n Un curier va lua legătura cu dvs în scurt timp. `
+                        transporter.sendMail(mailOptions, function (error, info) {
+                            if (error) {
+                                console.log(error.message);
+                            } else {
+                                console.log('Email sent: ' + info.response);
+                            }
+                        });
+                        res.status(200).json({
+                            success: true
+                        })
+                    }
+                })
+
+            }
         })
-        return res
     },
     codeChange: (req, res) => {
         const body = req.body
@@ -139,13 +113,13 @@ module.exports = {
                         mailOptions.to = body.email
                         mailOptions.subject = 'Schimbarea datelor'
                         mailOptions.text = 'Codul pentru resetare este:\n' + results.insertId
-                        /* transporter.sendMail(mailOptions, function (error, info) {
+                        transporter.sendMail(mailOptions, function (error, info) {
                             if (error) {
                                 console.log(error.message);
                             } else {
                                 console.log('Email sent: ' + info.response);
                             }
-                        }); */
+                        });
                         const data = {
                             id: id,
                             code: results.insertId,

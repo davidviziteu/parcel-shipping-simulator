@@ -135,7 +135,7 @@ function nextPrev(n) {
                         document.getElementById("email").style.backgroundColor = "rgb(211, 110, 110)";
                     }
                     else {
-                        window.location.href = json.redirect;
+                        window.location.href = `/`;
                     }
                 })
                 .catch(err => { console.log(err) });

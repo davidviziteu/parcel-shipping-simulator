@@ -82,6 +82,10 @@ exports.baseApi = {
     },
     ourLocations: {
         location: `/Locatii.html`
+    },
+    helloWord: {
+        route: `/api/hello`,
+        method: `GET`,
     }
 }
 

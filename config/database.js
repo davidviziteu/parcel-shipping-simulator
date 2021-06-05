@@ -5,7 +5,8 @@ const pool = createPool({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASS,
-    database: process.env.MYSQL_DB
+    database: process.env.MYSQL_DB,
+    multipleStatements: true
 });
 
 // pool.query(`select * from users`, [], (error, results, fields) => {
@@ -126,9 +127,28 @@ module.exports = {
             }
         );
     },
+    insertIntoAwbEvents: (data, callBack) => {
+        pool.query(
+            `INSERT INTO awb_events (awb,event_type,details,date_time) VALUES (?,?,?,now())`, [
+            data.awb,
+            `order-received`,
+            `Comanda a fost primită`
+
+        ],
+            (error, results, fields) => {
+                if (error)
+                    return callBack(error)
+                return callBack(null, results, fields)
+            }
+        )
+
+    },
     placeNewOrder: (data, callBack) => {
         pool.query(
-            `INSERT INTO orders (fullName_sender,contactPerson_sender,phone_sender,email_sender,county_sender,city_sender,address_sender,fullName_receiver,contactPerson_receiver,phone_receiver,county_receiver,city_receiver,address_receiver,nrEnvelope,nrParcel, weight,length,width,height,date, hour, preference1, preference2, preference3, payment, mentions) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`, [
+            `INSERT INTO orders 
+            (fullName_sender,contactPerson_sender,phone_sender,email_sender,county_sender,city_sender,address_sender,fullName_receiver,contactPerson_receiver,phone_receiver,county_receiver,city_receiver,address_receiver,nrEnvelope,nrParcel, weight,length,width,height,date, hour, preference1, preference2, preference3, payment, mentions) 
+            VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);
+            SELECT  LAST_INSERT_ID()`, [
             data.fullName_sender,
             data.contactPerson_sender,
             data.phone_sender,
@@ -168,7 +188,7 @@ module.exports = {
                 if (error) {
                     return callBack(error)
                 }
-                return callBack(null, results)
+                return callBack(null, results[1])
             }
         );
     },
@@ -502,10 +522,9 @@ module.exports = {
     },
     getInfoCounty: (date, callBack) => {
         pool.query(
-            `SELECT SUBSTR(date, 1, 7), count(*) FROM orders where SUBSTR(date, 1, 7) > ? GROUP BY SUBSTR(date, 1, 7)`,
-            [
-                date
-            ],
+            `SELECT SUBSTR(date, 1, 7), count(*) FROM orders where SUBSTR(date, 1, 7) > ? GROUP BY SUBSTR(date, 1, 7)`, [
+            date
+        ],
             (error, results, fields) => {
                 if (error)
                     return callBack(error)
@@ -527,15 +546,27 @@ module.exports = {
         )
     },
     getDriverCarCounty: (county, callBack) => {
+        if (!callBack)
+            return new Promise((resolve, reject) => {
+                pool.query(
+                    `SELECT users.id AS id  , users.county  AS county , cars.registration_number AS car from users JOIN cars on users.id = cars.id_driver where users.county = ?`, [
+                    county
+                ],
+                    (error, results, fields) => {
+                        if (error)
+                            return reject(error);
+                        return resolve(results);
+                    }
+                )
+            })
         pool.query(
-            `SELECT users.id AS id  , users.county  AS county , cars.registration_number AS car from users JOIN cars on users.id = cars.id_driver where users.county = ?`,
-            [
-                county
-            ],
+            `SELECT users.id AS id  , users.county  AS county , cars.registration_number AS car from users JOIN cars on users.id = cars.id_driver where users.county = ?`, [
+            county
+        ],
             (error, results, fields) => {
                 if (error)
                     return callBack(error)
-                return callBack(null, results[0])
+                return callBack(null, results)
             }
         )
     },
@@ -568,5 +599,36 @@ module.exports = {
                 return callBack(null, results[0])
             }
         )
-    }
+    },
+
+
+    getOrdersRelatedToCounty(county, callBack) {
+        //TODO: VERIFICA SI PT CAND COLETUL ESTE IN BAZA NATIONALA
+        if (!callBack)
+            return new Promise((resolve, reject) => {
+                pool.query(
+                    `SELECT awb, county_sender, county_receiver, status from orders where (county_sender=? or county_receiver=?) and (status='order-received' or status='order-in-sender-county')`, [
+                    county,
+                    county
+                ],
+                    (error, results, fields) => {
+                        if (error)
+                            return reject(error)
+                        return resolve(results)
+                    }
+                )
+            })
+
+        pool.query(
+            `SELECT awb, county_sender, county_receiver, status from orders where (county_sender=? or county_receiver=?) and (status='order-received' or status='order-in-sender-county')`, [
+            county,
+            county
+        ],
+            (error, results, fields) => {
+                if (error)
+                    return callBack(error)
+                return callBack(null, results)
+            }
+        )
+    },
 }
