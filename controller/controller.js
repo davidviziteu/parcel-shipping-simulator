@@ -3,11 +3,22 @@ var cityList = ["Ilfov", "Cluj", "Constanța", "Dolj", "Galați", "Iași", "Orad
 const { StatusCodes } = require(`http-status-codes`);
 const { db } = require("../models/driverTaskSchema");
 const models = require('../models');
+const { default: fetch } = require("node-fetch");
+const { dataInputSchema } = require("../models/dataInputModel");
+
+const mainServerUrl = process.env.PORT ? `https://parcel-shipping-simulator.herokuapp.com` : `http://localhost:4000`
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
 
+async function getMainServerData(county) {
+    let result = await fetch(`${mainServerUrl}/api/private/driver-data?county=${county}`)
+    if (!result.ok)
+        throw new Error(`server responded with status: ${result.status}`)
+    return await result.json()
+
+}
 
 /**
  * o sa primeasca un id de sofer si niste task uri.
@@ -15,33 +26,33 @@ function getRandomInt(max) {
  * face fetch la main service pt a avea soferii, awb urile  
  *
  */
-let data = {
-    county: "Iași",
-    driverList: [
-        { id: 1, car: "is05www", county: "Iași" },
-        { id: 2, car: "is07eee", county: "Iași" },
-    ],
-    awbList: [
-        { awb: 1, currentLocation: "Iași Base", countyDestination: "Iași", }, //local to deliver
-        { awb: 2, currentLocation: "Iași", countyDestination: "Iași", }, //local to pickup
-        { awb: 3, currentLocation: "Iași", countyDestination: "Iași", }, //local to pickup
-        { awb: 4, currentLocation: "Iași", countyDestination: "Iași", }, //local to pickup
-        { awb: 5, currentLocation: "Iași Base", countyDestination: "Iași", }, //local to deliver
-        { awb: 6, currentLocation: "Iași", countyDestination: "Iași", }, //local to pickup
-        { awb: 7, currentLocation: "National Base", countyDestination: "Bucuresti", }, //trap
-        { awb: 8, currentLocation: "Iași Base", countyDestination: "Craiova", }, //natinal to deliver
-        { awb: 9, currentLocation: "Iași Base", countyDestination: "Craiova", }, //natinal to deliver
-        { awb: 10, currentLocation: "Iași Base", countyDestination: "Craiova", }, //natinal to deliver
-        { awb: 11, currentLocation: "Iași", countyDestination: "Dolj", }, //local to pickup
-        { awb: 12, currentLocation: "National Base", countyDestination: "Iași", }, //natinal to pickup
-        { awb: 13, currentLocation: "National Base", countyDestination: "Iași", }, //natinal to pickup
-        { awb: 14, currentLocation: "National Base", countyDestination: "Iași", }, //natinal to pickup
-        { awb: 15, currentLocation: "National Base", countyDestination: "Iași", }, //natinal to pickup
-        { awb: 16, currentLocation: "National Base", countyDestination: "Iași", }, //natinal to pickup
-        { awb: 17, currentLocation: "National Base", countyDestination: "Iași", }, //natinal to pickup
-        { awb: 18, currentLocation: "National Base", countyDestination: "Iași", }, //natinal to pickup
-    ],
-}
+// let data = {
+//     county: "Iași",
+//     driverList: [
+//         { id: 1, car: "is05www", county: "Iași" },
+//         { id: 2, car: "is07eee", county: "Iași" },
+//     ],
+//     awbList: [
+//         { awb: 1, currentLocation: "Iași Base", countyDestination: "Iași", }, //local to deliver
+//         { awb: 2, currentLocation: "Iași", countyDestination: "Iași", }, //local to pickup
+//         { awb: 3, currentLocation: "Iași", countyDestination: "Iași", }, //local to pickup
+//         { awb: 4, currentLocation: "Iași", countyDestination: "Iași", }, //local to pickup
+//         { awb: 5, currentLocation: "Iași Base", countyDestination: "Iași", }, //local to deliver
+//         { awb: 6, currentLocation: "Iași", countyDestination: "Iași", }, //local to pickup
+//         { awb: 7, currentLocation: "National Base", countyDestination: "Bucuresti", }, //trap
+//         { awb: 8, currentLocation: "Iași Base", countyDestination: "Craiova", }, //natinal to deliver
+//         { awb: 9, currentLocation: "Iași Base", countyDestination: "Craiova", }, //natinal to deliver
+//         { awb: 10, currentLocation: "Iași Base", countyDestination: "Craiova", }, //natinal to deliver
+//         { awb: 11, currentLocation: "Iași", countyDestination: "Dolj", }, //local to pickup
+//         { awb: 12, currentLocation: "National Base", countyDestination: "Iași", }, //natinal to pickup
+//         { awb: 13, currentLocation: "National Base", countyDestination: "Iași", }, //natinal to pickup
+//         { awb: 14, currentLocation: "National Base", countyDestination: "Iași", }, //natinal to pickup
+//         { awb: 15, currentLocation: "National Base", countyDestination: "Iași", }, //natinal to pickup
+//         { awb: 16, currentLocation: "National Base", countyDestination: "Iași", }, //natinal to pickup
+//         { awb: 17, currentLocation: "National Base", countyDestination: "Iași", }, //natinal to pickup
+//         { awb: 18, currentLocation: "National Base", countyDestination: "Iași", }, //natinal to pickup
+//     ],
+// }
 
 //un sofer poate cara maxim 20 de colete
 
@@ -84,7 +95,8 @@ exports.getDriverTask = async (req, res) => {
     }
     try {
         let currentDay = new Date(Date.now()).getDate();
-        let dbResults = await req.db.countyTasks.find({ county: 'Iași' });
+        let dbResults = await req.db.countyTasks.find({ county: req.body.county });
+        let data = {}
         if (dbResults.length > 0) {
             if (dbResults.length > 1)
                 return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
@@ -94,7 +106,9 @@ exports.getDriverTask = async (req, res) => {
             let hoursDiff = Math.abs(Date.parse(dbResults.lastTimeComputed) - Date.now()) / 36e5;
             console.log(`hours diff: ${hoursDiff}, date: ${dbResults.lastTimeComputed}`);
             if (isNaN(hoursDiff))
-                return
+                return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+                    error: "hours difference is NaN"
+                })
             if (hoursDiff <= 1) { // ar trebui sa fie 24 aici
                 let driverTasks = await req.db.driverTasks.find({ id: req.body.id })
                 if (!driverTasks)
@@ -102,15 +116,42 @@ exports.getDriverTask = async (req, res) => {
                         error: "Driver not found in computed data"
                     })
                 console.log(`got data for driver id = ${req.body.id} from db`);
+                data.toDeliver = driverTasks[0].toDeliver
+                data.toPickup = driverTasks[0].toPickup
+                data.id = driverTasks[0].id
+                data.county = driverTasks[0].county
+                data.car = driverTasks[0].car
+                data.task = driverTasks[0].task
+                data.countySource = driverTasks[0].countySource
+                data.countyDestination = driverTasks[0].countyDestination
                 return res.status(StatusCodes.OK).json({
-                    ...dbResults
+                    ...data
                 })
             }
-            //do fetch from db and return
         }
+        //do fetch from db and return
 
+        let encoded = encodeURI(`${mainServerUrl}/api/private/driver-data?county=${req.body.county}`);
+        let response = await fetch(encoded)
+        data = await response.json();
+        if (!response.ok)
+            return res.status(StatusCodes.FAILED_DEPENDENCY).json({
+                success: false,
+                error: `cannot fetch data from the main server at : ${mainServerUrl}`,
+                mainServerError: data.error
+            })
+        const { error } = dataInputSchema.validate(data)
+        if (error)
+            return res.status(StatusCodes.BAD_REQUEST).json({
+                success: false,
+                error: error
+            })
+
+        console.log(data);
         if (!Array.isArray(data.driverList) || data.driverList.length == 0)
-            return res.status(StatusCodes.BAD_REQUEST)
+            return res.status(StatusCodes.BAD_REQUEST).json({
+                error: "body.driver list is not an array or is of length 0"
+            })
         let availableDrivers = data.driverList.length
 
 
@@ -222,8 +263,31 @@ exports.getDriverTask = async (req, res) => {
         // res.json({ distribuion: data.driverList })
     } catch (error) {
         console.error(error);
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+            error: error.message
+        })
     }
 }
+
+exports.emptyDB = async (req, res) => {
+    if (!req.accountType)
+        return res.status(StatusCodes.UNAUTHORIZED).json({
+            success: false
+        })
+    try {
+        await Promise.all([req.db.driverTasks.deleteMany(), req.db.countyTasks.deleteMany()]);
+    } catch (error) {
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+            db: error.message
+        });
+    }
+
+    return res.status(StatusCodes.OK).json({
+        success: true
+    });
+}
+
+
 
 let a = {
     "distribuion": [
@@ -270,3 +334,6 @@ let a = {
         }
     ]
 }
+
+
+exports.updateDriverTask = async (req, res) => { }
