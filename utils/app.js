@@ -36,7 +36,11 @@ class App {
             }
             console.log(`${req.method} on ${req.url}`)
 
-            if (req.headers['content-type'] == "application/json" || req.headers['content-type'] == "application/octet-stream") {
+            if (req.method == "GET" || req.method == "HEAD") {
+                res = this.router.handleRoute(req, res)
+                return
+            }
+            else if (req.headers['content-type'] == "application/json" || req.headers['content-type'] == "application/octet-stream") {
                 let data = '';
                 req.on('data', chunk => {
                     data += chunk
@@ -81,10 +85,10 @@ class App {
                 }.bind(this))
             }
             else {
-                req.connection.destroy()
                 res.status(415).json({
                     error: `Invalid Content Type Header`
                 })
+                req.connection.destroy()
             }
 
         }.bind(this)).listen(this.port)
