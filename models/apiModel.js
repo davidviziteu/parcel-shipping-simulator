@@ -3,21 +3,22 @@ const host = process.env.PORT ? `https://parcel-shipping-simulator.herokuapp.com
 exports.domain = process.env.PORT ? `parcel-shipping-simulator.herokuapp.com` : `localhost`
 
 /**
- * client lanseaza comanda, -> insert awb_events (awb, 'order-received', 'comanda a fost primita', '',datetime)
- * soferul preia pachetul -> insert awb_events (awb, 'order-picked-up', 'ridicat de la expeditor','nume sofer/angajat, id, email, masina, nr de inmatriculare', datetime)
- * soferul aduce pachetul la baza -> insert awb_events (awb, 'order-picked-up', 'ajuns la sediu [oras]', 'nume sofer, id, email, masina, nr de inmatriculare', datetime)
- * soferul soferul preia pachetul din baza -> insert awb_events (awb, 'order-in-transit', 'a plecat de la sediu [oras]', 'nume sofer, id, email, masina, nr de inmatriculare', datetime)
- * soferul soferul preia pachetul din baza (dar e vremea proasta sau s a stricat masina sau orice, se pune motivul intarzierii in al 2 lea camp) -> insert awb_events (awb, 'order-in-transit', 'motiv intarziere', 'nume sofer, id, email, masina, nr de inmatriculare', datetime)
- * soferul soferul ajunge la orasul destinatie -> insert awb_events (awb, 'order-in-transit', 'a ajuns la sediu [orasDestinatie]', 'nume sofer, id, email, masina, nr de inmatriculare', datetime)
- * soferul soferul preia pachetul din baza pentru livrare -> insert awb_events (awb, 'order-in-delivery', 'in curs de livrare', 'nume sofer, id, email, masina, nr de inmatriculare', datetime)
- * soferul soferul livreaza -> insert awb_events (awb, 'order-destinatary', 'livrat', 'nume sofer, id, email, masina, nr de inmatriculare', datetime)
- * soferul soferul livreaza dar clientul se plange de continut-> insert awb_events (awb, 'order-destinatary', 'clientul mentioneaza continut deteriorat', 'nume sofer/angajat, id, email, [masina, nr de inmatriculare]', datetime)
+ * check client lanseaza comanda, -> insert awb_events (awb, 'order-received', 'comanda a fost primita', '',datetime)
+ * ckeck soferul preia pachetul -> insert awb_events (awb, 'order-picked-up', 'ridicat de la expeditor','nume sofer/angajat, id, email, masina, nr de inmatriculare', datetime) 
+ * ckeck soferul aduce pachetul la baza -> insert awb_events (awb, 'order-picked-up', 'ajuns la sediu [oras]', 'nume sofer, id, email, masina, nr de inmatriculare', datetime)
+ * check soferul soferul preia pachetul din baza -> insert awb_events (awb, 'order-in-transit', 'a plecat de la sediu [oras]', 'nume sofer, id, email, masina, nr de inmatriculare', datetime)
+ * check soferul soferul preia pachetul din baza (dar e vremea proasta sau s a stricat masina sau orice, se pune motivul intarzierii in al 2 lea camp) -> insert awb_events (awb, 'order-in-transit', 'motiv intarziere', 'nume sofer, id, email, masina, nr de inmatriculare', datetime)
+ * check soferul soferul ajunge la orasul destinatie -> insert awb_events (awb, 'order-in-transit', 'a ajuns la sediu [orasDestinatie]', 'nume sofer, id, email, masina, nr de inmatriculare', datetime)
+ * check soferul soferul preia pachetul din baza pentru livrare -> insert awb_events (awb, 'order-in-delivery', 'in curs de livrare', 'nume sofer, id, email, masina, nr de inmatriculare', datetime)
+ * check soferul soferul livreaza -> insert awb_events (awb, 'order-destinatary', 'livrat', 'nume sofer, id, email, masina, nr de inmatriculare', datetime)
+ * check soferul soferul livreaza dar clientul se plange de continut-> insert awb_events (awb, 'order-destinatary', 'clientul mentioneaza continut deteriorat', 'nume sofer/angajat, id, email, [masina, nr de inmatriculare]', datetime)
  */
 /**
  * order.status poate fi una din urmatarele (corespund cu butoanele din order-dashboard.html):
  * order-received
  * order-picked-up
  * order-in-transit
+ * order-in-sender-county
  * order-in-base
  * order-in-delivery
  * order-destinatary //pt cand comanda a fost livrata

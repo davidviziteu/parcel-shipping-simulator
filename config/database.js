@@ -185,60 +185,6 @@ module.exports = {
                     }
                 }
             )
-        var status
-        pool.query(
-            `SELECT status from orders where awb = ?`,
-            [
-                data.awb
-            ],
-            (error, results, fields) => {
-                if (error) {
-                    return callBack(error)
-                }
-                else if (results[0].status != undefined) {
-                    var event
-                    if (data.accident) event = "accident"
-                    else if (data.meteo) event = "unfavorable weather"
-                    else if (data.failure) event = "failure"
-                    else if (data.client) event = "the client is not at home"
-                    else if (data.content) event = "damaged content"
-                    else if (data.delivered) event = "delivered"
-                    else if (data.pickup) event = "pickup"
-                    pool.query(
-                        `INSERT INTO awb_events(awb,event_type,employees_details,date_time) values(?,?,?,now())`,
-                        [
-                            data.awb,
-                            results[0].status,
-                            event
-                        ],
-                        (error, results, fields) => {
-                            if (error) {
-                                return callBack(error)
-                            }
-                        }
-                    )
-                    if (event == "delivered") {
-                        pool.query(
-                            `UPDATE orders SET status = ? WHERE awb = ?`,
-                            [
-                                "Livrat",
-                                data.awb
-                            ],
-                            (error, results, fields) => {
-                                if (error) {
-                                    return callBack(error)
-                                }
-                                else return callBack(null, error)
-                            }
-                        )
-                    }
-                }
-                else {
-                    const error = "bad awb"
-                    return callBack(error)
-                }
-            }
-        )
     },
     addNotification: (data, callBack) => {
         pool.query(
@@ -306,7 +252,7 @@ module.exports = {
                 if (error) {
                     return callBack(error);
                 }
-                return callBack(null, results[0]);
+                return callBack(null, results);
             }
         )
     },
@@ -569,7 +515,7 @@ module.exports = {
     },
     getDriverCar: (id, callBack) => {
         pool.query(
-            `SELECT registration_number CARS  WHERE id_driver = ?`,
+            `SELECT cars.registration_number AS registration_number, users.name AS name, users.email AS email FROM cars JOIN users on users.id=cars.id_driver WHERE id_driver = ?`,
             [
                 id
             ],
@@ -585,6 +531,36 @@ module.exports = {
             `SELECT users.id AS id  , users.county  AS county , cars.registration_number AS car from users JOIN cars on users.id = cars.id_driver where users.county = ?`,
             [
                 county
+            ],
+            (error, results, fields) => {
+                if (error)
+                    return callBack(error)
+                return callBack(null, results[0])
+            }
+        )
+    },
+    newAWBEvent: (data, callBack) => {
+        pool.query(
+            `INSERT INTO awb_events values (?,?,?,?,now())`,
+            [
+                data.awb,
+                data.event_type,
+                data.details,
+                data.employees_details
+            ],
+            (error, results, fields) => {
+                if (error)
+                    return callBack(error)
+                return callBack(null, results[0])
+            }
+        )
+    },
+    updateStatusAWB: (data, callBack) => {
+        pool.query(
+            `UPDATE orders SET status=? where awb=?`,
+            [
+                data.status,
+                data.awb
             ],
             (error, results, fields) => {
                 if (error)
