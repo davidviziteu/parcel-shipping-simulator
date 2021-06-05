@@ -68,7 +68,7 @@ module.exports = {
                     const data = {
                         awb: body.awb,
                         event_type: 'order-picked-up',
-                        status: 'order-in-local-base',
+                        status: 'order-in-local-base-sender',
                         details: 'Coletul ajuns la sediu',
                         employees_details: "Coletul a fost adus la sediul local de soferul " + results.name + " cu masina " + results.registration_number + ".",
                     }
@@ -152,7 +152,7 @@ module.exports = {
                     const data = {
                         awb: body.awb,
                         event_type: 'order-in-transit',
-                        status: 'order-in-local-base',
+                        status: 'order-in-local-base-sender',
                         details: 'A ajuns in orasul de livrare',
                         employees_details: "Coletul a fost adus de soferul " + results.name + " cu masina " + results.registration_number + "din baza din Sighisoara.",
                     }
@@ -236,7 +236,6 @@ module.exports = {
         })
     },
     detailsOrder: (req, res) => {
-        req.awb = 5;
         req.db.getDetailsOrder(req.awb, (error, results) => {
             if (error) {
                 console.log(error)
@@ -246,7 +245,6 @@ module.exports = {
                 })
             }
             else if (results[0] != undefined) {
-                console.log("aici")
                 res.status(200).json({
                     success: true,
                     fullName_sender: results[0].fullName_sender,

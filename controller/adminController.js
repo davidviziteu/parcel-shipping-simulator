@@ -342,53 +342,6 @@ module.exports = {
             })
         }
     },
-    createAccount: (req, res) => {
-        if (req.accountType == `admin`) {
-            if (!req.body)
-                return res.status(StatusCodes.BAD_REQUEST).json({
-                    success: false,
-                    error: `missing body`
-                })
-            const body = req.body
-            const salt = genSaltSync(10)
-            body.password = hashSync(body.password, salt)
-            const { error, value } = models.adminModel.newEmployeeSchema.validate(body);
-            if (error) {
-                return res.status(300).json({
-                    success: false,
-                    error: error.message
-                })
-
-            }
-            req.db.createAccount(body, (error, results) => {
-                if (error) {
-                    res.status(200).json({
-                        success: false,
-                        error: error.message
-                    })
-                } else {
-                    res.status(200).json({
-                        success: true
-                    })
-                    /* mailOptions.to = body.email
-                    mailOptions.subject = 'Confirmare creare cont'
-                    mailOptions.text = 'Ți-ai creat cont cu succes!'
-                    transporter.sendMail(mailOptions, function (error, info) {
-                        if (error) {
-                            console.log(error.message);
-                        } else {
-                            console.log('Email sent: ' + info.response);
-                        }
-                    }); */
-                }
-            })
-        } else {
-            res.status(StatusCodes.UNAUTHORIZED).json({
-                success: 0,
-                error: "doar adminul poate executa aceasta comanda!"
-            })
-        }
-    },
     getInfoUser: (req, res) => {
         if (req.accountType == `admin`) {
             if (!req.body)

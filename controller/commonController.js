@@ -4,14 +4,35 @@ const { sign } = require("jsonwebtoken");
 const { StatusCodes } = require(`http-status-codes`)
 const { hashSync, genSaltSync, compareSync } = require("bcrypt")
 const { orderDashboardModel, awbDetailsModel } = models.orderModel
+const nodemailer = require('nodemailer');
 const fetch = require('node-fetch');
 const jwt_decode = require('jwt-decode');
 const newUserSchema = models.userModel.newUserSchema;
 
+var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 'proiecttwpss@gmail.com',
+        pass: 'proiecttv'
+    }
+});
+
+var mailOptions = {
+    from: 'curier@gmail.com',
+    to: '',
+    subject: '',
+    text: ''
+};
+
 module.exports = {
     createAccountUser: (req, res) => {
         const body = req.body
-        body.type = "user"
+        if (req.accountType == `admin` && body.type != `user`) {
+            return res.status(StatusCodes.UNAUTHORIZED).json({
+                success: 0,
+                error: "doar adminul poate executa aceasta comanda!"
+            })
+        }
         const salt = genSaltSync(10)
         body.password = hashSync(body.password, salt)
         const { error, value } = newUserSchema.validate(body);
