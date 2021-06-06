@@ -2,7 +2,8 @@ const http = require(`http`)
 const jwt_decode = require('jwt-decode');
 const db = require("./config/database")
 const routers = require(`./routes`)
-const { App } = require(`./utils/app.js`)
+const { App } = require(`./utils/app.js`);
+const { wakeUpMicroservices } = require('./utils/routines');
 require("dotenv").config();
 
 
@@ -33,12 +34,16 @@ app.useAuth((req) => {
     if (decoded.results != undefined) {
         req.accountId = decoded.results.id;
         req.accountType = decoded.results.type;
+        req.authData = decoded.results
     }
     else if (decoded.body != undefined) {
         req.accountId = decoded.body.id;
         req.accountType = decoded.body.type;
+        req.authData = decoded.body
     }
     req.token = token;
     return req;
 })
 app.listen();
+
+wakeUpMicroservices();
