@@ -59,7 +59,7 @@ exports.getDriverTask = async (req, res) => {
     if (error)
         return res.status(StatusCodes.BAD_REQUEST).json({
             success: false,
-            error: error.message
+            error: error
         })
 
     try {
@@ -114,7 +114,7 @@ exports.getDriverTask = async (req, res) => {
         if (error)
             return res.status(StatusCodes.BAD_REQUEST).json({
                 success: false,
-                error: error.message
+                error: error
             })
 
         if (!Array.isArray(data.driverList) || data.driverList.length == 0)
@@ -123,12 +123,12 @@ exports.getDriverTask = async (req, res) => {
             })
         let availableDrivers = data.driverList.length
 
+        console.log(data.awbList);
+        let toDeliverLocalAwbs = data.awbList.filter(awbObj => awbObj.currentLocation == `${req.body.county} Base` && awbObj.countyDestination == `${req.body.county}`)
+        let toPickupLocalAwbs = data.awbList.filter(awbObj => awbObj.currentLocation == `${req.body.county}`)
 
-        let toDeliverLocalAwbs = data.awbList.filter(awbObj => awbObj.currentLocation == "Iași Base" && awbObj.countyDestination == "Iași")
-        let toPickupLocalAwbs = data.awbList.filter(awbObj => awbObj.currentLocation == "Iași")
-
-        let toDeliverNationalAwbs = data.awbList.filter(awbObj => awbObj.currentLocation == "Iași Base" && awbObj.countyDestination != "Iași")
-        let toPickupNationalAwbs = data.awbList.filter(awbObj => awbObj.currentLocation == "National Base" && awbObj.countyDestination == "Iași")
+        let toDeliverNationalAwbs = data.awbList.filter(awbObj => awbObj.currentLocation == `${req.body.county} Base` && awbObj.countyDestination != `${req.body.county}`)
+        let toPickupNationalAwbs = data.awbList.filter(awbObj => awbObj.currentLocation == "National Base" && awbObj.countyDestination == `${req.body.county}`)
         let localRequiredDrivers = Math.ceil(Math.max(toDeliverLocalAwbs.length, toPickupLocalAwbs.length) / localCarPackagesLimit)
         let nationalRequiredDrivers = Math.ceil(Math.max(toDeliverNationalAwbs.length, toPickupNationalAwbs.length) / nationalCarPackagesLimit)
 
@@ -273,7 +273,7 @@ exports.updateDriverTask = async (req, res) => {
         if (error)
             return res.status(StatusCodes.BAD_REQUEST).json({
                 success: false,
-                error: error.message
+                error: error
             })
 
         if (req.accountType == `driver` && req.body.id != req.accountId)
