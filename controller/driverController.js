@@ -8,6 +8,44 @@ const { driverGetTaskInputSchema } = require("../models/driverModel");
 
 const driverEventsSchema = models.userModel.driverEventsSchema
 
+async function removeAwbFromMicroservice(token, awb, id, res) {
+    let fetchBody = {
+        token: token,
+        remove: awb,
+        id: id
+    }
+    try {
+        let rawResp = await fetch(`${apiModel.distributionMicroservices[0].address}/api/private/driver-task`, {
+            method: `PATCH`,
+            body: JSON.stringify(fetchBody),
+            headers: {
+                "Content-type": "application/json"
+            }
+        })
+        if (!rawResp.ok) {
+            let json = await rawResp.json()
+            console.error(`microservice comm error:`);
+            console.error(json.error);
+            res.status(StatusCodes.EXPECTATION_FAILED).json({
+                success: false,
+                error: json.error,
+                from: "microservice 1"
+            })
+        }
+        return { success: true }
+    } catch (error) {
+        if (error.message == `ignore`)
+            return
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+            success: false,
+            error: error.message,
+        })
+        console.error(error)
+        return { success: false }
+
+    }
+}
+
 module.exports = {
     addEvents: async (req, res) => {
         const body = req.body
@@ -30,7 +68,7 @@ module.exports = {
                 error: "unselected"
             })
         }
-        req.db.getDriverCar(req.accountId, (error, results) => {
+        req.db.getDriverCar(req.accountId, async (error, results) => {
             if (error) {
                 return res.status(200).json({
                     success: false,
@@ -73,6 +111,7 @@ module.exports = {
                                 })
                             }
                         })
+
                         return res.status(200).json({
                             success: true
                         })
@@ -263,6 +302,9 @@ module.exports = {
                             })
                         }
                     })
+                    let success = await removeAwbFromMicroservice(req.token, body.awb, req.accountId, res)
+                    if (!success)
+                        return
                     return res.status(200).json({
                         success: true
                     })
@@ -291,6 +333,9 @@ module.exports = {
                             })
                         }
                     })
+                    let success = await removeAwbFromMicroservice(req.token, body.awb, req.accountId, res)
+                    if (!success)
+                        return
                     return res.status(200).json({
                         success: true
                     })
@@ -319,6 +364,9 @@ module.exports = {
                             })
                         }
                     })
+                    let success = await removeAwbFromMicroservice(req.token, body.awb, req.accountId, res)
+                    if (!success)
+                        return
                     return res.status(200).json({
                         success: true
                     })
@@ -375,6 +423,9 @@ module.exports = {
                             })
                         }
                     })
+                    let success = await removeAwbFromMicroservice(req.token, body.awb, req.accountId, res)
+                    if (!success)
+                        return
                     return res.status(200).json({
                         success: true
                     })
@@ -431,6 +482,9 @@ module.exports = {
                             })
                         }
                     })
+                    let success = await removeAwbFromMicroservice(req.token, body.awb, req.accountId, res)
+                    if (!success)
+                        return
                     return res.status(200).json({
                         success: true
                     })

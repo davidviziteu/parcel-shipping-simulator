@@ -22,20 +22,19 @@ const toPickup = localStorage.getItem('toPickup')
 const awb = localStorage.getItem('awb')
 
 document.getElementById("title awb").innerHTML += awb
-
 if (task == "national" && toDeliver) {
     buttonRidicat.innerHTML = "Am ridicat coletul din baza locala"
     buttonLivrat.innerHTML = "Am lasat coletul in baza nationala"
-}
-if (task == "national" && toPickup) {
+
+} else if (task == "national" && toPickup) {
     buttonRidicat.innerHTML = "Am ridicat coletul din baza nationala"
     buttonLivrat.innerHTML = "Am lasat coletul in baza locala"
 }
-if (task == "local" && toPickup) {
+else if (task == "local" && toPickup) {
     buttonRidicat.innerHTML = "Am ridicat coletul de la client"
     buttonLivrat.innerHTML = "Am lasat coletul in baza locala"
 }
-if (task == "local" && toDeliver) {
+else if (task == "local" && toDeliver) {
     buttonLivrat.innerHTML = "Am livrat coletul la client"
     buttonRidicat.innerHTML = "Am dus coletul inapoi in baza"
 }
