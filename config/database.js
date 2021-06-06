@@ -192,11 +192,11 @@ module.exports = {
             }
         );
     },
-    addAccidentDriver: (id, callBack) => {
+    addEventDriverEvent: (data, callBack) => {
         pool.query(
             `INSERT INTO driver_events values (?,?,now())`, [
-            id,
-            true
+            data.id,
+            data.event_type
         ],
             (error, results, fields) => {
                 if (error) {
@@ -519,11 +519,13 @@ module.exports = {
             }
         )
     },
-    getInfoCounty: (date, callBack) => {
+    getInfoCounty: (data, callBack) => {
         pool.query(
-            `SELECT SUBSTR(date, 1, 7), count(*) FROM orders where SUBSTR(date, 1, 7) > ? GROUP BY SUBSTR(date, 1, 7)`, [
-            date
-        ],
+            `SELECT SUBSTR(date, 1, 7), count(*),county_sender FROM orders where SUBSTR(date, 1, 7) > ? and county_sender = ? GROUP BY SUBSTR(date, 1, 7)`,
+            [
+                data.date,
+                data.county
+            ],
             (error, results, fields) => {
                 if (error)
                     return callBack(error)
@@ -650,6 +652,29 @@ module.exports = {
             `SELECT * from awb_events where awb = ? order by date_time desc LIMIT 1`, [
             awb
         ],
+            (error, results, fields) => {
+                if (error)
+                    return callBack(error)
+                return callBack(null, results)
+            }
+        )
+    },
+    insertIntoTable(tablename, data, callBack) {
+        var sqlString = `INSERT INTO ?? VALUES(`;
+
+        for (let index = 0; index < data.length; index++) {
+            if (index == data.length - 1) {
+                sqlString += '?';
+                break;
+            }
+            sqlString += '?,';
+        }
+        sqlString += ')';
+        console.log(sqlString)
+        data.unshift(tablename)
+        console.log(data)
+        pool.query(
+            sqlString, data,
             (error, results, fields) => {
                 if (error)
                     return callBack(error)

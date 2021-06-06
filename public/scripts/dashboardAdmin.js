@@ -334,7 +334,7 @@ window.addEventListener(`api-fetched`, (ev) => {
              let fileUpload = document.getElementById(`csv-file-upload`)
                     e.preventDefault();
                     console.log(fileUpload.files)
-                     fetch(`${hostName}${api.uploadFile.route}`, {
+                     fetch(`${hostName}${api.uploadFile.route}?table=${document.getElementById(`db-tables1`).value}`, {
                         method: api.uploadFile.method,
                         body: fileUpload.files[0],
                         headers: { 
@@ -356,18 +356,41 @@ window.addEventListener(`api-fetched`, (ev) => {
                      fetch(`${hostName}${api.downloadFile.route}?table=${document.getElementById(`db-tables2`).value}`, {
                         method: api.downloadFile.method,
                         headers: { 
-                    headers: { "Content-type": "application/json" }
+                             headers: { "Content-type": "application/octet-stream" }
                         }
                 })
-                .then(response => response.json())
-                .then(json => {
-                    console.log(json.error)
-                       
+                .then(response => response.blob())
+                .then(response => {
+                 const blob = new Blob([response], {type: 'application/octet-stream'});
+                 const downloadUrl = URL.createObjectURL(blob);
+                 const a = document.createElement("a");
+                 a.href = downloadUrl;
+                 a.download = "ceva.csv";
+                 document.body.appendChild(a);
+                 a.click();
                 })
                 .catch(err => {
                     console.log(err)
                 });
          }
+           
+//          fetch("/my/url", {
+//     method: "POST",
+//     body: formData,
+// })
+//     .then(response => {
+//         return response.blob();
+//     })
+//     .then(response => {
+//         const blob = new Blob([response], {type: 'application/zip'});
+//         const downloadUrl = URL.createObjectURL(blob);
+//         const a = document.createElement("a");
+//         a.href = downloadUrl;
+//         a.download = "blah.zip";
+//         document.body.appendChild(a);
+//         a.click();
+//     });
+
                     
          if(api.loginType == `admin`){
                fetch(`${hostName}${api.getTables.route}`, {

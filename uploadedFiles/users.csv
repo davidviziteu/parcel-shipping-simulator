@@ -1,7 +1,7 @@
 1035,a,a,a@a.com,$2b$10$gxsLvZ84YfWHzdkbKygWqeYoymqBWZOfmWox4NR6h0H,0700000000,Cluj,Cluj-Napoca,a,user
-1025,ADMIN,ADMIN,admin@gmail.com,$2b$10$3CxqyabQmT8nOJqhH1xz8eC1HhVAMM.LhD.IQ/xqPlv,0700000000,Sibiu,null,null,admin
+1025,ADMIN,ADMIN,admin@gmail.com,$2b$10$3CxqyabQmT8nOJqhH1xz8eC1HhVAMM.LhD.IQ/xqPlv,0700000000,Sibiu,n/a,n/a,admin
 765,Emanuel,Alecsandrescu,alecsandrescu.emanuel@gmail.com,1234,0743887000,Constanța,Eforie,strada Fericirii,driver
-1005,andrei,david,andrei@david.com,$2b$10$mwjCplPRe9vchn6Ku7QyxeKgHlhNRd2GiSK/prWsNEv,0736589986,Cluj,null,null,admin
+1005,andrei,david,andrei@david.com,$2b$10$mwjCplPRe9vchn6Ku7QyxeKgHlhNRd2GiSK/prWsNEv,0736589986,Cluj,n/a,n/a,admin
 845,Sorin,Apetrei,apetrei.sorin@gmail.com,1234,0743887000,Ilfov,Buftea,strada Onești,driver
 1415,asd,asd,asd@asd.com,$2b$10$G5kjtJ3Kjk.hIpeM55X/G..P6TNtKqRFGOyCOAl7.g5iUSPU3AwkS,0712345678,Cluj,Dej,asd,user
 1055,a,a,b@a.com,$2b$10$SpF/9Eyi0UmArB6YpxXRdOBWaxbo0ctS1f2HuaYIsXG,0783053239,Ilfov,București,a,user
@@ -10,7 +10,7 @@
 5,a,a,bujorbogdanconstantin@gmail.com,$2b$10$HQaV9JEq9PnAvr6Drc440ujoBbjcUGRfLwKJ634d.Vw,0783053239,,,,admin
 1075,a,a,c@a.com,$2b$10$ojKjtweEOjzxC7uqs1FYbOEIURnk8gLmWni9ECI0mQe,0783053239,Ilfov,București,a,user
 805,Dominic,Codrescu,codrescu.dominic@gmail.com,1234,0743887000,Galați,Tecuci,strada Apei,driver
-775,Ionel,Endel,endel.ionel@gmail.com,1234,0743887000,Dolj,Craiova,strada Odei,driver
+775,Ionel,Endel,endel.ionel@gmail.com,$2b$10$Jx48I01Vw47FnBqjonuiNuL3Qz4UYY7cdepn7lr79b.Y2wBB.NT0K,0743887000,Dolj,Craiova,strada Odei,driver
 815,Dragoș,Felea,felea.dragos@gmail.com,$2b$10$uzn5dLjY0SK3zAKGo8xzD.MNvBXrDBeSginRfurgIBQgGFforr8VC,0743887000,Iași,Iași,strada Anastasie Panu,driver
 915,Mirel,Georgescu,georgescu.mirel@gmail.com,1234,0743887000,Cluj,Cluj-Napoca,strada Parului,employee
 1235,a,a,h@a.com,$2b$10$lCakgqFkSa2YTs68L3td5ezRGzNsq5Dn8qJnJIsGhGS,0783053239,Cluj,Cluj-Napoca,a,user
@@ -28,8 +28,8 @@
 885,Robert,Olariu,olariu.robert@gmail.com,1234,0743887000,Sibiu,Ocna Sibiului,strada Cicoarei,driver
 795,Bogdan,Pălăriuță,palariuta.bogdan@gmail.com,$2b$10$VdHjxa3t4fg4Nr.38x1Sse2i9Qwqdi0Km6DNlyyrqF4m5L/.SBGL.,0743887000,Galați,Galați,strada Focului,driver
 925,Carol,Pană,pana.carol@gmail.com,1234,0743887000,Constanța,Constanța,strada Orhideei,employee
-825,Doru,Panaite,panaite.doru@gmail.com,1234,0743887000,Iași,Hârlău,strada Mare,driver
-785,Ionuț,Pasăre,pasare.ionut.ionel@gmail.com,1234,0743887000,Dolj,Băilești,strada Vodă,driver
+825,Doru,Panaite,panaite.doru@gmail.com,$2b$10$BYwWXCsYSXL0xXrxAGP9YOZVTR2TuISEPH2lFLSiYBQINiI6v3OiC,0743887000,Iași,Hârlău,strada Mare,driver
+785,Ionuț,Pasăre,pasare.ionut.ionel@gmail.com,$2b$10$EOWTJEdapQvLyN/PYE2XW.RwstPOVHRae/Iblz7tKQfFeep1F3NBm,0743887000,Dolj,Băilești,strada Vodă,driver
 755,Eduard,Popa,popa.eduard@gmail.com,1234,0743887000,Constanța,Constanța,strada Orhideei,driver
 735,Andrei,Popescu,popescu.andrei@gmail.com,1234,0743887000,Cluj,Cluj-Napoca,strada Parului,driver
 895,Tudor,Popovici,popovici.tudor@gmail.com,1234,0743887000,Timișoara,Timișoara,strada Cuza Vodă,driver
