@@ -36,6 +36,7 @@ class App {
             }
             console.log(`${req.method} on ${req.url}`)
 
+
             if (req.method == "GET" || req.method == "HEAD") {
                 res = this.router.handleRoute(req, res)
                 return
@@ -50,8 +51,8 @@ class App {
                             error: `Payload too large`
                         })
                         // res.end()
+                        return
                     }
-
                 })
                 req.on('end', function () {
                     let finalData = {}
@@ -90,7 +91,6 @@ class App {
                 })
                 req.connection.destroy()
             }
-
         }.bind(this)).listen(this.port)
 
 
