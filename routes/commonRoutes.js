@@ -14,4 +14,5 @@ commonRouter.post(`/api/logout`, controllers.commonController.handleLogout);
 commonRouter.get(apiModel.baseApi.estimateCost.route, controllers.commonController.estimateCost);
 commonRouter.get(apiModel.baseApi.helloWord.route, controllers.commonController.helloWord);
 commonRouter.post(apiModel.baseApi.newAccount.route, controllers.commonController.createAccountUser);
+
 module.exports = commonRouter

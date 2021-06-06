@@ -2,6 +2,7 @@ const { StatusCodes } = require(`http-status-codes`)
 const models = require("../models")
 const nodemailer = require('nodemailer');
 const { hashSync, genSaltSync, compareSync } = require("bcrypt")
+const fs = require('fs');
 
 
 module.exports = {
@@ -440,8 +441,81 @@ module.exports = {
                     error: `missing body`
                 })
             body = req.body
+        } else {
+            res.status(StatusCodes.UNAUTHORIZED).json({
+                success: 0,
+                error: "doar adminul poate executa aceasta comanda!"
+            })
         }
-        else {
+    },
+    getDbTables: (req, res) => {
+        if (req.accountType == `admin`) {
+            req.db.getAllTables((error, results) => {
+                results = results.map(r => r.TABLE_NAME)
+                if (error) {
+                    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+                        success: false,
+                        error: error.message
+                    })
+                } else {
+                    res.status(StatusCodes.OK).json({
+                        success: true,
+                        message: results
+                    })
+                }
+            })
+        } else {
+            res.status(StatusCodes.UNAUTHORIZED).json({
+                success: 0,
+                error: "doar adminul poate executa aceasta comanda!"
+            })
+        }
+    },
+    uploadFiles: (req, res) => {
+        if (req.accountType == `admin`) {
+            console.log(req.filePath)
+            fs.readFile(req.filePath, 'utf8', function(err, data) {
+                console.log(data)
+            })
+        } else {
+            res.status(StatusCodes.UNAUTHORIZED).json({
+                success: 0,
+                error: "doar adminul poate executa aceasta comanda!"
+            })
+        }
+    },
+    downloadFiles: (req, res) => {
+        if (req.accountType == `admin`) {
+            req.db.getDataFromTable(req.parameters.table, (error, results, fields) => {
+                if (error) {
+                    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+                        success: false,
+                        error: error.message
+                    })
+                } else {
+                    res.setHeader('Content-type', 'octet/stream');
+                    res.setHeader('Content-dispositon', 'filename=test.csv');
+                    let writeStream = fs.createWriteStream(`./uploadedFiles/${req.parameters.table}.csv`);
+                    results.forEach(line => {
+                        var last = null;
+                        let entries = Object.entries(line);
+                        for (let [index, [key, value]] of entries.entries()) {
+                            if (index + 1 == Object.keys(line).length) {
+                                last = value;
+                                break;
+                            }
+
+                            writeStream.write(value + ',')
+                        }
+                        writeStream.write(last)
+                        writeStream.write('\n')
+
+                    });
+                    writeStream.end();
+                }
+            })
+
+        } else {
             res.status(StatusCodes.UNAUTHORIZED).json({
                 success: 0,
                 error: "doar adminul poate executa aceasta comanda!"

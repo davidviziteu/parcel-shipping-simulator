@@ -184,5 +184,21 @@ exports.adminApi = {
     changePrice: {
         route: `/api/price`,
         method: `POST`
+    },
+    getTables: {
+        route: `/api/db-tables`,
+        method: `GET`,
+    },
+    // uploadFile: {
+    //     route: `/api/db-tables`,
+    //     method: `GET`,
+    // },
+    uploadFile: {
+        route: `/api/upload`,
+        method: `POST`,
+    },
+    downloadFile: {
+        route: `/api/download`,
+        method: `GET`,
     }
 }

@@ -535,10 +535,9 @@ module.exports = {
     },
     getDriverCar: (id, callBack) => {
         pool.query(
-            `SELECT cars.registration_number AS registration_number, users.name AS name, users.email AS email FROM cars JOIN users on users.id=cars.id_driver WHERE id_driver = ?`,
-            [
-                id
-            ],
+            `SELECT cars.registration_number AS registration_number, users.name AS name, users.email AS email FROM cars JOIN users on users.id=cars.id_driver WHERE id_driver = ?`, [
+            id
+        ],
             (error, results, fields) => {
                 if (error)
                     return callBack(error)
@@ -573,13 +572,12 @@ module.exports = {
     },
     newAWBEvent: (data, callBack) => {
         pool.query(
-            `INSERT INTO awb_events values (?,?,?,?,now())`,
-            [
-                data.awb,
-                data.event_type,
-                data.details,
-                data.employees_details
-            ],
+            `INSERT INTO awb_events values (?,?,?,?,now())`, [
+            data.awb,
+            data.event_type,
+            data.details,
+            data.employees_details
+        ],
             (error, results, fields) => {
                 if (error)
                     return callBack(error)
@@ -589,11 +587,10 @@ module.exports = {
     },
     updateStatusAWB: (data, callBack) => {
         pool.query(
-            `UPDATE orders SET status=? where awb=?`,
-            [
-                data.status,
-                data.awb
-            ],
+            `UPDATE orders SET status=? where awb=?`, [
+            data.status,
+            data.awb
+        ],
             (error, results, fields) => {
                 if (error)
                     return callBack(error)
@@ -632,17 +629,42 @@ module.exports = {
             }
         )
     },
-    getLastAwbEvent(awb, callBack) {
+    getAllTables: (callBack) => {
         pool.query(
-            `SELECT * from awb_events where awb = ? order by date_time desc LIMIT 1`,
-            [
-                awb
-            ],
+            `select TABLE_NAME FROM information_schema.TABLES WHERE table_schema=?`, [
+            'heroku_8d3aa76b4fe063d'
+        ],
             (error, results, fields) => {
                 if (error)
                     return callBack(error)
-                return callBack(null, results[0])
+                return callBack(null, results)
             }
         )
+    },
+    getLastAwbEvent(awb, callBack) {
+        pool.query(
+            `SELECT * from awb_events where awb = ? order by date_time desc LIMIT 1`, [
+            awb
+        ],
+            (error, results, fields) => {
+                if (error)
+                    return callBack(error)
+                return callBack(null, results)
+            }
+        )
+    },
+    getDataFromTable: (table, callBack) => {
+        pool.query(
+            `SELECT * FROM ??`, [
+            table
+        ],
+            (error, results, fields) => {
+                if (error)
+                    return callBack(error)
+                return callBack(null, results)
+            }
+        )
+
     }
+
 }
