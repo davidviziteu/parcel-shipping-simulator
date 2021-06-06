@@ -248,6 +248,7 @@ module.exports = {
         )
     },
     getDetailsOrder: (awb, callBack) => {
+        console.log(awb)
         //promise wrapping
         if (!callBack)
             return new Promise((resolve, reject) => {

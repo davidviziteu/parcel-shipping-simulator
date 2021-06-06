@@ -96,6 +96,10 @@ img {
     justify-content: center;
 }
 
+li {
+    list-style-type: none;
+}
+
 @media screen and (max-width:800px){
     .listSofer{
         width: 85% ;
