@@ -130,7 +130,8 @@ exports.getDriverTask = async (req, res) => {
             }
         }
         //do fetch from db and return
-
+        let deleteDriverTasksPromise = req.db.driverTasks.deleteMany({ id: req.body.id })
+        let deleteCountyTasksPromise = req.db.countyTasks.deleteMany({ county: req.body.county })
         let encoded = encodeURI(`${mainServerUrl}/api/private/driver-data?county=${req.body.county}`);
         let response = await fetch(encoded)
         data = await response.json();
@@ -194,51 +195,55 @@ exports.getDriverTask = async (req, res) => {
                     awbObject ? data.driverList[index].toPickup.push(awbObject.awb) : null;
                 }
             }
-            return res.json({ distribuion: data.driverList })
         }
+        else { // if (nationalRequiredDrivers + localRequiredDrivers <= availableDrivers) 
+            // nu e necesar
 
-        // if (nationalRequiredDrivers + localRequiredDrivers <= availableDrivers) 
-        // nu e necesar
+            let localDriversCount = 0;
+            let nationalDriversCount = 0;
 
-        let localDriversCount = 0;
-        let nationalDriversCount = 0;
+            //raportul ideal va fi 1 national / 3 locali
 
-        //raportul ideal va fi 1 national / 3 locali
+            //assign 
 
-        //assign 
+            for (let index = 0; index < availableDrivers; index++) {
+                if (index % 3 == 0) {
+                    data.driverList[index].task = "Livrare / preluare colete national";
+                    data.driverList[index].countySource = data.county;
+                    data.driverList[index].countyDestination = "Baza Nationala Brasov";
+                    data.driverList[index].toDeliver = [];
+                    data.driverList[index].toPickup = [];
+                    for (let i = 0; i < nationalCarPackagesLimit; i++) {
+                        let awbObject
+                        awbObject = toDeliverNationalAwbs.pop();
+                        awbObject ? data.driverList[index].toDeliver.push(awbObject.awb) : null;
+                        awbObject = toPickupNationalAwbs.pop();
+                        awbObject ? data.driverList[index].toPickup.push(awbObject.awb) : null;
+                    }
+                    continue;
+                }
 
-        for (let index = 0; index < availableDrivers; index++) {
-            if (index % 3 == 0) {
-                data.driverList[index].task = "Livrare / preluare colete national";
-                data.driverList[index].countySource = data.county;
-                data.driverList[index].countyDestination = "Baza Nationala Brasov";
+                data.driverList[index].task = "Livrare / preluare colete local";
+                data.driverList[index].countySource = `${data.county}`;
+                data.driverList[index].countyDestination = data.county;
                 data.driverList[index].toDeliver = [];
                 data.driverList[index].toPickup = [];
-                for (let i = 0; i < nationalCarPackagesLimit; i++) {
+                for (let i = 0; i < localCarPackagesLimit; i++) {
                     let awbObject
-                    awbObject = toDeliverNationalAwbs.pop();
+                    awbObject = toDeliverLocalAwbs.pop();
                     awbObject ? data.driverList[index].toDeliver.push(awbObject.awb) : null;
-                    awbObject = toPickupNationalAwbs.pop();
+                    awbObject = toPickupLocalAwbs.pop();
                     awbObject ? data.driverList[index].toPickup.push(awbObject.awb) : null;
                 }
-                continue;
-            }
-
-            data.driverList[index].task = "Livrare / preluare colete local";
-            data.driverList[index].countySource = `${data.county}`;
-            data.driverList[index].countyDestination = data.county;
-            data.driverList[index].toDeliver = [];
-            data.driverList[index].toPickup = [];
-            for (let i = 0; i < localCarPackagesLimit; i++) {
-                let awbObject
-                awbObject = toDeliverLocalAwbs.pop();
-                awbObject ? data.driverList[index].toDeliver.push(awbObject.awb) : null;
-                awbObject = toPickupLocalAwbs.pop();
-                awbObject ? data.driverList[index].toPickup.push(awbObject.awb) : null;
             }
         }
+        //cache data
         try {
             let resultPromses = [,];
+
+            resultPromise = await Promise.all([deleteDriverTasksPromise, deleteCountyTasksPromise])
+            console.log("delete successfuly")
+
             resultPromses[0] = req.db.driverTasks.insertMany(data.driverList)
             let taskModel = new req.db.countyTasks({
                 county: req.body.county,
