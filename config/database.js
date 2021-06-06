@@ -192,19 +192,18 @@ module.exports = {
             }
         );
     },
-    addEventsDriver: (data, callBack) => {
-        if (data.accident)
-            pool.query(
-                `INSERT INTO driver_events values (?,?,now())`, [
-                    data.id,
-                    data.accident
-                ],
-                (error, results, fields) => {
-                    if (error) {
-                        return callBack(error)
-                    }
+    addAccidentDriver: (id, callBack) => {
+        pool.query(
+            `INSERT INTO driver_events values (?,?,now())`, [
+                id,
+                true
+            ],
+            (error, results, fields) => {
+                if (error) {
+                    return callBack(error)
                 }
-            )
+            }
+        )
     },
     addNotification: (data, callBack) => {
         pool.query(
@@ -632,6 +631,18 @@ module.exports = {
         pool.query(
             `select TABLE_NAME FROM information_schema.TABLES WHERE table_schema=?`, [
                 'heroku_8d3aa76b4fe063d'
+            ],
+            (error, results, fields) => {
+                if (error)
+                    return callBack(error)
+                return callBack(null, results)
+            }
+        )
+    },
+    getLastAwbEvent(awb, callBack) {
+        pool.query(
+            `SELECT * from awb_events where awb = ? order by date_time desc LIMIT 1`, [
+                awb
             ],
             (error, results, fields) => {
                 if (error)

@@ -16,14 +16,12 @@ var buttonLivrat = document.getElementById('livrat')
 var buttonRidicat = document.getElementById('ridicat')
 var buttonSubmit = document.getElementById('submit')
 
-//const task = localStorage.getItem('task')
-//const toDeliver = localStorage.getItem('toDeliver')
-//const toPickup = localStorage.getItem('toPickup')
-//const awb = localStorage.getItem('awb')
-const task = "local"
-const toDeliver = true
-const toPickup = false
-const awb = 1234
+const task = localStorage.getItem('task')
+const toDeliver = localStorage.getItem('toDeliver')
+const toPickup = localStorage.getItem('toPickup')
+const awb = localStorage.getItem('awb')
+
+document.getElementById("title awb").innerHTML += awb
 
 if (task == "national" && toDeliver) {
     buttonRidicat.innerHTML = "Am ridicat coletul din baza locala"
@@ -39,8 +37,7 @@ if (task == "local" && toPickup) {
 }
 if (task == "local" && toDeliver) {
     buttonLivrat.innerHTML = "Am livrat coletul la client"
-    buttonRidicat.style.display = "none"
-    document.getElementById("check").style.display = "none"
+    buttonRidicat.innerHTML = "Am dus coletul inapoi in baza"
 }
 
 buttonExpeditor.addEventListener('click', () => {
@@ -134,12 +131,13 @@ buttonRidicat.addEventListener('click', () => {
 
 
 window.addEventListener(`api-fetched`, (ev) => {
-    fetch(`${hostName}${api.getDetailsAwbforDriver.route}`, {
+    fetch(`${hostName}${api.getDetailsAwbforDriver.route}?awb=${awb}`, {
         method: api.getDetailsAwbforDriver.method,
         headers: { "Content-type": "application/json" }
     })
         .then(response => response.json())
         .then(json => {
+            console.log(json)
             document.getElementById("name_sender").innerHTML = "Nume: " + json["fullName_sender"]
             document.getElementById("county_sender").innerHTML = "Județul: " + json["county_sender"]
             document.getElementById("city_sender").innerHTML = "Orașul: " + json["city_sender"]

@@ -1,15 +1,17 @@
 const { StatusCodes } = require(`http-status-codes`)
 const models = require("../models")
-const hostName = require("../models/apiModel")
+const apiModel = require("../models/apiModel")
 const { id } = require("../models/orderModel")
 const jwt_decode = require('jwt-decode');
 const fetch = require('node-fetch');
+const { driverGetTaskInputSchema } = require("../models/driverModel");
 
 const driverEventsSchema = models.userModel.driverEventsSchema
 
 module.exports = {
     addEvents: async (req, res) => {
         const body = req.body
+        console.log(body)
         const { error, value } = driverEventsSchema.validate(body)
         if (error) {
             console.log(error)
@@ -36,7 +38,138 @@ module.exports = {
                 })
             }
             else {
-                if (body.task == "local" && body.toPickup && body.picked_up) {
+                if (body.accident) {
+                    req.db.getLastAwbEvent(body.awb, (error, results) => {
+                        if (error) {
+                            return res.status(200).json({
+                                success: false,
+                                error: error.message
+                            })
+                        }
+                        else {
+                            const data = {
+                                awb: data.awb,
+                                event_type: results.event_type,
+                                details: "Soferul a facut accident!",
+                                employees_details: results.employees_details
+                            }
+                            req.db.newAWBEvent(data, (error, results) => {
+                                if (error) {
+                                    return res.status(200).json({
+                                        success: false,
+                                        error: error.message
+                                    })
+                                }
+                            })
+                        }
+                    })
+                }
+                else if (body.meteo) {
+                    req.db.getLastAwbEvent(body.awb, (error, results) => {
+                        if (error) {
+                            return res.status(200).json({
+                                success: false,
+                                error: error.message
+                            })
+                        }
+                        else {
+                            const data = {
+                                awb: data.awb,
+                                event_type: results.event_type,
+                                details: "Conditii meteo nefavorabile!",
+                                employees_details: results.employees_details
+                            }
+                            req.db.newAWBEvent(data, (error, results) => {
+                                if (error) {
+                                    return res.status(200).json({
+                                        success: false,
+                                        error: error.message
+                                    })
+                                }
+                            })
+                        }
+                    })
+                }
+                else if (body.failure) {
+                    req.db.getLastAwbEvent(body.awb, (error, results) => {
+                        if (error) {
+                            return res.status(200).json({
+                                success: false,
+                                error: error.message
+                            })
+                        }
+                        else {
+                            const data = {
+                                awb: data.awb,
+                                event_type: results.event_type,
+                                details: "Soferul a avut defectiuni la masina!",
+                                employees_details: results.employees_details
+                            }
+                            req.db.newAWBEvent(data, (error, results) => {
+                                if (error) {
+                                    return res.status(200).json({
+                                        success: false,
+                                        error: error.message
+                                    })
+                                }
+                            })
+                        }
+                    })
+                }
+                else if (body.client) {
+                    req.db.getLastAwbEvent(body.awb, (error, results) => {
+                        if (error) {
+                            return res.status(200).json({
+                                success: false,
+                                error: error.message
+                            })
+                        }
+                        else {
+                            const data = {
+                                awb: data.awb,
+                                event_type: results.event_type,
+                                details: "Clientul nu a fost acasa!",
+                                employees_details: results.employees_details
+                            }
+                            req.db.newAWBEvent(data, (error, results) => {
+                                if (error) {
+                                    return res.status(200).json({
+                                        success: false,
+                                        error: error.message
+                                    })
+                                }
+                            })
+                        }
+                    })
+                }
+                else if (body.content) {
+                    req.db.getLastAwbEvent(body.awb, (error, results) => {
+                        if (error) {
+                            return res.status(200).json({
+                                success: false,
+                                error: error.message
+                            })
+                        }
+                        else {
+                            const data = {
+                                awb: data.awb,
+                                event_type: results.event_type,
+                                details: "Continut deteriorat!",
+                                employees_details: results.employees_details
+                            }
+                            req.db.newAWBEvent(data, (error, results) => {
+                                if (error) {
+                                    return res.status(200).json({
+                                        success: false,
+                                        error: error.message
+                                    })
+                                }
+                            })
+                        }
+                    })
+                }
+                else if (body.task == "local" && body.toPickup && body.picked_up) {
+                    console.log("aici")
                     const data = {
                         awb: body.awb,
                         event_type: "order-picked-up",
@@ -99,6 +232,34 @@ module.exports = {
                         status: 'order-destinatary',
                         details: 'Livrat',
                         employees_details: "Coletul a fost livrat de soferul " + results.name + " cu masina " + results.registration_number + ".",
+                    }
+                    req.db.newAWBEvent(data, (error, results) => {
+                        if (error) {
+                            return res.status(200).json({
+                                success: false,
+                                error: error.message
+                            })
+                        }
+                    })
+                    req.db.updateStatusAWB(data, (error, results) => {
+                        if (error) {
+                            return res.status(200).json({
+                                success: false,
+                                error: error.message
+                            })
+                        }
+                    })
+                    return res.status(200).json({
+                        success: true
+                    })
+                }
+                else if (body.task == "local" && body.toDeliver && body.delivered == false) {
+                    const data = {
+                        awb: body.awb,
+                        event_type: 'order-in-transit',
+                        status: 'order-in-local-base-sender',
+                        details: 'A ajuns inapoi la sediu',
+                        employees_details: "Coletul a fost adus de soferul " + results.name + " cu masina " + results.registration_number + "inapoi la sediu.",
                     }
                     req.db.newAWBEvent(data, (error, results) => {
                         if (error) {
@@ -236,7 +397,8 @@ module.exports = {
         })
     },
     detailsOrder: (req, res) => {
-        req.db.getDetailsOrder(req.awb, (error, results) => {
+        body = req.parameters
+        req.db.getDetailsOrder(body.awb, (error, results) => {
             if (error) {
                 console.log(error)
                 res.status(500).json({
@@ -290,15 +452,50 @@ module.exports = {
         })
         return res;
     },
-    getTask: (req, res) => {
+    getTask: async (req, res) => {
+        try {
+            if (!req.accountType || req.accountType == `employee` || req.accountType == `user`)
+                return res.status(StatusCodes.UNAUTHORIZED).json({
+                    success: false,
+                    error: "Unauthorized"
+                })
+            let encoded = encodeURI(`${apiModel.distributionMicroservices[0].address}/api/private/driver-task`);
+            let fetchBody = {}
+            if (req.accountType == `driver`)
+                fetchBody = {
+                    id: req.authData.id,
+                    county: req.authData.county,
+                }
+            else if (req.accountType == `admin`) {
+                const { error } = driverGetTaskInputSchema.validate(req.body)
+                if (error)
+                    return res.status(StatusCodes.BAD_REQUEST).json({
+                        success: false,
+                        error: error.message
+                    })
+                fetchBody = {
+                    id: req.body.id,
+                    county: req.body.county,
+                }
+            }
+            fetchBody.token = req.token
+            let rawResp = await fetch(encoded, {
+                method: `POST`,
+                body: JSON.stringify(fetchBody),
+                headers: {
+                    "Content-type": "application/json"
+                }
+            })
+            let responseJson = await rawResp.json()
+            responseJson.from = `microservice`
+            return res.status(rawResp.status).json(responseJson)
+        } catch (error) {
+            console.error(error);
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+                success: false,
+                error: error.message
+            })
+        }
 
-        res.status(StatusCodes.OK).json({
-            task: "Livrare/preluare colete local", //sau "Livrare/preluare colete national - Brașov",
-            countySource: "Iasi", //locul unde for trebui facute livrarile/pickup urile
-            countyDestination: "Iasi", //locul unde for trebui facute livrarile/pickup urile
-            car: "IS47AVI", //locul unde for trebui facute livrarile/pickup urile
-            toDeliver: [1, 2, 3], //array de awb uri (de int uri)
-            toPickup: [], //array de awb uri (de int uri)
-        })
     },
 }

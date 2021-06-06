@@ -1,7 +1,12 @@
 const host = process.env.PORT ? `https://parcel-shipping-simulator.herokuapp.com` : `http://localhost:4000`
 
 exports.domain = process.env.PORT ? `parcel-shipping-simulator.herokuapp.com` : `localhost`
-
+exports.distributionMicroservices = [
+    {
+        name: `package distribution microservice service 1`,
+        address: process.env.PORT ? `https://pss-package-distribution-1.herokuapp.com` : `http://localhost:8000`
+    },
+]
 /**
  * check client lanseaza comanda, -> insert awb_events (awb, 'order-received', 'comanda a fost primita', '',datetime)
  * ckeck soferul preia pachetul -> insert awb_events (awb, 'order-picked-up', 'ridicat de la expeditor','nume sofer/angajat, id, email, masina, nr de inmatriculare', datetime) 
@@ -134,7 +139,7 @@ exports.driverApi = {
      */
     getTask: {
         route: `/api/get-task`,
-        method: `GET`,
+        method: `POST`,
     },
 }
 

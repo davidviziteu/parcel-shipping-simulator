@@ -37,7 +37,7 @@ class App {
             console.log(`${req.method} on ${req.url}`)
 
 
-            if (req.method == "GET" || req.method == "HEAD") {
+            if (!req.headers['content-type']) {
                 res = this.router.handleRoute(req, res)
                 return
             }

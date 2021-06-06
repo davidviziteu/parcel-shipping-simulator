@@ -13,7 +13,7 @@ function toggleStatus(status) {
     if (status == 'loading') {
         navBar.style.backgroundColor = "#0f5d82"
         document.getElementById("login-info").innerHTML = "⌛"
-        navBar.style.backgroundColor = "rgb(15, 93, 130)"
+        navBar.style.backgroundColor = "#e5c8c19c"
     } else if (status == 'ok') {
         document.getElementById("login-info").innerHTML = "✅"
         // navBar.classList.remove(`animated`)

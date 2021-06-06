@@ -56,7 +56,8 @@ module.exports = {
                 body.appVersion = req.headers.appversion
                 body.product = req.headers.product
                 body.platform = req.headers.platform
-                const jsontoken = sign({ body }, process.env.secretKey, {
+                results = body
+                const jsontoken = sign({ results }, process.env.secretKey, {
                     expiresIn: "1h"
                 });
                 res.setHeader('Set-Cookie', 'token=' + jsontoken + `; HttpOnly;Domain=${models.apiModel.domain};Path=/`);

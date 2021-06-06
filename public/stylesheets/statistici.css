@@ -11,9 +11,7 @@ body{
     flex-direction: column;
 }
 
-#oras , #accident , #intarziere{
-    display: none;
-}
+
 
 @media screen and (max-width:800px){
     .grid{
