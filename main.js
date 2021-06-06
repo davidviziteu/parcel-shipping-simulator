@@ -31,6 +31,35 @@ app = new App(process.env.PORT || 8000, db)
 
 app.use(routers.defaultRouter)
 
+app.useAuth((req) => {
+    let token = null;
+
+    if (req.headers)
+        if (req.headers.cookie)
+            token = req.headers.cookie.split('=')[1];
+
+    if (req.body)
+        if (req.body.token)
+            token = req.body.token
+
+    if (token == null)
+        return req
+
+    let decoded = jwt_decode(token);
+    if (decoded.results != undefined) {
+        req.accountId = decoded.results.id;
+        req.accountType = decoded.results.type;
+    }
+    else if (decoded.body != undefined) {
+        req.accountId = decoded.body.id;
+        req.accountType = decoded.body.type;
+    }
+    req.token = token;
+    return req;
+})
+app.listen();
+
+
 // models.driverTaskSchema.insertMany([
 //     {
 //         "id": 1,
@@ -74,31 +103,3 @@ app.use(routers.defaultRouter)
 //         ]
 //     }
 // ])
-
-app.useAuth((req) => {
-    let token = null;
-
-    if (req.headers)
-        if (req.headers.cookie)
-            token = req.headers.cookie.split('=')[1];
-
-    if (req.body)
-        if (req.body.token)
-            token = req.body.token
-
-    if (token == null)
-        return req
-
-    let decoded = jwt_decode(token);
-    if (decoded.results != undefined) {
-        req.accountId = decoded.results.id;
-        req.accountType = decoded.results.type;
-    }
-    else if (decoded.body != undefined) {
-        req.accountId = decoded.body.id;
-        req.accountType = decoded.body.type;
-    }
-    req.token = token;
-    return req;
-})
-app.listen();

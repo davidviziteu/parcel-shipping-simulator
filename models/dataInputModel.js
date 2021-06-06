@@ -30,6 +30,6 @@ exports.driverGetTaskInputSchema = Joi.object().options({ abortEarly: false }).k
 
 exports.driverUpdateTaskSchema = Joi.object().options({ abortEarly: false }).keys({
     id: Joi.number().required(),
-    deliverd: Joi.number(),
-    pickedUp: Joi.number(),
-}).xor(`delivered`, `pickedUp`);
+    token: Joi.string().regex(/^[A-Za-z0-9-_]+\.[A-Za-z0-9-_]+\.[A-Za-z0-9-_.+/=]*$/).required(),
+    remove: Joi.number(),
+})

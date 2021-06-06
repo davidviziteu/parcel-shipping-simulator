@@ -117,7 +117,6 @@ exports.getDriverTask = async (req, res) => {
                 error: error.message
             })
 
-        console.log(data);
         if (!Array.isArray(data.driverList) || data.driverList.length == 0)
             return res.status(StatusCodes.BAD_REQUEST).json({
                 error: "body.driver list is not an array or is of length 0"
@@ -262,22 +261,56 @@ exports.emptyDB = async (req, res) => {
 }
 
 exports.updateDriverTask = async (req, res) => {
-    if (req.accountType != `driver` && req.accountType != `admin` && req.accountType != `employee`)
-        return res.status(StatusCodes.UNAUTHORIZED).json({
-            success: false,
-            error: ReasonPhrases.UNAUTHORIZED
-        })
+    try {
 
-    const { error } = models.dataInputModel.driverUpdateTaskSchema.validate(req.body)
-    if (error)
-        return res.status(StatusCodes.BAD_REQUEST).json({
-            success: false,
+
+        if (req.accountType != `driver` && req.accountType != `admin` && req.accountType != `employee`)
+            return res.status(StatusCodes.UNAUTHORIZED).json({
+                success: false,
+                error: ReasonPhrases.UNAUTHORIZED
+            })
+        const { error } = models.dataInputModel.driverUpdateTaskSchema.validate(req.body)
+        if (error)
+            return res.status(StatusCodes.BAD_REQUEST).json({
+                success: false,
+                error: error.message
+            })
+
+        if (req.accountType == `driver` && req.body.id != req.accountId)
+            return res.status(StatusCodes.UNAUTHORIZED).json({
+                success: false,
+                error: ReasonPhrases.UNAUTHORIZED
+            })
+
+        let driverTasks = await req.db.driverTasks.find({ id: req.body.id })
+        if (!driverTasks)
+            return res.status(StatusCodes.NOT_FOUND).json({
+                error: "Driver not found in computed data"
+            })
+        console.log(`got data for driver id = ${req.body.id} from db`);
+        driverTasks = driverTasks[0]
+        console.log(driverTasks.toDeliver);
+        console.log(driverTasks.toPickup);
+        driverTasks.toDeliver = driverTasks.toDeliver.filter(awb => awb != req.body.remove)
+        driverTasks.toPickup = driverTasks.toPickup.filter(awb => awb != req.body.remove)
+
+        const filter = { _id: driverTasks._id };
+        // replace the matched document with the replacement document
+
+
+        await models.driverTaskSchema.replaceOne(filter, driverTasks);
+
+        console.log(driverTasks);
+
+        return res.status(StatusCodes.OK).json({
+            success: true
+        })
+    } catch (error) {
+        console.error(error);
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
             error: error.message
         })
-
-    return res.status(StatusCodes.OK).json({
-        success: true
-    })
+    }
 }
 
 
