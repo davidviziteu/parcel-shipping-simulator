@@ -1,24 +1,12 @@
 const mainHost = process.env.PORT ? `https://parcel-shipping-simulator.herokuapp.com` : `http://localhost:4000`
 var cityList = ["Ilfov", "Cluj", "Constanța", "Dolj", "Galați", "Iași", "Oradea", "Sibiu", "Timișoara"];
-const { StatusCodes } = require(`http-status-codes`);
+const { StatusCodes, ReasonPhrases, getReasonPhrase } = require(`http-status-codes`);
 const { db } = require("../models/driverTaskSchema");
 const models = require('../models');
 const { default: fetch } = require("node-fetch");
-const { dataInputSchema } = require("../models/dataInputModel");
+const { driverGetTaskMainServerDataInputSchema } = require("../models/dataInputModel");
 
 const mainServerUrl = process.env.PORT ? `https://parcel-shipping-simulator.herokuapp.com` : `http://localhost:4000`
-
-function getRandomInt(max) {
-    return Math.floor(Math.random() * max);
-}
-
-async function getMainServerData(county) {
-    let result = await fetch(`${mainServerUrl}/api/private/driver-data?county=${county}`)
-    if (!result.ok)
-        throw new Error(`server responded with status: ${result.status}`)
-    return await result.json()
-
-}
 
 /**
  * o sa primeasca un id de sofer si niste task uri.
@@ -63,36 +51,17 @@ exports.getDriverTask = async (req, res) => {
 
     if (req.accountType != `driver` && req.accountType != `admin` && req.accountType != `employee`)
         return res.status(StatusCodes.UNAUTHORIZED).json({
-            success: false
+            success: false,
+            error: ReasonPhrases.UNAUTHORIZED
         })
 
-    if (!req.body)
+    const { error } = models.dataInputModel.driverGetTaskInputSchema.validate(req.body)
+    if (error)
         return res.status(StatusCodes.BAD_REQUEST).json({
             success: false,
-            message: "Body required with id and county of the driver"
+            error: error.message
         })
 
-    if (!req.body.county)
-        return res.status(StatusCodes.BAD_REQUEST).json({
-            success: false,
-            message: "County required in body"
-        })
-
-    if (!req.body.id)
-        return res.status(StatusCodes.BAD_REQUEST).json({
-            success: false,
-            message: "Id driver required in body"
-        })
-
-    //do validation of county in params
-    let finalObject = {
-        task: "Livrare/preluare colete local", //sau "Livrare/preluare colete national - Brașov",
-        countySource: "Iași", //locul unde for trebui facute livrarile/pickup urile
-        countyDestination: "Iași", //locul unde for trebui facute livrarile/pickup urile
-        car: "IS47AVI", //locul unde for trebui facute livrarile/pickup urile
-        toDeliver: [], //array de awb uri (de int uri)
-        toPickup: [], //array de awb uri (de int uri)
-    }
     try {
         let currentDay = new Date(Date.now()).getDate();
         let dbResults = await req.db.countyTasks.find({ county: req.body.county });
@@ -141,11 +110,11 @@ exports.getDriverTask = async (req, res) => {
                 error: `cannot fetch data from the main server at : ${mainServerUrl}`,
                 mainServerError: data.error
             })
-        const { error } = dataInputSchema.validate(data)
+        const { error } = driverGetTaskMainServerDataInputSchema.validate(data)
         if (error)
             return res.status(StatusCodes.BAD_REQUEST).json({
                 success: false,
-                error: error
+                error: error.message
             })
 
         console.log(data);
@@ -292,6 +261,24 @@ exports.emptyDB = async (req, res) => {
     });
 }
 
+exports.updateDriverTask = async (req, res) => {
+    if (req.accountType != `driver` && req.accountType != `admin` && req.accountType != `employee`)
+        return res.status(StatusCodes.UNAUTHORIZED).json({
+            success: false,
+            error: ReasonPhrases.UNAUTHORIZED
+        })
+
+    const { error } = models.dataInputModel.driverUpdateTaskSchema.validate(req.body)
+    if (error)
+        return res.status(StatusCodes.BAD_REQUEST).json({
+            success: false,
+            error: error.message
+        })
+
+    return res.status(StatusCodes.OK).json({
+        success: true
+    })
+}
 
 
 let a = {
@@ -341,4 +328,11 @@ let a = {
 }
 
 
-exports.updateDriverTask = async (req, res) => { }
+let finalObject = {
+    task: "Livrare/preluare colete local", //sau "Livrare/preluare colete national - Brașov",
+    countySource: "Iași", //locul unde for trebui facute livrarile/pickup urile
+    countyDestination: "Iași", //locul unde for trebui facute livrarile/pickup urile
+    car: "IS47AVI", //locul unde for trebui facute livrarile/pickup urile
+    toDeliver: [], //array de awb uri (de int uri)
+    toPickup: [], //array de awb uri (de int uri)
+}

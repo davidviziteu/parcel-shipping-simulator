@@ -15,10 +15,21 @@ awbListSchema = Joi.object().options({ abortEarly: false }).keys({
     countyDestination: Joi.string().required()
 })
 
-
-
-exports.dataInputSchema = Joi.object().options({ abortEarly: false }).keys({
-    county: Joi.string().required(),
-    driverList: Joi.array().required().items(driverListSchema),
-    awbList: Joi.array().required().items(awbListSchema)
+exports.driverGetTaskMainServerDataInputSchema = Joi.object().options({ abortEarly: false }).keys({
+    county: Joi.string().required().valid(...cityList),
+    driverList: Joi.array().items(driverListSchema),
+    awbList: Joi.array().items(awbListSchema),
 });
+
+
+exports.driverGetTaskInputSchema = Joi.object().options({ abortEarly: false }).keys({
+    id: Joi.number().required(),
+    token: Joi.string().regex(/^[A-Za-z0-9-_]+\.[A-Za-z0-9-_]+\.[A-Za-z0-9-_.+/=]*$/).required(),
+    county: Joi.string().required().valid(...cityList)
+});
+
+exports.driverUpdateTaskSchema = Joi.object().options({ abortEarly: false }).keys({
+    id: Joi.number().required(),
+    deliverd: Joi.number(),
+    pickedUp: Joi.number(),
+}).xor(`delivered`, `pickedUp`);

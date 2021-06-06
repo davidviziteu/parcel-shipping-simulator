@@ -6,4 +6,5 @@ const dataInputModel = require(`./dataInputModel`)
 module.exports = {
     driverTaskSchema,
     countyTasksDoneToday,
+    dataInputModel
 }

@@ -27,12 +27,6 @@ class App {
             res = this.addResponseFunctionalities(res)
             req = this.addRequestFunctionalities(req)
             req = this.authFunction(req);
-            if (!this.isRestAPI(req.url)) { //nume prost ales pt functia aia
-                res = this.handleStatic(req, res)
-                // if (res.endNow)
-                //     res.end()
-                return
-            }
             console.log(`${req.method} on ${req.url}`)
             if (req.headers && req.headers['content-type'])
                 if (req.headers['content-type'] != "application/json" && req.headers['content-type'] != "application/octet-stream") {
@@ -180,24 +174,24 @@ class App {
         return req
     }
 
-    handleStatic(req, res) {
-        // parse URL
-        const parsedUrl = url.parse(req.url)
-        // extract URL path
-        let pathname = `${parsedUrl.pathname}`
-        if (pathname == `/`) {
-            if (!req.accountType)
-                return res.sendFile(`public/landingPage.html`)
-            return res.sendFile(`public/dashboard-${req.accountType}.html`)
-        } else
-            if (pathname == `/landingPage.html`) {
-                if (!req.accountType)
-                    return res.sendFile(`public/landingPage.html`)
-                return res.sendFile(`public/dashboard-${req.accountType}.html`)
-            } else
-                return res.sendFile(`public` + pathname)
+    // handleStatic(req, res) {
+    //     // parse URL
+    //     const parsedUrl = url.parse(req.url)
+    //     // extract URL path
+    //     let pathname = `${parsedUrl.pathname}`
+    //     if (pathname == `/`) {
+    //         if (!req.accountType)
+    //             return res.sendFile(`public/landingPage.html`)
+    //         return res.sendFile(`public/dashboard-${req.accountType}.html`)
+    //     } else
+    //         if (pathname == `/landingPage.html`) {
+    //             if (!req.accountType)
+    //                 return res.sendFile(`public/landingPage.html`)
+    //             return res.sendFile(`public/dashboard-${req.accountType}.html`)
+    //         } else
+    //             return res.sendFile(`public` + pathname)
 
-    }
+    // }
 }
 
 module.exports = { App }
