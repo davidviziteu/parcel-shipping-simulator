@@ -4,7 +4,7 @@ exports.domain = process.env.PORT ? `parcel-shipping-simulator.herokuapp.com` : 
 exports.distributionMicroservices = [
     {
         name: `package distribution microservice service 1`,
-        address: process.env.PORT ? `https://pss-package-distribution-1.herokuapp.com` : `http://localhost:8000/`
+        address: process.env.PORT ? `https://pss-package-distribution-1.herokuapp.com` : `http://localhost:8000`
     },
 ]
 /**
@@ -139,7 +139,7 @@ exports.driverApi = {
      */
     getTask: {
         route: `/api/get-task`,
-        method: `GET`,
+        method: `POST`,
     },
 }
 
