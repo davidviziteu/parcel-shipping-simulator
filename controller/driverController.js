@@ -46,22 +46,36 @@ module.exports = {
                                 error: error.message
                             })
                         }
-                        else {
-                            const data = {
-                                awb: data.awb,
-                                event_type: results.event_type,
-                                details: "Soferul a facut accident!",
-                                employees_details: results.employees_details
-                            }
-                            req.db.newAWBEvent(data, (error, results) => {
-                                if (error) {
-                                    return res.status(200).json({
-                                        success: false,
-                                        error: error.message
-                                    })
-                                }
-                            })
+                        const data = {
+                            awb: results.awb,
+                            event_type: results.event_type,
+                            details: "Soferul a facut accident!",
+                            employees_details: results.employees_details
                         }
+                        req.db.newAWBEvent(data, (error, results) => {
+                            if (error) {
+                                return res.status(200).json({
+                                    success: false,
+                                    error: error.message
+                                })
+                            }
+                        })
+                        const info = {
+                            id: req.accountId,
+                            event_type: "accident"
+                        }
+                        req.db.addEventDriverEvent(info, (error, results) => {
+                            if (error) {
+                                console.log(error.message)
+                                return res.status(200).json({
+                                    success: false,
+                                    error: error.message
+                                })
+                            }
+                        })
+                        return res.status(200).json({
+                            success: true
+                        })
                     })
                 }
                 else if (body.meteo) {
@@ -72,22 +86,36 @@ module.exports = {
                                 error: error.message
                             })
                         }
-                        else {
-                            const data = {
-                                awb: data.awb,
-                                event_type: results.event_type,
-                                details: "Conditii meteo nefavorabile!",
-                                employees_details: results.employees_details
-                            }
-                            req.db.newAWBEvent(data, (error, results) => {
-                                if (error) {
-                                    return res.status(200).json({
-                                        success: false,
-                                        error: error.message
-                                    })
-                                }
-                            })
+                        const data = {
+                            awb: results.awb,
+                            event_type: results.event_type,
+                            details: "Conditii meteo nefavorabile!",
+                            employees_details: results.employees_details
                         }
+                        req.db.newAWBEvent(data, (error, results) => {
+                            if (error) {
+                                return res.status(200).json({
+                                    success: false,
+                                    error: error.message
+                                })
+                            }
+                        })
+                        const info = {
+                            id: req.accountId,
+                            event_type: "meteo"
+                        }
+                        req.db.addEventDriverEvent(info, (error, results) => {
+                            if (error) {
+                                console.log(error.message)
+                                return res.status(200).json({
+                                    success: false,
+                                    error: error.message
+                                })
+                            }
+                        })
+                        return res.status(200).json({
+                            success: true
+                        })
                     })
                 }
                 else if (body.failure) {
@@ -98,22 +126,36 @@ module.exports = {
                                 error: error.message
                             })
                         }
-                        else {
-                            const data = {
-                                awb: data.awb,
-                                event_type: results.event_type,
-                                details: "Soferul a avut defectiuni la masina!",
-                                employees_details: results.employees_details
-                            }
-                            req.db.newAWBEvent(data, (error, results) => {
-                                if (error) {
-                                    return res.status(200).json({
-                                        success: false,
-                                        error: error.message
-                                    })
-                                }
-                            })
+                        const data = {
+                            awb: results.awb,
+                            event_type: results.event_type,
+                            details: "Soferul a avut defectiuni la masina!",
+                            employees_details: results.employees_details
                         }
+                        req.db.newAWBEvent(data, (error, results) => {
+                            if (error) {
+                                return res.status(200).json({
+                                    success: false,
+                                    error: error.message
+                                })
+                            }
+                        })
+                        const info = {
+                            id: req.accountId,
+                            event_type: "failure"
+                        }
+                        req.db.addEventDriverEvent(info, (error, results) => {
+                            if (error) {
+                                console.log(error.message)
+                                return res.status(200).json({
+                                    success: false,
+                                    error: error.message
+                                })
+                            }
+                        })
+                        return res.status(200).json({
+                            success: true
+                        })
                     })
                 }
                 else if (body.client) {
@@ -126,7 +168,7 @@ module.exports = {
                         }
                         else {
                             const data = {
-                                awb: data.awb,
+                                awb: results.awb,
                                 event_type: results.event_type,
                                 details: "Clientul nu a fost acasa!",
                                 employees_details: results.employees_details
@@ -152,7 +194,7 @@ module.exports = {
                         }
                         else {
                             const data = {
-                                awb: data.awb,
+                                awb: results.awb,
                                 event_type: results.event_type,
                                 details: "Continut deteriorat!",
                                 employees_details: results.employees_details
