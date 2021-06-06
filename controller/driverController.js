@@ -120,6 +120,34 @@ module.exports = {
                         success: true
                     })
                 }
+                else if (body.task == "local" && body.toDeliver && body.delivered == false) {
+                    const data = {
+                        awb: body.awb,
+                        event_type: 'order-in-transit',
+                        status: 'order-in-local-base-sender',
+                        details: 'A ajuns inapoi la sediu',
+                        employees_details: "Coletul a fost adus de soferul " + results.name + " cu masina " + results.registration_number + "inapoi la sediu.",
+                    }
+                    req.db.newAWBEvent(data, (error, results) => {
+                        if (error) {
+                            return res.status(200).json({
+                                success: false,
+                                error: error.message
+                            })
+                        }
+                    })
+                    req.db.updateStatusAWB(data, (error, results) => {
+                        if (error) {
+                            return res.status(200).json({
+                                success: false,
+                                error: error.message
+                            })
+                        }
+                    })
+                    return res.status(200).json({
+                        success: true
+                    })
+                }
                 else if (body.task == "national" && body.toPickup && body.picked_up) {
                     const data = {
                         awb: body.awb,
@@ -236,7 +264,8 @@ module.exports = {
         })
     },
     detailsOrder: (req, res) => {
-        req.db.getDetailsOrder(req.awb, (error, results) => {
+        body = req.parameters
+        req.db.getDetailsOrder(body.awb, (error, results) => {
             if (error) {
                 console.log(error)
                 res.status(500).json({
