@@ -1,6 +1,6 @@
 const { StatusCodes } = require(`http-status-codes`)
 const models = require("../models")
-const hostName = require("../models/apiModel")
+const apiModel = require("../models/apiModel")
 const { id } = require("../models/orderModel")
 const jwt_decode = require('jwt-decode');
 const fetch = require('node-fetch');
@@ -319,8 +319,12 @@ module.exports = {
         })
         return res;
     },
-    getTask: (req, res) => {
-
+    getTask: async (req, res) => {
+        let encoded = encodeURI(`${apiModel.distributionMicroservices[0]}/api/private/driver-data`);
+        let rawResp = await fetch(encoded, {
+            method: `POST`,
+            
+        })
         res.status(StatusCodes.OK).json({
             task: "Livrare/preluare colete local", //sau "Livrare/preluare colete national - Brașov",
             countySource: "Iasi", //locul unde for trebui facute livrarile/pickup urile
