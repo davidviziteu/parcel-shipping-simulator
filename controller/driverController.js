@@ -4,6 +4,7 @@ const apiModel = require("../models/apiModel")
 const { id } = require("../models/orderModel")
 const jwt_decode = require('jwt-decode');
 const fetch = require('node-fetch');
+const { driverGetTaskInputSchema } = require("../models/driverModel");
 
 const driverEventsSchema = models.userModel.driverEventsSchema
 
@@ -291,18 +292,49 @@ module.exports = {
         return res;
     },
     getTask: async (req, res) => {
-        let encoded = encodeURI(`${apiModel.distributionMicroservices[0]}/api/private/driver-data`);
-        let rawResp = await fetch(encoded, {
-            method: `POST`,
-            
-        })
-        res.status(StatusCodes.OK).json({
-            task: "Livrare/preluare colete local", //sau "Livrare/preluare colete national - Brașov",
-            countySource: "Iasi", //locul unde for trebui facute livrarile/pickup urile
-            countyDestination: "Iasi", //locul unde for trebui facute livrarile/pickup urile
-            car: "IS47AVI", //locul unde for trebui facute livrarile/pickup urile
-            toDeliver: [1, 2, 3], //array de awb uri (de int uri)
-            toPickup: [], //array de awb uri (de int uri)
-        })
+        try {
+            if (!req.accountType || req.accountType == `employee` || req.accountType == `user`)
+                return res.status(StatusCodes.UNAUTHORIZED).json({
+                    success: false,
+                    error: "Unauthorized"
+                })
+            let encoded = encodeURI(`${apiModel.distributionMicroservices[0].address}/api/private/driver-task`);
+            let fetchBody = {}
+            if (req.accountType == `driver`)
+                fetchBody = {
+                    id: req.authData.id,
+                    county: req.authData.county,
+                }
+            else if (req.accountType == `admin`) {
+                const { error } = driverGetTaskInputSchema.validate(req.body)
+                if (error)
+                    return res.status(StatusCodes.BAD_REQUEST).json({
+                        success: false,
+                        error: error.message
+                    })
+                fetchBody = {
+                    id: req.body.id,
+                    county: req.body.county,
+                }
+            }
+            fetchBody.token = req.token
+            let rawResp = await fetch(encoded, {
+                method: `POST`,
+                body: JSON.stringify(fetchBody),
+                headers: {
+                    "Content-type": "application/json"
+                }
+            })
+            let responseJson = await rawResp.json()
+            responseJson.from = `microservice`
+            return res.status(rawResp.status).json(responseJson)
+        } catch (error) {
+            console.error(error);
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+                success: false,
+                error: error.message
+            })
+        }
+
     },
 }

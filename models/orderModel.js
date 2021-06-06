@@ -65,8 +65,8 @@ var cities = {
     Timișoara: ["Timișoara", "Buziaș", "Ciacova", "Deta", "Făget", "Gătaia", "Jimbolia", "Lugoj", "Recaș", "Sâncicolau Mare"]
 }
 
-var listCity = ["Ilfov", "Cluj", "Constanța", "Dolj", "Galați", "Iași", "Oradea", "Sibiu", "Timișoara"];
+var cityList = ["Ilfov", "Cluj", "Constanța", "Dolj", "Galați", "Iași", "Oradea", "Sibiu", "Timișoara"];
 
 
 
-module.exports = { newOrderSchema, orderDashboardModel, awbDetailsModel }
+module.exports = { newOrderSchema, orderDashboardModel, awbDetailsModel, cityList, cities }
