@@ -17,8 +17,8 @@ var buttonRidicat = document.getElementById('ridicat')
 var buttonSubmit = document.getElementById('submit')
 
 const task = localStorage.getItem('task')
-const toDeliver = localStorage.getItem('toDeliver')
-const toPickup = localStorage.getItem('toPickup')
+const toDeliver = JSON.parse(localStorage.getItem('toDeliver'))
+const toPickup = JSON.parse(localStorage.getItem('toPickup'))
 const awb = localStorage.getItem('awb')
 
 document.getElementById("title awb").innerHTML += awb

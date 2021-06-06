@@ -403,7 +403,7 @@ module.exports = {
                     const data = {
                         awb: body.awb,
                         event_type: 'order-in-transit',
-                        status: 'order-in-local-base-sender',
+                        status: 'order-in-local-base-receiver',
                         details: 'A ajuns in orasul de livrare',
                         employees_details: "Coletul a fost adus de soferul " + results.name + " cu masina " + results.registration_number + "din baza din Sighisoara.",
                     }
@@ -459,6 +459,7 @@ module.exports = {
                     })
                 }
                 else if (body.task == "national" && body.toDeliver && body.delivered) {
+                    console.log("aici")
                     const data = {
                         awb: body.awb,
                         event_type: 'order-in-transit',
