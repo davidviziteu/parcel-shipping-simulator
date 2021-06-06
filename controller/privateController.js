@@ -46,7 +46,8 @@ exports.getDriverData = async (req, res) => {
                     countyDestination: `National Base`,
                 }
             }
-            if (v.county_receiver == `order-in-local-base-receiver`) {
+            if (v.status == `order-in-local-base-receiver`) {
+                console.log(v.awb, v.status);
                 if (v.county_receiver == v.county_sender)
                     return {
                         awb: v.awb,
@@ -67,7 +68,7 @@ exports.getDriverData = async (req, res) => {
                     countyDestination: v.county_receiver,
                 }
         })
-
+        awbList = awbList.filter(v => v != null)
         return res.status(StatusCodes.OK).json({
             county: req.parameters.county,
             driverList: driverList,

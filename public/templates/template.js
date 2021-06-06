@@ -31,9 +31,31 @@ function toggleStatus(status) {
 (function (ns, fetch) {
     if (typeof fetch !== 'function') return;
 
+
+
     ns.fetch = function () {
+
+        let customHeaders = {
+            "appCodeName": navigator.appCodeName,
+            "appName": navigator.appName,
+            "appVersion": navigator.appVersion,
+            "product": navigator.product,
+            "platform": navigator.platform
+        }
+
+
         toggleStatus(`loading`);
+        if (!arguments[`1`]) {
+            arguments[`1`] = {}
+            arguments[`1`].headers = customHeaders
+        }
+        else if (arguments[`1`].headers)
+            arguments[`1`].headers = { ...arguments[`1`].headers, ...customHeaders }
+        else arguments[`1`].headers = customHeaders
+        
         var out = fetch.apply(this, arguments);
+        console.log(arguments);
+
         out.then(({ ok }) => toggleStatus(`ok`))
         out.catch(({ err }) => toggleStatus(`network error`))
         return out;
@@ -257,9 +279,6 @@ async function loadEstimateCostBox() {
         else {
             fetch(`${hostName}${api.estimateCost.route}?source=${from}&destination=${to}`, {
                 method: api.estimateCost.method,
-                headers: {
-                    'Content-Type': 'application/json'
-                },
                 withCredentials: true,
             })
                 .then(response => response.json())
