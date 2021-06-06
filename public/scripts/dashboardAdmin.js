@@ -6,7 +6,8 @@ const addCarForm = document.getElementById(`add-car-form`)
 const getEmployee = document.getElementById(`get-employee`)
 const deleteAccount = document.getElementById(`delete-account-form`)
 const changePriceForm = document.getElementById(`change-price-form`)
-
+const uploadFileForm = document.getElementById(`upload-file-form`)
+const downloadFileForm = document.getElementById(`download-file-form`)
 
 
 window.addEventListener(`api-fetched`, (ev) => {
@@ -329,5 +330,62 @@ window.addEventListener(`api-fetched`, (ev) => {
                     console.log(err)
                 });
         }
+         uploadFileForm.onsubmit = async (e) => {
+             let fileUpload = document.getElementById(`csv-file-upload`)
+                    e.preventDefault();
+                    console.log(fileUpload.files)
+                     fetch(`${hostName}${api.uploadFile.route}`, {
+                        method: api.uploadFile.method,
+                        body: fileUpload.files[0],
+                        headers: { 
+                            "Content-type": "application/octet-stream",
+                            "Content-disposition" :`filename=${fileUpload.files[0].name}`
+                        }
+                })
+                .then(response => response.json())
+                .then(json => {
+                    console.log(json.error)
+                       
+                })
+                .catch(err => {
+                    console.log(err)
+                });
+         }
+           downloadFileForm.onsubmit = async (e) => {
+                    e.preventDefault();
+                     fetch(`${hostName}${api.downloadFile.route}?table=${document.getElementById(`db-tables2`).value}`, {
+                        method: api.downloadFile.method,
+                        headers: { 
+                    headers: { "Content-type": "application/json" }
+                        }
+                })
+                .then(response => response.json())
+                .then(json => {
+                    console.log(json.error)
+                       
+                })
+                .catch(err => {
+                    console.log(err)
+                });
+         }
+                    
+         if(api.loginType == `admin`){
+               fetch(`${hostName}${api.getTables.route}`, {
+                    method: api.getTables.method,
+                    headers: { "Content-type": "application/json" }
+                })
+                .then(response => response.json())
+                .then(json => {
+                    console.log(json.message)
+                       for (let element in json.message) {
+                          document.getElementById(`db-tables1`).appendChild(new Option(json.message[element]))
+                          document.getElementById(`db-tables2`).appendChild(new Option(json.message[element]))
+
+                         }
+                })
+                .catch(err => {
+                    console.log(err)
+                });
+         }
 
 })

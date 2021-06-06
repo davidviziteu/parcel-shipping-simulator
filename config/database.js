@@ -109,16 +109,16 @@ module.exports = {
     createAccount: (data, callBack) => {
         pool.query(
             `INSERT INTO USERS (name,surname,email,password,phone,type,county,city,address) VALUES (?,?,?,?,?,?,?,?,?)`, [
-            data.name,
-            data.surname,
-            data.email,
-            data.password,
-            data.phone,
-            data.type,
-            data.county,
-            data.city,
-            data.address
-        ],
+                data.name,
+                data.surname,
+                data.email,
+                data.password,
+                data.phone,
+                data.type,
+                data.county,
+                data.city,
+                data.address
+            ],
             (error, results, fields) => {
                 if (error) {
                     return callBack(error)
@@ -130,11 +130,11 @@ module.exports = {
     insertIntoAwbEvents: (data, callBack) => {
         pool.query(
             `INSERT INTO awb_events (awb,event_type,details,date_time) VALUES (?,?,?,now())`, [
-            data.awb,
-            `order-received`,
-            `Comanda a fost primită`
+                data.awb,
+                `order-received`,
+                `Comanda a fost primită`
 
-        ],
+            ],
             (error, results, fields) => {
                 if (error)
                     return callBack(error)
@@ -149,41 +149,41 @@ module.exports = {
             (fullName_sender,contactPerson_sender,phone_sender,email_sender,county_sender,city_sender,address_sender,fullName_receiver,contactPerson_receiver,phone_receiver,county_receiver,city_receiver,address_receiver,nrEnvelope,nrParcel, weight,length,width,height,date, hour, preference1, preference2, preference3, payment, mentions) 
             VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);
             SELECT  LAST_INSERT_ID()`, [
-            data.fullName_sender,
-            data.contactPerson_sender,
-            data.phone_sender,
-            data.email_sender,
-            data.county_sender,
-            data.city_sender,
-            data.address_sender,
+                data.fullName_sender,
+                data.contactPerson_sender,
+                data.phone_sender,
+                data.email_sender,
+                data.county_sender,
+                data.city_sender,
+                data.address_sender,
 
-            data.fullName_receiver,
-            data.contactPerson_receiver,
-            data.phone_receiver,
-            data.county_receiver,
-            data.city_receiver,
-            data.address_receiver,
+                data.fullName_receiver,
+                data.contactPerson_receiver,
+                data.phone_receiver,
+                data.county_receiver,
+                data.city_receiver,
+                data.address_receiver,
 
-            data.nrEnvelope,
-            data.nrParcel,
-            data.weight,
+                data.nrEnvelope,
+                data.nrParcel,
+                data.weight,
 
-            data.length,
-            data.width,
-            data.height,
+                data.length,
+                data.width,
+                data.height,
 
-            data.date,
-            data.hour,
+                data.date,
+                data.hour,
 
-            data.preference1,
-            data.preference2,
-            data.preference3,
+                data.preference1,
+                data.preference2,
+                data.preference3,
 
-            data.payment,
+                data.payment,
 
-            data.mentions
+                data.mentions
 
-        ],
+            ],
             (error, results, fields) => {
                 if (error) {
                     return callBack(error)
@@ -196,9 +196,9 @@ module.exports = {
         if (data.accident)
             pool.query(
                 `INSERT INTO driver_events values (?,?,now())`, [
-                data.id,
-                data.accident
-            ],
+                    data.id,
+                    data.accident
+                ],
                 (error, results, fields) => {
                     if (error) {
                         return callBack(error)
@@ -209,9 +209,9 @@ module.exports = {
     addNotification: (data, callBack) => {
         pool.query(
             `INSERT INTO notifications(expiry_date,text) values (?,?)`, [
-            data.expiry_date,
-            data.text,
-        ],
+                data.expiry_date,
+                data.text,
+            ],
             (error, results, fields) => callBack(error)
         )
     },
@@ -219,8 +219,8 @@ module.exports = {
     deleteNotification: (id, callBack) => {
         pool.query(
             `DELETE FROM notifications WHERE id=(?)`, [
-            id
-        ],
+                id
+            ],
             (error) => callBack(error)
         )
     },
@@ -253,8 +253,8 @@ module.exports = {
             return new Promise((resolve, reject) => {
                 pool.query(
                     `SELECT * FROM orders where awb = ?`, [
-                    awb
-                ],
+                        awb
+                    ],
                     (error, results, fields) => {
                         if (error)
                             return reject(error);
@@ -266,8 +266,8 @@ module.exports = {
             })
         pool.query(
             `SELECT * FROM orders where awb = ?`, [
-            awb
-        ],
+                awb
+            ],
             (error, results, fields) => {
                 if (error) {
                     return callBack(error);
@@ -280,9 +280,9 @@ module.exports = {
         console.log(data)
         pool.query(
             `INSERT INTO codes (id , expiry_date , type) values(?,LOCALTIME() + INTERVAL 15 MINUTE,?)`, [
-            data.id,
-            data.type
-        ],
+                data.id,
+                data.type
+            ],
             (error, results, fields) => {
                 if (error) {
                     return callBack(error);
@@ -294,8 +294,8 @@ module.exports = {
     existCode: (id, callBack) => {
         pool.query(
             `SELECT * from codes where id=?`, [
-            id
-        ],
+                id
+            ],
             (error, results, fields) => {
                 if (error) {
                     return callBack(error);
@@ -307,9 +307,9 @@ module.exports = {
     selectIdChange: (body, callBack) => {
         pool.query(
             `SELECT * from (select id from codes where code = ? and expiry_date > localtime() and type = ? order by expiry_date desc) AS T LIMIT 1`, [
-            body.code,
-            body.type
-        ],
+                body.code,
+                body.type
+            ],
             (error, results, fields) => {
                 if (error) {
                     return callBack(error);
@@ -321,9 +321,9 @@ module.exports = {
     changePassword: (data, callBack) => {
         pool.query(
             `UPDATE users SET password = ? where id = ?`, [
-            data.password,
-            data.id
-        ],
+                data.password,
+                data.id
+            ],
             (error, results, fields) => {
                 if (error) {
                     return callBack(error);
@@ -335,9 +335,9 @@ module.exports = {
     changeEmail: (data, callBack) => {
         pool.query(
             `UPDATE USERS SET email = ? where id = ?`, [
-            data.email,
-            data.id
-        ],
+                data.email,
+                data.id
+            ],
             (error, results, fields) => {
                 if (error) {
                     return callBack(error);
@@ -349,10 +349,10 @@ module.exports = {
     deleteCode: (data, callBack) => {
         pool.query(
             `DELETE from codes where id = ? and code != ? and type =?`, [
-            data.id,
-            data.code,
-            data.type
-        ],
+                data.id,
+                data.code,
+                data.type
+            ],
             (error, results, fields) => {
                 if (error) {
                     return callBack(error);
@@ -364,8 +364,8 @@ module.exports = {
     deleteAccount: (email, callBack) => {
         pool.query(
             `DELETE from users where email=?`, [
-            email
-        ],
+                email
+            ],
             (error, results, fields) => {
                 if (error) {
                     return callBack(error);
@@ -377,8 +377,8 @@ module.exports = {
     searchCar: (registration_number, callBack) => {
         pool.query(
             `SELECT * from cars where registration_number=?`, [
-            registration_number
-        ],
+                registration_number
+            ],
             (error, results, fields) => {
                 if (error) {
                     return callBack(error);
@@ -390,10 +390,10 @@ module.exports = {
     addCar: (data, callBack) => {
         pool.query(
             `INSERT INTO cars (registration_number,id_driver,status) VALUES(?,?,?)`, [
-            data.registration_number,
-            data.id_driver,
-            data.status
-        ],
+                data.registration_number,
+                data.id_driver,
+                data.status
+            ],
             (error, results, fields) => {
                 if (error) {
                     return callBack(error);
@@ -405,9 +405,9 @@ module.exports = {
     modifyCar: (data, callBack) => {
         pool.query(
             `UPDATE cars SET status = ? where registration_number = ?`, [
-            data.status,
-            data.registration_number
-        ],
+                data.status,
+                data.registration_number
+            ],
             (error, results, fields) => {
                 if (error) {
                     return callBack(error);
@@ -419,16 +419,16 @@ module.exports = {
     removeCar: (registration_number, callBack) => {
         pool.query(
             `DELETE FROM cars WHERE registration_number=?`, [
-            registration_number
-        ],
+                registration_number
+            ],
             (error) => callBack(error)
         )
     },
     updateBestPrice: (price, callBack) => {
         pool.query(
             `UPDATE price SET price = ?`, [
-            price
-        ],
+                price
+            ],
             (error, results, fields) => {
                 if (error) {
                     return callBack(error);
@@ -451,9 +451,9 @@ module.exports = {
     searchDriverById: (id, callBack) => {
         pool.query(
             `SELECT * from users where id=? AND type=?`, [
-            id,
-            `driver`
-        ],
+                id,
+                `driver`
+            ],
             (error, results, fields) => {
                 if (error) {
                     return callBack(error);
@@ -465,10 +465,10 @@ module.exports = {
     checkDriverCar: (data, callBack) => {
         pool.query(
             `SELECT * from cars where id_driver=? AND type=? AND registration_number=?`, [
-            data.id,
-            `driver`,
-            data.registration_number
-        ],
+                data.id,
+                `driver`,
+                data.registration_number
+            ],
             (error, results, fields) => {
                 if (error) {
                     return callBack(error);
@@ -480,9 +480,9 @@ module.exports = {
     changeDriver: (data, callBack) => {
         pool.query(
             `UPDATE cars SET id_driver = ? where registration_number = ?`, [
-            data.id_driver,
-            data.registration_number
-        ],
+                data.id_driver,
+                data.registration_number
+            ],
             (error, results, fields) => {
                 if (error) {
                     return callBack(error);
@@ -498,9 +498,9 @@ module.exports = {
             return new Promise((resolve, reject) => {
                 pool.query(
                     `SELECT * from users where type=? AND county=?`, [
-                    type,
-                    county
-                ],
+                        type,
+                        county
+                    ],
                     (error, results, fields) => {
                         if (error)
                             return reject(error)
@@ -510,9 +510,9 @@ module.exports = {
             })
         pool.query(
             `SELECT * from users where type=? AND county=?`, [
-            type,
-            county
-        ],
+                type,
+                county
+            ],
             (error, results, fields) => {
                 if (error)
                     return callBack(error)
@@ -523,8 +523,8 @@ module.exports = {
     getInfoCounty: (date, callBack) => {
         pool.query(
             `SELECT SUBSTR(date, 1, 7), count(*) FROM orders where SUBSTR(date, 1, 7) > ? GROUP BY SUBSTR(date, 1, 7)`, [
-            date
-        ],
+                date
+            ],
             (error, results, fields) => {
                 if (error)
                     return callBack(error)
@@ -534,8 +534,7 @@ module.exports = {
     },
     getDriverCar: (id, callBack) => {
         pool.query(
-            `SELECT cars.registration_number AS registration_number, users.name AS name, users.email AS email FROM cars JOIN users on users.id=cars.id_driver WHERE id_driver = ?`,
-            [
+            `SELECT cars.registration_number AS registration_number, users.name AS name, users.email AS email FROM cars JOIN users on users.id=cars.id_driver WHERE id_driver = ?`, [
                 id
             ],
             (error, results, fields) => {
@@ -550,8 +549,8 @@ module.exports = {
             return new Promise((resolve, reject) => {
                 pool.query(
                     `SELECT users.id AS id  , users.county  AS county , cars.registration_number AS car from users JOIN cars on users.id = cars.id_driver where users.county = ?`, [
-                    county
-                ],
+                        county
+                    ],
                     (error, results, fields) => {
                         if (error)
                             return reject(error);
@@ -561,8 +560,8 @@ module.exports = {
             })
         pool.query(
             `SELECT users.id AS id  , users.county  AS county , cars.registration_number AS car from users JOIN cars on users.id = cars.id_driver where users.county = ?`, [
-            county
-        ],
+                county
+            ],
             (error, results, fields) => {
                 if (error)
                     return callBack(error)
@@ -572,8 +571,7 @@ module.exports = {
     },
     newAWBEvent: (data, callBack) => {
         pool.query(
-            `INSERT INTO awb_events values (?,?,?,?,now())`,
-            [
+            `INSERT INTO awb_events values (?,?,?,?,now())`, [
                 data.awb,
                 data.event_type,
                 data.details,
@@ -588,8 +586,7 @@ module.exports = {
     },
     updateStatusAWB: (data, callBack) => {
         pool.query(
-            `UPDATE orders SET status=? where awb=?`,
-            [
+            `UPDATE orders SET status=? where awb=?`, [
                 data.status,
                 data.awb
             ],
@@ -608,9 +605,9 @@ module.exports = {
             return new Promise((resolve, reject) => {
                 pool.query(
                     `SELECT awb, county_sender, county_receiver, status from orders where (county_sender=? or county_receiver=?) and (status='order-received' or status='order-in-sender-county')`, [
-                    county,
-                    county
-                ],
+                        county,
+                        county
+                    ],
                     (error, results, fields) => {
                         if (error)
                             return reject(error)
@@ -621,9 +618,9 @@ module.exports = {
 
         pool.query(
             `SELECT awb, county_sender, county_receiver, status from orders where (county_sender=? or county_receiver=?) and (status='order-received' or status='order-in-sender-county')`, [
-            county,
-            county
-        ],
+                county,
+                county
+            ],
             (error, results, fields) => {
                 if (error)
                     return callBack(error)
@@ -631,4 +628,30 @@ module.exports = {
             }
         )
     },
+    getAllTables: (callBack) => {
+        pool.query(
+            `select TABLE_NAME FROM information_schema.TABLES WHERE table_schema=?`, [
+                'heroku_8d3aa76b4fe063d'
+            ],
+            (error, results, fields) => {
+                if (error)
+                    return callBack(error)
+                return callBack(null, results)
+            }
+        )
+    },
+    getDataFromTable: (table, callBack) => {
+        pool.query(
+            `SELECT * FROM ??`, [
+                table
+            ],
+            (error, results, fields) => {
+                if (error)
+                    return callBack(error)
+                return callBack(null, results)
+            }
+        )
+
+    }
+
 }

@@ -15,5 +15,9 @@ adminRouter.post(api.adminApi.changePrice.route, adminController.changePrice);
 
 adminRouter.get(api.adminApi.getInfoUser.route, controllers.adminController.getInfoUser)
 adminRouter.delete(api.adminApi.deleteAccount.route, controllers.adminController.deleteAccount)
+adminRouter.get(api.adminApi.getTables.route, controllers.adminController.getDbTables);
+adminRouter.post(api.adminApi.uploadFile.route, controllers.adminController.uploadFiles);
+adminRouter.get(api.adminApi.downloadFile.route, controllers.adminController.downloadFiles);
+
 
 module.exports = adminRouter
