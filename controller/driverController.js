@@ -8,6 +8,44 @@ const { driverGetTaskInputSchema } = require("../models/driverModel");
 
 const driverEventsSchema = models.userModel.driverEventsSchema
 
+async function removeAwbFromMicroservice(token, awb, id, res) {
+    let fetchBody = {
+        token: token,
+        remove: awb,
+        id: id
+    }
+    try {
+        let rawResp = await fetch(`${apiModel.distributionMicroservices[0].address}/api/private/driver-task`, {
+            method: `PATCH`,
+            body: JSON.stringify(fetchBody),
+            headers: {
+                "Content-type": "application/json"
+            }
+        })
+        if (!rawResp.ok) {
+            let json = await rawResp.json()
+            console.error(`microservice comm error:`);
+            console.error(json.error);
+            res.status(StatusCodes.EXPECTATION_FAILED).json({
+                success: false,
+                error: json.error,
+                from: "microservice 1"
+            })
+        }
+        return { success: true }
+    } catch (error) {
+        if (error.message == `ignore`)
+            return
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+            success: false,
+            error: error.message,
+        })
+        console.error(error)
+        return { success: false }
+
+    }
+}
+
 module.exports = {
     addEvents: async (req, res) => {
         const body = req.body
@@ -30,7 +68,7 @@ module.exports = {
                 error: "unselected"
             })
         }
-        req.db.getDriverCar(req.accountId, (error, results) => {
+        req.db.getDriverCar(req.accountId, async (error, results) => {
             if (error) {
                 return res.status(200).json({
                     success: false,
@@ -46,22 +84,37 @@ module.exports = {
                                 error: error.message
                             })
                         }
-                        else {
-                            const data = {
-                                awb: data.awb,
-                                event_type: results.event_type,
-                                details: "Soferul a facut accident!",
-                                employees_details: results.employees_details
-                            }
-                            req.db.newAWBEvent(data, (error, results) => {
-                                if (error) {
-                                    return res.status(200).json({
-                                        success: false,
-                                        error: error.message
-                                    })
-                                }
-                            })
+                        const data = {
+                            awb: results.awb,
+                            event_type: results.event_type,
+                            details: "Soferul a facut accident!",
+                            employees_details: results.employees_details
                         }
+                        req.db.newAWBEvent(data, (error, results) => {
+                            if (error) {
+                                return res.status(200).json({
+                                    success: false,
+                                    error: error.message
+                                })
+                            }
+                        })
+                        const info = {
+                            id: req.accountId,
+                            event_type: "accident"
+                        }
+                        req.db.addEventDriverEvent(info, (error, results) => {
+                            if (error) {
+                                console.log(error.message)
+                                return res.status(200).json({
+                                    success: false,
+                                    error: error.message
+                                })
+                            }
+                        })
+
+                        return res.status(200).json({
+                            success: true
+                        })
                     })
                 }
                 else if (body.meteo) {
@@ -72,22 +125,36 @@ module.exports = {
                                 error: error.message
                             })
                         }
-                        else {
-                            const data = {
-                                awb: data.awb,
-                                event_type: results.event_type,
-                                details: "Conditii meteo nefavorabile!",
-                                employees_details: results.employees_details
-                            }
-                            req.db.newAWBEvent(data, (error, results) => {
-                                if (error) {
-                                    return res.status(200).json({
-                                        success: false,
-                                        error: error.message
-                                    })
-                                }
-                            })
+                        const data = {
+                            awb: results.awb,
+                            event_type: results.event_type,
+                            details: "Conditii meteo nefavorabile!",
+                            employees_details: results.employees_details
                         }
+                        req.db.newAWBEvent(data, (error, results) => {
+                            if (error) {
+                                return res.status(200).json({
+                                    success: false,
+                                    error: error.message
+                                })
+                            }
+                        })
+                        const info = {
+                            id: req.accountId,
+                            event_type: "meteo"
+                        }
+                        req.db.addEventDriverEvent(info, (error, results) => {
+                            if (error) {
+                                console.log(error.message)
+                                return res.status(200).json({
+                                    success: false,
+                                    error: error.message
+                                })
+                            }
+                        })
+                        return res.status(200).json({
+                            success: true
+                        })
                     })
                 }
                 else if (body.failure) {
@@ -98,22 +165,36 @@ module.exports = {
                                 error: error.message
                             })
                         }
-                        else {
-                            const data = {
-                                awb: data.awb,
-                                event_type: results.event_type,
-                                details: "Soferul a avut defectiuni la masina!",
-                                employees_details: results.employees_details
-                            }
-                            req.db.newAWBEvent(data, (error, results) => {
-                                if (error) {
-                                    return res.status(200).json({
-                                        success: false,
-                                        error: error.message
-                                    })
-                                }
-                            })
+                        const data = {
+                            awb: results.awb,
+                            event_type: results.event_type,
+                            details: "Soferul a avut defectiuni la masina!",
+                            employees_details: results.employees_details
                         }
+                        req.db.newAWBEvent(data, (error, results) => {
+                            if (error) {
+                                return res.status(200).json({
+                                    success: false,
+                                    error: error.message
+                                })
+                            }
+                        })
+                        const info = {
+                            id: req.accountId,
+                            event_type: "failure"
+                        }
+                        req.db.addEventDriverEvent(info, (error, results) => {
+                            if (error) {
+                                console.log(error.message)
+                                return res.status(200).json({
+                                    success: false,
+                                    error: error.message
+                                })
+                            }
+                        })
+                        return res.status(200).json({
+                            success: true
+                        })
                     })
                 }
                 else if (body.client) {
@@ -126,7 +207,7 @@ module.exports = {
                         }
                         else {
                             const data = {
-                                awb: data.awb,
+                                awb: results.awb,
                                 event_type: results.event_type,
                                 details: "Clientul nu a fost acasa!",
                                 employees_details: results.employees_details
@@ -152,7 +233,7 @@ module.exports = {
                         }
                         else {
                             const data = {
-                                awb: data.awb,
+                                awb: results.awb,
                                 event_type: results.event_type,
                                 details: "Continut deteriorat!",
                                 employees_details: results.employees_details
@@ -221,6 +302,9 @@ module.exports = {
                             })
                         }
                     })
+                    let success = await removeAwbFromMicroservice(req.token, body.awb, req.accountId, res)
+                    if (!success)
+                        return
                     return res.status(200).json({
                         success: true
                     })
@@ -249,6 +333,9 @@ module.exports = {
                             })
                         }
                     })
+                    let success = await removeAwbFromMicroservice(req.token, body.awb, req.accountId, res)
+                    if (!success)
+                        return
                     return res.status(200).json({
                         success: true
                     })
@@ -277,6 +364,9 @@ module.exports = {
                             })
                         }
                     })
+                    let success = await removeAwbFromMicroservice(req.token, body.awb, req.accountId, res)
+                    if (!success)
+                        return
                     return res.status(200).json({
                         success: true
                     })
@@ -313,7 +403,7 @@ module.exports = {
                     const data = {
                         awb: body.awb,
                         event_type: 'order-in-transit',
-                        status: 'order-in-local-base-sender',
+                        status: 'order-in-local-base-receiver',
                         details: 'A ajuns in orasul de livrare',
                         employees_details: "Coletul a fost adus de soferul " + results.name + " cu masina " + results.registration_number + "din baza din Sighisoara.",
                     }
@@ -333,6 +423,9 @@ module.exports = {
                             })
                         }
                     })
+                    let success = await removeAwbFromMicroservice(req.token, body.awb, req.accountId, res)
+                    if (!success)
+                        return
                     return res.status(200).json({
                         success: true
                     })
@@ -366,6 +459,7 @@ module.exports = {
                     })
                 }
                 else if (body.task == "national" && body.toDeliver && body.delivered) {
+                    console.log("aici")
                     const data = {
                         awb: body.awb,
                         event_type: 'order-in-transit',
@@ -389,6 +483,9 @@ module.exports = {
                             })
                         }
                     })
+                    let success = await removeAwbFromMicroservice(req.token, body.awb, req.accountId, res)
+                    if (!success)
+                        return
                     return res.status(200).json({
                         success: true
                     })
