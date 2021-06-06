@@ -472,10 +472,31 @@ module.exports = {
         }
     },
     uploadFiles: (req, res) => {
+
         if (req.accountType == `admin`) {
-            console.log(req.filePath)
+            console.log(req.parameters.table)
             fs.readFile(req.filePath, 'utf8', function(err, data) {
                 console.log(data)
+                var rows = data.split(`\n`)
+                console.log(rows)
+                var statusCode = StatusCodes.OK;
+                for (let index = 0; index < rows.length; index++) {
+                    // const element = array[index];
+                    const row = rows[index];
+                    if (row.length == 0) continue;
+                    const fields = row.split(`,`);
+                    req.db.insertIntoTable(req.parameters.table, fields, (error, results) => {
+                        if (error) {
+                            statusCode = StatusCodes.INTERNAL_SERVER_ERROR;
+                            res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+                                success: false,
+                                error: error.message
+                            })
+                        }
+
+                    })
+
+                }
             })
         } else {
             res.status(StatusCodes.UNAUTHORIZED).json({
@@ -493,25 +514,28 @@ module.exports = {
                         error: error.message
                     })
                 } else {
-                    res.setHeader('Content-type', 'octet/stream');
-                    res.setHeader('Content-dispositon', 'filename=test.csv');
+                    res.setHeader('Content-type', 'application/octet-stream');
+                    res.setHeader('Content-disposition', `attachment;filename=${req.parameters.table}.csv`);
                     let writeStream = fs.createWriteStream(`./uploadedFiles/${req.parameters.table}.csv`);
                     results.forEach(line => {
                         var last = null;
                         let entries = Object.entries(line);
                         for (let [index, [key, value]] of entries.entries()) {
                             if (index + 1 == Object.keys(line).length) {
-                                last = value;
+                                last = value.toString();
                                 break;
                             }
-
-                            writeStream.write(value + ',')
+                            if (value == null)
+                                value = 'n/a';
+                            writeStream.write(value.toString() + ',')
                         }
                         writeStream.write(last)
                         writeStream.write('\n')
 
                     });
                     writeStream.end();
+                    let readStream = fs.createReadStream(`./uploadedFiles/${req.parameters.table}.csv`)
+                    readStream.pipe(res)
                 }
             })
 
