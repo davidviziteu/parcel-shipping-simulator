@@ -192,19 +192,18 @@ module.exports = {
             }
         );
     },
-    addEventsDriver: (data, callBack) => {
-        if (data.accident)
-            pool.query(
-                `INSERT INTO driver_events values (?,?,now())`, [
-                data.id,
-                data.accident
-            ],
-                (error, results, fields) => {
-                    if (error) {
-                        return callBack(error)
-                    }
+    addAccidentDriver: (id, callBack) => {
+        pool.query(
+            `INSERT INTO driver_events values (?,?,now())`, [
+            id,
+            true
+        ],
+            (error, results, fields) => {
+                if (error) {
+                    return callBack(error)
                 }
-            )
+            }
+        )
     },
     addNotification: (data, callBack) => {
         pool.query(
@@ -248,7 +247,6 @@ module.exports = {
         )
     },
     getDetailsOrder: (awb, callBack) => {
-        console.log(awb)
         //promise wrapping
         if (!callBack)
             return new Promise((resolve, reject) => {
@@ -632,4 +630,17 @@ module.exports = {
             }
         )
     },
+    getLastAwbEvent(awb, callBack) {
+        pool.query(
+            `SELECT * from awb_events where awb = ? order by date_time desc LIMIT 1`,
+            [
+                awb
+            ],
+            (error, results, fields) => {
+                if (error)
+                    return callBack(error)
+                return callBack(null, results[0])
+            }
+        )
+    }
 }

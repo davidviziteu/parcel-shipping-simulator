@@ -37,7 +37,137 @@ module.exports = {
                 })
             }
             else {
-                if (body.task == "local" && body.toPickup && body.picked_up) {
+                if (body.accident) {
+                    req.db.getLastAwbEvent(body.awb, (error, results) => {
+                        if (error) {
+                            return res.status(200).json({
+                                success: false,
+                                error: error.message
+                            })
+                        }
+                        else {
+                            const data = {
+                                awb: data.awb,
+                                event_type: results.event_type,
+                                details: "Soferul a facut accident!",
+                                employees_details: results.employees_details
+                            }
+                            req.db.newAWBEvent(data, (error, results) => {
+                                if (error) {
+                                    return res.status(200).json({
+                                        success: false,
+                                        error: error.message
+                                    })
+                                }
+                            })
+                        }
+                    })
+                }
+                else if (body.meteo) {
+                    req.db.getLastAwbEvent(body.awb, (error, results) => {
+                        if (error) {
+                            return res.status(200).json({
+                                success: false,
+                                error: error.message
+                            })
+                        }
+                        else {
+                            const data = {
+                                awb: data.awb,
+                                event_type: results.event_type,
+                                details: "Conditii meteo nefavorabile!",
+                                employees_details: results.employees_details
+                            }
+                            req.db.newAWBEvent(data, (error, results) => {
+                                if (error) {
+                                    return res.status(200).json({
+                                        success: false,
+                                        error: error.message
+                                    })
+                                }
+                            })
+                        }
+                    })
+                }
+                else if (body.failure) {
+                    req.db.getLastAwbEvent(body.awb, (error, results) => {
+                        if (error) {
+                            return res.status(200).json({
+                                success: false,
+                                error: error.message
+                            })
+                        }
+                        else {
+                            const data = {
+                                awb: data.awb,
+                                event_type: results.event_type,
+                                details: "Soferul a avut defectiuni la masina!",
+                                employees_details: results.employees_details
+                            }
+                            req.db.newAWBEvent(data, (error, results) => {
+                                if (error) {
+                                    return res.status(200).json({
+                                        success: false,
+                                        error: error.message
+                                    })
+                                }
+                            })
+                        }
+                    })
+                }
+                else if (body.client) {
+                    req.db.getLastAwbEvent(body.awb, (error, results) => {
+                        if (error) {
+                            return res.status(200).json({
+                                success: false,
+                                error: error.message
+                            })
+                        }
+                        else {
+                            const data = {
+                                awb: data.awb,
+                                event_type: results.event_type,
+                                details: "Clientul nu a fost acasa!",
+                                employees_details: results.employees_details
+                            }
+                            req.db.newAWBEvent(data, (error, results) => {
+                                if (error) {
+                                    return res.status(200).json({
+                                        success: false,
+                                        error: error.message
+                                    })
+                                }
+                            })
+                        }
+                    })
+                }
+                else if (body.content) {
+                    req.db.getLastAwbEvent(body.awb, (error, results) => {
+                        if (error) {
+                            return res.status(200).json({
+                                success: false,
+                                error: error.message
+                            })
+                        }
+                        else {
+                            const data = {
+                                awb: data.awb,
+                                event_type: results.event_type,
+                                details: "Continut deteriorat!",
+                                employees_details: results.employees_details
+                            }
+                            req.db.newAWBEvent(data, (error, results) => {
+                                if (error) {
+                                    return res.status(200).json({
+                                        success: false,
+                                        error: error.message
+                                    })
+                                }
+                            })
+                        }
+                    })
+                }
+                else if (body.task == "local" && body.toPickup && body.picked_up) {
                     const data = {
                         awb: body.awb,
                         event_type: "order-picked-up",
