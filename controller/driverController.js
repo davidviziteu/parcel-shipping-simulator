@@ -11,6 +11,7 @@ const driverEventsSchema = models.userModel.driverEventsSchema
 module.exports = {
     addEvents: async (req, res) => {
         const body = req.body
+        console.log(body)
         const { error, value } = driverEventsSchema.validate(body)
         if (error) {
             console.log(error)
@@ -168,6 +169,7 @@ module.exports = {
                     })
                 }
                 else if (body.task == "local" && body.toPickup && body.picked_up) {
+                    console.log("aici")
                     const data = {
                         awb: body.awb,
                         event_type: "order-picked-up",

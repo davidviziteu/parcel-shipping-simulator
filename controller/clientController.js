@@ -113,6 +113,7 @@ module.exports = {
                         mailOptions.to = body.email
                         mailOptions.subject = 'Schimbarea datelor'
                         mailOptions.text = 'Codul pentru resetare este:\n' + results.insertId
+                        console.log(results.insertId)
                         transporter.sendMail(mailOptions, function (error, info) {
                             if (error) {
                                 console.log(error.message);
