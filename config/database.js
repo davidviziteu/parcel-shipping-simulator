@@ -717,6 +717,20 @@ module.exports = {
                 return callBack(null, results)
             }
         )
-    }
+    },
 
+    insertIntoClientOrders: (data, callBack) => {
+        pool.query(
+            `INSERT INTO client_orders VALUES(?,?)`, [
+                data.awb,
+                data.id
+            ],
+            (error, results, fields) => {
+                if (error) {
+                    return callBack(error);
+                }
+                return callBack(null, results);
+            }
+        );
+    },
 }

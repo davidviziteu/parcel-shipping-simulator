@@ -30,6 +30,7 @@ module.exports = {
         return res.json({ message: res.body });
     },
     placeOrder: (req, res) => {
+
         const body = req.body
         if (!body)
             return res.status(StatusCodes.BAD_REQUEST).json({
@@ -54,6 +55,7 @@ module.exports = {
             } else {
                 const result = Object.values(JSON.parse(JSON.stringify(results)))
                 req.body.awb = result[0]['LAST_INSERT_ID()'];
+                req.body.id = req.accountId;
                 req.db.insertIntoAwbEvents(req.body, (error, results) => {
                     if (error) {
                         res.status(500).json({
@@ -61,19 +63,46 @@ module.exports = {
                             ...sendDebugInResponse && { error: error.message }
                         })
                     } else {
-                        mailOptions.to = body.email_sender
-                        mailOptions.subject = `Comanda cu numarul ${req.body.awb} plasată cu succes`
-                        mailOptions.text = `Link RSS: http://parcel-shipping-simulator.herokuapp.com/api/rssFeed?awb=${req.body.awb} \nExpeditor: ${req.body.fullName_sender} \nTelefon: ${req.body.phone_sender}\nEmail: ${req.body.email_sender}\nJudet: ${req.body.county_sender}\nLocalitate: ${req.body.city_sender}\nAdresă: ${req.body.address_sender} \n\nDestinatar:${req.body.fullName_receiver}\nTelefon: ${req.body.phone_receiver}\nJudet: ${req.body.county_receiver}\nLocalitate: ${req.body.city_receiver}\nAdresă: ${req.body.address_receiver}\n\n Vă mulțumim pentru comandă!\n Un curier va lua legătura cu dvs în scurt timp. `
-                        transporter.sendMail(mailOptions, function(error, info) {
-                            if (error) {
-                                console.log(error.message);
-                            } else {
-                                console.log('Email sent: ' + info.response);
-                            }
-                        });
-                        res.status(200).json({
-                            success: true
-                        })
+                        if (req.accountType != null) {
+                            req.db.insertIntoClientOrders(body, (error, results) => {
+                                if (error) {
+                                    console.log(error.message);
+                                    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+                                        success: false,
+                                        ...sendDebugInResponse && { error: error.message }
+                                    })
+                                } else {
+                                    console.log("aoco");
+                                    mailOptions.to = body.email_sender
+                                    mailOptions.subject = `Comanda cu numarul ${req.body.awb} plasată cu succes`
+                                    mailOptions.text = `Link RSS: http://parcel-shipping-simulator.herokuapp.com/api/rssFeed?awb=${req.body.awb} \nExpeditor: ${req.body.fullName_sender} \nTelefon: ${req.body.phone_sender}\nEmail: ${req.body.email_sender}\nJudet: ${req.body.county_sender}\nLocalitate: ${req.body.city_sender}\nAdresă: ${req.body.address_sender} \n\nDestinatar:${req.body.fullName_receiver}\nTelefon: ${req.body.phone_receiver}\nJudet: ${req.body.county_receiver}\nLocalitate: ${req.body.city_receiver}\nAdresă: ${req.body.address_receiver}\n\n Vă mulțumim pentru comandă!\n Un curier va lua legătura cu dvs în scurt timp. `
+                                    transporter.sendMail(mailOptions, function(error, info) {
+                                        if (error) {
+                                            console.log(error.message);
+                                        } else {
+                                            console.log('Email sent: ' + info.response);
+                                        }
+                                    });
+                                    res.status(200).json({
+                                        success: true
+                                    })
+                                }
+                            })
+                        } else {
+                            mailOptions.to = body.email_sender
+                            mailOptions.subject = `Comanda cu numarul ${req.body.awb} plasată cu succes`
+                            mailOptions.text = `Link RSS: http://parcel-shipping-simulator.herokuapp.com/api/rssFeed?awb=${req.body.awb} \nExpeditor: ${req.body.fullName_sender} \nTelefon: ${req.body.phone_sender}\nEmail: ${req.body.email_sender}\nJudet: ${req.body.county_sender}\nLocalitate: ${req.body.city_sender}\nAdresă: ${req.body.address_sender} \n\nDestinatar:${req.body.fullName_receiver}\nTelefon: ${req.body.phone_receiver}\nJudet: ${req.body.county_receiver}\nLocalitate: ${req.body.city_receiver}\nAdresă: ${req.body.address_receiver}\n\n Vă mulțumim pentru comandă!\n Un curier va lua legătura cu dvs în scurt timp. `
+                            transporter.sendMail(mailOptions, function(error, info) {
+                                if (error) {
+                                    console.log(error.message);
+                                } else {
+                                    console.log('Email sent: ' + info.response);
+                                }
+                            });
+                            res.status(200).json({
+                                success: true
+                            })
+                        }
                     }
                 })
 

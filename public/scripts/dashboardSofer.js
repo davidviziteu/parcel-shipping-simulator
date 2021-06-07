@@ -21,7 +21,7 @@ const toDeliver = JSON.parse(localStorage.getItem('toDeliver'))
 const toPickup = JSON.parse(localStorage.getItem('toPickup'))
 const awb = localStorage.getItem('awb')
 
-document.getElementById("title awb").innerHTML += awb
+document.getElementById("title_awb").innerHTML += awb
 if (task == "national" && toDeliver) {
     buttonRidicat.innerHTML = "Am ridicat coletul din baza locala"
     buttonLivrat.innerHTML = "Am lasat coletul in baza nationala"
