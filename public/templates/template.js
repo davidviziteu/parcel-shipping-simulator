@@ -16,7 +16,7 @@ function toggleStatus(status) {
         navBar.style.backgroundColor = "#e5c8c19c"
     } else if (status == 'ok') {
         document.getElementById("login-info").innerHTML = "✅"
-            // navBar.classList.remove(`animated`)
+        // navBar.classList.remove(`animated`)
         navBar.style.backgroundColor = "rgb(15, 93, 130)"
     } else if (status == 'network error') {
         document.getElementById("login-info").innerHTML = "📶❌"
@@ -28,14 +28,14 @@ function toggleStatus(status) {
 
 
 
-(function(ns, fetch) {
+(function (ns, fetch) {
     if (typeof fetch !== 'function') return;
     let customHeaders = {
         "appVersion": navigator.appVersion,
         "platform": navigator.platform
     }
 
-    ns.fetch = function() {
+    ns.fetch = function () {
 
 
 
@@ -44,7 +44,7 @@ function toggleStatus(status) {
             arguments[`1`] = {}
             arguments[`1`].headers = customHeaders
         } else if (arguments[`1`].headers)
-            arguments[`1`].headers = {...arguments[`1`].headers, ...customHeaders }
+            arguments[`1`].headers = { ...arguments[`1`].headers, ...customHeaders }
         else arguments[`1`].headers = customHeaders
 
         var out = fetch.apply(this, arguments);
@@ -83,7 +83,7 @@ function toggleStatus(status) {
 
 
 
-(async() => {
+(async () => {
     try {
         let rawResponse = await fetch(`${hostName}/api`, {
             method: "GET",
@@ -105,7 +105,7 @@ function toggleStatus(status) {
 
 
 function newMenuItem(href, text) {
-    return `<li><a href="${href}">${text}</a></li>`
+    return `<li><a href="${href}" aria-label="${text}">${text}</a></li>`
 }
 
 async function generateMenu() {
@@ -124,7 +124,7 @@ async function generateMenu() {
             let li = document.createElement(`li`)
             let a = document.createElement(`a`)
             a.innerHTML = `Ieși din cont`
-            a.addEventListener(`click`, async() => {
+            a.addEventListener(`click`, async () => {
                 try {
                     let result = await fetch(`${hostName}${api.logout.route}`, { method: api.logout.method, headers: { "Content-type": "application/json" } }).then(resp => resp.json())
                     location.href = `/`
@@ -161,16 +161,16 @@ function disableScroll() {
     scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
 
-        window.onscroll = function() {
+        window.onscroll = function () {
             window.scrollTo(scrollLeft, scrollTop);
         };
 }
 
 function enableScroll() {
-    window.onscroll = function() {};
+    window.onscroll = function () { };
 }
 
-window.onscroll = function() { scrollFunction(); };
+window.onscroll = function () { scrollFunction(); };
 
 function scrollFunction() {
     var navbar = document.getElementsByTagName("nav")[0]
@@ -211,7 +211,7 @@ function handleLoginResponse(resp) {
         document.getElementById("user-password").style.backgroundColor = "rgb(211, 110, 110)";
 };
 
-const updateNotificationsBox = async() => {
+const updateNotificationsBox = async () => {
     try {
         let notificationBox = document.getElementById(`notifications-box`)
         let rawResp = await fetch(`${hostName}${api.getNotifications.route}`, { headers: { "Content-type": "application/json" } })
@@ -252,7 +252,7 @@ async function loadEstimateCostBox() {
         destinationSelector.appendChild(new Option(element))
     }
 
-    estimateCostForm.onsubmit = async(e) => {
+    estimateCostForm.onsubmit = async (e) => {
         e.preventDefault();
         var from = sourceSelector.value
         var to = destinationSelector.value
@@ -272,9 +272,9 @@ async function loadEstimateCostBox() {
             totalCostText.innerHTML = `Alegeți județul destinatarului`
         else {
             fetch(`${hostName}${api.estimateCost.route}?source=${from}&destination=${to}`, {
-                    method: api.estimateCost.method,
-                    withCredentials: true,
-                })
+                method: api.estimateCost.method,
+                withCredentials: true,
+            })
                 .then(response => response.json())
                 .then(json => {
                     totalCostText.innerHTML = "Pretul estimativ este : " + json.data + " ron";
@@ -343,7 +343,7 @@ function loadOurLocationsButton() {
 async function login() {
     const loginForm = document.getElementById("login-form");
     if (!loginForm) return
-    loginForm.onsubmit = async(e) => {
+    loginForm.onsubmit = async (e) => {
         e.preventDefault();
         document.getElementById("user-email").style.backgroundColor = "#fbfef7";
         document.getElementById("user-password").style.backgroundColor = "#fbfef7";
@@ -353,20 +353,20 @@ async function login() {
             rememberMe: document.getElementById("remember-me").checked
         }
         fetch(`${hostName}${api.login.route}`, {
-                method: api.login.method,
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                withCredentials: true,
-                body: JSON.stringify(values),
-            })
+            method: api.login.method,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            withCredentials: true,
+            body: JSON.stringify(values),
+        })
             .then(response => response.json())
             .then(json => handleLoginResponse(json))
             .catch(err => console.log(err));
     }
 }
 
-window.addEventListener(`api-fetched`, async(ev) => {
+window.addEventListener(`api-fetched`, async (ev) => {
     generateMenu();
     updateNotificationsBox();
     setTimeout(() => updateNotificationsBox(), 360000, null); //la 6 minute
