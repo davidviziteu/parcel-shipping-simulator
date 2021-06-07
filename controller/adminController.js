@@ -3,7 +3,7 @@ const models = require("../models")
 const nodemailer = require('nodemailer');
 const { hashSync, genSaltSync, compareSync } = require("bcrypt")
 const fs = require('fs');
-
+const { sendDebugInResponse } = require("../models/apiModel");
 
 module.exports = {
     changePrice: (req, res) => {
@@ -23,7 +23,7 @@ module.exports = {
             console.log(error.message)
             return res.status(StatusCodes.BAD_REQUEST).json({
                 success: false,
-                error: error.message
+                ...sendDebugInResponse && { error: error.message }
             })
         }
         req.db.updateBestPrice(req.body.price, (err, results) => {
@@ -353,16 +353,16 @@ module.exports = {
             body = req.parameters
             const { error, value } = models.adminModel.validationEmail.validate(body)
             if (error) {
-                return res.status(200).json({
+                return res.status(StatusCodes.BAD_REQUEST).json({
                     success: false,
                     error: error.message
                 })
             }
             req.db.getUserByEmail(body.email, (error, results) => {
                 if (error) {
-                    res.status(200).json({
+                    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                         success: false,
-                        error: error.message
+                        ...sendDebugInResponse && { error: error.message }
                     })
                 } else if (results != undefined) {
                     res.status(200).json({
@@ -404,14 +404,14 @@ module.exports = {
                 if (error) {
                     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                         success: false,
-                        error: error.message
+                        ...sendDebugInResponse && { error: error.message }
                     })
                 } else if (results != undefined) {
                     req.db.deleteAccount(body.email, (error, results) => {
                         if (error) {
                             res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                                 success: false,
-                                error: error.message
+                                ...sendDebugInResponse && { error: error.message }
                             })
                         } else {
                             res.status(200).json({
@@ -455,7 +455,7 @@ module.exports = {
                 if (error) {
                     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                         success: false,
-                        error: error.message
+                        ...sendDebugInResponse && { error: error.message }
                     })
                 } else {
                     res.status(StatusCodes.OK).json({
@@ -475,28 +475,33 @@ module.exports = {
 
         if (req.accountType == `admin`) {
             console.log(req.parameters.table)
-            fs.readFile(req.filePath, 'utf8', function (err, data) {
-                console.log(data)
+            fs.readFile(req.filePath, 'utf8', function(err, data) {
                 var rows = data.split(`\n`)
-                console.log(rows)
-                var statusCode = StatusCodes.OK;
                 for (let index = 0; index < rows.length; index++) {
-                    // const element = array[index];
                     const row = rows[index];
                     if (row.length == 0) continue;
                     const fields = row.split(`,`);
-                    req.db.insertIntoTable(req.parameters.table, fields, (error, results) => {
+                    var newfields = fields.map(v => v.replace("\"", ``));
+                    var newF = newfields.map(v => v.replace("\"", ``));
+                    // console.log(newF)
+
+                    req.db.insertIntoTable(req.parameters.table, newF, (error, results) => {
                         if (error) {
-                            statusCode = StatusCodes.INTERNAL_SERVER_ERROR;
+                            console.log(error.message)
                             res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                                 success: false,
-                                error: error.message
+                                ...sendDebugInResponse && { error: error.message }
                             })
                         }
 
                     })
 
                 }
+                res.status(StatusCodes.OK).json({
+                    success: true,
+                    message: `inserare in baza de date cu succes`
+                })
+
             })
         } else {
             res.status(StatusCodes.UNAUTHORIZED).json({
@@ -511,7 +516,7 @@ module.exports = {
                 if (error) {
                     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                         success: false,
-                        error: error.message
+                        ...sendDebugInResponse && { error: error.message }
                     })
                 } else {
                     res.setHeader('Content-type', 'application/octet-stream');
@@ -522,11 +527,19 @@ module.exports = {
                         let entries = Object.entries(line);
                         for (let [index, [key, value]] of entries.entries()) {
                             if (index + 1 == Object.keys(line).length) {
+                                if (typeof value == 'string') {
+                                    value = `"${value}"`
+                                }
                                 last = value.toString();
                                 break;
                             }
                             if (value == null)
                                 value = 'n/a';
+                            else {
+                                if (typeof value == 'string') {
+                                    value = `"${value}"`
+                                }
+                            }
                             writeStream.write(value.toString() + ',')
                         }
                         writeStream.write(last)
@@ -536,7 +549,9 @@ module.exports = {
                     writeStream.end();
                     let readStream = fs.createReadStream(`./uploadedFiles/${req.parameters.table}.csv`)
                     readStream.pipe(res)
-                        // fs.unlink(`./uploadedFiles/${req.parameters.table}.csv`)
+                    fs.unlink(`./uploadedFiles/${req.parameters.table}.csv`, () => {
+
+                    })
                 }
             })
 
@@ -559,10 +574,9 @@ module.exports = {
                 if (error) {
                     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                         success: false,
-                        error: error.message
+                        ...sendDebugInResponse && { error: error.message }
                     })
-                }
-                else {
+                } else {
                     const month = {
                         January: 0,
                         February: 0,
@@ -597,8 +611,7 @@ module.exports = {
                     })
                 }
             })
-        }
-        else {
+        } else {
 
             return res.status(StatusCodes.UNAUTHORIZED).json({
                 success: 0,
@@ -619,10 +632,9 @@ module.exports = {
                 if (error) {
                     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                         success: false,
-                        error: error.message
+                        ...sendDebugInResponse && { error: error.message }
                     })
-                }
-                else {
+                } else {
                     const month = {
                         January: 0,
                         February: 0,
@@ -657,8 +669,7 @@ module.exports = {
                     })
                 }
             })
-        }
-        else {
+        } else {
             return res.status(StatusCodes.UNAUTHORIZED).json({
                 success: 0,
                 error: "doar adminul poate executa aceasta comanda!"

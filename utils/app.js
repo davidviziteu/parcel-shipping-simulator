@@ -99,9 +99,10 @@ class App {
                 }.bind(this))
                 req.on('error', function (err) {
                     console.error(err.message)
-                    req.json({
+                    req.status(StatusCodes.EXPECTATION_FAILED).json({
                         success: false,
-                        error: err.message
+                        message: `body data transfer error`,
+                        ...sendDebugInResponse && { error: err.message }
                     });
                     // req.end();
                 }.bind(this))
@@ -175,7 +176,7 @@ class App {
 
                 //altfel e alta eraore. fie de la stat, fie de la readFile
                 return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-                    error: err.message,
+                    ...sendDebugInResponse && { error: err.message },
                     path: filePath
                 })
             }
@@ -224,7 +225,7 @@ class App {
 
                 //altfel e alta eraore. fie de la stat, fie de la readFile
                 return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-                    error: err.message,
+                    ...sendDebugInResponse && { error: err.message },
                     path: filePath
                 })
             }
@@ -258,14 +259,14 @@ class App {
             })
 
         if (pathname == `/`) {
-            if (!req.accountType)
+            if (!req._staticRedirect)
                 return res.sendStaticFile(`public/landingPage.html`)
-            return res.sendStaticFile(`public/dashboard-${req.accountType}.html`)
+            return res.sendStaticFile(`public/dashboard-${req._staticRedirect}.html`)
         } else
             if (pathname == `/landingPage.html`) {
-                if (!req.accountType)
+                if (!req._staticRedirect)
                     return res.sendStaticFile(`public/landingPage.html`)
-                return res.sendStaticFile(`public/dashboard-${req.accountType}.html`)
+                return res.sendStaticFile(`public/dashboard-${req._staticRedirect}.html`)
             } else
                 return res.sendStaticFile(`public` + pathname)
 

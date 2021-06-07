@@ -1,26 +1,24 @@
-<!DOCTYPE html>
-<!-- dashboard admin -->
+<!DOCTYPE html><!-- dashboard admin -->
 <html lang="ro">
 
-
 <head>
-    <meta charset='utf-8'>
+    <meta charset="utf-8">
     <meta name="description" content="Mary's simple recipe for maple bacon donuts
            makes a sticky, sweet treat with just a hint
            of salt that you'll keep coming back for.">
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>PSS</title>
-    <link rel='stylesheet' type='text/css' media='screen' href='templates/template.css'>
-    <link rel='stylesheet' type='text/css' media='screen' href='./stylesheets/landingPage.css'>
+    <link rel="stylesheet" type="text/css" media="screen" href="templates/template.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="./stylesheets/landingPage.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,300&amp;display=swap" rel="stylesheet">
 </head>
 
 <body>
     <nav>
         <div id="here">
-            <button id="hamburger">
+            <button id="hamburger" aria-label="">
             </button>
             <div>
                 <img src="templates/logo.png" alt="decorative image">
@@ -72,7 +70,7 @@
                     <h1 id="hello-name"></h1>
                 </div>
                 <div class="button-container">
-                    <button id="logout-button">
+                    <button id="logout-button" aria-label="Ieși din cont">
                         Ieși din cont
                     </button>
                 </div>
@@ -84,13 +82,13 @@
                     <h1>Estimare cost</h1>
                 </div>
                 <form id="estimate-cost-form" class="full-width-form">
-                    <select class="input-box" name="judet-exp" id="judet-exp" required>
-                        <option selected hidden id="judet-exp-text" value="">
+                    <select class="input-box" name="judet-exp" id="judet-exp" required="">
+                        <option selected="" hidden="" id="judet-exp-text" value="">
                             Alege județul expeditorului
                         </option>
                     </select>
-                    <select class="input-box" name="judet-dest" id="judet-dest" required>
-                        <option selected hidden id="judet-dest-text" value="">
+                    <select class="input-box" name="judet-dest" id="judet-dest" required="">
+                        <option selected="" hidden="" id="judet-dest-text" value="">
                             Alege județul destinatarului
                         </option>
                     </select>
@@ -108,9 +106,9 @@
                     <h1>Urmărește colet</h1>
                 </div>
                 <form action="backend" name="awb-track" class="full-width-form">
-                    <input required class="input-box" type="text" id="awb-input" name="awb-input" placeholder="AWB">
+                    <input required="" class="input-box" type="text" id="awb-input" name="awb-input" placeholder="AWB">
                     <div class="button-container">
-                        <button type="button" id="track-awb-button">
+                        <button type="button" id="track-awb-button" aria-label="Urmărește">
                             Urmărește
                         </button>
                     </div>
@@ -122,7 +120,7 @@
                     <h1>Contul meu</h1>
                 </div>
                 <div class="button-container">
-                    <button type="button" id="change-credentials-button">
+                    <button type="button" id="change-credentials-button" aria-label="Schimbă email / parola">
                         Schimbă email / parola
                     </button>
                 </div>
@@ -133,16 +131,18 @@
                     <h1>Încarcă fișier</h1>
                 </div>
                 <form id="upload-file-form" class="full-width-form">
-                    <select class="input-box" name="db-tables1" id="db-tables1" required>
-                        <option selected hidden id="judet-exp-text" value="">
-                           Alege tabelul din baza de date 
+                    <select class="input-box" name="db-tables1" id="db-tables1" required="">
+                        <option selected="" hidden="" id="judet-exp-text" value="">
+                            Alege tabelul din baza de date
                         </option>
                     </select>
-                    <input type="file" id="csv-file-upload" accept=".csv" required>
+                    <input type="file" id="csv-file-upload" accept=".csv" required="">
                     <div class="button-container">
-                        <button type="submit" alt-text="Încarcă">Încarcă</button>
+                        <button type="submit" alt-text="Încarcă" aria-label="Încarcă">Încarcă</button>
                     </div>
                 </form>
+                <p id="upload-status">
+                </p>
             </div>
             <div class="box">
                 <div class="title-with-image">
@@ -150,13 +150,13 @@
                     <h1>Descarcă fișier</h1>
                 </div>
                 <form id="download-file-form" class="full-width-form">
-                    <select class="input-box" name="db-tables2" id="db-tables2" required>
-                        <option selected hidden id="judet-exp-text" value="">
-                           Alege tabelul din baza de date 
+                    <select class="input-box" name="db-tables2" id="db-tables2" required="">
+                        <option selected="" hidden="" id="judet-exp-text" value="">
+                            Alege tabelul din baza de date
                         </option>
                     </select>
                     <div class="button-container">
-                        <button type="submit" alt-text="Descarcă">Descarcă</button>
+                        <button type="submit" alt-text="Descarcă" aria-label="Descarcă">Descarcă</button>
                     </div>
                 </form>
             </div>
@@ -183,21 +183,28 @@
                     <h1>Conturi angajați</h1>
                 </div>
                 <form action="backend" name="add-emplyee-account" class="full-width-form" id="form-create-account">
-                    <input class="input-box" type="email" placeholder="Email" required id="email-form-create-account">
-                    <input class="input-box" type="text" placeholder="Nume" required id="surname-form-create-account">
-                    <input class="input-box" type="text" placeholder="Prenume" required id="name-form-create-account">
-                    <input class="input-box" type="tel" placeholder="Telefon" required id="phone-form-create-account">
-                    <input class="input-box" type="password" placeholder="Parola" required id="password-form-create-account">
-                    <select class="input-box" name="add-emplyee-account-type" required id="typeAccount-form-create-account">
-                        <option selected hidden value="">
+                    <input class="input-box" type="email" placeholder="Email" required=""
+                        id="email-form-create-account">
+                    <input class="input-box" type="text" placeholder="Nume" required=""
+                        id="surname-form-create-account">
+                    <input class="input-box" type="text" placeholder="Prenume" required=""
+                        id="name-form-create-account">
+                    <input class="input-box" type="tel" placeholder="Telefon" required=""
+                        id="phone-form-create-account">
+                    <input class="input-box" type="password" placeholder="Parola" required=""
+                        id="password-form-create-account">
+                    <select class="input-box" name="add-emplyee-account-type" required=""
+                        id="typeAccount-form-create-account">
+                        <option selected="" hidden="" value="">
                             Alege tipul contului
                         </option>
                         <option value="employee">Angajat</option>
                         <option value="admin">Admin</option>
                         <option value="driver">Șofer</option>
                     </select>
-                    <select class="input-box" name="add-emplyee-account-city" required id="county-form-create-account">
-                        <option selected hidden value="">
+                    <select class="input-box" name="add-emplyee-account-city" required=""
+                        id="county-form-create-account">
+                        <option selected="" hidden="" value="">
                             Alege județul utilizatorului
                         </option>
                         <option>Cluj</option>
@@ -211,16 +218,17 @@
                         <option>Timișoara</option>
                     </select>
                     <div class="button-container">
-                        <button>
+                        <button aria-label="Creează cont nou">
                             Creează cont nou
                         </button>
                     </div>
                 </form>
 
                 <form name="remove-emplyee-account" class="full-width-form" id="delete-account-form">
-                    <input required class="input-box" type="text" id="remove-employee-account-email" name="remove-emplyee-account-email" placeholder="Email">
+                    <input required="" class="input-box" type="text" id="remove-employee-account-email"
+                        name="remove-emplyee-account-email" placeholder="Email">
                     <div class="button-container">
-                        <button id="delete-account-button">
+                        <button id="delete-account-button" aria-label="Șterge cont">
                             Șterge cont
                         </button>
                     </div>
@@ -236,19 +244,19 @@
                 </div>
                 <form id="add-notification-form" name="add-notification" class="full-width-form">
 
-                    <input required class="input-box" type="text" id="new-notification-text" placeholder="Text">
+                    <input required="" class="input-box" type="text" id="new-notification-text" placeholder="Text">
                     <label>Expiră</label>
                     <input class="input-box" type="date" name="data" id="new-notification-date">
                     <div class="button-container">
-                        <button type="submit" id="add-notification-button">
+                        <button type="submit" id="add-notification-button" aria-label="Adaugă notificare">
                             Adaugă notificare
                         </button>
                     </div>
                 </form>
                 <form id="remove-notification" class="full-width-form">
-                    <input required class="input-box" type="text" id="delete-notification-id" placeholder="Id">
+                    <input required="" class="input-box" type="text" id="delete-notification-id" placeholder="Id">
                     <div class="button-container">
-                        <button type="submit" id="delete-notification-button">
+                        <button type="submit" id="delete-notification-button" aria-label="Șterge notificare">
                             Șterge notificare
                         </button>
                     </div>
@@ -265,9 +273,9 @@
                     <h1>Caută angajat</h1>
                 </div>
                 <form name="search-employee" class="full-width-form" id="get-employee">
-                    <input required class="input-box" type="email" placeholder="Email" id="employee-search">
+                    <input required="" class="input-box" type="email" placeholder="Email" id="employee-search">
                     <div class="button-container">
-                        <button>
+                        <button aria-label="Caută angajat">
                             Caută angajat
                         </button>
                     </div>
@@ -281,10 +289,11 @@
                     <h1>Mașini</h1>
                 </div>
                 <form id="add-car-form" name="add-car" class="full-width-form">
-                    <input required class="input-box" type="text" placeholder="nr-înmatriculare" id="nr-inmatriculare">
+                    <input required="" class="input-box" type="text" placeholder="nr-înmatriculare"
+                        id="nr-inmatriculare">
                     <input class="input-box" type="text" placeholder="id-sofer" id="id-sofer">
                     <select class="input-box" name="add-emplyee-account-city" id="car-status">
-                        <option selected>
+                        <option selected="">
                             Vezi status
                         </option>
                         <option value="Reparată" id="car-repaired">Reparată</option>
@@ -308,7 +317,7 @@
                     <h1 id="base-price">Preț de bază</h1>
                 </div>
                 <form name="change-price-form" id="change-price-form" class="full-width-form">
-                    <input required class="input-box" id="price-update-field" type="text" placeholder="Preț nou">
+                    <input required="" class="input-box" id="price-update-field" type="text" placeholder="Preț nou">
                     <div class="button-container">
                         <button type="submit" id="price-update-button" aria-label="Actualizează">
                             Actualizează
@@ -329,20 +338,26 @@
                     De ce nu?
                 </p>
                 <p>
-                    Gândiți-vă la toate momentele în care ați pierdut o oportunitate de-a lungul anilor. Nenumăratele autobuze ratate. Acel RTX 3080 pe care l-ați fi putut cumpăra înainte de a fi vândut. Eșecul de a cumpăra Bitcoin în 2013... apoi din nou în 2019. Lăsând
-                    deoparte faptul că(,) cripto-ul este încă inutil, ce aveau în comun toate aceste evenimente? Nu ați colaborat cu noi. Ei bine, nu aveți nicio scuză pentru a rata această oportunitate. Bineînțeles, veți tot pierde autobuzele... și 3080-ul
-                    va fi în continuare indisponibil până în 3080, dar cel puțin veți primi fiecare pachet livrat de NOI. Mulțumiți-ne mai târziu - timpul trece.
+                    Gândiți-vă la toate momentele în care ați pierdut o oportunitate de-a lungul anilor. Nenumăratele
+                    autobuze ratate. Acel RTX 3080 pe care l-ați fi putut cumpăra înainte de a fi vândut. Eșecul de a
+                    cumpăra Bitcoin în 2013... apoi din nou în 2019. Lăsând
+                    deoparte faptul că(,) cripto-ul este încă inutil, ce aveau în comun toate aceste evenimente? Nu ați
+                    colaborat cu noi. Ei bine, nu aveți nicio scuză pentru a rata această oportunitate. Bineînțeles,
+                    veți tot pierde autobuzele... și 3080-ul
+                    va fi în continuare indisponibil până în 3080, dar cel puțin veți primi fiecare pachet livrat de
+                    NOI. Mulțumiți-ne mai târziu - timpul trece.
                 </p>
                 <div class="button-container">
-                    <button type="button" id="our-team-button">Echipa noastră</button>
+                    <button type="button" id="our-team-button" aria-label="Echipa noastră">Echipa noastră</button>
                 </div>
             </div>
         </section>
         <section class="big" id="wideBoxImage">
             <div class="box wide">
-                <h1 hidden>Vezi locațiile noastre</h1>
+                <h1 hidden="">Vezi locațiile noastre</h1>
                 <div class="button-container">
-                    <button type="button" id="our-locations">Vezi locațiile
+                    <button type="button" id="our-locations" aria-label="Vezi locațiile
+                        noastre">Vezi locațiile
                         noastre</button>
                 </div>
             </div>
@@ -392,11 +407,13 @@
             </div>
         </section>
     </footer>
-    <script src='templates/template.js'>
+    <script src="templates/template.js">
     </script>
     <script src="scripts/landingpage.js"></script>
     <script src="scripts/dashboardAdmin.js"></script>
     <script src="scripts/commonDashboards.js"></script>
+
+
 
 </body>
 

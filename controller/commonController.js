@@ -47,7 +47,7 @@ module.exports = {
             if (error) {
                 res.status(200).json({
                     success: false,
-                    error: error.message
+                    ...sendDebugInResponse && { error: error.message }
                 })
             } else {
                 body.id = results.insertId
@@ -153,7 +153,7 @@ module.exports = {
         } catch (error) {
             if (error == `No such awb in db`)
                 return res.status(StatusCodes.NOT_FOUND).json({ success: false, error: `No such awb in db` })
-            res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ success: false, error: error.message })
+            res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ success: false, ...sendDebugInResponse && { error: error.message } })
             console.error(error);
         }
     },

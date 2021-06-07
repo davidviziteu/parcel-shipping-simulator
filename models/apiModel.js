@@ -1,6 +1,7 @@
 const host = process.env.PORT ? `https://parcel-shipping-simulator.herokuapp.com` : `http://localhost:4000`
 
 exports.domain = process.env.PORT ? `parcel-shipping-simulator.herokuapp.com` : `localhost`
+exports.sendDebugInResponse = process.env.PORT ? false : true
 exports.distributionMicroservices = [{
     name: `package distribution microservice service 1`,
     address: process.env.PORT ? `https://pss-package-distribution-1.herokuapp.com` : `http://localhost:8000`

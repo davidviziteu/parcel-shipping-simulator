@@ -2,23 +2,23 @@
 <html lang="ro">
 
 <head>
-    <meta charset='utf-8'>
+    <meta charset="utf-8">
     <meta name="description" content="Mary's simple recipe for maple bacon donuts
            makes a sticky, sweet treat with just a hint
            of salt that you'll keep coming back for.">
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>PSS</title>
-    <link rel='stylesheet' type='text/css' media='screen' href='templates/template.css'>
-    <link rel='stylesheet' type='text/css' media='screen' href='stylesheets/dashboards.css'>
+    <link rel="stylesheet" type="text/css" media="screen" href="templates/template.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/dashboards.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,300&amp;display=swap" rel="stylesheet">
 </head>
 
 <body>
     <nav>
         <div id="here">
-            <button id="hamburger">
+            <button id="hamburger" aria-label="">
             </button>
             <div>
                 <img src="templates/logo.png" alt="decorative image">
@@ -72,12 +72,12 @@
                     </h1>
                 </div>
                 <div class="button-container expandable buttons-with-image">
-                    <button type="button" class="progress-done">
+                    <button type="button" class="progress-done" aria-label="Comanda a fost plasată">
                         <img src="./assets/counseling.png" alt="decorative image">
                         Comanda a fost plasată
                     </button>
                 </div>
-                <ul hidden id="status1" class="collapsable-list">
+                <ul hidden="" id="status1" class="collapsable-list">
                     <li> Comandă acceptată și în curs de procesare.
                     </li>
                     <li>
@@ -91,12 +91,12 @@
                     <img src="./assets/arrow.png" alt="down-arrow">
                 </div>
                 <div class="button-container expandable buttons-with-image">
-                    <button type="button" class="progress-done">
+                    <button type="button" class="progress-done" aria-label="În tranzit">
                         <img src=" ./assets/box.png" alt="decorative image">
                         În tranzit
                     </button>
                 </div>
-                <ul hidden id="status2" class="collapsable-list">
+                <ul hidden="" id="status2" class="collapsable-list">
                     <li> Coletul a fost preluat de la expeditor
                     </li>
                     <li>
@@ -114,12 +114,12 @@
 
                 </div>
                 <div class="button-container expandable buttons-with-image">
-                    <button type="button" class="progress-now">
+                    <button type="button" class="progress-now" aria-label="Centru de expedieri">
                         <img src="./assets/distribution.png" alt="decorative image">
                         Centru de expedieri
                     </button>
                 </div>
-                <ul hidden id="status3" class="collapsable-list">
+                <ul hidden="" id="status3" class="collapsable-list">
                     <li> Coletul a ajuns în centrul de expediere
                     </li>
                     <li>
@@ -137,12 +137,12 @@
 
                 </div>
                 <div class="button-container expandable buttons-with-image">
-                    <button type="button" class="">
+                    <button type="button" class="" aria-label="În livrare">
                         <img src="./assets/telephone.png" alt="decorative image">
                         În livrare
                     </button>
                 </div>
-                <ul hidden id="status4" class="collapsable-list">
+                <ul hidden="" id="status4" class="collapsable-list">
                     <li> Coletul a fost preluat de către un curier
                     </li>
                     <li>
@@ -160,12 +160,12 @@
 
                 </div>
                 <div class="button-container expandable buttons-with-image">
-                    <button type="button" class="">
+                    <button type="button" class="" aria-label="Livrat">
                         <img src="./assets/review.png" alt="decorative image">
                         Livrat
                     </button>
                 </div>
-                <ul hidden id="status5" class="collapsable-list">
+                <ul hidden="" id="status5" class="collapsable-list">
                     <li>
                         Coletul a fost livrat.
                     </li>
@@ -185,15 +185,16 @@
                     </h1>
                 </div>
                 <form id="login-form" class="full-width-form">
-                    <input class="input-box" type="email" id="resetEmail" placeholder="Email" required>
-                    <input class="input-box" type="email" id="email" name="fname" placeholder="Email" required>
-                    <input class="input-box" type="password" id="password" name="lname" placeholder="Parolă" required>
+                    <input class="input-box" type="email" id="resetEmail" placeholder="Email" required="">
+                    <input class="input-box" type="email" id="email" name="fname" placeholder="Email" required="">
+                    <input class="input-box" type="password" id="password" name="lname" placeholder="Parolă"
+                        required="">
                     <div class="button-container">
                         <input type="submit" id="continue" value="Autentificare">
                         <input type="button" id="forgot" value="Am uitat parola">
                         <input type="button" id="resetPass" value="Resetează parola" onclick="showList(`mailSent`)">
                     </div>
-                    <ol id="mailSent" hidden class="collapsable-list">
+                    <ol id="mailSent" hidden="" class="collapsable-list">
                         <li>A fost trimis un mail de resetare a parolei.</li>
                     </ol>
                 </form>
@@ -206,21 +207,21 @@
                     </h1>
                 </div>
                 <div class="button-container expandable buttons-with-image">
-                    <button type="button">Număr colet</button>
+                    <button type="button" aria-label="Număr colet">Număr colet</button>
                 </div>
-                <ul hidden id="numarColet" class="collapsable-list">
+                <ul hidden="" id="numarColet" class="collapsable-list">
                     <li>73434767</li>
                 </ul>
                 <div class="button-container expandable buttons-with-image">
-                    <button type="button">Nume expeditor</button>
+                    <button type="button" aria-label="Nume expeditor">Nume expeditor</button>
                 </div>
-                <ul hidden id="numeExpeditor" class="collapsable-list">
+                <ul hidden="" id="numeExpeditor" class="collapsable-list">
                     <li>Vînă Andreea Mădălina</li>
                 </ul>
                 <div class="button-container expandable buttons-with-image">
-                    <button type="button">Adresă</button>
+                    <button type="button" aria-label="Adresă">Adresă</button>
                 </div>
-                <ul hidden id="adresa" class="collapsable-list">
+                <ul hidden="" id="adresa" class="collapsable-list">
                     <li>Strada Clopotari</li>
                     <li>Numărul 15</li>
                     <li>Bloc 634</li>
@@ -234,9 +235,10 @@
                 <form class="full-width-form">
                     <input class="input-box" type="date" id="dataLivrare">
                     <div class="button-container expandable buttons-with-image">
-                        <button type="button" id="changeDate">Schimbă data de livrare</button>
+                        <button type="button" id="changeDate" aria-label="Schimbă data de livrare">Schimbă data de
+                            livrare</button>
                     </div>
-                    <ul hidden class="collapsable-list">
+                    <ul hidden="" class="collapsable-list">
                         <li>Data de livrare schimbată</li>
                     </ul>
                 </form>
@@ -252,9 +254,10 @@
                         </option>
                     </select>
                     <div class="button-container expandable buttons-with-image">
-                        <button type="button" id="change">Schimbă adresa de livrare</button>
+                        <button type="button" id="change" aria-label="Schimbă adresa de livrare">Schimbă adresa de
+                            livrare</button>
                     </div>
-                    <ul hidden class="collapsable-list">
+                    <ul hidden="" class="collapsable-list">
                         <li>Adresa de livrare schimbată</li>
                     </ul>
                 </form>
@@ -305,8 +308,10 @@
             </div>
         </section>
     </footer>
-    <script src='templates/template.js'></script>
-    <script src='scripts/DashboardClient.js'></script>
+    <script src="templates/template.js"></script>
+    <script src="scripts/DashboardClient.js"></script>
+
+
 </body>
 
 </html>
