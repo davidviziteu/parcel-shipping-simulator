@@ -16,7 +16,6 @@ class App {
         this.router = new Router()
     }
 
-    isRestAPI = (url) => String(url).startsWith(`/api`)
     listen() {
         http.createServer(function (req, res) {
             res.setHeader('Access-Control-Allow-Origin', '*');
@@ -173,25 +172,6 @@ class App {
             req.db = this.db
         return req
     }
-
-    // handleStatic(req, res) {
-    //     // parse URL
-    //     const parsedUrl = url.parse(req.url)
-    //     // extract URL path
-    //     let pathname = `${parsedUrl.pathname}`
-    //     if (pathname == `/`) {
-    //         if (!req.accountType)
-    //             return res.sendFile(`public/landingPage.html`)
-    //         return res.sendFile(`public/dashboard-${req.accountType}.html`)
-    //     } else
-    //         if (pathname == `/landingPage.html`) {
-    //             if (!req.accountType)
-    //                 return res.sendFile(`public/landingPage.html`)
-    //             return res.sendFile(`public/dashboard-${req.accountType}.html`)
-    //         } else
-    //             return res.sendFile(`public` + pathname)
-
-    // }
 }
 
 module.exports = { App }

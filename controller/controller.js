@@ -102,7 +102,9 @@ exports.getDriverTask = async (req, res) => {
         let deleteDriverTasksPromise = req.db.driverTasks.deleteMany({ id: req.body.id })
         let deleteCountyTasksPromise = req.db.countyTasks.deleteMany({ county: req.body.county })
         let encoded = encodeURI(`${mainServerUrl}/api/private/driver-data?county=${req.body.county}`);
-        let response = await fetch(encoded)
+        let response = await fetch(encoded, {
+            headers: { 'Cookie': `token=${req.token}` }
+        })
         data = await response.json();
         if (!response.ok)
             return res.status(StatusCodes.FAILED_DEPENDENCY).json({
@@ -152,7 +154,7 @@ exports.getDriverTask = async (req, res) => {
             else {
                 data.driverList[index].task = "Livrare / preluare colete national";
                 data.driverList[index].countySource = data.county;
-                data.driverList[index].countyDestination = "Baza Nationala Brasov";
+                data.driverList[index].countyDestination = "Baza Nationala Sighisoara";
                 data.driverList[index].toDeliver = [];
                 data.driverList[index].toPickup = [];
                 for (let i = 0; i < nationalCarPackagesLimit; i++) {
@@ -178,7 +180,7 @@ exports.getDriverTask = async (req, res) => {
                 if (index % 3 == 0) {
                     data.driverList[index].task = "Livrare / preluare colete national";
                     data.driverList[index].countySource = data.county;
-                    data.driverList[index].countyDestination = "Baza Nationala Brasov";
+                    data.driverList[index].countyDestination = "Baza Nationala Sighisoara";
                     data.driverList[index].toDeliver = [];
                     data.driverList[index].toPickup = [];
                     for (let i = 0; i < nationalCarPackagesLimit; i++) {
@@ -322,7 +324,7 @@ let a = {
             "county": "Iași",
             "task": "Livrare / preluare colete national",
             "countySource": "Iași",
-            "countyDestination": "Baza Nationala Brasov",
+            "countyDestination": "Baza Nationala Sighisoara",
             "toDeliver": [
                 10,
                 9,
