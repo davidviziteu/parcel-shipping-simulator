@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ro">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>PSS Scholarly HTML report</title>
+    <link rel="stylesheet" href="css/scholarly.min.css">
+    <script src="js/scholarly.min.js"></script>
+</head>
+
+<body prefix="schema: http://schema.org">
+    <header>
+        <div class="banner">
+            <img src="scholarly-html.svg" width="227" height="50" alt="Scholarly HTML logo">
+            <div class="status">PSS project</div>
+        </div>
+        <h1>Parcel Shipping Simulator Web Assistant report</h1>
+    </header>
+    <div role="contentinfo">
+        <dl>
+            <dt>Authors</dt>
+            <dd>
+                Bujor Bogdan-Constantin &amp; Vînă Andreea-Mădălina &amp; Viziteu David-Andrei
+            </dd>
+        </dl>
+    </div>
+    <section id="abstract">
+        <h2>Abstract</h2>
+        <p>PSS este o aplicație WEB care permite utilizatorilor să trimită colete, să vizualizeze informații despre comenzile plasate și de aseamenea să vizualizeze statistici legate de livrări la nivel de județ si oraș.</p>
+    </section>
+    <section id="introduction" role="doc-introduction">
+        <h2>Introducere</h2>
+        <p>,,Parcel Shipping Simulator este o aplicație Web care simulează activitatea unei companii de transport și livrare la domiciliu de pachete. Se va oferi suport pentru (re)programarea unei livrări, preluarea pachetelor, figurarea escalelor, precizarea
+            categoriei de servicii (cu confirmare, deschiderea coletului, plată ramburs, constatarea unor stricăciuni,...). Se vor considera și posibile întărzieri și/sau excepții – e.g., condiții meteo nefavorabile, defecțiuni, stare de necesitate. Alături
+            de posibilitățile de căutare și suport pentru AWB, sistemul va oferi statistici – textuale si grafice – privind starea curentă a livrărilor efectuate într-un perimetru (de exemplu, localitate sau cartier), pe o perioadă de timp. Notificările
+            vor fi transmise prin poșta electronică și prin intermediul fluxurilor RSS."
+        </p>
+    </section>
+    <section id="structure">
+        <h2>Structura</h2>
+        <section id="Tehnologii utilizate">
+            <h2>Tehnologii utilizate</h2>
+            <p>
+                Pentru crearea interfeței utilizatorului, am folosit limbajele HTML5, CSS și JavaScript.
+            </p>
+        </section>
+        <section id="Pagini">
+            <h2>Pagini</h2>
+            <section id="landingPage">
+                <h2>Landing Page</h2>
+                <p>Această pagină permite funcționalități precum:</p>
+                <ul>
+                    <li>
+                        Login
+                    </li>
+                    <li>
+                        înregistrare
+                    </li>
+                    <li>
+                        Resetare parolă
+                    </li>
+                    <li>
+                        Căutare după AWB
+                    </li>
+                    <li>
+                        Estimare cost
+                    </li>
+                    <li>
+                        Vizualizare locații
+                    </li>
+                    <li>
+                        Plasarea unei comenzi cu sau fără cont
+                    </li>
+                </ul>
+            </section>
+            <section id="inregistrare">
+                <h2>Register</h2>
+                <p>Această pagină conține un formular cu date necesare creării unui cont nou.</p>
+            </section>
+            <section id="statistici">
+                <h2>Statistici</h2>
+                <p>Această pagină conține statistici despre numărul de comenzi, de accidente și de întărzieri pe fiecare oraș.
+                </p>
+            </section>
+            <section id="newOrder">
+                <h2>New Order</h2>`
+                <p>Această pagină conține un formular care va prelua datele necesare unei comenzi noi.</p>
+            </section>
+            <section id="cautaawb">
+                <h2>Dashboard Client</h2>
+                <p>Această pagină conține informații despre statusul comenzii asociate AWB căutat. Tot pe aceasta pagină se regăsește posibilitatea de a schimba adresa și ziua de livrare.</p>
+            </section>
+            <section id="locații">
+                <h2>Locații</h2>
+                <p>Această pagină permite vizualizarea tuturor locațiilor.</p>
+            </section>
+            <section id="AboutUS">
+                <h2>About US</h2>
+                <p>Această pagină permite vizualizarea informațiilor despre autorii paginii.</p>
+            </section>
+            <section id="Contact">
+                <h2>Contact</h2>
+                <p>Această pagină permite vizualizarea datelor de contact ale autorilor.</p>
+            </section>
+            <section id="admin">
+                <h2>Dashboard Admin</h2>
+                <p>După logarea de pe landingPage adminului îi vor fi atribuite următoarele funcționalități: crearea de conturi, ștergere de conturi, actualizarea informațiilor primite de la șoferi, postarea notificărilor.</p>
+            </section>
+            <section id="sofer">
+                <h2>Dashboard Șofer</h2>
+                <p>După logarea de pe landingPage șoferului îi vor fi atribuite următoarele funcționalități: vizualizare propriilor AWB-uri, precum și informații despre acestea, posibilitatea de a anunța posibile evenimente neprevăzute pe traseu.</p>
+            </section>
+        </section>
+        <section id="experienta">
+            <h2>Experiența utilizatorului</h2>
+            <ol>
+                <li>
+                    Pagina de landing oferă userului posibilitatea de a accesa ușor toate funcționalitățile site-ului.
+                </li>
+                <li>
+                    User-ul are de aseamenea la dispoziție un meniu accesibil din partea stângă a site-ului care îl redirecționează rapid către pagini precum: Locații, Despre noi, Verificare AWB, Statistici și Contact.
+                </li>
+                <li>
+                    Întreaga interfață grafică a site-ului este user friendly, facilitând astfel plasarea de comenzi și vizualizarea informațiilor despre acestea.
+                </li>
+                <li>
+                    Toate paginile au un footer care oferă rapid accesul la informații despre autori și referințe.
+                </li>
+            </ol>
+        </section>
+        <section id="Backend">
+            <h2>Backend - Noțiuni importante</h2>
+            <ol>
+                <li>
+                    Backendul aplicației a fost realizat în NodeJs.
+                </li>
+                <li>
+                    Am implementat o parte din funcționalitățile oferite de Framework ul Express.js și am proiectat serverul astfel încat functionalitățile acestuia să fie exploatabile VIA REST API, codul sursă este structurat conform arhitecturii MVC.
+                </li>
+                <li>
+                    De asemenea, am abordat o arhitectură bazată pe (micro)servicii. </li>
+                <li>
+                    HATEOS -Hypermedia as the Engine of Application State. Este o extensie a arhitecturii REST prin intermediul căreia un client interacționează ale cărei servere furnizează informații dinamic prin Hypermedia.
+                </li>
+                <li>
+                    Pentru a putea oferi consumarea serviciilor rest de către utilizatori a trebuit să proiectam un "fat client".
+                </li>
+                <li>
+                    Pentru a calcula costul estimativ al unei comenzi abia lansate am folosit un API public GeoApify căruia îi furnizam numele a două orașe în vederea aflării coordonatelor și calculării distanței.
+                </li>
+            </ol>
+        </section>
+    </section>
+    <section id="baza-de-date">
+        <h3>Arhitectura bazei de date</h3>
+        <div>
+            Pentru reținerea datelor am folosit o bază de date MySql.
+        </div>
+        <img src="./db.png">
+    </section>
+    <section id="structure">
+        <h2>Sistemul de stocare al codului</h2>
+        <p>Pentru stocarea și managementul online al codului-sursă am folosit GitHub:</p>
+        <a href="https://github.com/davidviziteu/parcel-shipping-simulator">Repository-ul de pe GitHub</a>
+    </section>
+    <section id="structure">
+        <h2>Funcționalitățile aplicației</h2>
+        <ul>
+            <li>Client
+                <ul>
+                    <li>Sistem de logare: Utilizatorul va avea posibiltatea să intre în contul său. Acest lucru îi va oferi anumite funcționalități cum ar fi: posibilitatea de a reprograma și a schimba adresa unei livrări, completarea automată a datelor personale
+                        în momentul plasării unei comenzi noi, schimbarea parolei și a emailului.</li>
+                    <li>Sistemul de înregistrare: Utilizatorul va avea posibilitatea să își creeze propriul cont, oferind informații precum: nume, prenume, județ, oraș, adresă, email, parolă și numărul de telefon. </li>
+                    <li>Sistemul de vizualizare a statisticilor: Utilizatorul va avea posibilitatea de a vizualiza următoarele statistici: număr comenzi, număr accidente și număr întărzieri pentru fiecare județ și oraș.</li>
+                    <li>Posibilitatea de a vizualiza statusul unei comenzi plasate: comandă acceptată, în tranzit, centru de expedieri, în livrare, livrat.</li>
+                    <li>Posibilitatea de a vizualiza locațiile.</li>
+                    <li>Posibilitatea de a lua legătura cu personale de contact.</li>
+                </ul>
+            </li>
+            <li>Șofer
+                <ul>
+                    <li>Posibilitatea de a vizualiza propriile AWB-uri și detalii despre acestea precum: detalii despre expeditor și destinatar.</li>
+                    <li>Posibilitatea de a trimite date către call-center a informațiilor despre evenimentele de pe traseu cum ar fi: defecțiuni ale vehiculului și accidente, condiții meteo nefavorabile, conținut deteriorat al unui pachet, cazul în care clientul
+                        nu este acasă și livrare colet.</li>
+                </ul>
+            </li>
+            <li>Admin
+                <ul>
+                    <li>Preluarea informațiilor oferite de către șoferi și actualizarea acestora.</li>
+                    <li>Vizualizarea informațiilor despre fiecare comandă.</li>
+                </ul>
+            </li>
+        </ul>
+    </section>
+    <section id="semantics">
+        <h2>Diagrame</h2>
+        <section id="Root">
+            <h3>Diagrame UseCase</h3>
+            <h3>Client</h3>
+            <img src="./ClientUseCaseDiagram_3.png">
+            <h3>Șofer</h3>
+            <img src="./SoferUseCaseDiagram_2.png">
+            <h3>Admin</h3>
+            <img src="./AdminUseCaseDiagram_3.png">
+        </section>
+    </section>
+    <section id="Root">
+        <h2>Task-uri</h2>
+        <ul>
+            <li>Toți</li>
+            <li>Front</li>
+            <ul>
+                <li>În cadrul celor șase întălniri fizice pe care le-am făcut, pe lângă cele aproape zilnice de pe discord, am realizat împreună template-ul pe care ulterior l-am utilizat toți în realizarea paginilor, am rezolvat bug-urile apărute la fiecare
+                    dintre noi, astfel fiecare a contribuit la paginile realizate de ceilalți.
+                </li>
+                <li>
+                    Framework ul intern.
+                </li>
+                <li>
+                    Interogari pe baza de date.
+                </li>
+                <li>
+                    Gândirea întregului flow al aplicației.
+                </li>
+            </ul>
+            <li>Viziteu David-Andrei</li>
+            <ul>
+                <li>
+                    Pagina de landing.
+                </li>
+                <li>
+                    Dashboard Admin
+                </li>
+                <li>
+                    S-a ocupat de repository-ul nostru și de legarea paginilor statice.
+                </li>
+                <li>
+                    Microserviciu
+                </li>
+                <li>
+                    Dashboard client back și multe, multe funcționalități pe front
+                </li>
+            </ul>
+            <li>Bujor Bogdan-Constantin</li>
+            <ul>
+                <li>
+                    Pagina de statistici
+                </li>
+                <li>
+                    Dashboard Șofer
+                </li>
+                <li>
+                    Pagina de register
+                </li>
+                <li>
+                    Navbar & Footer
+                </li>
+                <li>
+                    Statistici Back + Register
+                </li>
+                <li>
+                    RSS
+                </li>
+                <li>
+                    Dashbord șofer și alte funcționalități pe back
+                </li>
+            </ul>
+            <li>Vînă Andreea-Mădălina</li>
+            <ul>
+                <li>
+                    New Order
+                </li>
+                <li>
+                    AboutUS
+                </li>
+                <li>
+                    Dashboard Client
+                </li>
+                <li>
+                    Contact & Locații
+                </li>
+                <li>
+                    New Order back + login
+                </li>
+                <li>
+                    CSV export/import
+                </li>
+                <li>
+                    Alte funcționalități Dashboard admin back + front
+                </li>
+            </ul>
+        </ul>
+        <section id="development">
+            <h2>Stagii de dezvoltare</h2>
+            <ul>
+                <li>
+                    Inițial am plecat pe un cu totul alt design care ne-a făcut să ne dăm seama că trebuie să realizăm un template pe care ulterior să-l folosim cu toții în dezvoltarea paginilor.
+                </li>
+                <li>
+                    Realizarea template-ului
+                </li>
+                <li>
+                    Realizarea de către fiecare a paginilor precum: register, newOrder, landingPage etc.
+                </li>
+                <li>
+                    Gândirea conceptului de dashboard pentru fiecare tip de utilizator și implementarea acestor pagini.
+                </li>
+                <li>
+                    Legarea paginilor și rezolvarea tuturor bug-urilor apărute în urma acestei acțiuni. Precum și necesitatea de a modifica structura anumitor pagini deja realizate.
+                </li>
+            </ul>
+        </section>
+    </section>
+    <section id="Resurse">
+        <h3>Resurse</h3>
+        <ul>
+            <li><a href="https://jigsaw.w3.org/css-validator/">CSS Validator</a></li>
+            <li><a href="https://validator.w3.org/">HTML Validator</a></li>
+            <li><a href="https://www.w3schools.com/">W3Schools</a></li>
+            <li><a href="https://profs.info.uaic.ro/~busaco/teach/courses/web/web-film.html">Cursuri Tehnologii Web</a></li>
+            <li><a href="https://www.flaticon.com/">Flaticon</a></li>
+            <li><a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/">Guide flex</a></li>
+        </ul>
+    </section>
+    <br><br><br>
+</body>
+
+</html>
