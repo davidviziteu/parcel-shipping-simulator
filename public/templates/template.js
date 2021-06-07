@@ -116,7 +116,7 @@ async function generateMenu() {
     mainMenu.innerHTML += newMenuItem(`/AboutUs.html`, `Despre noi`)
     mainMenu.innerHTML += newMenuItem(`/`, `Verificare AWB`)
     mainMenu.innerHTML += newMenuItem(`/Contact.html`, `Contact`)
-    mainMenu.innerHTML += newMenuItem(`Documentatie/Scholarly-html-PSS-report`, `Documentație Scholarly`)
+    mainMenu.innerHTML += newMenuItem(`https://davidviziteu.github.io/parcel-shipping-simulator/`, `Documentație Scholarly`)
     if (api) {
         if (api.loginType == `admin`) {
             mainMenu.innerHTML += newMenuItem(`Statistici.html`, `Statistici`)
