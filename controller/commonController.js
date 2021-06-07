@@ -8,8 +8,8 @@ const nodemailer = require('nodemailer');
 const fetch = require('node-fetch');
 const jwt_decode = require('jwt-decode');
 const builder = require('xmlbuilder');
+const { sendDebugInResponse } = require("../models/apiModel");
 const newUserSchema = models.userModel.newUserSchema;
-
 var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -89,7 +89,8 @@ module.exports = {
         try {
             let awbDataPromise = req.db.getDetailsOrder(req.parameters.awb);
             let awbEventsPromise = req.db.getAwbEvents(req.parameters.awb);
-            const [awbData, awbRawEvents] = await Promise.all([awbDataPromise, awbEventsPromise])
+            let awbSenderPromise = req.db.getOrderSender(req.parameters.awb)
+            const [awbData, awbRawEvents, awbSenderId] = await Promise.all([awbDataPromise, awbEventsPromise, awbSenderPromise])
 
             let awbEventsObject = new orderDashboardModel()
             let awbDetailsObject = new awbDetailsModel()
@@ -106,7 +107,8 @@ module.exports = {
                 return res.status(StatusCodes.OK).json({
                     success: true,
                     data: awbDetailsObject,
-                    events: awbEventsObject
+                    events: awbEventsObject,
+                    isSender: awbSenderId == req.accountId,
                 })
             }
 
@@ -420,5 +422,94 @@ module.exports = {
             }
         })
 
-    }
+    },
+    confirmDenyOrder: async (req, res) => {
+        // req.db.updateStatusAWB
+        if (!req.accountType || req.accountType != `employee` || req.accountType != `admin` || req.accountType != `driver`)
+            return res.status(StatusCodes.UNAUTHORIZED).json({
+                success: false,
+            })
+        const { error } = models.orderModel.confirmDenyOrderInputModel.validate(req.body)
+        if (error)
+            return res.status(StatusCodes.BAD_REQUEST).json({
+                success: false,
+                error: error.message
+            })
+        req.db.updateStatusAWB(req.body, (error) => {
+            if (error)
+                return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+                    success: false,
+                    ...sendDebugInResponse && { error: error.message }
+                })
+            let details = req.body.status == `order-destinatary` ? "Comanda a fost livrată" : "Clientul a refuzat comanda"
+            let employees_details = `status marcat de ${req.accountType}, id:${req.accountId}`
+            req.db.newAWBEvent({
+                awb: req.body.awb,
+                event_type: "order-destinatary",
+                details: details,
+                employees_details: employees_details
+            }, error => {
+                if (error)
+                    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+                        success: false,
+                        ...sendDebugInResponse && { error: error.message }
+                    })
+                return res.status(StatusCodes.OK).json({
+                    success: true,
+                })
+            })
+        })
+    },
+    
+    reschedulePickupDate: async (req, res) => {
+        if (!req.body)
+            return res.status(StatusCodes.BAD_REQUEST).json({
+                success: false,
+                error: "missing request body"
+            })
+        const { error } = models.orderModel.rescheduleOrderModel.validate(req.body)
+        console.log(error);
+        if (error)
+            return res.status(StatusCodes.BAD_REQUEST).json({
+                success: false,
+                error: error
+            })
+        try {
+            console.log(`reschedule order body`, req.body);
+            //select date, hour from orders where awb=1235325
+            let awbSender = await req.db.getOrderSender(req.body.awb)
+            if (!awbSender)
+                return res.status(StatusCodes.NOT_FOUND).json({
+                    success: false,
+                    message: "Awb sender not found. The order may have been sent without an account"
+                })
+            await req.db.modifyOrderDate(req.body.awb, req.body.date, req.body.hour)
+
+            let details = `Comanda a fost reprogramata pentru ridicare pe data de: ${req.body.date}, ${req.body.time}`
+            let employees_details = `status marcat de ${req.accountType}, id:${req.accountId}`
+
+            req.db.newAWBEvent({
+                awb: req.body.awb,
+                event_type: "order-received",
+                details: details,
+                employees_details: employees_details
+            }, error => {
+                if (error)
+                    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+                        success: false,
+                        ...sendDebugInResponse && { error: error.message }
+                    })
+                return res.status(StatusCodes.OK).json({
+                    success: true,
+                    message: "if the order has been picked up, then this has no effect whatsoever"
+                })
+            })
+        } catch (error) {
+            console.error(error);
+            res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+                success: false,
+                ...sendDebugInResponse && { error: error.message }
+            })
+        }
+    },
 }

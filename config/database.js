@@ -722,9 +722,9 @@ module.exports = {
     insertIntoClientOrders: (data, callBack) => {
         pool.query(
             `INSERT INTO client_orders VALUES(?,?)`, [
-                data.awb,
-                data.id
-            ],
+            data.awb,
+            data.id
+        ],
             (error, results, fields) => {
                 if (error) {
                     return callBack(error);
@@ -732,5 +732,39 @@ module.exports = {
                 return callBack(null, results);
             }
         );
+    },
+    getOrderSender: awb => {
+        return new Promise((resolve, reject) => {
+            pool.query(
+                `select id from client_orders where awb=?`, [
+                awb,
+            ],
+                (error, results, fields) => {
+                    if (error)
+                        return reject(error)
+                    if (!results[0])
+                        return resolve(null)
+                    resolve(results[0])
+                }
+            )
+        })
+    },
+    modifyOrderDate: async (awb, newDate, newTime) => {
+        return new Promise((resolve, reject) => {
+            pool.query(
+                `update orders set date = ?, hour = ? where awb=?`, [
+                newDate,
+                newTime,
+                awb,
+            ],
+                (error, results, fields) => {
+                    if (error)
+                        return reject(error)
+                    if (!results[0])
+                        return resolve(null)
+                    resolve(results[0])
+                }
+            )
+        })
     },
 }
