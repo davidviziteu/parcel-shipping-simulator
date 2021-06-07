@@ -28,8 +28,7 @@ async function removeAwbFromMicroservice(token, awb, id, res) {
             console.error(json.error);
             res.status(StatusCodes.EXPECTATION_FAILED).json({
                 success: false,
-                error: json.error,
-                from: "microservice 1"
+                ...sendDebugInResponse && { error: json.error, from: "microservice 1" }
             })
         }
         return { success: true }
@@ -72,7 +71,7 @@ module.exports = {
             if (error) {
                 return res.status(200).json({
                     success: false,
-                    error: error.message
+                    ...sendDebugInResponse && { error: error.message }
                 })
             }
             else {
@@ -81,7 +80,7 @@ module.exports = {
                         if (error) {
                             return res.status(200).json({
                                 success: false,
-                                error: error.message
+                                ...sendDebugInResponse && { error: error.message }
                             })
                         }
                         const data = {
@@ -94,7 +93,7 @@ module.exports = {
                             if (error) {
                                 return res.status(200).json({
                                     success: false,
-                                    error: error.message
+                                    ...sendDebugInResponse && { error: error.message }
                                 })
                             }
                         })
@@ -107,7 +106,7 @@ module.exports = {
                                 console.log(error.message)
                                 return res.status(200).json({
                                     success: false,
-                                    error: error.message
+                                    ...sendDebugInResponse && { error: error.message }
                                 })
                             }
                         })
@@ -122,7 +121,7 @@ module.exports = {
                         if (error) {
                             return res.status(200).json({
                                 success: false,
-                                error: error.message
+                                ...sendDebugInResponse && { error: error.message }
                             })
                         }
                         const data = {
@@ -135,7 +134,7 @@ module.exports = {
                             if (error) {
                                 return res.status(200).json({
                                     success: false,
-                                    error: error.message
+                                    ...sendDebugInResponse && { error: error.message }
                                 })
                             }
                         })
@@ -148,7 +147,7 @@ module.exports = {
                                 console.log(error.message)
                                 return res.status(200).json({
                                     success: false,
-                                    error: error.message
+                                    ...sendDebugInResponse && { error: error.message }
                                 })
                             }
                         })
@@ -162,7 +161,7 @@ module.exports = {
                         if (error) {
                             return res.status(200).json({
                                 success: false,
-                                error: error.message
+                                ...sendDebugInResponse && { error: error.message }
                             })
                         }
                         const data = {
@@ -175,7 +174,7 @@ module.exports = {
                             if (error) {
                                 return res.status(200).json({
                                     success: false,
-                                    error: error.message
+                                    ...sendDebugInResponse && { error: error.message }
                                 })
                             }
                         })
@@ -188,7 +187,7 @@ module.exports = {
                                 console.log(error.message)
                                 return res.status(200).json({
                                     success: false,
-                                    error: error.message
+                                    ...sendDebugInResponse && { error: error.message }
                                 })
                             }
                         })
@@ -202,7 +201,7 @@ module.exports = {
                         if (error) {
                             return res.status(200).json({
                                 success: false,
-                                error: error.message
+                                ...sendDebugInResponse && { error: error.message }
                             })
                         }
                         else {
@@ -216,7 +215,7 @@ module.exports = {
                                 if (error) {
                                     return res.status(200).json({
                                         success: false,
-                                        error: error.message
+                                        ...sendDebugInResponse && { error: error.message }
                                     })
                                 }
                             })
@@ -228,7 +227,7 @@ module.exports = {
                         if (error) {
                             return res.status(200).json({
                                 success: false,
-                                error: error.message
+                                ...sendDebugInResponse && { error: error.message }
                             })
                         }
                         else {
@@ -242,7 +241,7 @@ module.exports = {
                                 if (error) {
                                     return res.status(200).json({
                                         success: false,
-                                        error: error.message
+                                        ...sendDebugInResponse && { error: error.message }
                                     })
                                 }
                             })
@@ -262,7 +261,7 @@ module.exports = {
                         if (error) {
                             return res.status(200).json({
                                 success: false,
-                                error: error.message
+                                ...sendDebugInResponse && { error: error.message }
                             })
                         }
                     })
@@ -270,7 +269,7 @@ module.exports = {
                         if (error) {
                             return res.status(200).json({
                                 success: false,
-                                error: error.message
+                                ...sendDebugInResponse && { error: error.message }
                             })
                         }
                     })
@@ -290,7 +289,7 @@ module.exports = {
                         if (error) {
                             return res.status(200).json({
                                 success: false,
-                                error: error.message
+                                ...sendDebugInResponse && { error: error.message }
                             })
                         }
                     })
@@ -298,7 +297,7 @@ module.exports = {
                         if (error) {
                             return res.status(200).json({
                                 success: false,
-                                error: error.message
+                                ...sendDebugInResponse && { error: error.message }
                             })
                         }
                     })
@@ -321,7 +320,7 @@ module.exports = {
                         if (error) {
                             return res.status(200).json({
                                 success: false,
-                                error: error.message
+                                ...sendDebugInResponse && { error: error.message }
                             })
                         }
                     })
@@ -329,7 +328,7 @@ module.exports = {
                         if (error) {
                             return res.status(200).json({
                                 success: false,
-                                error: error.message
+                                ...sendDebugInResponse && { error: error.message }
                             })
                         }
                     })
@@ -352,7 +351,7 @@ module.exports = {
                         if (error) {
                             return res.status(200).json({
                                 success: false,
-                                error: error.message
+                                ...sendDebugInResponse && { error: error.message }
                             })
                         }
                     })
@@ -360,7 +359,7 @@ module.exports = {
                         if (error) {
                             return res.status(200).json({
                                 success: false,
-                                error: error.message
+                                ...sendDebugInResponse && { error: error.message }
                             })
                         }
                     })
@@ -383,7 +382,7 @@ module.exports = {
                         if (error) {
                             return res.status(200).json({
                                 success: false,
-                                error: error.message
+                                ...sendDebugInResponse && { error: error.message }
                             })
                         }
                     })
@@ -391,7 +390,7 @@ module.exports = {
                         if (error) {
                             return res.status(200).json({
                                 success: false,
-                                error: error.message
+                                ...sendDebugInResponse && { error: error.message }
                             })
                         }
                     })
@@ -411,7 +410,7 @@ module.exports = {
                         if (error) {
                             return res.status(200).json({
                                 success: false,
-                                error: error.message
+                                ...sendDebugInResponse && { error: error.message }
                             })
                         }
                     })
@@ -419,7 +418,7 @@ module.exports = {
                         if (error) {
                             return res.status(200).json({
                                 success: false,
-                                error: error.message
+                                ...sendDebugInResponse && { error: error.message }
                             })
                         }
                     })
@@ -442,7 +441,7 @@ module.exports = {
                         if (error) {
                             return res.status(200).json({
                                 success: false,
-                                error: error.message
+                                ...sendDebugInResponse && { error: error.message }
                             })
                         }
                     })
@@ -450,7 +449,7 @@ module.exports = {
                         if (error) {
                             return res.status(200).json({
                                 success: false,
-                                error: error.message
+                                ...sendDebugInResponse && { error: error.message }
                             })
                         }
                     })
@@ -471,7 +470,7 @@ module.exports = {
                         if (error) {
                             return res.status(200).json({
                                 success: false,
-                                error: error.message
+                                ...sendDebugInResponse && { error: error.message }
                             })
                         }
                     })
@@ -479,7 +478,7 @@ module.exports = {
                         if (error) {
                             return res.status(200).json({
                                 success: false,
-                                error: error.message
+                                ...sendDebugInResponse && { error: error.message }
                             })
                         }
                     })
@@ -500,7 +499,7 @@ module.exports = {
                 console.log(error)
                 res.status(500).json({
                     success: false,
-                    error: error.message
+                    ...sendDebugInResponse && { error: error.message }
                 })
             }
             else if (results[0] != undefined) {
@@ -590,7 +589,7 @@ module.exports = {
             console.error(error);
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                 success: false,
-                error: error.message
+                ...sendDebugInResponse && { error: error.message }
             })
         }
 

@@ -2,23 +2,23 @@
 <html lang="ro">
 
 <head>
-    <meta charset='utf-8'>
+    <meta charset="utf-8">
     <meta name="description" content="Mary's simple recipe for maple bacon donuts
            makes a sticky, sweet treat with just a hint
            of salt that you'll keep coming back for.">
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>PSS</title>
-    <link rel='stylesheet' type='text/css' media='screen' href='templates/template.css'>
-    <link rel='stylesheet' type='text/css' media='screen' href='./stylesheets/NewOrder.css'>
+    <link rel="stylesheet" type="text/css" media="screen" href="templates/template.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="./stylesheets/NewOrder.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,300&amp;display=swap" rel="stylesheet">
 </head>
 
 <body>
     <nav>
         <div id="here">
-            <button id="hamburger">
+            <button id="hamburger" aria-label="">
             </button>
             <div>
                 <img src="templates/logo.png" alt="decorative image">
@@ -66,24 +66,27 @@
                 </div>
                 <div class="box">
                     <h2>Detalii expeditor*</h2>
-                    <!-- <<<<<<< HEAD <input class="input-box" type="text" placeholder="Nume expeditor" required>
+                    <!-- <!!!!!! HEAD <input class="input-box" type="text" placeholder="Nume expeditor" required>
                         <input class="input-box" type="text" placeholder="Persoană de contact" required>
                         <input class="input-box" type="tel" placeholder="Telefon" required>
                         <input class="input-box" placeholder="Adresă de email" required>
                         <select class="input-box" name="judet" id="judet1" required>
                             ======= -->
-                    <input class="input-box" type="text" placeholder="Nume expeditor" name="expName" id="expName" required>
-                    <input class="input-box" type="text" placeholder="Persoană de contact" name="expContactName" id="expContactName" required>
-                    <input class="input-box" type="tel" placeholder="Telefon" name="expPhone" id="expPhone" required>
-                    <input class="input-box" placeholder="Adresă de email" name="expEmail" id="expEmail" required>
-                    <select class="input-box" name="judet1" id="judet1" required>
-                        <option value="" disabled selected hidden>Alege județul</option>
+                    <input class="input-box" type="text" placeholder="Nume expeditor" name="expName" id="expName"
+                        required="">
+                    <input class="input-box" type="text" placeholder="Persoană de contact" name="expContactName"
+                        id="expContactName" required="">
+                    <input class="input-box" type="tel" placeholder="Telefon" name="expPhone" id="expPhone" required="">
+                    <input class="input-box" placeholder="Adresă de email" name="expEmail" id="expEmail" required="">
+                    <select class="input-box" name="judet1" id="judet1" required="">
+                        <option value="" disabled="" selected="" hidden="">Alege județul</option>
                     </select>
 
-                    <select class="input-box" name="localitate1" id="localitate1" required>
+                    <select class="input-box" name="localitate1" id="localitate1" required="">
                         <option class="color" value="" selected="selected">Alege județul prima dată</option>
                     </select>
-                    <input class="input-box" type="text" placeholder="Adresă" name="expAddress" id="expAddress" required>
+                    <input class="input-box" type="text" placeholder="Adresă" name="expAddress" id="expAddress"
+                        required="">
 
 
                 </div>
@@ -91,17 +94,21 @@
                 <div class="box">
                     <h2>Detalii destinatar*</h2>
 
-                    <input class="input-box" type="text" placeholder="Nume destinatar" name="destName" id="destName" required>
-                    <input class="input-box" type="text" placeholder="Persoană de contact" name="destContactName" id="destContactName" required>
-                    <input class="input-box" type="tel" placeholder="Telefon" name="destPhone" id="destPhone" required>
-                    <select class="input-box" name="judet2" id="judet2" required>
-                        <option value="" disabled selected hidden>Alege județul</option>
+                    <input class="input-box" type="text" placeholder="Nume destinatar" name="destName" id="destName"
+                        required="">
+                    <input class="input-box" type="text" placeholder="Persoană de contact" name="destContactName"
+                        id="destContactName" required="">
+                    <input class="input-box" type="tel" placeholder="Telefon" name="destPhone" id="destPhone"
+                        required="">
+                    <select class="input-box" name="judet2" id="judet2" required="">
+                        <option value="" disabled="" selected="" hidden="">Alege județul</option>
                     </select>
 
-                    <select class="input-box" name="localitate2" id="localitate2" required>
+                    <select class="input-box" name="localitate2" id="localitate2" required="">
                         <option value="" selected="selected">Alege județul prima dată</option>
                     </select>
-                    <input class="input-box" type="text" placeholder="Adresă" name="destAddress" id="destAddress" required>
+                    <input class="input-box" type="text" placeholder="Adresă" name="destAddress" id="destAddress"
+                        required="">
 
 
 
@@ -149,22 +156,23 @@
                         <input class="check-box" type="checkbox" id="preference3" name="preference3">
                         <label for="optiuni3" id="Fragil"> Colet fragil </label>
                     </div>
-                    <select class="input-box" id="payment" name="payment" required>
-                        <option value="" disabled selected hidden id="test">Alege metoda de plată</option>
+                    <select class="input-box" id="payment" name="payment" required="">
+                        <option value="" disabled="" selected="" hidden="" id="test">Alege metoda de plată</option>
                     </select>
                 </div>
                 <div class="box">
                     <h2>Estimează </h2>
                     <div class="button-container">
-                        <button type="button" id="estimate-cost-button">
+                        <button type="button" id="estimate-cost-button" aria-label="Calculează">
                             Calculează
                         </button>
                     </div>
                     <div class="center-horizontal">
                         <p id="total-cost">
+                        </p>
                     </div>
 
-                    </p>
+                    <p></p>
                 </div>
                 <div class="wide box">
                     <div class="button-container">
@@ -229,8 +237,10 @@
         </section>
     </footer>
 
-    <script src='templates/template.js'></script>
-    <script src='./scripts/NewOrder2.js'></script>
+    <script src="templates/template.js"></script>
+    <script src="./scripts/NewOrder2.js"></script>
+
+
 </body>
 
 </html>

@@ -4,7 +4,7 @@ const models = require("../models")
 const nodemailer = require('nodemailer');
 const { sign } = require("jsonwebtoken");
 const jwt_decode = require('jwt-decode');
-
+const { sendDebugInResponse } = require("../models/apiModel");
 const { newOrderSchema } = models.orderModel
 const validationEmailChangeCredentials = models.userModel.validationEmailChangeCredentials
 
@@ -39,7 +39,7 @@ module.exports = {
         const { error, value } = newOrderSchema.validate(body);
         if (error) {
             console.log(error.message)
-            return res.status(300).json({
+            return res.status(StatusCodes.BAD_REQUEST).json({
                 success: false,
                 error: error.message
             })
@@ -47,9 +47,9 @@ module.exports = {
         console.log(body);
         req.db.placeNewOrder(body, (error, results) => {
             if (error) {
-                res.status(500).json({
+                res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                     success: false,
-                    error: error.message
+                    ...sendDebugInResponse && { error: error.message }
                 })
             } else {
                 const result = Object.values(JSON.parse(JSON.stringify(results)))
@@ -58,7 +58,7 @@ module.exports = {
                     if (error) {
                         res.status(500).json({
                             success: false,
-                            error: error.message
+                            ...sendDebugInResponse && { error: error.message }
                         })
                     } else {
                         mailOptions.to = body.email_sender
@@ -84,7 +84,7 @@ module.exports = {
         const body = req.body
         const { error, value } = validationEmailChangeCredentials.validate(body)
         if (error) {
-            return res.status(500).json({
+            return res.status(StatusCodes.BAD_REQUEST).json({
                 success: false,
                 error: error.message
             })
@@ -93,7 +93,7 @@ module.exports = {
             if (error) {
                 res.status(500).json({
                     success: false,
-                    error: error.message
+                    ...sendDebugInResponse && { error: error.message }
                 })
             } else if (results != undefined) {
                 var id = results.id
@@ -105,7 +105,7 @@ module.exports = {
                     if (error) {
                         res.status(500).json({
                             success: false,
-                            error: error.message
+                            ...sendDebugInResponse && { error: error.message }
                         })
                     } else {
                         console.log(results)
@@ -130,7 +130,7 @@ module.exports = {
                             if (error) {
                                 res.status(500).json({
                                     success: false,
-                                    error: error.message
+                                    ...sendDebugInResponse && { error: error.message }
                                 })
                             } else {
                                 res.status(200).json({
@@ -156,7 +156,7 @@ module.exports = {
             if (error) {
                 res.status(500).json({
                     success: false,
-                    error: error.message
+                    ...sendDebugInResponse && { error: error.message }
                 })
             } else if (results != undefined) {
                 body.id = results.id
@@ -168,7 +168,7 @@ module.exports = {
                         if (error) {
                             res.status(500).json({
                                 success: false,
-                                error: error.message
+                                ...sendDebugInResponse && { error: error.message }
                             })
                         } else {
                             const data = {
@@ -180,7 +180,7 @@ module.exports = {
                                 if (error) {
                                     res.status(500).json({
                                         success: false,
-                                        error: error.message
+                                        ...sendDebugInResponse && { error: error.message }
                                     })
                                 } else {
                                     res.status(200).json({
@@ -196,7 +196,7 @@ module.exports = {
                             console.log(error.message)
                             res.status(500).json({
                                 success: false,
-                                error: error.message
+                                ...sendDebugInResponse && { error: error.message }
                             })
                         } else {
                             const data = {
@@ -208,7 +208,7 @@ module.exports = {
                                 if (error) {
                                     res.status(500).json({
                                         success: false,
-                                        error: error.message
+                                        ...sendDebugInResponse && { error: error.message }
                                     })
                                 } else {
                                     res.status(200).json({

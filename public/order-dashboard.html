@@ -2,21 +2,21 @@
 <html lang="ro">
 
 <head>
-    <meta charset='utf-8'>
+    <meta charset="utf-8">
     <meta name="description" content="Order tracking dashboard.">
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>PSS</title>
-    <link rel='stylesheet' type='text/css' media='screen' href='templates/template.css'>
-    <link rel='stylesheet' type='text/css' media='screen' href='./stylesheets/dashboards.css'>
+    <link rel="stylesheet" type="text/css" media="screen" href="templates/template.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="./stylesheets/dashboards.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,300&amp;display=swap" rel="stylesheet">
 </head>
 
 <body>
     <nav>
         <div id="here">
-            <button id="hamburger">
+            <button id="hamburger" aria-label="">
             </button>
             <div>
                 <img src="../templates/logo.png" alt="decorative image">
@@ -75,7 +75,7 @@
                     Comanda a fost primită
                 </button>
             </div>
-            <ul hidden id="order-received-list" class="collapsable-list">
+            <ul hidden="" id="order-received-list" class="collapsable-list">
             </ul>
 
             <div class="progress-arrow">
@@ -90,7 +90,7 @@
                     Ridicat de la expeditor
                 </button>
             </div>
-            <ul hidden id="order-picked-up-list" class="collapsable-list">
+            <ul hidden="" id="order-picked-up-list" class="collapsable-list">
                 <li>
                     Pachetul urmează a fi ridicat de la expeditor în data de 8-apr-2021
                 </li>
@@ -107,7 +107,7 @@
                     În tranzit
                 </button>
             </div>
-            <ul hidden id="order-in-transit-list" class="collapsable-list">
+            <ul hidden="" id="order-in-transit-list" class="collapsable-list">
             </ul>
             <div class="progress-arrow">
                 <img src="./assets/arrow.png" alt="down-arrow">
@@ -120,7 +120,7 @@
                     În curs de livrare
                 </button>
             </div>
-            <ul hidden id="order-in-delivery-list" class="collapsable-list">
+            <ul hidden="" id="order-in-delivery-list" class="collapsable-list">
             </ul>
             <div class="progress-arrow">
                 <img src="./assets/arrow.png" alt="down-arrow">
@@ -133,7 +133,7 @@
                     Destinatar
                 </button>
             </div>
-            <ul hidden id="order-destinatary-list" class="collapsable-list">
+            <ul hidden="" id="order-destinatary-list" class="collapsable-list">
             </ul>
         </div>
 
@@ -144,11 +144,11 @@
                     <h1>Autentifică-te pentru mai multe detalii</h1>
                 </div>
                 <form id="login-form" class="full-width-form" action="" name="login-form-dashboard">
-                    <input class="input-box" type="text" id="user-email" name="fname" placeholder="Email" required>
+                    <input class="input-box" type="text" id="user-email" name="fname" placeholder="Email" required="">
                     <input class="input-box" type="password" id="user-password" name="lname" placeholder="Parolă"
-                        required>
+                        required="">
                     <div class="button-container">
-                        <button type="submit">
+                        <button type="submit" aria-label="Login">
                             Login
                         </button>
                     </div>
@@ -204,8 +204,10 @@
         </div>
     </section>
 
-    <script src='templates/template.js'></script>
-    <script src='scripts/orderDashboard.js'></script>
+    <script src="templates/template.js"></script>
+    <script src="scripts/orderDashboard.js"></script>
+
+
 </body>
 
 </html>

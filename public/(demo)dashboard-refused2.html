@@ -2,23 +2,23 @@
 <html lang="ro">
 
 <head>
-    <meta charset='utf-8'>
+    <meta charset="utf-8">
     <meta name="description" content="Mary's simple recipe for maple bacon donuts
            makes a sticky, sweet treat with just a hint
            of salt that you'll keep coming back for.">
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>PSS</title>
-    <link rel='stylesheet' type='text/css' media='screen' href='templates/template.css'>
-    <link rel='stylesheet' type='text/css' media='screen' href='./stylesheets/dashboards.css'>
+    <link rel="stylesheet" type="text/css" media="screen" href="templates/template.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="./stylesheets/dashboards.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,300&amp;display=swap" rel="stylesheet">
 </head>
 
 <body>
     <nav>
         <div id="here">
-            <button id="hamburger">
+            <button id="hamburger" aria-label="">
             </button>
             <div>
                 <img src="templates/logo.png" alt="decorative image">
@@ -70,12 +70,12 @@
                 <h1>Detalii locatie pachet</h1>
 
                 <div class="button-container buttons-with-image expandable">
-                    <button type="button" class="progress-done">
+                    <button type="button" class="progress-done" aria-label="Comanda a fost primită">
                         <img src="./assets/counseling.png" alt="decorative image">
                         Comanda a fost primită
                     </button>
                 </div>
-                <ul hidden id="status-comanda-primita" class="collapsable-list">
+                <ul hidden="" id="status-comanda-primita" class="collapsable-list">
                     <li>
                         Comanda a fost primită 7-apr-2021, 19:22:30
                     </li>
@@ -88,12 +88,12 @@
 
 
                 <div class="button-container buttons-with-image expandable">
-                    <button type="button" class="progress-now">
+                    <button type="button" class="progress-now" aria-label="Ridicat de la expeditor">
                         <img src="./assets/package.png" alt="decorative image">
                         Ridicat de la expeditor
                     </button>
                 </div>
-                <ul hidden id="status-ridicare" class="collapsable-list">
+                <ul hidden="" id="status-ridicare" class="collapsable-list">
                     <li>
                         Pachetul urmează a fi ridicat de la expeditor în data de 8-apr-2021
                     </li>
@@ -114,12 +114,12 @@
 
 
                 <div class="button-container buttons-with-image expandable">
-                    <button type="button" class="">
+                    <button type="button" class="" aria-label="A ajuns la hub local">
                         <img src="./assets/distribution.png" alt="decorative image">
                         A ajuns la hub local
                     </button>
                 </div>
-                <ul hidden id="status-hub-local" class="collapsable-list">
+                <ul hidden="" id="status-hub-local" class="collapsable-list">
                 </ul>
 
                 <div class="progress-arrow">
@@ -129,12 +129,12 @@
 
 
                 <div class="button-container buttons-with-image expandable">
-                    <button type="button" class="">
+                    <button type="button" class="" aria-label="În tranzit">
                         <img src="./assets/box.png" alt="decorative image">
                         În tranzit
                     </button>
                 </div>
-                <ul hidden id="status-in-tranzit" class="collapsable-list">
+                <ul hidden="" id="status-in-tranzit" class="collapsable-list">
                 </ul>
                 <div class="progress-arrow">
                     <img src="./assets/arrow.png" alt="down-arrow">
@@ -142,12 +142,12 @@
                 </div>
 
                 <div class="button-container buttons-with-image expandable">
-                    <button type="button" class="">
+                    <button type="button" class="" aria-label="În curs de livrare">
                         <img src="./assets/telephone.png" alt="decorative image">
                         În curs de livrare
                     </button>
                 </div>
-                <ul hidden id="status-livrare" class="collapsable-list">
+                <ul hidden="" id="status-livrare" class="collapsable-list">
                 </ul>
                 <div class="progress-arrow">
                     <img src="./assets/arrow.png" alt="down-arrow">
@@ -155,12 +155,12 @@
                 </div>
 
                 <div class="button-container buttons-with-image expandable">
-                    <button type="button" class="detalii-tranzit">
+                    <button type="button" class="detalii-tranzit" aria-label="Destinatar">
                         <img src="./assets/review.png" alt="decorative image">
                         Destinatar
                     </button>
                 </div>
-                <ul hidden id="status-destinatar" class="collapsable-list">
+                <ul hidden="" id="status-destinatar" class="collapsable-list">
                     <li>
                         Estimare data livrare: 10-apr-2021
                     </li>
@@ -171,12 +171,14 @@
             <div class="box">
                 <div class="button-container buttons-with-image">
                     <button id="bttn-comanda-refuzata" class="progress-now" type="button"
-                        onclick="location.href = '(demo)dashboard-refused2.html'">
+                        onclick="location.href = '(demo)dashboard-refused2.html'"
+                        aria-label="Clientul refuză coletul / retur">
                         Clientul refuză coletul / retur
                     </button>
                 </div>
                 <div class="button-container buttons-with-image">
-                    <button id="bttn-comanda-ridicata" type="button" class="disabled">
+                    <button id="bttn-comanda-ridicata" type="button" class="disabled"
+                        aria-label="Clientul a ridicat coletul">
                         Clientul a ridicat coletul
                     </button>
                 </div>
@@ -245,8 +247,10 @@
         </section>
     </form>
 
-    <script src='templates/template.js'></script>
-    <script src='./scripts/dashboard.js'></script>
+    <script src="templates/template.js"></script>
+    <script src="./scripts/dashboard.js"></script>
+
+
 </body>
 
 </html>

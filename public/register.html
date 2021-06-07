@@ -2,23 +2,23 @@
 <html lang="ro">
 
 <head>
-    <meta charset='utf-8'>
+    <meta charset="utf-8">
     <meta name="description" content="Mary's simple recipe for maple bacon donuts
            makes a sticky, sweet treat with just a hint
            of salt that you'll keep coming back for.">
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>PSS</title>
-    <link rel='stylesheet' type='text/css' media='screen' href='templates/template.css'>
-    <link rel='stylesheet' type='text/css' media='screen' href='stylesheets/register.css'>
+    <link rel="stylesheet" type="text/css" media="screen" href="templates/template.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/register.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,300&amp;display=swap" rel="stylesheet">
 </head>
 
 <body>
     <nav>
         <div id="here">
-            <button id="hamburger">
+            <button id="hamburger" aria-label="">
             </button>
             <div>
                 <img src="templates/logo.png" alt="decorative image">
@@ -71,12 +71,12 @@
                     <select class="input-box" id="citySelect" onchange="local(this.value)">
                     </select>
                     <select class="input-box" id="placeSelect">
-                        <option value="" disabled selected>Alege orasul</option>
+                        <option value="" disabled="" selected="">Alege orasul</option>
                     </select>
                     <input class="input-box" id="adress" name="adress" placeholder="Adresa" autocomplete="off">
                 </div>
                 <div class="box">
-                    <!-- <<<<<<< HEAD 
+                    <!-- <!!!!!! HEAD 
                         <input class="input-box" type="email" id="email" name="email" placeholder="Email"
                         autocomplete="off">
                         <input class="input-box" type="password" id="pwd" name="pwd"
@@ -94,8 +94,10 @@
                     <!-- >>>>>>> develop -->
                 </div>
                 <div class="button-container">
-                    <button class="button-container" type="button" id="prevBtn" onclick="nextPrev(-1)">Anterior</button>
-                    <button class="button-container" type="button" id="nextBtn" onclick="nextPrev(1)">
+                    <button class="button-container" type="button" id="prevBtn" onclick="nextPrev(-1)"
+                        aria-label="Anterior">Anterior</button>
+                    <button class="button-container" type="button" id="nextBtn" onclick="nextPrev(1)"
+                        aria-label="Urmatorul">
                         Urmatorul
                     </button>
                 </div>
@@ -146,8 +148,10 @@
             </div>
         </section>
     </footer>
-    <script src='templates/template.js'></script>
-    <script src='scripts/register.js'></script>
+    <script src="templates/template.js"></script>
+    <script src="scripts/register.js"></script>
+
+
 </body>
 
 </html>

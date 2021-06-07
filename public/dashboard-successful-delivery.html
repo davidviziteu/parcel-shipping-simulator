@@ -2,23 +2,23 @@
 <html lang="ro">
 
 <head>
-    <meta charset='utf-8'>
+    <meta charset="utf-8">
     <meta name="description" content="Mary's simple recipe for maple bacon donuts
            makes a sticky, sweet treat with just a hint
            of salt that you'll keep coming back for.">
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>PSS</title>
-    <link rel='stylesheet' type='text/css' media='screen' href='templates/template.css'>
-    <link rel='stylesheet' type='text/css' media='screen' href='./stylesheets/dashboards.css'>
+    <link rel="stylesheet" type="text/css" media="screen" href="templates/template.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="./stylesheets/dashboards.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,300&amp;display=swap" rel="stylesheet">
 </head>
 
 <body>
     <nav>
         <div id="here">
-            <button id="hamburger">
+            <button id="hamburger" aria-label="">
             </button>
             <div>
                 <img src="templates/logo.png" alt="decorative image">
@@ -73,7 +73,7 @@
                 </div>
 
                 <div class="button-container pregress-done buttons-with-image expandable">
-                    <button type="button" class="progress-done">
+                    <button type="button" class="progress-done" aria-label="Comanda a fost primită">
                         <img src="./assets/counseling.png" alt="decorative image">
                         Comanda a fost primită
                     </button>
@@ -90,7 +90,7 @@
 
 
                 <div class="button-container buttons-with-image expandable">
-                    <button type="button" class="progress-done">
+                    <button type="button" class="progress-done" aria-label="Ridicat de la expeditor">
                         <img src="./assets/package.png" alt="decorative image">
                         Ridicat de la expeditor
                     </button>
@@ -110,7 +110,7 @@
 
 
                 <div class="button-container buttons-with-image expandable">
-                    <button type="button" class="progress-done">
+                    <button type="button" class="progress-done" aria-label="A ajuns la hub local">
                         <img src="./assets/distribution.png" alt="decorative image">
                         A ajuns la hub local
                     </button>
@@ -128,7 +128,7 @@
 
 
                 <div class="button-container buttons-with-image expandable">
-                    <button type="button" class="progress-done">
+                    <button type="button" class="progress-done" aria-label="În tranzit">
                         <img src="./assets/box.png" alt="decorative image">
                         În tranzit
                     </button>
@@ -159,7 +159,7 @@
                 </div>
 
                 <div class="button-container buttons-with-image expandable">
-                    <button type="button" class="progress-done">
+                    <button type="button" class="progress-done" aria-label="În curs de livrare">
                         <img src="./assets/telephone.png" alt="decorative image">
                         În curs de livrare
                     </button>
@@ -187,7 +187,7 @@
                 </div>
 
                 <div class="button-container buttons-with-image expandable">
-                    <button type="button" class="progress-done">
+                    <button type="button" class="progress-done" aria-label="Destinatar">
                         <img src="./assets/review.png" alt="decorative image">
                         Destinatar
                     </button>
@@ -205,12 +205,13 @@
             </div>
             <div class="box">
                 <div class="button-container">
-                    <button id="bttn-comanda-refuzata" type="button">
+                    <button id="bttn-comanda-refuzata" type="button" aria-label="Clientul refuză coletul / retur">
                         Clientul refuză coletul / retur
                     </button>
                 </div>
                 <div class="button-container">
-                    <button id="bttn-comanda-ridicata" type="button" class="progress-done">
+                    <button id="bttn-comanda-ridicata" type="button" class="progress-done"
+                        aria-label="Clientul a ridicat coletul">
                         Clientul a ridicat coletul
                     </button>
                 </div>
@@ -282,8 +283,11 @@
         </section>
     </form>
 
-    <script src='templates/template.js'></script>
-    <script src='./scripts/orderDashboard.js'></script>
+    <script src="templates/template.js"></script>
+    <script src="./scripts/orderDashboard.js"></script>
+
+
+    
 </body>
 
-</html>`
+</html>

@@ -2,21 +2,21 @@
 <html lang="ro">
 
 <head>
-    <meta charset='utf-8'>
+    <meta charset="utf-8">
     <meta name="description" content="Client's dashboard.">
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>PSS</title>
-    <link rel='stylesheet' type='text/css' media='screen' href='templates/template.css'>
-    <link rel='stylesheet' type='text/css' media='screen' href='./stylesheets/landingPage.css'>
+    <link rel="stylesheet" type="text/css" media="screen" href="templates/template.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="./stylesheets/landingPage.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,300&amp;display=swap" rel="stylesheet">
 </head>
 
 <body>
     <nav>
         <div id="here">
-            <button id="hamburger">
+            <button id="hamburger" aria-label="">
             </button>
             <div>
                 <img src="templates/logo.png" alt="decorative image">
@@ -62,12 +62,12 @@
                     <h1 id="hello-name"> </h1>
                 </div>
                 <div class="button-container">
-                    <button id="new-order-button">
+                    <button id="new-order-button" aria-label="Comandă nouă">
                         Comandă nouă
                     </button>
                 </div>
                 <div class="button-container">
-                    <button id="logout-button">
+                    <button id="logout-button" aria-label="Ieși din cont">
                         Ieși din cont
                     </button>
                 </div>
@@ -79,13 +79,13 @@
                     <h1>Estimare cost</h1>
                 </div>
                 <form id="estimate-cost-form" class="full-width-form">
-                    <select class="input-box" name="judet-exp" id="judet-exp" required>
-                        <option selected hidden id="judet-exp-text" value="">
+                    <select class="input-box" name="judet-exp" id="judet-exp" required="">
+                        <option selected="" hidden="" id="judet-exp-text" value="">
                             Alege județul expeditorului
                         </option>
                     </select>
-                    <select class="input-box" name="judet-dest" id="judet-dest" required>
-                        <option selected hidden id="judet-dest-text" value="">
+                    <select class="input-box" name="judet-dest" id="judet-dest" required="">
+                        <option selected="" hidden="" id="judet-dest-text" value="">
                             Alege județul destinatarului
                         </option>
                     </select>
@@ -98,7 +98,7 @@
                 </div>
 
 
-                </p>
+                <p></p>
             </div>
             <div class="box">
                 <div class="title-with-image">
@@ -108,7 +108,7 @@
                 <form action="backend" name="awb-track" class="full-width-form">
                     <input class="input-box" type="text" id="awb-input" name="awb-input" placeholder="AWB">
                     <div class="button-container">
-                        <button type="button" id="track-awb-button">
+                        <button type="button" id="track-awb-button" aria-label="Urmărește">
                             Urmărește
                         </button>
                     </div>
@@ -120,13 +120,13 @@
                     <h1>Contul meu</h1>
                 </div>
                 <div class="button-container">
-                    <button type="button" id="change-credentials-button">
+                    <button type="button" id="change-credentials-button" aria-label="Schimbă email / parola">
                         Schimbă email / parola
                     </button>
                 </div>
 
                 <div class="button-container">
-                    <button type="button" id="my-adress">
+                    <button type="button" id="my-adress" aria-label="Adresa mea">
                         Adresa mea
                     </button>
                 </div>
@@ -148,20 +148,25 @@
                     De ce nu?
                 </p>
                 <p>
-                    Gândiți-vă la toate momentele în care ați pierdut o oportunitate de-a lungul anilor. Nenumăratele autobuze ratate. Acel RTX 3080 pe care l-ați fi putut cumpăra înainte de a fi vândut. Eșecul de a cumpăra Bitcoin în 2013... apoi din nou în 2019. Lăsând
-                    deoparte faptul că(,) cripto-ul este încă inutil, ce aveau în comun toate aceste evenimente? Nu ați colaborat cu noi. Ei bine, nu aveți nicio scuză pentru a rata această oportunitate. Bineînțeles, veți tot pierde autobuzele... și 3080-ul
-                    va fi în continuare indisponibil până în 3080, dar cel puțin veți primi fiecare pachet livrat de NOI. Mulțumiți-ne mai târziu - timpul trece.
+                    Gândiți-vă la toate momentele în care ați pierdut o oportunitate de-a lungul anilor. Nenumăratele
+                    autobuze ratate. Acel RTX 3080 pe care l-ați fi putut cumpăra înainte de a fi vândut. Eșecul de a
+                    cumpăra Bitcoin în 2013... apoi din nou în 2019. Lăsând
+                    deoparte faptul că(,) cripto-ul este încă inutil, ce aveau în comun toate aceste evenimente? Nu ați
+                    colaborat cu noi. Ei bine, nu aveți nicio scuză pentru a rata această oportunitate. Bineînțeles,
+                    veți tot pierde autobuzele... și 3080-ul
+                    va fi în continuare indisponibil până în 3080, dar cel puțin veți primi fiecare pachet livrat de
+                    NOI. Mulțumiți-ne mai târziu - timpul trece.
                 </p>
                 <div class="button-container">
-                    <button type="button" id="our-team-button">Echipa noastră</button>
+                    <button type="button" id="our-team-button" aria-label="Echipa noastră">Echipa noastră</button>
                 </div>
             </div>
         </section>
         <section class="big" id="wideBoxImage">
             <div class="box wide">
-                <h1 hidden>Vezi locațiile noastre</h1>
+                <h1 hidden="">Vezi locațiile noastre</h1>
                 <div class="button-container">
-                    <button type="button" id="our-locations" aria-label="Vezi locatiile noastre"> Vezi locațiile noastre
+                    <button type="button" id="our-locations" aria-label="Vezi locațiile noastre"> Vezi locațiile noastre
                     </button>
                 </div>
             </div>
@@ -211,10 +216,12 @@
             </div>
         </section>
     </footer>
-    <script src='templates/template.js'>
+    <script src="templates/template.js">
     </script>
     <script src="scripts/DashboardClient.js"></script>
     <script src="scripts/commonDashboards.js"></script>
+
+
 
 </body>
 

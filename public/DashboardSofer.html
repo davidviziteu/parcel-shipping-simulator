@@ -2,23 +2,23 @@
 <html lang="ro">
 
 <head>
-    <meta charset='utf-8'>
+    <meta charset="utf-8">
     <meta name="description" content="Mary's simple recipe for maple bacon donuts
            makes a sticky, sweet treat with just a hint
            of salt that you'll keep coming back for.">
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>PSS</title>
-    <link rel='stylesheet' type='text/css' media='screen' href='templates/template.css'>
-    <link rel='stylesheet' type='text/css' media='screen' href='./stylesheets/dashboards.css'>
+    <link rel="stylesheet" type="text/css" media="screen" href="templates/template.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="./stylesheets/dashboards.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,300&amp;display=swap" rel="stylesheet">
 </head>
 
 <body>
     <nav>
         <div id="here">
-            <button id="hamburger">
+            <button id="hamburger" aria-label="">
             </button>
             <div>
                 <img src="templates/logo.png" alt="decorative image">
@@ -67,12 +67,12 @@
             <div class="box">
 
                 <div class="button-container buttons-with-image">
-                    <button id="button-expeditor">
+                    <button id="button-expeditor" aria-label="Detalii expeditor">
                         <img src="./assets/man-user.png" alt="decorative image">
                         Detalii expeditor
                     </button>
                 </div>
-                <ol hidden id="detalii-expeditor">
+                <ol hidden="" id="detalii-expeditor">
                     <li id="name_sender">
                     </li>
                     <li id="county_sender">
@@ -85,12 +85,12 @@
                     </li>
                 </ol>
                 <div class="button-container buttons-with-image">
-                    <button id="button-destinatar">
+                    <button id="button-destinatar" aria-label="Detalii destinatar">
                         <img src="./assets/man-user.png" alt="decorative image">
                         Detalii destinatar
                     </button>
                 </div>
-                <ol hidden id="detalii-destinatar">
+                <ol hidden="" id="detalii-destinatar">
                     <li id="name_receiver">
                     </li>
                     <li id="county_receiver">
@@ -103,12 +103,12 @@
                     </li>
                 </ol>
                 <div class="button-container buttons-with-image">
-                    <button id="button-detalii">
+                    <button id="button-detalii" aria-label="Detalii colet">
                         <img src="./assets/parcel.png" alt="decorative image">
                         Detalii colet
                     </button>
                 </div>
-                <ol hidden id="detalii-colet">
+                <ol hidden="" id="detalii-colet">
                     <li id="nrEnvelope">
                     </li>
                     <li id="nrParcel">
@@ -137,51 +137,51 @@
                     </li>
                 </ol>
                 <div class="button-container buttons-with-image">
-                    <button id="button-status">
+                    <button id="button-status" aria-label="Status colet">
                         <img src="./assets/parcel.png" alt="decorative image">
                         Status colet
                     </button>
                 </div>
-                <ol hidden id="status"></ol>
+                <ol hidden="" id="status"></ol>
             </div>
             <div class="box ">
                 <div class="button-container buttons-with-image">
-                    <button class="listSofer" id="accident">
+                    <button class="listSofer" id="accident" aria-label="Am făcut accident">
                         <img src="./assets/car-accident.png" alt="decorative image">
                         Am făcut accident</button>
                     <input type="checkbox" class="check">
                 </div>
                 <div class="button-container buttons-with-image">
-                    <button class="listSofer" id="meteo">
+                    <button class="listSofer" id="meteo" aria-label="Condiții meteo nefavorabile">
                         <img src="./assets/storm.png" alt="decorative image">
                         Condiții meteo nefavorabile</button>
                     <input type="checkbox" class="check">
                 </div>
                 <div class="button-container buttons-with-image">
-                    <button class="listSofer" id="defectiuni">
+                    <button class="listSofer" id="defectiuni" aria-label="Defecțiuni mașină">
                         <img src="./assets/car1.png" alt="decorative image">
                         Defecțiuni mașină</button>
                     <input type="checkbox" class="check">
                 </div>
                 <div class="button-container buttons-with-image">
-                    <button class="listSofer" id="client">
+                    <button class="listSofer" id="client" aria-label="Clientul nu este acasă">
                         <img src="./assets/isolated.png" alt="decorative image">
                         Clientul nu este acasă</button>
                     <input type="checkbox" class="check">
                 </div>
                 <div class="button-container buttons-with-image">
-                    <button class="listSofer" id="continut">
+                    <button class="listSofer" id="continut" aria-label="Conținut deteriorat">
                         <img src="./assets/deteriorat.png" alt="decorative image">
                         Conținut deteriorat</button>
                     <input type="checkbox" class="check">
                 </div>
                 <div class="button-container buttons-with-image">
-                    <button class="listSofer" id="livrat">
+                    <button class="listSofer" id="livrat" aria-label="">
                     </button>
                     <input type="checkbox" class="check">
                 </div>
                 <div class="button-container buttons-with-image">
-                    <button class="listSofer" id="ridicat">
+                    <button class="listSofer" id="ridicat" aria-label="Am ridicat coletul">
                         <img src="./assets/checkbox.png" alt="decorative image">
                         Am ridicat coletul</button>
                     <input type="checkbox" class="check" id="check">
@@ -190,13 +190,15 @@
             </div>
             <div class="wide box">
                 <div class=" button-container">
-                    <button id="submit">Trimite informații</button>
+                    <button id="submit" aria-label="Trimite informații">Trimite informații</button>
                 </div>
             </div>
         </section>
     </main>
-    <script src='templates/template.js'></script>
-    <script src='scripts/dashboardSofer.js'></script>
+    <script src="templates/template.js"></script>
+    <script src="scripts/dashboardSofer.js"></script>
+
+
 </body>
 
 </html>
