@@ -306,8 +306,6 @@ async function trackAwb() {
         sessionStorage.setItem(`order-details`, JSON.stringify(responseBody))
         window.location = api.trackAwb.location
     } catch (error) {
-        if (error instanceof QuotaExceededError)
-            alert(`error saving awb string to session storage. did you disable session storage?`)
         if (error.name != `TypeError`)
             console.error(error)
     }

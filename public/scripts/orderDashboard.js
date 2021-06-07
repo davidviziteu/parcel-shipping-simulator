@@ -75,13 +75,11 @@ window.addEventListener(`api-fetched`, async (ev) => {
         }
         else
             sessionStorage.removeItem(`order-details`)
-        console.log(responseBody);
         document.getElementById(`awb-title`).innerHTML = `AWB: ${awb}`
 
         if (api.loginType == `employee` || api.loginType == `driver` || api.loginType == `admin`) {
             orderRefusedButtonDiv.classList.remove(`hidden`)
             orderConfirmedButtonDiv.classList.remove(`hidden`)
-            console.error(responseBody.events['order-picked-up'].length == 0);
             if (responseBody.events['order-picked-up'].length == 0) {
                 rescheduleDiv.classList.remove(`hidden`)
             }
@@ -146,11 +144,43 @@ window.addEventListener(`api-fetched`, async (ev) => {
             return setInterval(() => { fetchResult.innerHTML = '' }, 9000, null); //la 6 minute
 
         }
-        orderConfirmedButton.addEventListener(`click`, ev => {
+        orderConfirmedButton.addEventListener(`click`, async ev => {
+            let rawResp = await fetch(`${hostName}${api.confirmDenyOrder.route}`, {
+                method: api.confirmDenyOrder.method,
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    awb: awb,
+                    status: `order-destinatary`
+                })
+            })
+            if (!rawResp.ok) {
+                fetchResult.innerHTML = `eroare la inregistrarea datelor pe server`
+                return setInterval(() => { fetchResult.innerHTML = '' }, 9000, null); //la 6 minute
+            }
+            fetchResult.innerHTML = 'Ok'
+            return setInterval(() => { fetchResult.innerHTML = '' }, 9000, null); //la 6 minute
 
         })
 
-        orderRefusedButton.addEventListener(`click`, ev => {
+        orderRefusedButton.addEventListener(`click`, async ev => {
+            let rawResp = await fetch(`${hostName}${api.confirmDenyOrder.route}`, {
+                method: api.confirmDenyOrder.method,
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    awb: awb,
+                    status: `order-refused`
+                })
+            })
+            if (!rawResp.ok) {
+                fetchResult.innerHTML = `eroare la inregistrarea datelor pe server`
+                return setInterval(() => { fetchResult.innerHTML = '' }, 9000, null); //la 6 minute
+            }
+            fetchResult.innerHTML = 'Ok'
+            return setInterval(() => { fetchResult.innerHTML = '' }, 9000, null); //la 6 minute
 
         })
     } catch (error) {

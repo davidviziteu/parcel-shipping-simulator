@@ -449,33 +449,37 @@ module.exports = {
         }
     },
     getDbTables: (req, res) => {
-        if (req.accountType == `admin`) {
-            req.db.getAllTables((error, results) => {
-                results = results.map(r => r.TABLE_NAME)
-                if (error) {
-                    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-                        success: false,
-                        ...sendDebugInResponse && { error: error.message }
-                    })
-                } else {
-                    res.status(StatusCodes.OK).json({
-                        success: true,
-                        message: results
-                    })
-                }
-            })
-        } else {
-            res.status(StatusCodes.UNAUTHORIZED).json({
-                success: 0,
-                error: "doar adminul poate executa aceasta comanda!"
-            })
+        try {
+            if (req.accountType == `admin`) {
+                req.db.getAllTables((error, results) => {
+                    results = results.map(r => r.TABLE_NAME)
+                    if (error) {
+                        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+                            success: false,
+                            ...sendDebugInResponse && { error: error.message }
+                        })
+                    } else {
+                        res.status(StatusCodes.OK).json({
+                            success: true,
+                            message: results
+                        })
+                    }
+                })
+            } else {
+                res.status(StatusCodes.UNAUTHORIZED).json({
+                    success: 0,
+                    error: "doar adminul poate executa aceasta comanda!"
+                })
+            }
+        } catch (error) {
+            console.error(error);
         }
     },
     uploadFiles: (req, res) => {
 
         if (req.accountType == `admin`) {
             console.log(req.parameters.table)
-            fs.readFile(req.filePath, 'utf8', function(err, data) {
+            fs.readFile(req.filePath, 'utf8', function (err, data) {
                 var rows = data.split(`\n`)
                 for (let index = 0; index < rows.length; index++) {
                     const row = rows[index];
