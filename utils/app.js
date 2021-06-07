@@ -255,9 +255,8 @@ class App {
         if (!joinedpath.startsWith("public"))
             return res.status(StatusCodes.FORBIDDEN).json({
                 success: false,
-                error: 'nice try'
             })
-        
+
         if (pathname == `/`) {
             if (!req.accountType)
                 return res.sendStaticFile(`public/landingPage.html`)
