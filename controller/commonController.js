@@ -69,7 +69,7 @@ module.exports = {
                 mailOptions.to = body.email
                 mailOptions.subject = 'Confirmare creare cont'
                 mailOptions.text = 'Ți-ai creat cont cu succes!'
-                transporter.sendMail(mailOptions, function (error, info) {
+                transporter.sendMail(mailOptions, function(error, info) {
                     if (error) {
                         console.log(error.message);
                     } else {
@@ -80,7 +80,7 @@ module.exports = {
         })
         return res
     },
-    trackAwb: async (req, res) => {
+    trackAwb: async(req, res) => {
         console.log(`here`);
         if (!req.parameters.awb)
             return res.status(StatusCodes.BAD_REQUEST).json({
@@ -181,36 +181,36 @@ module.exports = {
                     error: error
                 })
             } else
-                if (!results) {
+            if (!results) {
+                return res.json({
+                    success: 0,
+                    error: "No user with that email!"
+                });
+            } else {
+                const result = compareSync(req.body.password, results.password);
+                if (result) {
+                    results.password = undefined;
+                    results.appversion = req.headers.appversion ? req.headers.appversion : null;
+                    results.platform = req.headers.platform ? req.headers.platform : null;
+                    const jsontoken = sign({ results }, process.env.secretKey, {
+                        expiresIn: "24h"
+                    });
+                    if (value.rememberMe == true)
+                        res.setHeader('Set-Cookie', 'token=' + jsontoken + `; HttpOnly;Secure;expires=Wed, 21 Oct 2030 07:28:00 GMT;Max-Age=9000000;Domain=${models.apiModel.domain};Path=/;overwrite=true`);
+                    else
+                        res.setHeader('Set-Cookie', 'token=' + jsontoken + `; HttpOnly;Domain=${models.apiModel.domain};Path=/`);
+                    return res.json({
+                        success: true,
+                        redirect: `/dashboard-${results.type}.html`
+                    });
+
+                } else {
                     return res.json({
                         success: 0,
-                        error: "No user with that email!"
+                        error: "Invalid password!"
                     });
-                } else {
-                    const result = compareSync(req.body.password, results.password);
-                    if (result) {
-                        results.password = undefined;
-                        results.appversion = req.headers.appversion;
-                        results.platform = req.headers.platform;
-                        const jsontoken = sign({ results }, process.env.secretKey, {
-                            expiresIn: "24h"
-                        });
-                        if (value.rememberMe == true)
-                            res.setHeader('Set-Cookie', 'token=' + jsontoken + `; HttpOnly;Secure;expires=Wed, 21 Oct 2030 07:28:00 GMT;Max-Age=9000000;Domain=${models.apiModel.domain};Path=/;overwrite=true`);
-                        else
-                            res.setHeader('Set-Cookie', 'token=' + jsontoken + `; HttpOnly;Domain=${models.apiModel.domain};Path=/`);
-                        return res.json({
-                            success: true,
-                            redirect: `/dashboard-${results.type}.html`
-                        });
-
-                    } else {
-                        return res.json({
-                            success: 0,
-                            error: "Invalid password!"
-                        });
-                    }
                 }
+            }
         })
     },
     handleLogout: (req, res) => {
@@ -238,7 +238,7 @@ module.exports = {
         })
 
     },
-    estimateCost: async (req, res) => {
+    estimateCost: async(req, res) => {
         var city1 = req.parameters.source;
         var city2 = req.parameters.destination;
         if (!city1 || !city2)
@@ -302,19 +302,19 @@ module.exports = {
             case `user`:
                 return res
                     .status(StatusCodes.OK)
-                    .json({ ...apiModel.baseApi, ...apiModel.userApi, loginType, })
+                    .json({...apiModel.baseApi, ...apiModel.userApi, loginType, })
             case `driver`:
                 return res
                     .status(StatusCodes.OK)
-                    .json({ ...apiModel.baseApi, ...apiModel.userApi, ...apiModel.driverApi, loginType, })
+                    .json({...apiModel.baseApi, ...apiModel.userApi, ...apiModel.driverApi, loginType, })
             case `employee`:
                 return res
                     .status(StatusCodes.OK)
-                    .json({ ...apiModel.baseApi, ...apiModel.userApi, ...apiModel.employeeApi, loginType, })
+                    .json({...apiModel.baseApi, ...apiModel.userApi, ...apiModel.employeeApi, loginType, })
             case `admin`:
                 return res
                     .status(StatusCodes.OK)
-                    .json({ ...apiModel.baseApi, ...apiModel.userApi, ...apiModel.driverApi, ...apiModel.employeeApi, ...apiModel.adminApi, loginType, })
+                    .json({...apiModel.baseApi, ...apiModel.userApi, ...apiModel.driverApi, ...apiModel.employeeApi, ...apiModel.adminApi, loginType, })
             default:
                 return res
                     .status(StatusCodes.OK)
@@ -379,8 +379,7 @@ module.exports = {
                     success: false,
                     err: error.message
                 })
-            }
-            else {
+            } else {
                 var doc = builder.create('rss');
                 var date = results[0].date_time
                 console.log(date)
@@ -423,8 +422,8 @@ module.exports = {
         })
 
     },
-   
-    reschedulePickupDate: async (req, res) => {
+
+    reschedulePickupDate: async(req, res) => {
         if (!req.body)
             return res.status(StatusCodes.BAD_REQUEST).json({
                 success: false,
