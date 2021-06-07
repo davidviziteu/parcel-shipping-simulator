@@ -1,7 +1,7 @@
 const { StatusCodes } = require(`http-status-codes`)
 const models = require("../models")
 const { sendDebugInResponse } = require("../models/apiModel")
-
+const dateFormat = require("dateformat");
 /**
  * controller ul pt microservicii
  * 
@@ -27,49 +27,51 @@ exports.getDriverData = async (req, res) => {
         let awbList = {};
         //
         const [driverList, orderDetails] = await Promise.all([driversListPromise, orderDetailsPromise]);
-
+        let today = new Date(Date.now())
         awbList = orderDetails.map((v, i, m) => {
-            if (v.status == 'order-received')
-                return {
-                    awb: v.awb,
-                    currentLocation: v.county_sender,
-                    countyDestination: v.county_receiver,
-                }
-            if (v.status == `order-in-local-base-sender`) {
-                if (v.county_receiver == v.county_sender)
+            {
+                if (v.status == 'order-received' && v.pickupDate <= today)
+                    return {
+                        awb: v.awb,
+                        currentLocation: v.county_sender,
+                        countyDestination: v.county_receiver,
+                    }
+                if (v.status == `order-in-local-base-sender`) {
+                    if (v.county_receiver == v.county_sender)
+                        return {
+                            awb: v.awb,
+                            currentLocation: `${v.county_sender} Base`,
+                            countyDestination: v.county_receiver,
+                        }
+                    //este in baza locala a expeditorului si tre sa ajunga la baza nationala
                     return {
                         awb: v.awb,
                         currentLocation: `${v.county_sender} Base`,
-                        countyDestination: v.county_receiver,
+                        countyDestination: `National Base`,
                     }
-                //este in baza locala a expeditorului si tre sa ajunga la baza nationala
-                return {
-                    awb: v.awb,
-                    currentLocation: `${v.county_sender} Base`,
-                    countyDestination: `National Base`,
                 }
-            }
-            if (v.status == `order-in-local-base-receiver`) {
-                console.log(v.awb, v.status);
-                if (v.county_receiver == v.county_sender)
+                if (v.status == `order-in-local-base-receiver`) {
+                    console.log(v.awb, v.status);
+                    if (v.county_receiver == v.county_sender)
+                        return {
+                            awb: v.awb,
+                            currentLocation: `${v.county_sender} Base`,
+                            countyDestination: v.county_receiver,
+                        }
+                    //este in baza locala a destinatarului si tre sa ajunga la destinatar
                     return {
                         awb: v.awb,
-                        currentLocation: `${v.county_sender} Base`,
+                        currentLocation: `${v.county_receiver} Base`,
                         countyDestination: v.county_receiver,
                     }
-                //este in baza locala a destinatarului si tre sa ajunga la destinatar
-                return {
-                    awb: v.awb,
-                    currentLocation: `${v.county_receiver} Base`,
-                    countyDestination: v.county_receiver,
                 }
+                if (v.status == `order-in-national-base`)
+                    return {
+                        awb: v.awb,
+                        currentLocation: `National Base`,
+                        countyDestination: v.county_receiver,
+                    }
             }
-            if (v.status == `order-in-national-base`)
-                return {
-                    awb: v.awb,
-                    currentLocation: `National Base`,
-                    countyDestination: v.county_receiver,
-                }
         })
         awbList = awbList.filter(v => v != null)
         return res.status(StatusCodes.OK).json({
