@@ -82,9 +82,10 @@ module.exports = {
     },
     trackAwb: async(req, res) => {
         console.log(`here`);
-        if (!req.parameters.awb)
+        const { error } = models.orderModel.awbModel.validate(req.parameters)
+        if (error)
             return res.status(StatusCodes.BAD_REQUEST).json({
-                error: "missing awb from query parameters"
+                error: error.message
             })
         try {
             let awbDataPromise = req.db.getDetailsOrder(req.parameters.awb);
@@ -96,14 +97,15 @@ module.exports = {
             let awbDetailsObject = new awbDetailsModel()
             if (!req.accountType) { // || if req.userId != awbData.id...........
                 awbRawEvents.forEach(awbEv => {
+
                     if (awbEventsObject[awbEv.event_type])
                         awbEventsObject[awbEv.event_type].push(`${awbEv.details} ${awbEv.date_time}`)
                 });
                 awbDetailsObject.sender.push(awbData.fullName_sender)
                 awbDetailsObject.destinatary.push(awbData.fullName_receiver)
-                awbData.preference1 ? awbDetailsObject.other.push(`Livrare sâmbătă`) : null
-                awbData.preference2 ? awbDetailsObject.other.push(`Fragil`) : null
-                awbData.preference3 ? awbDetailsObject.other.push(`andreea ce inseamna 'preferinta3'???????????`) : null
+                awbData.preference1 ? awbDetailsObject.other.push(`Deschidere la livrare`) : null
+                awbData.preference2 ? awbDetailsObject.other.push(`Livrare sâmbătă`) : null
+                awbData.preference3 ? awbDetailsObject.other.push(`Fragil`) : null
                 return res.status(StatusCodes.OK).json({
                     success: true,
                     data: awbDetailsObject,
