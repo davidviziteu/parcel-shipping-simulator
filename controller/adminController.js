@@ -522,11 +522,19 @@ module.exports = {
                         let entries = Object.entries(line);
                         for (let [index, [key, value]] of entries.entries()) {
                             if (index + 1 == Object.keys(line).length) {
+                                if (typeof value == 'string') {
+                                    value = `"${value}"`
+                                }
                                 last = value.toString();
                                 break;
                             }
                             if (value == null)
                                 value = 'n/a';
+                            else {
+                                if (typeof value == 'string') {
+                                    value = `"${value}"`
+                                }
+                            }
                             writeStream.write(value.toString() + ',')
                         }
                         writeStream.write(last)
@@ -536,7 +544,9 @@ module.exports = {
                     writeStream.end();
                     let readStream = fs.createReadStream(`./uploadedFiles/${req.parameters.table}.csv`)
                     readStream.pipe(res)
-                        // fs.unlink(`./uploadedFiles/${req.parameters.table}.csv`)
+                    fs.unlink(`./uploadedFiles/${req.parameters.table}.csv`, () => {
+
+                    })
                 }
             })
 

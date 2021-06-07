@@ -2,10 +2,10 @@
 1234,order-picked-up,Comanda a fost ridicată de la expeditor,nume sofer/angajat, id, email, masina, nr de inmatriculare,Fri May 28 2021 10:15:27 GMT+0300 (Eastern European Summer Time)
 1234,order-picked-up,Comanda a ajuns la sediu [oras],confirmat de angajatul X - id, email, nume, tel,Fri May 28 2021 16:15:27 GMT+0300 (Eastern European Summer Time)
 1234,order-picked-up,Comanda a ajuns la sediu [oras],confirmat de angajatul X - id, email, nume, tel,Fri May 28 2021 16:15:27 GMT+0300 (Eastern European Summer Time)
-1234625,order-received,Comanda a fost primită,n/a,0000-00-00 00:00:00
-1234635,order-received,Comanda a fost primită,n/a,0000-00-00 00:00:00
-1234645,order-received,Comanda a fost primită,n/a,0000-00-00 00:00:00
-1234655,order-received,Comanda a fost primită,n/a,0000-00-00 00:00:00
+1234625,order-received,Comanda a fost primită,n/a,"0000-00-00 00:00:00"
+1234635,order-received,Comanda a fost primită,n/a,"0000-00-00 00:00:00"
+1234645,order-received,Comanda a fost primită,n/a,"0000-00-00 00:00:00"
+1234655,order-received,Comanda a fost primită,n/a,"0000-00-00 00:00:00"
 1234675,order-received,Comanda a fost primită,n/a,Tue Jun 01 2021 16:33:36 GMT+0300 (Eastern European Summer Time)
 1234685,order-received,Comanda a fost primită,n/a,Tue Jun 01 2021 16:38:04 GMT+0300 (Eastern European Summer Time)
 1234695,order-received,Comanda a fost primită,n/a,Tue Jun 01 2021 16:38:07 GMT+0300 (Eastern European Summer Time)
@@ -96,3 +96,29 @@
 1295,order-picked-up,Coletul ajuns la sediu,Coletul a fost adus la sediul local de soferul Dragoș cu masina DJ18LAL.,Sun Jun 06 2021 20:43:42 GMT+0300 (Eastern European Summer Time)
 1295,order-in-transit,A plecat din baza locala,Coletul a fost ridicat de soferul Doru cu masina BH73MAYdin baza locala.,Sun Jun 06 2021 20:58:05 GMT+0300 (Eastern European Summer Time)
 1295,order-in-transit,A ajuns in baza din Sighisoara,Coletul a fost adus de soferul Doru cu masina BH73MAYin baza din Sighisoara.,Sun Jun 06 2021 20:58:16 GMT+0300 (Eastern European Summer Time)
+1295,order-in-transit,A plecat de la sediul din Sighisoara,Coletul a fost ridicat de soferul Ionel cu masina DJ91MRIdin baza din Sighisoara.,Sun Jun 06 2021 21:06:32 GMT+0300 (Eastern European Summer Time)
+1295,order-in-transit,A ajuns in orasul de livrare,Coletul a fost adus de soferul Ionel cu masina DJ91MRIdin baza din Sighisoara.,Sun Jun 06 2021 21:06:52 GMT+0300 (Eastern European Summer Time)
+1234685,order-picked-up,Ridicat de la expeditor,Coletul a fost ridicat de soferul Ionuț cu masina SB20SIBde la client.,Sun Jun 06 2021 21:09:00 GMT+0300 (Eastern European Summer Time)
+1235095,order-picked-up,Coletul ajuns la sediu,Coletul a fost adus la sediul local de soferul Ionuț cu masina SB20SIB.,Sun Jun 06 2021 21:10:25 GMT+0300 (Eastern European Summer Time)
+1235055,order-picked-up,Coletul ajuns la sediu,Coletul a fost adus la sediul local de soferul Ionuț cu masina SB20SIB.,Sun Jun 06 2021 21:10:37 GMT+0300 (Eastern European Summer Time)
+1234695,order-picked-up,Coletul ajuns la sediu,Coletul a fost adus la sediul local de soferul Ionuț cu masina SB20SIB.,Sun Jun 06 2021 21:10:46 GMT+0300 (Eastern European Summer Time)
+1234555,order-picked-up,Ridicat de la expeditor,Coletul a fost ridicat de soferul Ionuț cu masina SB20SIBde la client.,Sun Jun 06 2021 21:11:29 GMT+0300 (Eastern European Summer Time)
+1234555,order-picked-up,Coletul ajuns la sediu,Coletul a fost adus la sediul local de soferul Ionuț cu masina SB20SIB.,Sun Jun 06 2021 21:11:34 GMT+0300 (Eastern European Summer Time)
+1234545,order-picked-up,Ridicat de la expeditor,Coletul a fost ridicat de soferul Ionuț cu masina SB20SIBde la client.,Sun Jun 06 2021 21:12:31 GMT+0300 (Eastern European Summer Time)
+1234545,order-picked-up,Coletul ajuns la sediu,Coletul a fost adus la sediul local de soferul Ionuț cu masina SB20SIB.,Sun Jun 06 2021 21:12:41 GMT+0300 (Eastern European Summer Time)
+1234675,order-picked-up,Coletul ajuns la sediu,Coletul a fost adus la sediul local de soferul Ionuț cu masina SB20SIB.,Sun Jun 06 2021 21:13:20 GMT+0300 (Eastern European Summer Time)
+1234665,order-picked-up,Coletul ajuns la sediu,Coletul a fost adus la sediul local de soferul Ionuț cu masina SB20SIB.,Sun Jun 06 2021 21:13:28 GMT+0300 (Eastern European Summer Time)
+1234655,order-picked-up,Coletul ajuns la sediu,Coletul a fost adus la sediul local de soferul Ionuț cu masina SB20SIB.,Sun Jun 06 2021 21:13:34 GMT+0300 (Eastern European Summer Time)
+1234645,order-picked-up,Coletul ajuns la sediu,Coletul a fost adus la sediul local de soferul Ionuț cu masina SB20SIB.,Sun Jun 06 2021 21:13:39 GMT+0300 (Eastern European Summer Time)
+1234635,order-picked-up,Coletul ajuns la sediu,Coletul a fost adus la sediul local de soferul Ionuț cu masina SB20SIB.,Sun Jun 06 2021 21:13:46 GMT+0300 (Eastern European Summer Time)
+1235135,order-destinatary,Livrat,Coletul a fost livrat de soferul Sorin cu masina CJ18ALE.,Sun Jun 06 2021 21:23:52 GMT+0300 (Eastern European Summer Time)
+1235145,order-received,Comanda a fost primită,n/a,Mon Jun 07 2021 07:56:31 GMT+0300 (Eastern European Summer Time)
+1235155,order-received,Comanda a fost primită,n/a,Mon Jun 07 2021 07:58:27 GMT+0300 (Eastern European Summer Time)
+1235165,order-received,Comanda a fost primită,n/a,Mon Jun 07 2021 07:58:30 GMT+0300 (Eastern European Summer Time)
+1235175,order-received,Comanda a fost primită,n/a,Mon Jun 07 2021 07:59:13 GMT+0300 (Eastern European Summer Time)
+1235185,order-received,Comanda a fost primită,n/a,Mon Jun 07 2021 07:59:17 GMT+0300 (Eastern European Summer Time)
+1235195,order-received,Comanda a fost primită,n/a,Mon Jun 07 2021 08:00:17 GMT+0300 (Eastern European Summer Time)
+1235205,order-received,Comanda a fost primită,n/a,Mon Jun 07 2021 08:00:20 GMT+0300 (Eastern European Summer Time)
+1235215,order-received,Comanda a fost primită,n/a,Mon Jun 07 2021 08:00:22 GMT+0300 (Eastern European Summer Time)
+1235225,order-received,Comanda a fost primită,n/a,Mon Jun 07 2021 08:00:59 GMT+0300 (Eastern European Summer Time)
+1235235,order-received,Comanda a fost primită,n/a,Mon Jun 07 2021 08:01:03 GMT+0300 (Eastern European Summer Time)
