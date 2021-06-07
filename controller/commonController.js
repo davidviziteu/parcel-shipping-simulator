@@ -190,7 +190,7 @@ module.exports = {
                     results.appversion = req.headers.appversion;
                     results.platform = req.headers.platform;
                     const jsontoken = sign({ results }, process.env.secretKey, {
-                        expiresIn: "1h"
+                        expiresIn: "24h"
                     });
                     if (value.rememberMe == true)
                         res.setHeader('Set-Cookie', 'token=' + jsontoken + `; HttpOnly;Secure;expires=Wed, 21 Oct 2030 07:28:00 GMT;Max-Age=9000000;Domain=${models.apiModel.domain};Path=/;overwrite=true`);
