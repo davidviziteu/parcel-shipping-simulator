@@ -69,8 +69,8 @@ window.addEventListener(`api-fetched`, (ev) => {
                     setTimeout(() => updateNotificationsBox(), 1000)
 
                 } catch (error) {
-                    resultTextBox.innerHTML = responseBody.error
-
+                    resultTextBox.innerHTML = "Probleme la adăugarea notificarii"
+                    console.log(error)
                 }
 
 
@@ -128,6 +128,7 @@ window.addEventListener(`api-fetched`, (ev) => {
     }
     deleteAccount.onsubmit = async(e) => {
         e.preventDefault()
+        console.log("api"+api)
         values = {
             email: document.getElementById("remove-employee-account-email").value
         }
@@ -365,7 +366,7 @@ window.addEventListener(`api-fetched`, (ev) => {
                  const downloadUrl = URL.createObjectURL(blob);
                  const a = document.createElement("a");
                  a.href = downloadUrl;
-                 a.download = "ceva.csv";
+                 a.download = `${document.getElementById(`db-tables2`).value}.csv`;
                  document.body.appendChild(a);
                  a.click();
                 })
@@ -374,24 +375,8 @@ window.addEventListener(`api-fetched`, (ev) => {
                 });
          }
            
-//          fetch("/my/url", {
-//     method: "POST",
-//     body: formData,
-// })
-//     .then(response => {
-//         return response.blob();
-//     })
-//     .then(response => {
-//         const blob = new Blob([response], {type: 'application/zip'});
-//         const downloadUrl = URL.createObjectURL(blob);
-//         const a = document.createElement("a");
-//         a.href = downloadUrl;
-//         a.download = "blah.zip";
-//         document.body.appendChild(a);
-//         a.click();
-//     });
 
-                    
+                
          if(api.loginType == `admin`){
                fetch(`${hostName}${api.getTables.route}`, {
                     method: api.getTables.method,

@@ -18,7 +18,6 @@ app.use(routers.privateRouter)
 app.useAuth((req) => {
 
     let token = null;
-
     if (req.headers)
         if (req.headers.cookie)
             token = req.headers.cookie.split('=')[1];
@@ -31,16 +30,14 @@ app.useAuth((req) => {
         return req
 
     let decoded = jwt_decode(token);
-    if (decoded.results != undefined) {
-        req.accountId = decoded.results.id;
-        req.accountType = decoded.results.type;
-        req.authData = decoded.results
-    }
-    else if (decoded.body != undefined) {
-        req.accountId = decoded.body.id;
-        req.accountType = decoded.body.type;
-        req.authData = decoded.body
-    }
+    // console.log("1 " + decoded.results.platform)
+    // console.log("2 " + req.headers.platform)
+    //     if (decoded.results.platform != req.headers.platform || decoded.results.appversion != req.headers.appversion)
+    //         return req;
+    req.accountId = decoded.results.id;
+    req.accountType = decoded.results.type;
+    console.log(decoded.results.type)
+    req.authData = decoded.results
     req.token = token;
     return req;
 })

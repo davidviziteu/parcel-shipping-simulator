@@ -536,6 +536,7 @@ module.exports = {
                     writeStream.end();
                     let readStream = fs.createReadStream(`./uploadedFiles/${req.parameters.table}.csv`)
                     readStream.pipe(res)
+                        // fs.unlink(`./uploadedFiles/${req.parameters.table}.csv`)
                 }
             })
 

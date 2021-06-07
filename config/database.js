@@ -710,6 +710,16 @@ module.exports = {
                 return callBack(null, results)
             }
         )
+    },
+    deleteExpiredNotifications: (callBack) => {
+        pool.query(
+            `DELETE FROM notifications WHERE expiry_date<LOCALTIME()`, [],
+            (error, results, fields) => {
+                if (error)
+                    return callBack(error)
+                return callBack(null, results)
+            }
+        )
     }
 
 }
