@@ -24,12 +24,12 @@ exports.driverGetTaskMainServerDataInputSchema = Joi.object().options({ abortEar
 
 exports.driverGetTaskInputSchema = Joi.object().options({ abortEarly: false }).keys({
     id: Joi.number().required(),
-    token: Joi.string().regex(/^[A-Za-z0-9-_]+\.[A-Za-z0-9-_]+\.[A-Za-z0-9-_.+/=]*$/).required(),
+    token: Joi.string().required(),
     county: Joi.string().required().valid(...cityList)
 });
 
 exports.driverUpdateTaskSchema = Joi.object().options({ abortEarly: false }).keys({
     id: Joi.number().required(),
-    token: Joi.string().regex(/^[A-Za-z0-9-_]+\.[A-Za-z0-9-_]+\.[A-Za-z0-9-_.+/=]*$/).required(),
+    token: Joi.string().required(),
     remove: Joi.number(),
 })
