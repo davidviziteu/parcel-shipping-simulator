@@ -475,7 +475,7 @@ module.exports = {
 
         if (req.accountType == `admin`) {
             console.log(req.parameters.table)
-            fs.readFile(req.filePath, 'utf8', function(err, data) {
+            fs.readFile(req.filePath, 'utf8', function (err, data) {
                 console.log(data)
                 var rows = data.split(`\n`)
                 console.log(rows)
@@ -541,6 +541,124 @@ module.exports = {
 
         } else {
             res.status(StatusCodes.UNAUTHORIZED).json({
+                success: 0,
+                error: "doar adminul poate executa aceasta comanda!"
+            })
+        }
+    },
+    getInfoStatistics: (req, res) => {
+        if (req.accountType == `admin`) {
+            let current_datetime = new Date()
+            let formatted_date = (current_datetime.getFullYear() - 1) + "-" + (current_datetime.getMonth() + 1);
+            const data = {
+                county: req.parameters.county,
+                date: formatted_date
+            }
+            req.db.getInfoCounty(data, (error, results, fields) => {
+                if (error) {
+                    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+                        success: false,
+                        error: error.message
+                    })
+                }
+                else {
+                    const month = {
+                        January: 0,
+                        February: 0,
+                        March: 0,
+                        April: 0,
+                        May: 0,
+                        June: 0,
+                        July: 0,
+                        August: 0,
+                        September: 0,
+                        October: 0,
+                        November: 0,
+                        December: 0
+                    }
+                    for (let i = 0; i < results.length; i++) {
+                        if (results[i].month.includes("-01")) month.January = results[i].count
+                        else if (results[i].month.includes("-02")) month.February = results[i].count
+                        else if (results[i].month.includes("-03")) month.March = results[i].count
+                        else if (results[i].month.includes("-04")) month.April = results[i].count
+                        else if (results[i].month.includes("-05")) month.May = results[i].count
+                        else if (results[i].month.includes("-06")) month.June = results[i].count
+                        else if (results[i].month.includes("-07")) month.July = results[i].count
+                        else if (results[i].month.includes("-08")) month.August = results[i].count
+                        else if (results[i].month.includes("-09")) month.August = results[i].count
+                        else if (results[i].month.includes("-10")) month.October = results[i].count
+                        else if (results[i].month.includes("-11")) month.November = results[i].count
+                        else if (results[i].month.includes("-12")) month.December = results[i].count
+                    }
+                    return res.status(StatusCodes.OK).json({
+                        success: true,
+                        results: month
+                    })
+                }
+            })
+        }
+        else {
+
+            return res.status(StatusCodes.UNAUTHORIZED).json({
+                success: 0,
+                error: "doar adminul poate executa aceasta comanda!"
+            })
+        }
+    },
+    getInfoStatisticsBadEvent: (req, res) => {
+        if (req.accountType == `admin`) {
+            let current_datetime = new Date()
+            let formatted_date = (current_datetime.getFullYear() - 1) + "-" + (current_datetime.getMonth() + 1);
+            const data = {
+                date: formatted_date,
+                event_type: req.parameters.event_type
+            }
+            console.log(data)
+            req.db.getInfoDriverEvents(data, (error, results, fields) => {
+                if (error) {
+                    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+                        success: false,
+                        error: error.message
+                    })
+                }
+                else {
+                    const month = {
+                        January: 0,
+                        February: 0,
+                        March: 0,
+                        April: 0,
+                        May: 0,
+                        June: 0,
+                        July: 0,
+                        August: 0,
+                        September: 0,
+                        October: 0,
+                        November: 0,
+                        December: 0
+                    }
+                    for (let i = 0; i < results.length; i++) {
+                        if (results[i].month.includes("-01")) month.January = results[i].count
+                        else if (results[i].month.includes("-02")) month.February = results[i].count
+                        else if (results[i].month.includes("-03")) month.March = results[i].count
+                        else if (results[i].month.includes("-04")) month.April = results[i].count
+                        else if (results[i].month.includes("-05")) month.May = results[i].count
+                        else if (results[i].month.includes("-06")) month.June = results[i].count
+                        else if (results[i].month.includes("-07")) month.July = results[i].count
+                        else if (results[i].month.includes("-08")) month.August = results[i].count
+                        else if (results[i].month.includes("-09")) month.August = results[i].count
+                        else if (results[i].month.includes("-10")) month.October = results[i].count
+                        else if (results[i].month.includes("-11")) month.November = results[i].count
+                        else if (results[i].month.includes("-12")) month.December = results[i].count
+                    }
+                    return res.status(StatusCodes.OK).json({
+                        success: true,
+                        results: month
+                    })
+                }
+            })
+        }
+        else {
+            return res.status(StatusCodes.UNAUTHORIZED).json({
                 success: 0,
                 error: "doar adminul poate executa aceasta comanda!"
             })

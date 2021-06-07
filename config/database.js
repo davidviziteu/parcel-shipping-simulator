@@ -520,15 +520,17 @@ module.exports = {
         )
     },
     getInfoCounty: (data, callBack) => {
+        console.log(data)
         pool.query(
-            `SELECT SUBSTR(date, 1, 7), count(*),county_sender FROM orders where SUBSTR(date, 1, 7) > ? and county_sender = ? GROUP BY SUBSTR(date, 1, 7)`,
+            `SELECT SUBSTR(date, 1, 7) as "month", count(*) as "count",county_sender FROM orders where SUBSTR(date, 1, 7) > ? and county_sender = ? GROUP BY SUBSTR(date, 1, 7) ORDER BY month`,
             [
                 data.date,
                 data.county
             ],
             (error, results, fields) => {
-                if (error)
+                if (error) {
                     return callBack(error)
+                }
                 return callBack(null, results, fields)
             }
         )
@@ -694,6 +696,20 @@ module.exports = {
             }
         )
 
+    },
+    getInfoDriverEvents: (data, callBack) => {
+        pool.query(
+            `SELECT SUBSTR(date, 1, 7) as "month", count(*) as "count" ,event_type FROM driver_events where SUBSTR(date, 1, 7) > ? and event_type = ? GROUP BY SUBSTR(date, 1, 7) ORDER BY month`,
+            [
+                data.date,
+                data.event_type
+            ],
+            (error, results, fields) => {
+                if (error)
+                    return callBack(error)
+                return callBack(null, results)
+            }
+        )
     }
 
 }

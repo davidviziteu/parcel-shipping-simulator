@@ -149,6 +149,14 @@ exports.employeeApi = {
 
 exports.adminApi = {
     //va include tot de mai sus. 
+    getInfoStatistics: {
+        route: `/api/statistics`,
+        method: `GET`
+    },
+    getInfoStatisticsBadEvent: {
+        route: `/api/statisitcs/badEvent`,
+        method: `GET`
+    },
     addCar: {
         route: `/api/cars`,
         method: `POST`,

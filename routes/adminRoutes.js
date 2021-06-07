@@ -19,5 +19,7 @@ adminRouter.get(api.adminApi.getTables.route, controllers.adminController.getDbT
 adminRouter.post(api.adminApi.uploadFile.route, controllers.adminController.uploadFiles);
 adminRouter.get(api.adminApi.downloadFile.route, controllers.adminController.downloadFiles);
 
+adminRouter.get(api.adminApi.getInfoStatistics.route, controllers.adminController.getInfoStatistics)
+adminRouter.get(api.adminApi.getInfoStatisticsBadEvent.route, controllers.adminController.getInfoStatisticsBadEvent)
 
 module.exports = adminRouter
