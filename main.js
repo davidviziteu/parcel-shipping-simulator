@@ -30,11 +30,13 @@ app.useAuth((req) => {
         return req
 
     let decoded = jwt_decode(token);
-
-    if (decoded.platform != req.headers.platform || decoded.appversion != req.headers.appversion)
-        return req;
+    // console.log("1 " + decoded.results.platform)
+    // console.log("2 " + req.headers.platform)
+    //     if (decoded.results.platform != req.headers.platform || decoded.results.appversion != req.headers.appversion)
+    //         return req;
     req.accountId = decoded.results.id;
     req.accountType = decoded.results.type;
+    console.log(decoded.results.type)
     req.authData = decoded.results
     req.token = token;
     return req;
