@@ -78,4 +78,8 @@ const confirmDenyOrderInputModel = Joi.object().options({ abortEarly: false }).k
     status: Joi.string().valid(`order-destinatary`, `order-refused`).required()
 });
 
-module.exports = { confirmDenyOrderInputModel, rescheduleOrderModel, newOrderSchema, orderDashboardModel, awbDetailsModel, cityList, cities }
+const awbModel = Joi.object().options({ abortEarly: false }).keys({
+    awb: Joi.number().required(),
+});
+
+module.exports = { awbModel, confirmDenyOrderInputModel, rescheduleOrderModel, newOrderSchema, orderDashboardModel, awbDetailsModel, cityList, cities }
