@@ -371,7 +371,7 @@ async function login() {
 window.addEventListener(`api-fetched`, async(ev) => {
     generateMenu();
     updateNotificationsBox();
-    setTimeout(() => updateNotificationsBox(), 60000, null); //la 1 minut
+    setTimeout(() => updateNotificationsBox(), 360000, null); //la 6 minute
     loadTrackAwbBox();
     loadEstimateCostBox();
     loadOurLocationsButton();
