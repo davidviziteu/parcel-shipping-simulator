@@ -17,4 +17,6 @@ commonRouter.post(apiModel.baseApi.newAccount.route, controllers.commonControlle
 
 commonRouter.get(apiModel.baseApi.RSSFeed.route, controllers.commonController.RSSFeed)
 
+commonRouter.patch(apiModel.userApi.reschedulePickupDate.route, controllers.commonController.reschedulePickupDate)
+
 module.exports = commonRouter

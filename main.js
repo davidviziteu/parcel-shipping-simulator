@@ -41,6 +41,13 @@ app.useAuth((req) => {
     req.token = token;
     return req;
 })
+console.error("do backend for order-in-national-base and the others");
+console.error("do backend for order-in-national-base and the others");
+console.error("do backend for order-in-national-base and the others");
+console.error("do backend for order-in-national-base and the others");
 app.listen();
-
 wakeUpMicroservices();
+console.error("do backend for order-in-national-base and the others");
+console.error("do backend for order-in-national-base and the others");
+console.error("do backend for order-in-national-base and the others");
+

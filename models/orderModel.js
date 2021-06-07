@@ -67,6 +67,15 @@ var cities = {
 
 var cityList = ["Ilfov", "Cluj", "Constanța", "Dolj", "Galați", "Iași", "Oradea", "Sibiu", "Timișoara"];
 
+const rescheduleOrderModel = Joi.object().options({ abortEarly: false }).keys({
+    awb: Joi.number().required(),
+    date: Joi.date().required(),
+    time: Joi.string().regex(/^([0-9]{2})\:([0-9]{2})$/).allow(null, '').required(),
+});
 
+const confirmDenyOrderInputModel = Joi.object().options({ abortEarly: false }).keys({
+    awb: Joi.number().required(),
+    status: Joi.string().valid(`order-destinatary`, `order-refused`).required()
+});
 
-module.exports = { newOrderSchema, orderDashboardModel, awbDetailsModel, cityList, cities }
+module.exports = { confirmDenyOrderInputModel, rescheduleOrderModel, newOrderSchema, orderDashboardModel, awbDetailsModel, cityList, cities }
