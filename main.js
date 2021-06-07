@@ -16,7 +16,6 @@ app.use(routers.commonRouter)
 app.use(routers.privateRouter)
 
 app.useAuth((req) => {
-
     let token = null;
     if (req.headers)
         if (req.headers.cookie)
@@ -30,10 +29,11 @@ app.useAuth((req) => {
         return req
 
     let decoded = jwt_decode(token);
-    // console.log("1 " + decoded.results.platform)
-    // console.log("2 " + req.headers.platform)
-    //     if (decoded.results.platform != req.headers.platform || decoded.results.appversion != req.headers.appversion)
-    //         return req;
+
+    req._staticRedirect = decoded.results.type
+
+    if (decoded.results.platform != req.headers.platform || decoded.results.appversion != req.headers.appversion)
+        return req;
     req.accountId = decoded.results.id;
     req.accountType = decoded.results.type;
     console.log(decoded.results.type)
