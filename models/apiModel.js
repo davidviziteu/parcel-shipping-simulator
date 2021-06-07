@@ -106,7 +106,11 @@ exports.userApi = {
     autocomplete: {
         route: `/api/autocomplete`,
         method: `GET`
-    }
+    },
+    reschedulePickupDate: {
+        route: `/api/awb/reschedule`,
+        method: `PATCH`
+    },
 }
 
 exports.driverApi = {
@@ -148,6 +152,10 @@ exports.driverApi = {
 
 exports.employeeApi = {
     //va include tot ce are baseApi si userApi
+    confirmDenyOrder: {
+        route: `/api/awb`,
+        method: `PATCH`,
+    }
 }
 
 exports.adminApi = {

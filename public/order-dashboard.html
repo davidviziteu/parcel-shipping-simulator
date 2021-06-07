@@ -158,21 +158,6 @@
                     </div>
                 </form>
             </div>
-            <div class="hidden" id="reschedule-div">
-                <div class="title-with-image">
-                    <img alt="image" src="./assets/view-details.png">
-                    <h1>Reprogramează preluarea pachetului</h1>
-                </div>
-                <form id="reschedule-form">
-                    <input class="input-box" type="date" name="date" id="date">
-                    <input class="input-box" type="time" name="hour" id="hour">
-                    <div class="button-container">
-                        <button type="submit" aria-label="Trimite">
-                            Trimite
-                        </button>
-                    </div>
-                </form>
-            </div>
             <div id="refuse-order-button-div" class="button-container buttons-with-image hidden">
                 <button id="refuse-order-button" type="button" aria-label="Clientul refuză coletul / retur">
                     Clientul refuză coletul / retur
@@ -182,6 +167,21 @@
                 <button id="confirm-order-button" type="button" aria-label="Clientul a ridicat coletul">
                     Clientul a ridicat coletul
                 </button>
+            </div>
+            <div class="hidden" id="reschedule-div">
+                <div class="title-with-image">
+                    <img alt="image" src="./assets/view-details.png">
+                    <h1>Reprogramează preluarea pachetului</h1>
+                </div>
+                <form id="reschedule-form">
+                    <input required class="input-box" type="date" name="date" id="date">
+                    <input required class="input-box" type="time" name="hour" id="hour">
+                    <div class="button-container">
+                        <button type="submit" aria-label="Trimite">
+                            Trimite
+                        </button>
+                    </div>
+                </form>
             </div>
             <p id="fetch-result">
             </p>

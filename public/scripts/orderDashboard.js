@@ -81,8 +81,14 @@ window.addEventListener(`api-fetched`, async (ev) => {
         if (api.loginType == `employee` || api.loginType == `driver` || api.loginType == `admin`) {
             orderRefusedButtonDiv.classList.remove(`hidden`)
             orderConfirmedButtonDiv.classList.remove(`hidden`)
-            rescheduleForm.classList.remove(`hidden`)
+            console.error(responseBody.events['order-picked-up'].length == 0);
+            if (responseBody.events['order-picked-up'].length == 0) {
+                rescheduleDiv.classList.remove(`hidden`)
+            }
         }
+
+        if (responseBody.isSender && responseBody.events['order-picked-up'].length == 0)
+            rescheduleDiv.classList.remove(`hidden`)
 
         appendArrayToList(responseBody.events['order-received'], orderReceivedList)
         appendArrayToList(responseBody.events['order-picked-up'], orderPickedUpList)
@@ -98,7 +104,6 @@ window.addEventListener(`api-fetched`, async (ev) => {
             markProgress(orderReceivedButton, `done`)
             markProgress(orderPickedUpButton, `now`)
         }
-
         if (responseBody.events['order-in-transit'].length > 0) {
             markProgress(orderPickedUpButton, `done`)
             markProgress(orderInTransitButton, `now`)
@@ -118,7 +123,36 @@ window.addEventListener(`api-fetched`, async (ev) => {
         responseBody.data.destinatary.forEach(e => appendItemToList(e, destinataryDetailsList))
         responseBody.data.other.forEach(e => appendItemToList(e, otherDetailsList))
 
+        rescheduleForm.onsubmit = async e => {
+            e.preventDefault()
+            let values = {
+                awb: awb,
+                date: document.getElementById("date").value,
+                time: document.getElementById("hour").value,
+            }
+            console.log(values);
+            let rawResp = await fetch(`${hostName}${api.reschedulePickupDate.route}`, {
+                method: api.reschedulePickupDate.method,
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(values)
+            })
+            if (!rawResp.ok) {
+                fetchResult.innerHTML = `eroare la inregistrarea datelor pe server`
+                return setInterval(() => { fetchResult.innerHTML = '' }, 9000, null); //la 6 minute
+            }
+            fetchResult.innerHTML = 'Ok'
+            return setInterval(() => { fetchResult.innerHTML = '' }, 9000, null); //la 6 minute
 
+        }
+        orderConfirmedButton.addEventListener(`click`, ev => {
+
+        })
+
+        orderRefusedButton.addEventListener(`click`, ev => {
+
+        })
     } catch (error) {
         document.getElementById(`awb-title`).innerHTML = `Eroare: ${error.message}`
     }
