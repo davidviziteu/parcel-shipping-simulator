@@ -1,5 +1,6 @@
 const { StatusCodes } = require(`http-status-codes`)
 const models = require("../models")
+const { sendDebugInResponse } = require("../models/apiModel")
 
 /**
  * controller ul pt microservicii
@@ -8,9 +9,11 @@ const models = require("../models")
  */
 
 exports.getDriverData = async (req, res) => {
-    // return req.status(StatusCodes.BAD_REQUEST).json({
-    //     message: "disable this to prevent unauthorized access"
-    // });
+    if (!req.accountType || req.accountType != `driver` || req.accountType != `admin`)
+        return res.status(StatusCodes.UNAUTHORIZED).json({
+            success: false
+        })
+
     if (!req.parameters || !req.parameters.county)
         return res.status(StatusCodes.BAD_REQUEST).json({
             success: false,
@@ -77,7 +80,7 @@ exports.getDriverData = async (req, res) => {
     } catch (error) {
         console.error(error);
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-            error: error.message
+            ...sendDebugInResponse && { error: error.message }
         });
     }
 

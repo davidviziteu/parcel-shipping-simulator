@@ -3,7 +3,7 @@ const models = require("../models")
 const nodemailer = require('nodemailer');
 const { hashSync, genSaltSync, compareSync } = require("bcrypt")
 const fs = require('fs');
-
+const { sendDebugInResponse } = require("../models/apiModel");
 
 module.exports = {
     changePrice: (req, res) => {
@@ -23,7 +23,7 @@ module.exports = {
             console.log(error.message)
             return res.status(StatusCodes.BAD_REQUEST).json({
                 success: false,
-                error: error.message
+                ...sendDebugInResponse && { error: error.message }
             })
         }
         req.db.updateBestPrice(req.body.price, (err, results) => {
@@ -353,16 +353,16 @@ module.exports = {
             body = req.parameters
             const { error, value } = models.adminModel.validationEmail.validate(body)
             if (error) {
-                return res.status(200).json({
+                return res.status(StatusCodes.BAD_REQUEST).json({
                     success: false,
                     error: error.message
                 })
             }
             req.db.getUserByEmail(body.email, (error, results) => {
                 if (error) {
-                    res.status(200).json({
+                    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                         success: false,
-                        error: error.message
+                        ...sendDebugInResponse && { error: error.message }
                     })
                 } else if (results != undefined) {
                     res.status(200).json({
@@ -404,14 +404,14 @@ module.exports = {
                 if (error) {
                     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                         success: false,
-                        error: error.message
+                        ...sendDebugInResponse && { error: error.message }
                     })
                 } else if (results != undefined) {
                     req.db.deleteAccount(body.email, (error, results) => {
                         if (error) {
                             res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                                 success: false,
-                                error: error.message
+                                ...sendDebugInResponse && { error: error.message }
                             })
                         } else {
                             res.status(200).json({
@@ -455,7 +455,7 @@ module.exports = {
                 if (error) {
                     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                         success: false,
-                        error: error.message
+                        ...sendDebugInResponse && { error: error.message }
                     })
                 } else {
                     res.status(StatusCodes.OK).json({
@@ -490,7 +490,7 @@ module.exports = {
                             statusCode = StatusCodes.INTERNAL_SERVER_ERROR;
                             res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                                 success: false,
-                                error: error.message
+                                ...sendDebugInResponse && { error: error.message }
                             })
                         }
 
@@ -511,7 +511,7 @@ module.exports = {
                 if (error) {
                     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                         success: false,
-                        error: error.message
+                        ...sendDebugInResponse && { error: error.message }
                     })
                 } else {
                     res.setHeader('Content-type', 'application/octet-stream');
@@ -569,7 +569,7 @@ module.exports = {
                 if (error) {
                     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                         success: false,
-                        error: error.message
+                        ...sendDebugInResponse && { error: error.message }
                     })
                 }
                 else {
@@ -629,7 +629,7 @@ module.exports = {
                 if (error) {
                     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                         success: false,
-                        error: error.message
+                        ...sendDebugInResponse && { error: error.message }
                     })
                 }
                 else {
