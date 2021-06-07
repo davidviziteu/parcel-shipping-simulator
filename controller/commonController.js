@@ -381,7 +381,7 @@ module.exports = {
             else {
                 var doc = builder.create('rss');
                 var date = results[0].date_time
-                //console.log(date)
+                console.log(date)
                 var x = date.toString().split("T")
                 var y = x[1].toString().split(".")[0]
                 doc.att('version', '2.0')
@@ -395,6 +395,9 @@ module.exports = {
                     .ele('description')
                     .txt('PSS')
                     .up()
+                    .ele('language')
+                    .txt('ro')
+                    .up()
                     .ele('item')
                     .ele('event-type')
                     .txt(results[0].event_type)
@@ -403,7 +406,7 @@ module.exports = {
                     .txt(results[0].details)
                     .up()
                     .ele('employees-details')
-                    .txt(results[0].employees_details)
+                    .txt(results[0].employees_details ? results[0].employees_details : "")
                     .up()
                     .ele('date')
                     .txt(x[0] + " " + y + ")")
