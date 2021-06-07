@@ -22,6 +22,11 @@ const senderDetailsList = document.getElementById(`sender-details`)
 const destinataryDetailsList = document.getElementById(`destinatary-details`)
 const otherDetailsList = document.getElementById(`other-details`)
 
+const rescheduleForm = document.getElementById(`reschedule-form`)
+const rescheduleDiv = document.getElementById(`reschedule-div`)
+const fetchResult = document.getElementById(`fetch-result`)
+
+
 const markProgress = (button, progress) => {
     switch (progress) {
         case `done`:
@@ -76,6 +81,7 @@ window.addEventListener(`api-fetched`, async (ev) => {
         if (api.loginType == `employee` || api.loginType == `driver` || api.loginType == `admin`) {
             orderRefusedButtonDiv.classList.remove(`hidden`)
             orderConfirmedButtonDiv.classList.remove(`hidden`)
+            rescheduleForm.classList.remove(`hidden`)
         }
 
         appendArrayToList(responseBody.events['order-received'], orderReceivedList)
