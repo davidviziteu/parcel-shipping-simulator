@@ -27,8 +27,8 @@ window.addEventListener(`api-fetched`, (ev) => {
                 document.getElementById("expName").defaultValue = json.data.name + " " + json.data.surname;
                 document.getElementById("expPhone").defaultValue = json.data.phone;
                 document.getElementById("expEmail").defaultValue = json.data.email;
-                document.getElementById("judet1").value = json.data.county;
-                document.getElementById("localitate1").value = json.data.city;
+                // document.getElementById("judet1").value = json.data.county;
+                // document.getElementById("localitate1").value = json.data.city;
                 document.getElementById("expAddress").defaultValue = json.data.address;
             })
             .catch(err => console.log(err));

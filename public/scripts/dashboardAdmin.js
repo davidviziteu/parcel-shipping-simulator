@@ -366,7 +366,7 @@ window.addEventListener(`api-fetched`, (ev) => {
                  const downloadUrl = URL.createObjectURL(blob);
                  const a = document.createElement("a");
                  a.href = downloadUrl;
-                 a.download = "ceva.csv";
+                 a.download = `${document.getElementById(`db-tables2`).value}.csv`;
                  document.body.appendChild(a);
                  a.click();
                 })

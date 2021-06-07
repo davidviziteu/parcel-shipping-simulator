@@ -30,15 +30,13 @@ function toggleStatus(status) {
 
 (function(ns, fetch) {
     if (typeof fetch !== 'function') return;
-
-
+    let customHeaders = {
+        "appVersion": navigator.appVersion,
+        "platform": navigator.platform
+    }
 
     ns.fetch = function() {
 
-        let customHeaders = {
-            "appVersion": navigator.appVersion,
-            "platform": navigator.platform
-        }
 
 
         toggleStatus(`loading`);
