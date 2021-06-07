@@ -483,8 +483,6 @@ module.exports = {
                     const fields = row.split(`,`);
                     var newfields = fields.map(v => v.replace("\"", ``));
                     var newF = newfields.map(v => v.replace("\"", ``));
-                    // console.log(newF)
-
                     req.db.insertIntoTable(req.parameters.table, newF, (error, results) => {
                         if (error) {
                             console.log(error.message)
