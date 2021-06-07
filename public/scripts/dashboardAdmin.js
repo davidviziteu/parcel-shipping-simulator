@@ -345,7 +345,9 @@ window.addEventListener(`api-fetched`, (ev) => {
                 })
                 .then(response => response.json())
                 .then(json => {
-                    console.log(json.error)
+                   if(!json.error){
+                       document.getElementById(`upload-status`).innerHTML = `Upload reușit.`
+                   }
                        
                 })
                 .catch(err => {

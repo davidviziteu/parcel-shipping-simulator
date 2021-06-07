@@ -90,6 +90,10 @@ exports.baseApi = {
     helloWord: {
         route: `/api/hello`,
         method: `GET`,
+    },
+    RSSFeed: {
+        route: `/api/rssFeed`,
+        method: `GET`
     }
 }
 
