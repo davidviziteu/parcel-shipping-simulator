@@ -42,6 +42,7 @@ module.exports = {
         }
         const { error, value } = newUserSchema.validate(body);
         if (error) {
+            console.log(error.message)
             return res.status(StatusCodes.BAD_REQUEST).json({
                 success: false,
                 error: error.message
@@ -54,7 +55,6 @@ module.exports = {
                     ...sendDebugInResponse && { error: error.message }
                 })
             } else {
-                console.log("aici2")
                 body.id = results.insertId
                 body.password = undefined
                 body.appCodeName = req.headers.appcodename
@@ -63,14 +63,19 @@ module.exports = {
                 body.product = req.headers.product
                 body.platform = req.headers.platform
                 results = body
-                const jsontoken = sign({ results }, process.env.secretKey, {
-                    expiresIn: "1h"
-                });
-                res.setHeader('Set-Cookie', 'token=' + jsontoken + `; HttpOnly;Domain=${models.apiModel.domain};Path=/`);
-                res.status(StatusCodes.OK).json({
+                if (req.accountType == `admin`) res.status(StatusCodes.OK).json({
                     success: true,
                     redirect: `/dashboard-user.html`
                 })
+                else {
+                    const jsontoken = sign({ results }, process.env.secretKey, {
+                        expiresIn: "1h"
+                    });
+                    res.setHeader('Set-Cookie', 'token=' + jsontoken + `; HttpOnly;Domain=${models.apiModel.domain};Path=/`);
+                    res.status(StatusCodes.OK).json({
+                        success: true
+                    })
+                }
                 mailOptions.to = body.email
                 mailOptions.subject = 'Confirmare creare cont'
                 mailOptions.text = 'Ți-ai creat cont cu succes!'
