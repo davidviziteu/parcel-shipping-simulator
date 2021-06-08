@@ -24,7 +24,7 @@ class App {
             res.setHeader('Access-Control-Allow-Credentials', true);
             res.setHeader('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, PATCH');
             res.setHeader('Access-Control-Allow-Headers', 'Accept,Content-Type,platform,appVersion');
-            res.setHeader('Content-Security-Policy', `default-src 'self' google.com *.google.com`);
+            res.setHeader('Content-Security-Policy', `default-src 'self';font-src fonts.gstatic.com;style-src 'self' fonts.googleapis.com`);
             res.setHeader('Access-Control-Max-Age', 2592000);
             res = this.addResponseFunctionalities(res)
             req = this.addRequestFunctionalities(req)
