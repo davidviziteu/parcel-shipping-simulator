@@ -23,15 +23,14 @@ class App {
             res.setHeader('Access-Control-Allow-Origin', 'origin');
             res.setHeader('Access-Control-Allow-Credentials', true);
             res.setHeader('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, PATCH');
-            res.setHeader('Access-Control-Allow-Headers', 'Accept,Content-Type,X-Requested-With,x-api-key');
+            res.setHeader('Access-Control-Allow-Headers', 'Accept,Content-Type,platform,appVersion');
             res.setHeader('Access-Control-Max-Age', 2592000);
             res = this.addResponseFunctionalities(res)
             req = this.addRequestFunctionalities(req)
             req = this.authFunction(req);
-            if (!this.isRestAPI(req.url)) { //nume prost ales pt functia aia
+            if (!this.isRestAPI(req.url)) {
                 res = this.handleStatic(req, res)
-                    // if (res.endNow)
-                    //     res.end()
+
                 return
             }
             console.log(`${req.method} on ${req.url}`)
@@ -69,9 +68,8 @@ class App {
                     if (data.length > 1e6) {
                         req.connection.destroy()
                         res.status(413).json({
-                                error: `Payload too large`
-                            })
-                            // res.end()
+                            error: `Payload too large`
+                        })
                         return
                     }
                 })
@@ -86,16 +84,14 @@ class App {
                             console.error(`error parsing json from client: `)
                             console.error(err)
                             res.status(400).json({
-                                    success: false,
-                                    error: err.message
-                                })
-                                // res.end()
+                                success: false,
+                                error: err.message
+                            })
                             return
                         }
                     req = this.authFunction(req);
                     res = this.router.handleRoute(req, res)
-                        // if (res.endNow)
-                        //     res.end()
+
                 }.bind(this))
                 req.on('error', function(err) {
                     console.error(err.message)
@@ -104,7 +100,6 @@ class App {
                         message: `body data transfer error`,
                         ...sendDebugInResponse && { error: err.message }
                     });
-                    // req.end();
                 }.bind(this))
             } else {
                 res.status(415).json({
@@ -132,7 +127,6 @@ class App {
 
     addResponseFunctionalities(res) {
 
-        // res.endNow = true; //useless now
 
         res.status = function(newStatusCode) {
             res.statusCode = newStatusCode
