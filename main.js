@@ -36,7 +36,6 @@ app.useAuth((req) => {
             return req;
     req.accountId = decoded.results.id;
     req.accountType = decoded.results.type;
-    console.log(decoded.results.type)
     req.authData = decoded.results
     req.token = token;
     return req;

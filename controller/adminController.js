@@ -345,11 +345,6 @@ module.exports = {
     },
     getInfoUser: (req, res) => {
         if (req.accountType == `admin`) {
-            if (!req.body)
-                return res.status(StatusCodes.BAD_REQUEST).json({
-                    success: false,
-                    error: `missing body`
-                })
             body = req.parameters
             const { error, value } = models.adminModel.validationEmail.validate(body)
             if (error) {
