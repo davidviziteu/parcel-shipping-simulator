@@ -365,7 +365,7 @@ module.exports = {
                         ...sendDebugInResponse && { error: error.message }
                     })
                 } else if (results != undefined) {
-                    res.status(200).json({
+                    res.status(StatusCodes.OK).json({
                         success: true,
                         id: results.id,
                         surname: results.surname,
@@ -414,7 +414,7 @@ module.exports = {
                                 ...sendDebugInResponse && { error: error.message }
                             })
                         } else {
-                            res.status(200).json({
+                            res.status(StatusCodes.OK).json({
                                 success: true
                             })
                         }
