@@ -38,14 +38,14 @@ module.exports = {
         body.password = hashSync(body.password, salt)
         const { error, value } = newUserSchema.validate(body);
         if (error) {
-            return res.status(200).json({
+            return res.status(StatusCodes.BAD_REQUEST).json({
                 success: false,
                 error: error.message
             })
         }
         req.db.createAccount(body, (error, results) => {
             if (error) {
-                res.status(200).json({
+                res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                     success: false,
                     ...sendDebugInResponse && { error: error.message }
                 })
@@ -62,7 +62,7 @@ module.exports = {
                     expiresIn: "1h"
                 });
                 res.setHeader('Set-Cookie', 'token=' + jsontoken + `; HttpOnly;Domain=${models.apiModel.domain};Path=/`);
-                res.status(200).json({
+                res.status(StatusCodes.OK).json({
                     success: true,
                     redirect: `/dashboard-user.html`
                 })
@@ -381,7 +381,7 @@ module.exports = {
                     success: false,
                     err: error.message
                 })
-            } else {
+            } else if (results[0] != undefined) {
                 var doc = builder.create('rss');
                 var date = results[0].date_time
                 console.log(date)
@@ -420,6 +420,10 @@ module.exports = {
                 res.write('<? xml version = "1.0" encoding = "UTF-8" ?>\n')
                 res.write(doc.toString({ pretty: true }))
                 res.end()
+            }
+            else {
+                res.write("Nu exista acest awb!");
+                res.end();
             }
         })
 

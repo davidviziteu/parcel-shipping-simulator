@@ -76,7 +76,7 @@ module.exports = {
                                     mailOptions.to = body.email_sender
                                     mailOptions.subject = `Comanda cu numarul ${req.body.awb} plasată cu succes`
                                     mailOptions.text = `Link RSS: http://parcel-shipping-simulator.herokuapp.com/api/rssFeed?awb=${req.body.awb} \nExpeditor: ${req.body.fullName_sender} \nTelefon: ${req.body.phone_sender}\nEmail: ${req.body.email_sender}\nJudet: ${req.body.county_sender}\nLocalitate: ${req.body.city_sender}\nAdresă: ${req.body.address_sender} \n\nDestinatar:${req.body.fullName_receiver}\nTelefon: ${req.body.phone_receiver}\nJudet: ${req.body.county_receiver}\nLocalitate: ${req.body.city_receiver}\nAdresă: ${req.body.address_receiver}\n\n Vă mulțumim pentru comandă!\n Un curier va lua legătura cu dvs în scurt timp. `
-                                    transporter.sendMail(mailOptions, function(error, info) {
+                                    transporter.sendMail(mailOptions, function (error, info) {
                                         if (error) {
                                             console.log(error.message);
                                         } else {
@@ -92,7 +92,7 @@ module.exports = {
                             mailOptions.to = body.email_sender
                             mailOptions.subject = `Comanda cu numarul ${req.body.awb} plasată cu succes`
                             mailOptions.text = `Link RSS: http://parcel-shipping-simulator.herokuapp.com/api/rssFeed?awb=${req.body.awb} \nExpeditor: ${req.body.fullName_sender} \nTelefon: ${req.body.phone_sender}\nEmail: ${req.body.email_sender}\nJudet: ${req.body.county_sender}\nLocalitate: ${req.body.city_sender}\nAdresă: ${req.body.address_sender} \n\nDestinatar:${req.body.fullName_receiver}\nTelefon: ${req.body.phone_receiver}\nJudet: ${req.body.county_receiver}\nLocalitate: ${req.body.city_receiver}\nAdresă: ${req.body.address_receiver}\n\n Vă mulțumim pentru comandă!\n Un curier va lua legătura cu dvs în scurt timp. `
-                            transporter.sendMail(mailOptions, function(error, info) {
+                            transporter.sendMail(mailOptions, function (error, info) {
                                 if (error) {
                                     console.log(error.message);
                                 } else {
@@ -120,7 +120,7 @@ module.exports = {
         }
         req.db.getUserByEmail(body.email, (error, results) => {
             if (error) {
-                res.status(500).json({
+                res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                     success: false,
                     ...sendDebugInResponse && { error: error.message }
                 })
@@ -132,7 +132,7 @@ module.exports = {
                 }
                 req.db.newCode(data, (error, results) => {
                     if (error) {
-                        res.status(500).json({
+                        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                             success: false,
                             ...sendDebugInResponse && { error: error.message }
                         })
@@ -143,7 +143,7 @@ module.exports = {
                         mailOptions.subject = 'Schimbarea datelor'
                         mailOptions.text = 'Codul pentru resetare este:\n' + results.insertId
                         console.log(`reset code`, results.insertId)
-                        transporter.sendMail(mailOptions, function(error, info) {
+                        transporter.sendMail(mailOptions, function (error, info) {
                             if (error) {
                                 console.log(error.message);
                             } else {
@@ -157,12 +157,12 @@ module.exports = {
                         }
                         req.db.deleteCode(data, (error, results) => {
                             if (error) {
-                                res.status(500).json({
+                                res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                                     success: false,
                                     ...sendDebugInResponse && { error: error.message }
                                 })
                             } else {
-                                res.status(200).json({
+                                res.status(StatusCodes.OK).json({
                                     success: true
                                 })
                             }
@@ -170,7 +170,7 @@ module.exports = {
                     }
                 })
             } else {
-                res.status(200).json({
+                res.status(StatusCodes.OK).json({
                     success: false,
                     error: "not exist"
                 })
@@ -183,7 +183,7 @@ module.exports = {
         console.log(body)
         req.db.selectIdChange(body, (error, results) => {
             if (error) {
-                res.status(500).json({
+                res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                     success: false,
                     ...sendDebugInResponse && { error: error.message }
                 })
@@ -195,7 +195,7 @@ module.exports = {
                     body.password = hashSync(body.password, salt)
                     req.db.changePassword(body, (error, results) => {
                         if (error) {
-                            res.status(500).json({
+                            res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                                 success: false,
                                 ...sendDebugInResponse && { error: error.message }
                             })
@@ -207,12 +207,12 @@ module.exports = {
                             }
                             req.db.deleteCode(data, (error, results) => {
                                 if (error) {
-                                    res.status(500).json({
+                                    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                                         success: false,
                                         ...sendDebugInResponse && { error: error.message }
                                     })
                                 } else {
-                                    res.status(200).json({
+                                    res.status(StatusCodes.OK).json({
                                         success: true
                                     })
                                 }
@@ -223,7 +223,7 @@ module.exports = {
                     req.db.changeEmail(body, (error, results) => {
                         if (error) {
                             console.log(error.message)
-                            res.status(500).json({
+                            res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                                 success: false,
                                 ...sendDebugInResponse && { error: error.message }
                             })
@@ -235,12 +235,12 @@ module.exports = {
                             }
                             req.db.deleteCode(data, (error, results) => {
                                 if (error) {
-                                    res.status(500).json({
+                                    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                                         success: false,
                                         ...sendDebugInResponse && { error: error.message }
                                     })
                                 } else {
-                                    res.status(200).json({
+                                    res.status(StatusCodes.OK).json({
                                         success: true
                                     })
                                 }
@@ -249,7 +249,7 @@ module.exports = {
                     })
                 }
             } else {
-                res.status(200).json({
+                res.status(StatusCodes.OK).json({
                     success: false,
                     error: "not exist"
                 })

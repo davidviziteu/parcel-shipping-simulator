@@ -62,14 +62,14 @@ module.exports = {
             if (body[i] == true && i != "toPickup" && i != "toDeliver") ok = true
         }
         if (!ok) {
-            return res.status(300).json({
+            return res.status(StatusCodes.BAD_REQUEST).json({
                 success: false,
                 error: "unselected"
             })
         }
         req.db.getDriverCar(req.accountId, async (error, results) => {
             if (error) {
-                return res.status(200).json({
+                return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                     success: false,
                     ...sendDebugInResponse && { error: error.message }
                 })
@@ -78,7 +78,7 @@ module.exports = {
                 if (body.accident) {
                     req.db.getLastAwbEvent(body.awb, (error, results) => {
                         if (error) {
-                            return res.status(200).json({
+                            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                                 success: false,
                                 ...sendDebugInResponse && { error: error.message }
                             })
@@ -91,7 +91,7 @@ module.exports = {
                         }
                         req.db.newAWBEvent(data, (error, results) => {
                             if (error) {
-                                return res.status(200).json({
+                                return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                                     success: false,
                                     ...sendDebugInResponse && { error: error.message }
                                 })
@@ -104,14 +104,14 @@ module.exports = {
                         req.db.addEventDriverEvent(info, (error, results) => {
                             if (error) {
                                 console.log(error.message)
-                                return res.status(200).json({
+                                return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                                     success: false,
                                     ...sendDebugInResponse && { error: error.message }
                                 })
                             }
                         })
 
-                        return res.status(200).json({
+                        return res.status(StatusCodes.OK).json({
                             success: true
                         })
                     })
@@ -119,7 +119,7 @@ module.exports = {
                 else if (body.meteo) {
                     req.db.getLastAwbEvent(body.awb, (error, results) => {
                         if (error) {
-                            return res.status(200).json({
+                            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                                 success: false,
                                 ...sendDebugInResponse && { error: error.message }
                             })
@@ -132,7 +132,7 @@ module.exports = {
                         }
                         req.db.newAWBEvent(data, (error, results) => {
                             if (error) {
-                                return res.status(200).json({
+                                return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                                     success: false,
                                     ...sendDebugInResponse && { error: error.message }
                                 })
@@ -145,13 +145,13 @@ module.exports = {
                         req.db.addEventDriverEvent(info, (error, results) => {
                             if (error) {
                                 console.log(error.message)
-                                return res.status(200).json({
+                                return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                                     success: false,
                                     ...sendDebugInResponse && { error: error.message }
                                 })
                             }
                         })
-                        return res.status(200).json({
+                        return res.status(StatusCodes.OK).json({
                             success: true
                         })
                     })
@@ -159,7 +159,7 @@ module.exports = {
                 else if (body.failure) {
                     req.db.getLastAwbEvent(body.awb, (error, results) => {
                         if (error) {
-                            return res.status(200).json({
+                            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                                 success: false,
                                 ...sendDebugInResponse && { error: error.message }
                             })
@@ -172,7 +172,7 @@ module.exports = {
                         }
                         req.db.newAWBEvent(data, (error, results) => {
                             if (error) {
-                                return res.status(200).json({
+                                return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                                     success: false,
                                     ...sendDebugInResponse && { error: error.message }
                                 })
@@ -185,13 +185,13 @@ module.exports = {
                         req.db.addEventDriverEvent(info, (error, results) => {
                             if (error) {
                                 console.log(error.message)
-                                return res.status(200).json({
+                                return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                                     success: false,
                                     ...sendDebugInResponse && { error: error.message }
                                 })
                             }
                         })
-                        return res.status(200).json({
+                        return res.status(StatusCodes.OK).json({
                             success: true
                         })
                     })
@@ -199,7 +199,7 @@ module.exports = {
                 else if (body.client) {
                     req.db.getLastAwbEvent(body.awb, (error, results) => {
                         if (error) {
-                            return res.status(200).json({
+                            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                                 success: false,
                                 ...sendDebugInResponse && { error: error.message }
                             })
@@ -213,11 +213,14 @@ module.exports = {
                             }
                             req.db.newAWBEvent(data, (error, results) => {
                                 if (error) {
-                                    return res.status(200).json({
+                                    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                                         success: false,
                                         ...sendDebugInResponse && { error: error.message }
                                     })
                                 }
+                            })
+                            return res.status(StatusCodes.OK).json({
+                                success: true
                             })
                         }
                     })
@@ -225,7 +228,7 @@ module.exports = {
                 else if (body.content) {
                     req.db.getLastAwbEvent(body.awb, (error, results) => {
                         if (error) {
-                            return res.status(200).json({
+                            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                                 success: false,
                                 ...sendDebugInResponse && { error: error.message }
                             })
@@ -239,17 +242,19 @@ module.exports = {
                             }
                             req.db.newAWBEvent(data, (error, results) => {
                                 if (error) {
-                                    return res.status(200).json({
+                                    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                                         success: false,
                                         ...sendDebugInResponse && { error: error.message }
                                     })
                                 }
                             })
+                            return res.status(StatusCodes.OK).json({
+                                success: true
+                            })
                         }
                     })
                 }
                 else if (body.task == "local" && body.toPickup && body.picked_up) {
-                    console.log("aici")
                     const data = {
                         awb: body.awb,
                         event_type: "order-picked-up",
@@ -259,7 +264,7 @@ module.exports = {
                     }
                     req.db.newAWBEvent(data, (error, results) => {
                         if (error) {
-                            return res.status(200).json({
+                            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                                 success: false,
                                 ...sendDebugInResponse && { error: error.message }
                             })
@@ -267,13 +272,13 @@ module.exports = {
                     })
                     req.db.updateStatusAWB(data, (error, results) => {
                         if (error) {
-                            return res.status(200).json({
+                            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                                 success: false,
                                 ...sendDebugInResponse && { error: error.message }
                             })
                         }
                     })
-                    return res.status(200).json({
+                    return res.status(StatusCodes.OK).json({
                         success: true
                     })
                 }
@@ -287,7 +292,7 @@ module.exports = {
                     }
                     req.db.newAWBEvent(data, (error, results) => {
                         if (error) {
-                            return res.status(200).json({
+                            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                                 success: false,
                                 ...sendDebugInResponse && { error: error.message }
                             })
@@ -295,7 +300,7 @@ module.exports = {
                     })
                     req.db.updateStatusAWB(data, (error, results) => {
                         if (error) {
-                            return res.status(200).json({
+                            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                                 success: false,
                                 ...sendDebugInResponse && { error: error.message }
                             })
@@ -304,7 +309,7 @@ module.exports = {
                     let success = await removeAwbFromMicroservice(req.token, body.awb, req.accountId, res)
                     if (!success)
                         return
-                    return res.status(200).json({
+                    return res.status(StatusCodes.OK).json({
                         success: true
                     })
                 }
@@ -318,7 +323,7 @@ module.exports = {
                     }
                     req.db.newAWBEvent(data, (error, results) => {
                         if (error) {
-                            return res.status(200).json({
+                            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                                 success: false,
                                 ...sendDebugInResponse && { error: error.message }
                             })
@@ -326,7 +331,7 @@ module.exports = {
                     })
                     req.db.updateStatusAWB(data, (error, results) => {
                         if (error) {
-                            return res.status(200).json({
+                            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                                 success: false,
                                 ...sendDebugInResponse && { error: error.message }
                             })
@@ -335,7 +340,7 @@ module.exports = {
                     let success = await removeAwbFromMicroservice(req.token, body.awb, req.accountId, res)
                     if (!success)
                         return
-                    return res.status(200).json({
+                    return res.status(StatusCodes.OK).json({
                         success: true
                     })
                 }
@@ -349,7 +354,7 @@ module.exports = {
                     }
                     req.db.newAWBEvent(data, (error, results) => {
                         if (error) {
-                            return res.status(200).json({
+                            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                                 success: false,
                                 ...sendDebugInResponse && { error: error.message }
                             })
@@ -357,7 +362,7 @@ module.exports = {
                     })
                     req.db.updateStatusAWB(data, (error, results) => {
                         if (error) {
-                            return res.status(200).json({
+                            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                                 success: false,
                                 ...sendDebugInResponse && { error: error.message }
                             })
@@ -366,7 +371,7 @@ module.exports = {
                     let success = await removeAwbFromMicroservice(req.token, body.awb, req.accountId, res)
                     if (!success)
                         return
-                    return res.status(200).json({
+                    return res.status(StatusCodes.OK).json({
                         success: true
                     })
                 }
@@ -380,7 +385,7 @@ module.exports = {
                     }
                     req.db.newAWBEvent(data, (error, results) => {
                         if (error) {
-                            return res.status(200).json({
+                            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                                 success: false,
                                 ...sendDebugInResponse && { error: error.message }
                             })
@@ -388,13 +393,13 @@ module.exports = {
                     })
                     req.db.updateStatusAWB(data, (error, results) => {
                         if (error) {
-                            return res.status(200).json({
+                            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                                 success: false,
                                 ...sendDebugInResponse && { error: error.message }
                             })
                         }
                     })
-                    return res.status(200).json({
+                    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                         success: true
                     })
                 }
@@ -408,7 +413,7 @@ module.exports = {
                     }
                     req.db.newAWBEvent(data, (error, results) => {
                         if (error) {
-                            return res.status(200).json({
+                            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                                 success: false,
                                 ...sendDebugInResponse && { error: error.message }
                             })
@@ -416,7 +421,7 @@ module.exports = {
                     })
                     req.db.updateStatusAWB(data, (error, results) => {
                         if (error) {
-                            return res.status(200).json({
+                            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                                 success: false,
                                 ...sendDebugInResponse && { error: error.message }
                             })
@@ -425,7 +430,7 @@ module.exports = {
                     let success = await removeAwbFromMicroservice(req.token, body.awb, req.accountId, res)
                     if (!success)
                         return
-                    return res.status(200).json({
+                    return res.status(StatusCodes.OK).json({
                         success: true
                     })
                 }
@@ -439,7 +444,7 @@ module.exports = {
                     }
                     req.db.newAWBEvent(data, (error, results) => {
                         if (error) {
-                            return res.status(200).json({
+                            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                                 success: false,
                                 ...sendDebugInResponse && { error: error.message }
                             })
@@ -447,13 +452,13 @@ module.exports = {
                     })
                     req.db.updateStatusAWB(data, (error, results) => {
                         if (error) {
-                            return res.status(200).json({
+                            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                                 success: false,
                                 ...sendDebugInResponse && { error: error.message }
                             })
                         }
                     })
-                    return res.status(200).json({
+                    return res.status(StatusCodes.OK).json({
                         success: true
                     })
                 }
@@ -468,7 +473,7 @@ module.exports = {
                     }
                     req.db.newAWBEvent(data, (error, results) => {
                         if (error) {
-                            return res.status(200).json({
+                            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                                 success: false,
                                 ...sendDebugInResponse && { error: error.message }
                             })
@@ -476,7 +481,7 @@ module.exports = {
                     })
                     req.db.updateStatusAWB(data, (error, results) => {
                         if (error) {
-                            return res.status(200).json({
+                            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                                 success: false,
                                 ...sendDebugInResponse && { error: error.message }
                             })
@@ -485,7 +490,7 @@ module.exports = {
                     let success = await removeAwbFromMicroservice(req.token, body.awb, req.accountId, res)
                     if (!success)
                         return
-                    return res.status(200).json({
+                    return res.status(StatusCodes.OK).json({
                         success: true
                     })
                 }
@@ -497,13 +502,13 @@ module.exports = {
         req.db.getDetailsOrder(body.awb, (error, results) => {
             if (error) {
                 console.log(error)
-                res.status(500).json({
+                res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                     success: false,
                     ...sendDebugInResponse && { error: error.message }
                 })
             }
             else if (results[0] != undefined) {
-                res.status(200).json({
+                res.status(StatusCodes.OK).json({
                     success: true,
                     fullName_sender: results[0].fullName_sender,
                     county_sender: results[0].county_sender,
@@ -541,8 +546,9 @@ module.exports = {
                 })
             }
             else {
-                res.status(200).json({
-                    success: true
+                res.status(StatusCodes.OK).json({
+                    success: false,
+                    message: "awb not found"
                 })
             }
         })
