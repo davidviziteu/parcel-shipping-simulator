@@ -30,7 +30,7 @@ exports.getDriverData = async (req, res) => {
         let today = new Date(Date.now())
         awbList = orderDetails.map((v, i, m) => {
             {
-                if (v.status == 'order-received' && /*v.pickupDate <= today*/)
+                if (v.status == 'order-received' /* && v.pickupDate <= today*/)
                     return {
                         awb: v.awb,
                         currentLocation: v.county_sender,
