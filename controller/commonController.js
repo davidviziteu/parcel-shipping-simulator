@@ -28,7 +28,7 @@ var mailOptions = {
 module.exports = {
     createAccountUser: (req, res) => {
         const body = req.body
-        if (req.accountType == `admin` && body.type != `user`) {
+        if (req.accountType != `admin` && body.type != `user`) {
             return res.status(StatusCodes.UNAUTHORIZED).json({
                 success: 0,
                 error: "doar adminul poate executa aceasta comanda!"
@@ -36,6 +36,10 @@ module.exports = {
         }
         const salt = genSaltSync(10)
         body.password = hashSync(body.password, salt)
+        if (body.city == undefined) {
+            body.address = body.county
+            body.city = body.county
+        }
         const { error, value } = newUserSchema.validate(body);
         if (error) {
             return res.status(StatusCodes.BAD_REQUEST).json({
@@ -50,6 +54,7 @@ module.exports = {
                     ...sendDebugInResponse && { error: error.message }
                 })
             } else {
+                console.log("aici2")
                 body.id = results.insertId
                 body.password = undefined
                 body.appCodeName = req.headers.appcodename
