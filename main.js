@@ -47,9 +47,6 @@ app.useAuth((req) => {
     let decoded = jwt_decode(token);
 
     req._staticRedirect = decoded.results.type
-    if (decoded.results.platform && decoded.results.appversion)
-        if (decoded.results.platform != req.headers.platform || decoded.results.appversion != req.headers.appversion)
-            return req;
     req.accountId = decoded.results.id;
     req.accountType = decoded.results.type;
     req.authData = decoded.results
