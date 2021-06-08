@@ -9,10 +9,10 @@ const dateFormat = require("dateformat");
  */
 
 exports.getDriverData = async (req, res) => {
-    if (!req.accountType || (req.accountType != `driver` && req.accountType != `admin`))
-        return res.status(StatusCodes.UNAUTHORIZED).json({
-            success: false
-        })
+    //if (!req.accountType || (req.accountType != `driver` && req.accountType != `admin`))
+        //return res.status(StatusCodes.UNAUTHORIZED).json({
+            //success: false
+        //})
 
     if (!req.parameters || !req.parameters.county)
         return res.status(StatusCodes.BAD_REQUEST).json({
