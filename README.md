@@ -5,4 +5,4 @@ PSS este o aplicatie Web care simuleaza activitatea unei companii de transport s
 Se vor considera si posibile intarzieri si/sau exceptii – e.g., conditii meteo nefavorabile, defectiuni, stare de necesitate. Alaturi de posibilitati de cautare si suport<br> pentru AWB, sistemul va oferi statistici – textuale si grafice – privind starea curenta a livrarilor efectuate intr-un perimetru (de exemplu, localitate sau cartier), pe o<br> perioada de timp. Notificarile vor fi transmise prin posta electronica si prin intermediul fluxurilor RSS.<br>
 Pagina care trebuie deschisa pentru a avea acces la tot este index.html.<br>
 Va rugam sa navigati prin website folosind Google Chrome. :) <br>
-Aveti un link si pentru a putea accesa site-ul de pe telefon: https://davidviziteu.github.io/parcel-shipping-simulator/public/landingPage.html
+Aveti un link si pentru a putea accesa site-ul: https://parcel-shipping-simulator.herokuapp.com/
