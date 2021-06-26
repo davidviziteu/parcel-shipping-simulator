@@ -6,3 +6,6 @@ Se vor considera si posibile intarzieri si/sau exceptii – e.g., conditii meteo
 Pagina care trebuie deschisa pentru a avea acces la tot este index.html.<br>
 Va rugam sa navigati prin website folosind Google Chrome. :) <br>
 Aveti un link si pentru a putea accesa site-ul: https://parcel-shipping-simulator.herokuapp.com/
+
+Baza de date a microserviciului de distributie a pachetelor s-ar putea sa fie oprita: <br>
+Atlas automatically pauses M0 clusters after 60 days of inactivity where the cluster experiences zero connections. Atlas sends an email seven days before pausing the cluster. Atlas sends another email after pausing the cluster.
